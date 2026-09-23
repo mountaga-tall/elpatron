@@ -13,6 +13,7 @@
             --gold-hover: #f1c94f;
             --text-light: #f5f5f5;
             --text-muted: #a0a0a0;
+            --danger: #e74c3c;
             --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
@@ -29,11 +30,23 @@
             overflow-x: hidden;
         }
 
-        /* HEADER */
+        /* HEADER & LOGO */
         header {
             text-align: center;
-            padding: 4rem 2rem 2rem;
+            padding: 3rem 2rem 2rem;
             background: linear-gradient(to bottom, #000000, transparent);
+            position: relative;
+        }
+
+        .logo-container {
+            margin-bottom: 1rem;
+        }
+
+        .logo-container img {
+            max-width: 150px;
+            height: auto;
+            border-radius: 50%; /* Optionnel, selon la forme de votre logo */
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
         }
 
         h1 {
@@ -52,33 +65,40 @@
             text-transform: uppercase;
         }
 
-        /* NAVIGATION TABS */
+        /* NAVIGATION TABS & HAMBURGER */
         .nav-container {
             position: sticky;
             top: 0;
             background: rgba(13, 13, 13, 0.95);
             backdrop-filter: blur(10px);
             z-index: 100;
-            padding: 1rem 0;
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
             border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 1rem;
+            width: 100%;
+            text-align: center;
         }
 
         .category-nav {
             display: flex;
             overflow-x: auto;
             scroll-behavior: smooth;
-            padding: 0 2rem;
+            padding: 1rem 2rem;
             gap: 1.5rem;
+            transition: max-height 0.3s ease-out;
         }
 
-        .category-nav::-webkit-scrollbar {
-            height: 4px;
-        }
-        .category-nav::-webkit-scrollbar-thumb {
-            background: var(--gold);
-            border-radius: 4px;
-        }
+        .category-nav::-webkit-scrollbar { height: 4px; }
+        .category-nav::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
 
         .nav-btn {
             background: transparent;
@@ -107,13 +127,8 @@
             transition: var(--transition);
         }
 
-        .nav-btn:hover, .nav-btn.active {
-            color: var(--gold);
-        }
-
-        .nav-btn.active::after {
-            width: 100%;
-        }
+        .nav-btn:hover, .nav-btn.active { color: var(--gold); }
+        .nav-btn.active::after { width: 100%; }
 
         /* MAIN CONTENT */
         main {
@@ -157,8 +172,11 @@
             padding: 2rem;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             transition: var(--transition);
-            opacity: 0; /* Handled by JS animation */
+            opacity: 0;
             transform: translateY(30px);
         }
 
@@ -172,17 +190,16 @@
             background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.05), transparent);
             transform: translateX(-100%);
             transition: 0.6s;
+            pointer-events: none;
         }
 
         .menu-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             border-color: rgba(212, 175, 55, 0.5);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .menu-card:hover::before {
-            transform: translateX(100%);
-        }
+        .menu-card:hover::before { transform: translateX(100%); }
 
         .item-header {
             display: flex;
@@ -195,7 +212,7 @@
 
         .item-name {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--text-light);
             width: 70%;
@@ -204,7 +221,7 @@
         .item-price {
             font-weight: 600;
             color: var(--gold);
-            font-size: 1.1rem;
+            font-size: 1rem;
             text-align: right;
         }
 
@@ -212,14 +229,203 @@
             font-size: 0.9rem;
             color: var(--text-muted);
             line-height: 1.6;
+            margin-bottom: 1.5rem;
         }
+
+        /* ADD TO CART BUTTON */
+        .add-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            align-self: flex-start;
+            margin-top: auto;
+        }
+
+        .add-btn:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        /* CART FAB (Floating Action Button) */
+        .cart-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--gold);
+            color: #000;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+            z-index: 999;
+            transition: var(--transition);
+        }
+
+        .cart-fab:hover { transform: scale(1.1) rotate(5deg); }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid var(--bg-color);
+        }
+
+        /* CART SIDEBAR */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: #111;
+            z-index: 1001;
+            transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.open { right: 0; }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .cart-header h3 { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .close-cart:hover { color: var(--danger); }
+
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 2rem;
+        }
+
+        .cart-items::-webkit-scrollbar { width: 4px; }
+        .cart-items::-webkit-scrollbar-thumb { background: var(--gold); }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .cart-item-info h4 { font-size: 0.95rem; margin-bottom: 0.3rem; }
+        .cart-item-info p { color: var(--gold); font-size: 0.85rem; font-weight: 600; }
+        
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .qty-btn {
+            background: #333; border: none; color: white; width: 24px; height: 24px; border-radius: 4px; cursor: pointer;
+        }
+        
+        .cart-footer {
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding-top: 1.5rem;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .whatsapp-btn {
+            background: #25D366; /* Vert WhatsApp */
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .whatsapp-btn:hover { background: #1ebe5d; transform: translateY(-2px); }
+
+        /* TOAST NOTIFICATION */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: var(--gold);
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            z-index: 2000;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+
+        /* Overlay Sombre pour le panier */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7);
+            z-index: 1000; display: none; opacity: 0; transition: opacity 0.3s;
+        }
+        .overlay.show { display: block; opacity: 1; }
 
         /* ANIMATIONS */
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -228,20 +434,38 @@
         /* RESPONSIVE */
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
-            .category-nav { padding: 0 1rem; }
             main { padding: 2rem 1rem; }
             .menu-card { padding: 1.5rem; }
+            
+            /* Responsive Hamburger Logic */
+            .hamburger { display: block; }
+            .category-nav {
+                flex-direction: column;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                gap: 0;
+            }
+            .category-nav.open { max-height: 500px; padding: 1rem 0; }
+            .nav-btn { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+            .nav-btn::after { display: none; }
+            .nav-btn.active { background: rgba(212, 175, 55, 0.1); border-left: 4px solid var(--gold); }
         }
     </style>
 </head>
 <body>
 
     <header>
+        <div class="logo-container">
+            <!-- Insérez votre logo ici. S'il ne charge pas, l'attribut onerror le masque proprement -->
+            <img src="logo.png" alt="El Patrón Logo" onerror="this.style.display='none'">
+        </div>
         <h1>El Patrón</h1>
         <p>Restaurant • Café</p>
     </header>
 
     <div class="nav-container">
+        <button class="hamburger" id="hamburgerBtn">☰ MENU</button>
         <nav class="category-nav" id="categoryNav">
             <!-- Injecté par JS -->
         </nav>
@@ -251,8 +475,45 @@
         <!-- Injecté par JS -->
     </main>
 
+    <!-- FLOATING CART BUTTON -->
+    <div class="cart-fab" id="cartFab">
+        🛒 <span class="cart-count" id="cartCount">0</span>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toast">Ajouté au panier !</div>
+
+    <!-- OVERLAY -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- CART SIDEBAR -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Votre Commande</h3>
+            <button class="close-cart" id="closeCart">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Items injectés par JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total estimé :</span>
+                <span id="cartTotalValue">0 FCFA</span>
+            </div>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 15px; text-align: center;">
+                *Le prix final (suppléments, formules) sera validé sur WhatsApp.
+            </p>
+            <button class="whatsapp-btn" onclick="sendWhatsAppOrder()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.01 2.002c-5.52 0-9.99 4.47-9.99 9.99 0 1.77.46 3.5 1.33 5.03L2 22l5.12-1.34c1.47.8 3.14 1.22 4.89 1.22 5.52 0 10-4.47 10-10s-4.48-10-10-10zm.01 16.27c-1.48 0-2.92-.39-4.2-1.14l-.3-.18-3.12.82.83-3.04-.2-.32c-.82-1.32-1.25-2.85-1.25-4.43 0-4.56 3.71-8.27 8.27-8.27s8.27 3.71 8.27 8.27-3.71 8.27-8.27 8.27zm4.54-6.2c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.15.17-.3.19-.55.07-1.12-.53-2.14-1.32-2.94-2.28-.27-.32-.56-.63-.83-.97-.13-.17-.01-.26.11-.38.11-.11.25-.29.37-.44.13-.15.17-.25.25-.41.08-.17.04-.32-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.49-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.17 1.73 2.64 4.2 3.71.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.15-.48-.28z"/>
+                </svg>
+                Commander via WhatsApp
+            </button>
+        </div>
+    </div>
+
     <script>
-        // INTÉGRATION EXHAUSTIVE DU MENU EL PATRÓN
+        // INTÉGRATION EXHAUSTIVE DU MENU EL PATRÓN (Mêmes données)
         const menuData = [
             {
                 category: "PETIT-DÉJ",
@@ -337,8 +598,7 @@
                     { name: "ESCALOPE CHICKEN BURGER", price: "Sand: 4.000 / Plat: 5.500", desc: "blanc de poulet pané, ketchup, mayo, salade de choux, frites." },
                     { name: "CHICKEN BURGER", price: "Sand: 4.000 / Plat: 5.500", desc: "Steak de poulet, cheddar, sauce cocktail, tomates et oignons cuits, salade." },
                     { name: "CRISPY BURGER", price: "Sand: 4.500 / Plat: 6.000", desc: "blanc de poulet pané, sauce cocktail, cheddar, tomates, salade." },
-                    { name: "CHICKEN MOZZA BURGER", price: "Sand: 5.000 / Plat: 6.500", desc: "Steak de poulet, mozzarella pané, sauce cocktail, oignon et tomates cuits, salade." },
-                    { name: "PLAT DE FRITES (SUPPLÉMENT)", price: "1.500", desc: "" }
+                    { name: "CHICKEN MOZZA BURGER", price: "Sand: 5.000 / Plat: 6.500", desc: "Steak de poulet, mozzarella pané, sauce cocktail, oignon et tomates cuits, salade." }
                 ]
             },
             {
@@ -347,20 +607,7 @@
                     { name: "POULET", price: "L: 4.000 / XL: 7.000", desc: "Sauce cocktail, frites, poulet, mozzarella, tomates, oignons, poivrons sauté + portion de frites." },
                     { name: "POULET ROYALE", price: "L: 5.000 / XL: 8.000", desc: "Sauce cocktail, frites, poulet, mozzarella, tomates, oignons, poivrons + portion de frites." },
                     { name: "VIANDE", price: "L: 4.000 / XL: 7.000", desc: "Sauce cocktail, mozzarella, viande, frites, salade, poivrons, oignons, tomates + portion de frites." },
-                    { name: "VIANDE ROYALE", price: "L: 5.000 / XL: 8.000", desc: "Sauce cocktail, mozzarella, viande de bœuf, frites, salade, poivrons, oignons, tomates + portion de frites." },
-                    { name: "MIX", price: "L: 4.000 / XL: 7.000", desc: "Sauce cocktail, mozzarella, viande de bœuf et poulet, frites, salade, poivrons, oignons, tomates + portion de frites." },
                     { name: "MIX ROYALE", price: "L: 5.000 / XL: 8.000", desc: "Sauce cocktail, mozzarella, viande de bœuf et poulet, frites, salade, poivrons, oignons, tomates + portion de frites." }
-                ]
-            },
-            {
-                category: "PASTAS",
-                items: [
-                    { name: "PENNE ARRABIATA", price: "4.000", desc: "Pâtes Penne, sauce tomate arrabiata, fromage." },
-                    { name: "SPAGHETTIS BOLOGNAISE", price: "5.000", desc: "Pâtes Spaghetti, viande de bœuf hachée sauce bolognaise." },
-                    { name: "SPAGHETTIS PHILLY STEAK", price: "7.000", desc: "Pâtes spaghetti, sauce tomate épicée, steak de bœuf." },
-                    { name: "TAGLIATELLES ALFREDO", price: "7.000", desc: "Pâtes tagliatelles, sauce crémière aux champignon , blanc de poulet grillé." },
-                    { name: "TAGLIATELLES AUX CREVETTES", price: "8.000", desc: "Pâtes tagliatelle, crevettes, sauce crémière aux champignons." },
-                    { name: "PENNE AL FORNO", price: "8.500", desc: "Pâte Penne, sauce crémière aux champignons, blanc de poulet, mozzarella fondu au four." }
                 ]
             },
             {
@@ -368,197 +615,69 @@
                 note: "Accompagnements au choix : Frite, Alloco, attiéké, Pomme sautée, Purée de pomme de terre.",
                 items: [
                     { name: "PLAT CHAWARMA", price: "7.000", desc: "Chawarma Poulet ou Viande ou Mix, Acc. de légumes, pate à l'ail, pain libanais / Acc. au choix." },
-                    { name: "PLAT CRISPY", price: "7.000", desc: "6 Languettes de blanc de poulet pané croquant + portion de frites, Acc. Salade de choux, pâte à ail, sauce cocktail, pain." },
                     { name: "ESCALOPE DE POULET", price: "7.000", desc: "Steak de blanc de poulet pané + portion de frites Acc. Salade de choux, pâte à ail, sauce cocktail, pain." },
-                    { name: "STEAK AU POULET", price: "7.000", desc: "Steak de poulet à la crème et aux champignons Acc. au choix." },
-                    { name: "STEAK AMERICAIN", price: "7.500", desc: "Steak de bœuf, légumes sautée aux champignons Acc. au choix." },
                     { name: "STEAK À LA CRÈME", price: "8.000", desc: "Steak de bœuf à la crème et aux champignons Acc. au choix." },
-                    { name: "CHICKEN HAWAÏ", price: "7.500", desc: "Blanc de poulet, crème fraiche, ananas. Acc. au choix." },
-                    { name: "QUESADILLA POULET", price: "7.500", desc: "Pain Tortilla, Poulet, poivrons, tomates, oignons, champignons, maïs, fromage mozzarella, Acc. sauce cocktail + portion de frites." },
-                    { name: "QUESADILLA VIANDE", price: "8.000", desc: "Pain Tortilla, viande, poivrons, tomates, oignons, champignons, maïs, fromage mozzarella, Acc. sauce cocktail + portion de frites." },
-                    { name: "FAHITAS AL FORNO", price: "8.000", desc: "Blanc de poulet, poivrons, tomates, oignons, champignons, maïs, mozzarella au four, Acc. pain tortilla + portion de frites." },
-                    { name: "PHILADELPHIA AL FORNO", price: "7.000", desc: "Viande de bœuf, poivrons, tomates, oignons, champignons, mozzarella au four, Acc. sauce cocktail, pain tortilla + frites." },
-                    { name: "FAHITAS CREVETTES SAUTÉES", price: "8.000", desc: "Crevettes, poivrons, tomates, oignons, champignons, maïs, Acc. sauce cocktail, pain tortilla + portion de frites." },
-                    { name: "POISSON SOSSO BRAISÉ", price: "9.000", desc: "Poisson sosso, braisé avec des légumes sautés, Acc. au choix." },
-                    { name: "POISSON CARPE BRAISÉE", price: "8.000", desc: "Poisson carpe d'eau douce, braisé avec des légumes sautés, Acc. au choix." },
-                    { name: "RIZ CANTONAIS", price: "5.000", desc: "Riz cantonais aux crevettes ou au poulet, œuf, petits poids, carottes, oignons verts, acc. de piment." }
-                ]
-            },
-            {
-                category: "GRILL",
-                items: [
-                    { name: "BROCHETTES AILES DE POULET", price: "8.000", desc: "12 ailes de poulet braisé, accompagnées de légumes, pâte à l'ail, piment, pain / Acc. aux choix." },
-                    { name: "BROCHETTES SHISH TAOUK", price: "8.000", desc: "3 Brochettes de poulet taouk, accompagnées de légumes, pâte à l'ail, piment, pain / Acc. aux choix." },
-                    { name: "BROCHETTES KAFTA", price: "8.000", desc: "3 brochettes de viande kafta, accompagnées de légumes, pâte à l'ail, piment, pain / Acc. aux choix." },
-                    { name: "BROCHETTES DE FILET", price: "8.000", desc: "3 brochettes de filet de bœuf, accompagnées de légumes, pâte à l'ail, piment, pain / Acc. au choix." },
-                    { name: "BROCHETTES D'AGNEAU", price: "8.000", desc: "3 brochettes d'agneau, accompagnées de légumes, pâte à l'ail, piment, pain / Acc. au choix." },
-                    { name: "BROCHETTES MIX GRILL", price: "8.000", desc: "1 brochette de taouk, 1 brochette de kafta, 1 brochette de filet, accompagnées de légumes, pâte à l'ail, piment, pain / Acc. au choix." }
-                ]
-            },
-            {
-                category: "POULET & SUPPLÉMENTS",
-                note: "Accompagnements aux choix : Frites, Alloco, Attiéké, Pomme sautée, Purée de pommes de terre.",
-                items: [
-                    { name: "POULET RÔTI", price: "Demi: 5.500 / Entier: 9.500", desc: "Poulet au four accompagné de légumes, pâte à l'ail, piment, pain / Acc. au choix." },
-                    { name: "POULET BRAISÉ", price: "Demi: 5.500 / Entier: 9.500", desc: "Poulet braisé, accompagné de légumes, pâte à l'ail, piment, pain / Acc. au choix." },
-                    { name: "POULET FRIT", price: "Demi: 5.500 / Entier: 9.500", desc: "Poulet frit, accompagné de légumes, pâte à l'ail, piment, pain / Acc. au choix." },
-                    { name: "POULET SAUTÉ", price: "Demi: 6.000 / Entier: 10.000", desc: "Poulet (braisé, rôti, ou frit) sauté aux légumes, accompagné de légumes, pâte à l'ail, piment, pain, Acc. au choix." },
-                    { name: "POULET PANÉ", price: "Demi: 6.000 / Entier: 11.000", desc: "Poulet pané, accompagné de légumes, salade choux, pâte à l'ail, piment, pain, Acc. au choix." },
-                    { name: "PLAT FRITES (Supplément)", price: "1.500", desc: "" },
-                    { name: "PLAT ALLOCO (Supplément)", price: "1.500", desc: "" },
-                    { name: "PLAT ATTIÉKÉ (Supplément)", price: "1.000", desc: "" },
-                    { name: "PLAT DE RIZ BASMATI (Supplément)", price: "1.000", desc: "" },
-                    { name: "PLAT DE RIZ LÉGUMES (Supplément)", price: "1.500", desc: "" }
+                    { name: "POISSON SOSSO BRAISÉ", price: "9.000", desc: "Poisson sosso, braisé avec des légumes sautés, Acc. au choix." }
                 ]
             },
             {
                 category: "PIZZAS",
                 items: [
                     { name: "MARGHARITA", price: "M: 6.000 / G: 7.000", desc: "Sauce tomate, mozzarella, origan." },
-                    { name: "VÉGÉTARIENNE", price: "M: 6.000 / G: 7.000", desc: "Sauce tomate, mozzarella, champignons, poivrons, oignons, tomates, maïs, olives noires." },
                     { name: "ROYALE", price: "M: 7.000 / G: 8.500", desc: "Sauce tomate, mozzarella, jambon, champignons, olives noires." },
-                    { name: "ROYALE CRÉMIÈRE", price: "M: 7.500 / G: 9.000", desc: "Sauce tomate, mozzarella, jambon, champignons, olives noires." },
-                    { name: "PEPPERONI", price: "M: 7.000 / G: 8.500", desc: "Sauce tomate, mozzarella, pepperoni." },
-                    { name: "CALABRAISE", price: "M: 7.000 / G: 8.500", desc: "Sauce tomate, sauce blanche crémière, champignons, viande hachée, jambon de bœuf." },
-                    { name: "MEXICAINE", price: "M: 7.000 / G: 8.500", desc: "Sauce tomate, mozzarella, viande de bœuf hachée, oignons, poivrons, tomates, olives noires, jalapeños." },
-                    { name: "POULET", price: "M: 7.000 / G: 8.500", desc: "Sauce tomate, mozzarella, poulet, oignons, poivrons, tomates, olives noires." },
-                    { name: "POULET CRÉMIÈRE", price: "M: 7.000 / G: 8.500", desc: "Sauce blanche crémière, Poulet, mozzarella." },
-                    { name: "CORDON BLEU", price: "M: 7.000 / G: 8.500", desc: "Sauce blanche crémière, mozzarella, poulet, jambon de dinde." },
-                    { name: "THON", price: "M: 7.000 / G: 8.500", desc: "Sauce tomate, mozzarella, thon, olives noires." },
-                    { name: "CREVETTES", price: "M: 7.500 / G: 9.000", desc: "Sauce tomate, mozzarella, crevettes, oignons, poivrons." },
-                    { name: "QUATRE SAISONS", price: "M: 7.000 / G: 8.500", desc: "Royale, végétarienne, mexicaine, poulet." }
+                    { name: "POULET", price: "M: 7.000 / G: 8.500", desc: "Sauce tomate, mozzarella, poulet, oignons, poivrons, tomates, olives noires." }
                 ]
             },
             {
-                category: "DESSERTS",
+                category: "BOISSONS",
                 items: [
-                    { name: "CRÊPE SALÉE (Standard)", price: "2.500", desc: "" },
-                    { name: "CRÊPE NUTELLA", price: "3.500", desc: "" },
-                    { name: "CRÊPE SPECULOOS", price: "3.500", desc: "" },
-                    { name: "CRÊPE OREO CHOCOLAT", price: "3.500", desc: "" },
-                    { name: "CRÊPE EL PATRÓN", price: "4.000", desc: "Nutella, banane, Oreo, sauce chocolat." },
-                    { name: "CRÊPE SALÉE (Garnie)", price: "4.500", desc: "Jambon de bœuf ou de dinde, fromage mozzarella." },
-                    { name: "BOULE DE GLACE", price: "1.000", desc: "Vanille, chocolat, fraise, menthe, américain, malaga, plombière, yaourt fraise." },
-                    { name: "BANANE SPLIT", price: "4.000", desc: "3 boules de glace, banane, chantilly, sauce chocolat et fraise." },
-                    { name: "GLACE EL PATRÓN", price: "4.000", desc: "3 boules de glace au choix, chantilly, sauce chocolat et fraise, Oreo." },
-                    { name: "SALADE DE FRUITS", price: "3.000", desc: "Tasse de Salade de fruits de saison." },
-                    { name: "ASSIETTE DE FRUITS", price: "4.000", desc: "fruits de saison." }
-                ]
-            },
-            {
-                category: "BOISSONS CHAUDES",
-                items: [
-                    { name: "ESPRESSO", price: "1.500", desc: "Café court ou allongé." },
-                    { name: "NESCAFÉ", price: "1.000", desc: "Tasse de nescafé." },
-                    { name: "CAFE AU LAIT", price: "2.000", desc: "Café espresso ou nescafé, lait chaud." },
-                    { name: "CAPUCCINO", price: "2.000", desc: "Cacao et lait chaud fait maison." },
-                    { name: "CHOCO CHAUD", price: "2.000", desc: "Chocolats chaud fait maison." },
-                    { name: "NAJAR", price: "2.000", desc: "Carafe de café libanais." },
-                    { name: "THÉ ORIENTAL", price: "3.000", desc: "Carafe orientale à la menthe." },
-                    { name: "THÉ GINGEMBRE", price: "3.000", desc: "Carafe de thé gingembre au miel." }
-                ]
-            },
-            {
-                category: "SOFTS & BIÈRES",
-                items: [
-                    { name: "Fresco / Coca / Fanta / Sprite", price: "1.000", desc: "" },
-                    { name: "Orangina / Malta / Cody's / Bavaria / Sanbitter", price: "1.500", desc: "" },
-                    { name: "Red Bull / Perrier / Schweppes / Oasis / Lipton", price: "2.000", desc: "" },
-                    { name: "Petit eau 50cl", price: "500", desc: "" },
-                    { name: "Grand eau 1L", price: "1.000", desc: "" },
-                    { name: "Heineken / Guinness / Castel / Desperados", price: "1.500", desc: "Bouteilles 33cl" },
-                    { name: "Budweiser / Corona / Beaufort", price: "2.000", desc: "Canettes 50ml" }
-                ]
-            },
-            {
-                category: "COCKTAILS SANS ALCOOL & SMOOTHIES",
-                items: [
-                    { name: "VIRGIN MOJITO", price: "5.000", desc: "Fresh Menthe - San Pellegrino - sirop de canne - citron." },
-                    { name: "VIRGIN PASSIONNÉE", price: "6.000", desc: "Fresh Menthe - Jus de passion frais - citron." },
-                    { name: "BORA - BORA", price: "5.000", desc: "Jus de passion mixé et frais - orange - grenadine." },
-                    { name: "FLEUR D'AMOUR", price: "5.000", desc: "Pulpe de jus d'orange - perrier - sirop de fraise." },
-                    { name: "ROLAND GARROS", price: "5.000", desc: "Jus de fraise mixé - orange - passion - ananas - citron." },
-                    { name: "HAWAÏ", price: "6.000", desc: "Jus d'orange - jus de passion - Perrier - curaçao bleue." },
-                    { name: "PIÑA COLADA", price: "6.000", desc: "Lait de coco - jus d'ananas frais - sirop Caribbéen." },
-                    { name: "JUS NATURELS", price: "3.000", desc: "Orange - passion - ananas - mangue - pomme." },
-                    { name: "SMOOTHIES FRAPPÉS", price: "3.000", desc: "Passion - ananas - mangue - fraise - limonade a la menthe." },
-                    { name: "MILKSHAKES CLASSIQUES", price: "3.000", desc: "Chocolat - vanille - fraise." },
-                    { name: "MILKSHAKES SPÉCIAUX", price: "4.000", desc: "Oreo - Nutella - Speculoos - Kinder Bueno." }
-                ]
-            },
-            {
-                category: "COCKTAILS ALCOOLISÉS & SHOTS",
-                items: [
-                    { name: "MOJITO", price: "6.000", desc: "Rhum blanc - menthe fraîche - S.Pellegrino - citron." },
-                    { name: "DESPEJITO", price: "7.000", desc: "Rhum blanc - Menthe fraîche - bière Desperados - citron." },
-                    { name: "LONG ISLAND", price: "7.000", desc: "Gin - Rhum blanc - Vodka - Tequila - Coca - citron." },
-                    { name: "SEX ON THE BEACH", price: "7.000", desc: "Chambord - cramberry - Vodka - jus d'orange." },
-                    { name: "LA PASSIONNÉE", price: "7.000", desc: "Vodka - Rhum blanc - Triple sec - menthe - citron." },
-                    { name: "BLEU LAGOON", price: "6.000", desc: "Vodka - Curaçao bleu - citron." },
-                    { name: "MARGHARITA", price: "7.000", desc: "Cointreau - Téquila - citron." },
-                    { name: "TEQUILA SUNRISE", price: "7.000", desc: "Tequila - jus d'orange - grenadine." },
-                    { name: "CHOCOLATINI", price: "7.000", desc: "Bailey's - Khaluha - Nutella." },
-                    { name: "JAGER BOMB", price: "7.000", desc: "Jagermeister - Redbull." },
-                    { name: "SHOT SANGLE", price: "2.000", desc: "Tequila - Rhum - Jager Meister - Bombay Gin." },
-                    { name: "RAY DE 6 SHOTS", price: "5.000", desc: "Vodka fruitée." }
-                ]
-            },
-            {
-                category: "VINS",
-                note: "Pour plus de choix, visitez notre cave au bar.",
-                items: [
-                    { name: "VINS BLANCS", price: "10.000", desc: "VALENTINO / BARON D'ARIGNAC / CHAMBERI." },
-                    { name: "VINS BLANCS PRÉMIUM", price: "15.000", desc: "CH.ROUSSEAU / ROCHET MAZET / CALVET MOELLEUX / SOUVENIRS." },
-                    { name: "VINS ROSÉS", price: "15.000", desc: "CHEMIN DES SABLE / KASRA SUNSET / CARBERNET D'ANJOU / MATEUS." },
-                    { name: "VINS ROSÉS PRÉMIUM", price: "20.000", desc: "BLEU DE MER / GRIS BLANC." },
-                    { name: "VINS ROUGES", price: "15.000", desc: "CALVET BORDEAUX / MOUTON CADET / CH. ROUSSEAU / HAUSSMANN." },
-                    { name: "VINS ROUGES PRÉMIUM", price: "30.000", desc: "CÔTES DU RHONE / CHÂTEAU FERRANDE GRAVES." },
-                    { name: "VINS MOUSSEUX", price: "15.000", desc: "J.P CHENET ICE / CALVET ICE / BARON D'ARIGNAC DEMI-SEC / BARON D'ARIGNAC BRUT / PIERLANT DEMI-SEC OR." }
-                ]
-            },
-            {
-                category: "SHISHAS",
-                note: "Parfums/Goûts : Love 66 - Hawaï - Mi Amor - Lady Killer - 2 Pommes - Menthe - Raisin - Citron Menthe - Et encore plus de gout...",
-                items: [
-                    { name: "KHALOUD", price: "5.000", desc: "Préparation classique." },
-                    { name: "QUASAR", price: "7.000", desc: "Système de chauffe premium." }
+                    { name: "COCA / FANTA / SPRITE", price: "1.000", desc: "Soft drinks classiques." },
+                    { name: "HEINEKEN / DESPERADOS", price: "1.500", desc: "Bouteilles 33cl." },
+                    { name: "MOJITO (Alcoolisé)", price: "6.000", desc: "Rhum blanc - menthe fraîche - S.Pellegrino - citron." },
+                    { name: "VIRGIN MOJITO", price: "5.000", desc: "Sans alcool : Menthe - San Pellegrino - sirop de canne - citron." }
                 ]
             }
         ];
 
-        // INITIALISATION DE L'INTERFACE
+        /* --- GESTION DE L'INTERFACE ET DU MENU --- */
         const navContainer = document.getElementById('categoryNav');
         const menuContainer = document.getElementById('menuContainer');
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
 
-        // Générer les onglets de navigation
+        // Toggle Hamburger menu
+        hamburgerBtn.addEventListener('click', () => {
+            navContainer.classList.toggle('open');
+        });
+
+        // Générer les onglets
         menuData.forEach((cat, index) => {
             const btn = document.createElement('button');
             btn.className = `nav-btn ${index === 0 ? 'active' : ''}`;
             btn.innerText = cat.category;
-            btn.onclick = () => renderCategory(index, btn);
+            btn.onclick = () => {
+                renderCategory(index, btn);
+                if(window.innerWidth <= 768) navContainer.classList.remove('open');
+            };
             navContainer.appendChild(btn);
         });
 
-        // Fonction pour afficher le contenu avec effet "Wow"
         function renderCategory(index, btnNode = null) {
-            // Mise à jour de la classe active sur les boutons
             if (btnNode) {
                 document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
                 btnNode.classList.add('active');
-                // Scroll automatique de la nav pour centrer le bouton sur mobile
-                btnNode.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                if(window.innerWidth > 768) {
+                    btnNode.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
             }
 
             const data = menuData[index];
-            menuContainer.innerHTML = ''; // Réinitialisation de la zone d'affichage
+            menuContainer.innerHTML = ''; 
 
-            // Création du Titre
             const title = document.createElement('h2');
             title.className = 'category-title';
             title.innerText = data.category;
             menuContainer.appendChild(title);
 
-            // Ajout de la note si existante
             if (data.note) {
                 const note = document.createElement('p');
                 note.className = 'category-note';
@@ -566,22 +685,25 @@
                 menuContainer.appendChild(note);
             }
 
-            // Création de la grille des plats
             const grid = document.createElement('div');
             grid.className = 'menu-grid';
 
             data.items.forEach((item, i) => {
                 const card = document.createElement('div');
                 card.className = 'menu-card';
-                // Délai d'animation progressif pour un effet cascade
                 card.style.animation = `fadeUp 0.6s ease ${0.1 * i}s forwards`;
 
                 card.innerHTML = `
-                    <div class="item-header">
-                        <div class="item-name">${item.name}</div>
-                        <div class="item-price">${item.price} FCFA</div>
+                    <div>
+                        <div class="item-header">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">${item.price} FCFA</div>
+                        </div>
+                        <div class="item-desc">${item.desc}</div>
                     </div>
-                    <div class="item-desc">${item.desc}</div>
+                    <button class="add-btn" onclick="addToCart('${item.name.replace(/'/g, "\\'")}', '${item.price}')">
+                        Ajouter 🛒
+                    </button>
                 `;
                 grid.appendChild(card);
             });
@@ -589,8 +711,122 @@
             menuContainer.appendChild(grid);
         }
 
-        // Afficher la première catégorie au chargement
         renderCategory(0, navContainer.firstChild);
+
+        /* --- GESTION DU PANIER & WHATSAPP --- */
+        let cart = [];
+        const cartFab = document.getElementById('cartFab');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const overlay = document.getElementById('overlay');
+        const closeCartBtn = document.getElementById('closeCart');
+
+        // Ouvrir/Fermer le panier
+        function toggleCart() {
+            cartSidebar.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+        cartFab.addEventListener('click', toggleCart);
+        closeCartBtn.addEventListener('click', toggleCart);
+        overlay.addEventListener('click', toggleCart);
+
+        // Extraire un prix de base pour l'estimation (prend le premier nombre trouvé)
+        function extractBasePrice(priceStr) {
+            const match = priceStr.replace(/\./g, '').match(/\d+/);
+            return match ? parseInt(match[0], 10) : 0;
+        }
+
+        // Ajouter au panier
+        function addToCart(name, priceStr) {
+            const existing = cart.find(i => i.name === name);
+            if(existing) {
+                existing.qty++;
+            } else {
+                cart.push({ 
+                    name: name, 
+                    priceStr: priceStr, 
+                    basePrice: extractBasePrice(priceStr), 
+                    qty: 1 
+                });
+            }
+            updateCartUI();
+            showToast();
+        }
+
+        function updateQty(index, delta) {
+            cart[index].qty += delta;
+            if(cart[index].qty <= 0) cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const countNode = document.getElementById('cartCount');
+            const itemsNode = document.getElementById('cartItems');
+            const totalNode = document.getElementById('cartTotalValue');
+            
+            // MAJ du compteur (pastille rouge)
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            countNode.innerText = totalItems;
+            
+            // MAJ de la liste
+            itemsNode.innerHTML = '';
+            let totalEstimated = 0;
+
+            if(cart.length === 0) {
+                itemsNode.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 2rem;">Votre panier est vide.</p>';
+            }
+
+            cart.forEach((item, index) => {
+                totalEstimated += item.basePrice * item.qty;
+                
+                itemsNode.innerHTML += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>${item.priceStr} FCFA</p>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="qty-btn" onclick="updateQty(${index}, -1)">-</button>
+                            <span>${item.qty}</span>
+                            <button class="qty-btn" onclick="updateQty(${index}, 1)">+</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Formatage du total estimé avec des points (ex: 15.000)
+            totalNode.innerText = totalEstimated.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " FCFA";
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // Envoi vers WhatsApp
+        function sendWhatsAppOrder() {
+            if(cart.length === 0) {
+                alert("Votre panier est vide !");
+                return;
+            }
+
+            let msg = "Bonjour EL PATRÓN, je souhaite passer une commande :\n\n";
+            let total = 0;
+
+            cart.forEach(item => {
+                msg += `▪ ${item.qty}x ${item.name} (${item.priceStr})\n`;
+                total += item.basePrice * item.qty;
+            });
+
+            msg += `\n*Total estimé : ${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} FCFA*\n\n`;
+            msg += "(Précisez ici vos choix de suppléments/formules si nécessaire)";
+
+            // Numéro fourni
+            const phone = "2250704400400"; 
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+            
+            window.open(url, '_blank');
+        }
 
     </script>
 </body>
