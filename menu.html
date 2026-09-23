@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu & Carte - El Patrón</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- En-tête & Menu Hamburger -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="logo.png" alt="El Patrón Logo" class="logo">
+            <span class="brand-name">El Patrón</span>
+        </div>
+        <nav class="navbar" id="navbar">
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="menu.html" class="active">Menu & Carte</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <button class="cart-btn" id="openCart"><i class="fas fa-shopping-bag"></i> <span id="cart-count">0</span></button>
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu Principal du Menu -->
+    <main class="menu-page-container">
+        <h1>Notre Carte & Menu</h1>
+        
+        <!-- Navigation des Rubriques (Onglets du Menu) -->
+        <div class="menu-categories-tabs" id="menuTabs">
+            <button class="tab-btn active" data-category="petit-dej">Petit-Déj[cite: 20]</button>
+            <button class="tab-btn" data-category="manaiches">Manaïches[cite: 20]</button>
+            <button class="tab-btn" data-category="salades">Salades[cite: 20]</button>
+            <button class="tab-btn" data-category="entrees">Entrées[cite: 20]</button>
+            <button class="tab-btn" data-category="snack">Snack & Chawarma[cite: 20]</button>
+            <button class="tab-btn" data-category="burgers">Burgers[cite: 20]</button>
+            <button class="tab-btn" data-category="tacos">Tacos Kebab[cite: 20]</button>
+            <button class="tab-btn" data-category="pastas">Pastas[cite: 20]</button>
+            <button class="tab-btn" data-category="plats">Plats & Grillades[cite: 20]</button>
+            <button class="tab-btn" data-category="pizzas">Pizzas[cite: 14]</button>
+            <button class="tab-btn" data-category="boissons">Boissons & Bar[cite: 15, 17, 18, 19]</button>
+            <button class="tab-btn" data-category="desserts">Desserts[cite: 16]</button>
+        </div>
+
+        <!-- Grille des Produits Dynamique -->
+        <div class="menu-grid" id="menuGrid">
+            <!-- Injecté dynamiquement par JavaScript selon la catégorie -->
+        </div>
+    </main>
+
+    <!-- Panier Latéral Coulissant -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Votre Panier</h3>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-cart">Votre panier est vide</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total :</span>
+                <span id="cartTotalPrice">0 FCFA</span>
+            </div>
+            <button class="btn-whatsapp-checkout" id="checkoutWhatsapp">
+                <i class="fab fa-whatsapp"></i> Commander via WhatsApp
+            </button>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 El Patrón Abidjan. Tous droits réservés.</p>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/elpatronabidjan/" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/elpatronabidjan/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@elpatronci1" target="_blank"><i class="fab fa-tiktok"></i></a>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
