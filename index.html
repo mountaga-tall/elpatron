@@ -3,831 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu | EL PATRÓN RESTAURANT - CAFÉ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #0d0d0d;
-            --card-bg: #1a1a1a;
-            --gold: #d4af37;
-            --gold-hover: #f1c94f;
-            --text-light: #f5f5f5;
-            --text-muted: #a0a0a0;
-            --danger: #e74c3c;
-            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-light);
-            overflow-x: hidden;
-        }
-
-        /* HEADER & LOGO */
-        header {
-            text-align: center;
-            padding: 3rem 2rem 2rem;
-            background: linear-gradient(to bottom, #000000, transparent);
-            position: relative;
-        }
-
-        .logo-container {
-            margin-bottom: 1rem;
-        }
-
-        .logo-container img {
-            max-width: 150px;
-            height: auto;
-            border-radius: 50%; /* Optionnel, selon la forme de votre logo */
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-        }
-
-        h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3.5rem;
-            color: var(--gold);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-        }
-
-        /* NAVIGATION TABS & HAMBURGER */
-        .nav-container {
-            position: sticky;
-            top: 0;
-            background: rgba(13, 13, 13, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 100;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .hamburger {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--gold);
-            font-size: 2rem;
-            cursor: pointer;
-            padding: 1rem;
-            width: 100%;
-            text-align: center;
-        }
-
-        .category-nav {
-            display: flex;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            padding: 1rem 2rem;
-            gap: 1.5rem;
-            transition: max-height 0.3s ease-out;
-        }
-
-        .category-nav::-webkit-scrollbar { height: 4px; }
-        .category-nav::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
-
-        .nav-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            padding: 0.5rem 0;
-            white-space: nowrap;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .nav-btn::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--gold);
-            transition: var(--transition);
-        }
-
-        .nav-btn:hover, .nav-btn.active { color: var(--gold); }
-        .nav-btn.active::after { width: 100%; }
-
-        /* MAIN CONTENT */
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-            min-height: 60vh;
-        }
-
-        .category-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 0.5rem;
-            text-align: center;
-            opacity: 0;
-            animation: fadeInDown 0.6s ease forwards;
-        }
-
-        .category-note {
-            text-align: center;
-            color: var(--text-muted);
-            font-style: italic;
-            margin-bottom: 3rem;
-            font-size: 0.9rem;
-            opacity: 0;
-            animation: fadeInDown 0.6s ease 0.2s forwards;
-        }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        /* MENU CARDS (Wow Effect) */
-        .menu-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: var(--transition);
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .menu-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.05), transparent);
-            transform: translateX(-100%);
-            transition: 0.6s;
-            pointer-events: none;
-        }
-
-        .menu-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(212, 175, 55, 0.5);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .menu-card:hover::before { transform: translateX(100%); }
-
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-            border-bottom: 1px dashed rgba(212, 175, 55, 0.3);
-            padding-bottom: 0.8rem;
-        }
-
-        .item-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-light);
-            width: 70%;
-        }
-
-        .item-price {
-            font-weight: 600;
-            color: var(--gold);
-            font-size: 1rem;
-            text-align: right;
-        }
-
-        .item-desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        /* ADD TO CART BUTTON */
-        .add-btn {
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 0.6rem 1rem;
-            border-radius: 6px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            align-self: flex-start;
-            margin-top: auto;
-        }
-
-        .add-btn:hover {
-            background: var(--gold);
-            color: #000;
-        }
-
-        /* CART FAB (Floating Action Button) */
-        .cart-fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--gold);
-            color: #000;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
-            z-index: 999;
-            transition: var(--transition);
-        }
-
-        .cart-fab:hover { transform: scale(1.1) rotate(5deg); }
-
-        .cart-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--danger);
-            color: white;
-            font-size: 0.8rem;
-            font-weight: bold;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid var(--bg-color);
-        }
-
-        /* CART SIDEBAR */
-        .cart-sidebar {
-            position: fixed;
-            top: 0;
-            right: -450px;
-            width: 100%;
-            max-width: 400px;
-            height: 100vh;
-            background: #111;
-            z-index: 1001;
-            transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .cart-sidebar.open { right: 0; }
-
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .cart-header h3 { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; }
-        
-        .close-cart {
-            background: none;
-            border: none;
-            color: var(--text-light);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        .close-cart:hover { color: var(--danger); }
-
-        .cart-items {
-            flex-grow: 1;
-            overflow-y: auto;
-            margin-bottom: 2rem;
-        }
-
-        .cart-items::-webkit-scrollbar { width: 4px; }
-        .cart-items::-webkit-scrollbar-thumb { background: var(--gold); }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--card-bg);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .cart-item-info h4 { font-size: 0.95rem; margin-bottom: 0.3rem; }
-        .cart-item-info p { color: var(--gold); font-size: 0.85rem; font-weight: 600; }
-        
-        .cart-item-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .qty-btn {
-            background: #333; border: none; color: white; width: 24px; height: 24px; border-radius: 4px; cursor: pointer;
-        }
-        
-        .cart-footer {
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            padding-top: 1.5rem;
-        }
-
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-        }
-
-        .whatsapp-btn {
-            background: #25D366; /* Vert WhatsApp */
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 1rem;
-            border-radius: 8px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-        }
-
-        .whatsapp-btn:hover { background: #1ebe5d; transform: translateY(-2px); }
-
-        /* TOAST NOTIFICATION */
-        .toast {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-100px);
-            background: var(--gold);
-            color: #000;
-            padding: 1rem 2rem;
-            border-radius: 30px;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            z-index: 2000;
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .toast.show { transform: translateX(-50%) translateY(0); }
-
-        /* Overlay Sombre pour le panier */
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7);
-            z-index: 1000; display: none; opacity: 0; transition: opacity 0.3s;
-        }
-        .overlay.show { display: block; opacity: 1; }
-
-        /* ANIMATIONS */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            main { padding: 2rem 1rem; }
-            .menu-card { padding: 1.5rem; }
-            
-            /* Responsive Hamburger Logic */
-            .hamburger { display: block; }
-            .category-nav {
-                flex-direction: column;
-                padding: 0;
-                max-height: 0;
-                overflow: hidden;
-                gap: 0;
-            }
-            .category-nav.open { max-height: 500px; padding: 1rem 0; }
-            .nav-btn { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
-            .nav-btn::after { display: none; }
-            .nav-btn.active { background: rgba(212, 175, 55, 0.1); border-left: 4px solid var(--gold); }
-        }
-    </style>
+    <title>El Patrón - Restaurant, Bar, Café, Salon de thé</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
-    <header>
+    <!-- En-tête & Menu Hamburger -->
+    <header class="header">
         <div class="logo-container">
-            <!-- Insérez votre logo ici. S'il ne charge pas, l'attribut onerror le masque proprement -->
-            <img src="logo.png" alt="El Patrón Logo" onerror="this.style.display='none'">
+            <img src="logo.png" alt="El Patrón Logo" class="logo">
+            <span class="brand-name">El Patrón</span>
         </div>
-        <h1>El Patrón</h1>
-        <p>Restaurant • Café</p>
+        <nav class="navbar" id="navbar">
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Accueil</a></li>
+                <li><a href="menu.html?cat=petit-dej">Menu & Carte</a></li>
+                <li><a href="menu.html?cat=plats">Nos Plats</a></li>
+                <li><a href="menu.html?cat=boissons">Boissons & Bar</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <button class="cart-btn" id="openCart"><i class="fas fa-shopping-bag"></i> <span id="cart-count">0</span></button>
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
     </header>
 
-    <div class="nav-container">
-        <button class="hamburger" id="hamburgerBtn">☰ MENU</button>
-        <nav class="category-nav" id="categoryNav">
-            <!-- Injecté par JS -->
-        </nav>
-    </div>
+    <!-- Section Hero (Accueil Wow Effect) -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="glitch" data-text="EL PATRÓN">EL PATRÓN</h1>
+            <p class="subtitle">Restaurant, Bar, Café, Salon de thé à Abidjan</p>
+            <div class="hero-buttons">
+                <a href="menu.html" class="btn-primary">Découvrir le Menu <i class="fas fa-arrow-right"></i></a>
+                <a href="https://wa.me/2250704400400" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Commander par WhatsApp</a>
+            </div>
+        </div>
+    </section>
 
-    <main id="menuContainer">
-        <!-- Injecté par JS -->
-    </main>
+    <!-- Section À propos / Infos -->
+    <section class="info-section" id="contact">
+        <div class="container">
+            <h2>Informations & Contacts</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Téléphone</h3>
+                    <p><a href="tel:+2250704400400">+225 07 04 40 04 00</a></p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p><a href="mailto:el.patron.abidjan@gmail.com">el.patron.abidjan@gmail.com</a></p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Adresse</h3>
+                    <p>5°24'11.2"N 3°58'49.7"W - Abidjan</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- FLOATING CART BUTTON -->
-    <div class="cart-fab" id="cartFab">
-        🛒 <span class="cart-count" id="cartCount">0</span>
-    </div>
-
-    <!-- TOAST NOTIFICATION -->
-    <div class="toast" id="toast">Ajouté au panier !</div>
-
-    <!-- OVERLAY -->
-    <div class="overlay" id="overlay"></div>
-
-    <!-- CART SIDEBAR -->
+    <!-- Panier Latéral Coulissant -->
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
-            <h3>Votre Commande</h3>
-            <button class="close-cart" id="closeCart">✕</button>
+            <h3>Votre Panier</h3>
+            <button class="close-cart" id="closeCart">&times;</button>
         </div>
         <div class="cart-items" id="cartItems">
-            <!-- Items injectés par JS -->
+            <!-- Les articles ajoutés apparaîtront ici -->
+            <p class="empty-cart">Votre panier est vide</p>
         </div>
         <div class="cart-footer">
             <div class="cart-total">
-                <span>Total estimé :</span>
-                <span id="cartTotalValue">0 FCFA</span>
+                <span>Total :</span>
+                <span id="cartTotalPrice">0 FCFA</span>
             </div>
-            <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 15px; text-align: center;">
-                *Le prix final (suppléments, formules) sera validé sur WhatsApp.
-            </p>
-            <button class="whatsapp-btn" onclick="sendWhatsAppOrder()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12.01 2.002c-5.52 0-9.99 4.47-9.99 9.99 0 1.77.46 3.5 1.33 5.03L2 22l5.12-1.34c1.47.8 3.14 1.22 4.89 1.22 5.52 0 10-4.47 10-10s-4.48-10-10-10zm.01 16.27c-1.48 0-2.92-.39-4.2-1.14l-.3-.18-3.12.82.83-3.04-.2-.32c-.82-1.32-1.25-2.85-1.25-4.43 0-4.56 3.71-8.27 8.27-8.27s8.27 3.71 8.27 8.27-3.71 8.27-8.27 8.27zm4.54-6.2c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.15.17-.3.19-.55.07-1.12-.53-2.14-1.32-2.94-2.28-.27-.32-.56-.63-.83-.97-.13-.17-.01-.26.11-.38.11-.11.25-.29.37-.44.13-.15.17-.25.25-.41.08-.17.04-.32-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.49-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.17 1.73 2.64 4.2 3.71.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.15-.48-.28z"/>
-                </svg>
-                Commander via WhatsApp
+            <button class="btn-whatsapp-checkout" id="checkoutWhatsapp">
+                <i class="fab fa-whatsapp"></i> Commander via WhatsApp
             </button>
         </div>
     </div>
+    <div class="cart-overlay" id="cartOverlay"></div>
 
-    <script>
-        // INTÉGRATION EXHAUSTIVE DU MENU EL PATRÓN (Mêmes données)
-        const menuData = [
-            {
-                category: "PETIT-DÉJ",
-                items: [
-                    { name: "OMELETTE NATURE", price: "2.000", desc: "Omelette ou œuf au plat, avec du pain et du beurre." },
-                    { name: "OMELETTE FROMAGE", price: "3.000", desc: "Omelette ou œuf au plat au fromage, avec du pain et du beurre." },
-                    { name: "OMELETTE SPÉCIALE", price: "4.000", desc: "Omelette ou œuf au plat, fromage, jambon, légumes avec du pain et du beurre." },
-                    { name: "OMELETTE ROYALE", price: "5.000", desc: "Omelette ou œuf au plat, fromage, jambon, légumes, salade, avocats, avec du pain et du beurre." },
-                    { name: "FORMULE SPÉCIALE", price: "7.000", desc: "Omelette ou œuf au plat spécial(e), du pain et du beurre, café au lait ou thé et du jus naturel." }
-                ]
-            },
-            {
-                category: "MANAÏCHES",
-                items: [
-                    { name: "ZAATAR", price: "1.500", desc: "Thym oriental." },
-                    { name: "LÉGUMES", price: "2.000", desc: "Tomates, oignons, poivrons, huile d'olives, origan." },
-                    { name: "VIANDE", price: "2.500", desc: "Viande de bœuf, oignons, tomates hachée." },
-                    { name: "FROMAGE", price: "2.500", desc: "Akkawi spécial manaïches." },
-                    { name: "COCKTAIL", price: "2.500", desc: "Viande de boeuf hachée, fromage ou zaatar." },
-                    { name: "JAMBON FROMAGE", price: "3.000", desc: "Akkawi, jambon de bœuf ou de dinde." }
-                ]
-            },
-            {
-                category: "SALADES",
-                items: [
-                    { name: "FATTOUCHE", price: "4.000", desc: "Salade, tomates, concombres, persil, choux, oignons, radis, menthe, pain libanais croustillant." },
-                    { name: "TABOULÉ", price: "4.000", desc: "Salade, tomates, persil, oignons, menthe, semoule." },
-                    { name: "SALADE DE CHOUX", price: "3.000", desc: "Choux tranchés, mayonnaise, carottes, maïs doux." },
-                    { name: "NIÇOISE", price: "6.000", desc: "Salade, thon, œufs, pommes de terre, tomates, concombres oignons, carottes, olives noires." },
-                    { name: "CÉSAR", price: "6.000", desc: "Salade, laitue, steak de poulet, tomates pain croustillant, parmesan." },
-                    { name: "EL PATRÓN", price: "6.000", desc: "Salade, concombres, tomates, oignons, fromage râpé, pommes de terre bouillies, œufs, haricots, olives noires." },
-                    { name: "AVOCATS CREVETTES", price: "7.000", desc: "Crevettes, avocats, salade, tomates, concombres." },
-                    { name: "CRABE", price: "7.000", desc: "Surimi de crabe, salade verte, mangue, pomme, orange, sauce mayonnaise." }
-                ]
-            },
-            {
-                category: "ENTRÉES",
-                items: [
-                    { name: "FATAYER VIANDE", price: "1.000", desc: "Galette de pain fourrée à la viande hachée (1 pièce) acc. piment." },
-                    { name: "FATAYER LÉGUMES", price: "1.000", desc: "Galette de pain fourrée aux légumes épinards oignons tomates (1 pièce) acc. piment." },
-                    { name: "KEBBEH", price: "3.000", desc: "coque de boulgour fine, fourré de viande hachée (5 pièces) acc. piment." },
-                    { name: "SAMOUSSA", price: "3.000", desc: "Briquettes farcies de viande hachée (5 pièces) acc. piment." },
-                    { name: "MOZZARELLA STICKS", price: "3.500", desc: "Bâtonnets de fromage mozzarella panés (5 pièces) acc. sauce cocktail et piment." },
-                    { name: "CHEESY ROLLS", price: "3.500", desc: "Rouleaux de brick fourrées au fromage (5 pièces) acc. sauce cocktail et piment." },
-                    { name: "WINGS", price: "4.000", desc: "Ailes de poulet grillé (8 pièces) acc. sauce cocktail ou sauce BBQ et pâte à l'ail, piment." },
-                    { name: "NUGGETS", price: "3.000", desc: "6 Morceaux de poulet pané, acc. de sauce cocktail, ketchup." },
-                    { name: "FRITES", price: "1.500", desc: "acc. de ketchup." },
-                    { name: "NEMS", price: "3.500", desc: "Rouleaux croustillants vietnamiens, frits et garnis de viande bœuf ou poulet, (10 pièces) acc. sauce nems et piment." },
-                    { name: "BEIGNETS DE CREVETTES", price: "3.500", desc: "Crevettes enrobées d'une pâte (8 pièces) acc. sauce beignet et piment." },
-                    { name: "FRITES AU FROMAGE", price: "2.500", desc: "Recouvertes de sauce fromage cheddar acc. ketchup." },
-                    { name: "ALLOCOS", price: "1.500", desc: "acc. piment." },
-                    { name: "POMMES SAUTÉES", price: "2.000", desc: "Morceaux de pomme de terre, persil et ail sautée, acc de piment." },
-                    { name: "HOUMMOUS", price: "3.000", desc: "Purée de pois chiche, acc. de service de légumes, pain, pâte à l'ail, piment." },
-                    { name: "HOUMMOUS VIANDE", price: "4.500", desc: "Purée de pois chiche avec de la viande chawarma, acc. de service de légumes, pain, pate à l'ail, piment." },
-                    { name: "MOUTABBAL", price: "3.000", desc: "Purée d'aubergine, acc. de service de légumes, pain, pâte à l'ail, piment." }
-                ]
-            },
-            {
-                category: "SNACKS",
-                items: [
-                    { name: "CHAWARMA POULET", price: "2.500", desc: "Poulet, frites, pâte à l'ail, cornichons." },
-                    { name: "CHAWARMA VIANDE", price: "2.500", desc: "Viande, oignons persillés, tomates, cornichons, tarator." },
-                    { name: "CHAWARMA MIX", price: "2.500", desc: "Poulet, viande, rosto, merguez, sojok, foie de poulet, foie de bœuf, boulettes de viande, gésier, petits poids." },
-                    { name: "CHAWARMA BROCHETTE", price: "3.500", desc: "Filet de boeuf, kafta (viande hâchée), Shish taouk (Escalope de poulet mariné), Agneau." },
-                    { name: "SANDWISH CRISPY", price: "3.500", desc: "Blanc de poulet pané, frites, salade, tomate, cheddar, pâte à l'ail." },
-                    { name: "SANDWISH FRANCISCO", price: "3.500", desc: "Poulet, mozzarella, mayonnaise, maïs, cornichons, laitue, soja sauce." },
-                    { name: "SANDWISH CHICKEN SUB", price: "3.500", desc: "Poulet, mozzarella, sauce ail, maïs doux, cornichon, laitue." },
-                    { name: "SANDWISH FAHITA", price: "3.500", desc: "Poulet, poivrons, sauce avocat, oignons, champignons, maïs, mozzarella, salade." },
-                    { name: "SANDWISH PHILADELPHIA", price: "3.500", desc: "Viande de bœuf, poivrons, maïs, oignons, champignons, mayonnaise, mozzarella, salade." },
-                    { name: "SANDWISH ZINGER", price: "3.500", desc: "Steak de blanc de poulet pané, cheddar, sauce BBQ, pâte à l'ail, salade." }
-                ]
-            },
-            {
-                category: "BURGERS",
-                note: "Note additionnelle : la formule des plats est accompagnée de frites salade de choux, crudité, ketchup et piment.",
-                items: [
-                    { name: "LEBANESE BURGER", price: "Sand: 3.000 / Plat: 4.500", desc: "Steak de viande, cheddar, salade choux, frites, ketchup." },
-                    { name: "CHEESE BURGER", price: "Sand: 3.000 / Plat: 4.500", desc: "Steak de viande, cheddar, mayonnaise, tomates et oignons frais, ketchup." },
-                    { name: "EGG & CHEESE BURGER", price: "Sand: 3.500 / Plat: 5.000", desc: "Steak de viande, cheddar, œuf, mayonnaise, tomates et oignons frais, ketchup." },
-                    { name: "AMERICAN BURGER", price: "Sand: 3.500 / Plat: 5.000", desc: "Steak de viande, cheddar, sauce cocktail, tomates et oignons cuits, salade." },
-                    { name: "BBQ BURGER", price: "Sand: 3.500 / Plat: 5.000", desc: "Viande, cheddar, sauce BBQ, tomates et oignons cuits, salade." },
-                    { name: "ESCALOPE CHICKEN BURGER", price: "Sand: 4.000 / Plat: 5.500", desc: "blanc de poulet pané, ketchup, mayo, salade de choux, frites." },
-                    { name: "CHICKEN BURGER", price: "Sand: 4.000 / Plat: 5.500", desc: "Steak de poulet, cheddar, sauce cocktail, tomates et oignons cuits, salade." },
-                    { name: "CRISPY BURGER", price: "Sand: 4.500 / Plat: 6.000", desc: "blanc de poulet pané, sauce cocktail, cheddar, tomates, salade." },
-                    { name: "CHICKEN MOZZA BURGER", price: "Sand: 5.000 / Plat: 6.500", desc: "Steak de poulet, mozzarella pané, sauce cocktail, oignon et tomates cuits, salade." }
-                ]
-            },
-            {
-                category: "TACOS KEBAB",
-                items: [
-                    { name: "POULET", price: "L: 4.000 / XL: 7.000", desc: "Sauce cocktail, frites, poulet, mozzarella, tomates, oignons, poivrons sauté + portion de frites." },
-                    { name: "POULET ROYALE", price: "L: 5.000 / XL: 8.000", desc: "Sauce cocktail, frites, poulet, mozzarella, tomates, oignons, poivrons + portion de frites." },
-                    { name: "VIANDE", price: "L: 4.000 / XL: 7.000", desc: "Sauce cocktail, mozzarella, viande, frites, salade, poivrons, oignons, tomates + portion de frites." },
-                    { name: "MIX ROYALE", price: "L: 5.000 / XL: 8.000", desc: "Sauce cocktail, mozzarella, viande de bœuf et poulet, frites, salade, poivrons, oignons, tomates + portion de frites." }
-                ]
-            },
-            {
-                category: "PLATS",
-                note: "Accompagnements au choix : Frite, Alloco, attiéké, Pomme sautée, Purée de pomme de terre.",
-                items: [
-                    { name: "PLAT CHAWARMA", price: "7.000", desc: "Chawarma Poulet ou Viande ou Mix, Acc. de légumes, pate à l'ail, pain libanais / Acc. au choix." },
-                    { name: "ESCALOPE DE POULET", price: "7.000", desc: "Steak de blanc de poulet pané + portion de frites Acc. Salade de choux, pâte à ail, sauce cocktail, pain." },
-                    { name: "STEAK À LA CRÈME", price: "8.000", desc: "Steak de bœuf à la crème et aux champignons Acc. au choix." },
-                    { name: "POISSON SOSSO BRAISÉ", price: "9.000", desc: "Poisson sosso, braisé avec des légumes sautés, Acc. au choix." }
-                ]
-            },
-            {
-                category: "PIZZAS",
-                items: [
-                    { name: "MARGHARITA", price: "M: 6.000 / G: 7.000", desc: "Sauce tomate, mozzarella, origan." },
-                    { name: "ROYALE", price: "M: 7.000 / G: 8.500", desc: "Sauce tomate, mozzarella, jambon, champignons, olives noires." },
-                    { name: "POULET", price: "M: 7.000 / G: 8.500", desc: "Sauce tomate, mozzarella, poulet, oignons, poivrons, tomates, olives noires." }
-                ]
-            },
-            {
-                category: "BOISSONS",
-                items: [
-                    { name: "COCA / FANTA / SPRITE", price: "1.000", desc: "Soft drinks classiques." },
-                    { name: "HEINEKEN / DESPERADOS", price: "1.500", desc: "Bouteilles 33cl." },
-                    { name: "MOJITO (Alcoolisé)", price: "6.000", desc: "Rhum blanc - menthe fraîche - S.Pellegrino - citron." },
-                    { name: "VIRGIN MOJITO", price: "5.000", desc: "Sans alcool : Menthe - San Pellegrino - sirop de canne - citron." }
-                ]
-            }
-        ];
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 El Patrón Abidjan. Tous droits réservés.</p>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/elpatronabidjan/" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/elpatronabidjan/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@elpatronci1" target="_blank"><i class="fab fa-tiktok"></i></a>
+        </div>
+    </footer>
 
-        /* --- GESTION DE L'INTERFACE ET DU MENU --- */
-        const navContainer = document.getElementById('categoryNav');
-        const menuContainer = document.getElementById('menuContainer');
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-
-        // Toggle Hamburger menu
-        hamburgerBtn.addEventListener('click', () => {
-            navContainer.classList.toggle('open');
-        });
-
-        // Générer les onglets
-        menuData.forEach((cat, index) => {
-            const btn = document.createElement('button');
-            btn.className = `nav-btn ${index === 0 ? 'active' : ''}`;
-            btn.innerText = cat.category;
-            btn.onclick = () => {
-                renderCategory(index, btn);
-                if(window.innerWidth <= 768) navContainer.classList.remove('open');
-            };
-            navContainer.appendChild(btn);
-        });
-
-        function renderCategory(index, btnNode = null) {
-            if (btnNode) {
-                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                btnNode.classList.add('active');
-                if(window.innerWidth > 768) {
-                    btnNode.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                }
-            }
-
-            const data = menuData[index];
-            menuContainer.innerHTML = ''; 
-
-            const title = document.createElement('h2');
-            title.className = 'category-title';
-            title.innerText = data.category;
-            menuContainer.appendChild(title);
-
-            if (data.note) {
-                const note = document.createElement('p');
-                note.className = 'category-note';
-                note.innerText = data.note;
-                menuContainer.appendChild(note);
-            }
-
-            const grid = document.createElement('div');
-            grid.className = 'menu-grid';
-
-            data.items.forEach((item, i) => {
-                const card = document.createElement('div');
-                card.className = 'menu-card';
-                card.style.animation = `fadeUp 0.6s ease ${0.1 * i}s forwards`;
-
-                card.innerHTML = `
-                    <div>
-                        <div class="item-header">
-                            <div class="item-name">${item.name}</div>
-                            <div class="item-price">${item.price} FCFA</div>
-                        </div>
-                        <div class="item-desc">${item.desc}</div>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('${item.name.replace(/'/g, "\\'")}', '${item.price}')">
-                        Ajouter 🛒
-                    </button>
-                `;
-                grid.appendChild(card);
-            });
-
-            menuContainer.appendChild(grid);
-        }
-
-        renderCategory(0, navContainer.firstChild);
-
-        /* --- GESTION DU PANIER & WHATSAPP --- */
-        let cart = [];
-        const cartFab = document.getElementById('cartFab');
-        const cartSidebar = document.getElementById('cartSidebar');
-        const overlay = document.getElementById('overlay');
-        const closeCartBtn = document.getElementById('closeCart');
-
-        // Ouvrir/Fermer le panier
-        function toggleCart() {
-            cartSidebar.classList.toggle('open');
-            overlay.classList.toggle('show');
-        }
-        cartFab.addEventListener('click', toggleCart);
-        closeCartBtn.addEventListener('click', toggleCart);
-        overlay.addEventListener('click', toggleCart);
-
-        // Extraire un prix de base pour l'estimation (prend le premier nombre trouvé)
-        function extractBasePrice(priceStr) {
-            const match = priceStr.replace(/\./g, '').match(/\d+/);
-            return match ? parseInt(match[0], 10) : 0;
-        }
-
-        // Ajouter au panier
-        function addToCart(name, priceStr) {
-            const existing = cart.find(i => i.name === name);
-            if(existing) {
-                existing.qty++;
-            } else {
-                cart.push({ 
-                    name: name, 
-                    priceStr: priceStr, 
-                    basePrice: extractBasePrice(priceStr), 
-                    qty: 1 
-                });
-            }
-            updateCartUI();
-            showToast();
-        }
-
-        function updateQty(index, delta) {
-            cart[index].qty += delta;
-            if(cart[index].qty <= 0) cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            const countNode = document.getElementById('cartCount');
-            const itemsNode = document.getElementById('cartItems');
-            const totalNode = document.getElementById('cartTotalValue');
-            
-            // MAJ du compteur (pastille rouge)
-            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-            countNode.innerText = totalItems;
-            
-            // MAJ de la liste
-            itemsNode.innerHTML = '';
-            let totalEstimated = 0;
-
-            if(cart.length === 0) {
-                itemsNode.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 2rem;">Votre panier est vide.</p>';
-            }
-
-            cart.forEach((item, index) => {
-                totalEstimated += item.basePrice * item.qty;
-                
-                itemsNode.innerHTML += `
-                    <div class="cart-item">
-                        <div class="cart-item-info">
-                            <h4>${item.name}</h4>
-                            <p>${item.priceStr} FCFA</p>
-                        </div>
-                        <div class="cart-item-controls">
-                            <button class="qty-btn" onclick="updateQty(${index}, -1)">-</button>
-                            <span>${item.qty}</span>
-                            <button class="qty-btn" onclick="updateQty(${index}, 1)">+</button>
-                        </div>
-                    </div>
-                `;
-            });
-
-            // Formatage du total estimé avec des points (ex: 15.000)
-            totalNode.innerText = totalEstimated.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " FCFA";
-        }
-
-        function showToast() {
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2500);
-        }
-
-        // Envoi vers WhatsApp
-        function sendWhatsAppOrder() {
-            if(cart.length === 0) {
-                alert("Votre panier est vide !");
-                return;
-            }
-
-            let msg = "Bonjour EL PATRÓN, je souhaite passer une commande :\n\n";
-            let total = 0;
-
-            cart.forEach(item => {
-                msg += `▪ ${item.qty}x ${item.name} (${item.priceStr})\n`;
-                total += item.basePrice * item.qty;
-            });
-
-            msg += `\n*Total estimé : ${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} FCFA*\n\n`;
-            msg += "(Précisez ici vos choix de suppléments/formules si nécessaire)";
-
-            // Numéro fourni
-            const phone = "2250704400400"; 
-            const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-            
-            window.open(url, '_blank');
-        }
-
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
