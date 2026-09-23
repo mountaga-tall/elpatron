@@ -1,0 +1,15 @@
+const ICONS={
+  arrow:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>`,
+  plus:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>`,
+  menu:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>`,
+  close:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 6 12 12M18 6 6 18"/></svg>`,
+  bag:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 8h12l1 12H5L6 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>`,
+  search:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>`,
+  wa:`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.1 4.9A9.87 9.87 0 0 0 12.03 2C6.55 2 2.1 6.45 2.1 11.94c0 1.75.46 3.46 1.33 4.97L2 22l5.2-1.37a9.9 9.9 0 0 0 4.83 1.24h.01c5.48 0 9.93-4.46 9.93-9.93a9.87 9.87 0 0 0-2.87-7.04Zm-7.07 15.29h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.09.81.82-3.02-.2-.31a8.2 8.2 0 1 1 6.96 3.84Zm4.51-6.15c-.25-.12-1.48-.73-1.71-.81-.23-.08-.4-.12-.57.12-.17.25-.65.81-.79.98-.14.17-.29.19-.54.07-.25-.12-1.04-.38-1.98-1.2-.73-.65-1.23-1.45-1.38-1.69-.14-.25-.02-.38.11-.5.12-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.57-1.37-.78-1.88-.21-.5-.42-.43-.57-.44h-.49c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.02 2.57.12.17 1.75 2.68 4.24 3.75.59.26 1.05.42 1.41.53.59.19 1.13.16 1.56.1.47-.07 1.48-.61 1.69-1.2.21-.59.21-1.09.15-1.2-.06-.11-.23-.17-.48-.29Z"/></svg>`,
+  pin:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>`,
+  mail:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>`,
+  phone:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7.5 4.5 5 6c-.8.48-.94 1.58-.63 2.45 1.36 3.8 4.88 7.32 8.68 8.68.87.31 1.97.17 2.45-.63l1.5-2.5c.26-.44.19-1.01-.15-1.37l-1.97-1.97a1 1 0 0 0-1.2-.16l-1.65.82a10.5 10.5 0 0 1-3.43-3.43l.82-1.65a1 1 0 0 0-.16-1.2L8.87 4.65a1 1 0 0 0-1.37-.15Z"/></svg>`,
+  instagram:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".7" fill="currentColor" stroke="none"/></svg>`,
+  facebook:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 8h2V4h-2c-3.2 0-5 1.9-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9c0-.7.3-1 1-1Z"/></svg>`,
+  tiktok:`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.8 4c.35 1.9 1.4 3.2 3.2 3.45v2.8c-1.02-.02-2.1-.28-3.15-.83v5.7c0 4.15-4.55 6.14-7.6 4.18-3.02-1.94-2.57-6.56.77-8.02.75-.33 1.6-.47 2.43-.35v2.87c-.82-.28-1.66-.1-2.14.42-.98 1.04-.57 2.73.76 3.19 1.34.46 2.84-.47 2.84-1.88V4h2.89Z"/></svg>`
+};
