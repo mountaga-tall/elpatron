@@ -608,3 +608,27 @@ body.menu-open{overflow:hidden;}
 .app-loader-wordmark{color:#171313;}
 .app-loader-line{background:rgba(23,19,19,.08);}
 .app-loader-text{color:#7a726e;}
+
+.choice-modal{position:fixed;inset:0;z-index:2500;display:grid;place-items:center;padding:18px;}
+.choice-modal[hidden]{display:none;}
+.choice-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.68);backdrop-filter:blur(7px);}
+.choice-panel{position:relative;width:min(560px,100%);max-height:min(88vh,720px);overflow:auto;border:1px solid var(--line);border-radius:24px;background:rgba(13,13,13,.97);box-shadow:0 30px 100px rgba(0,0,0,.55);padding:22px;}
+.choice-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:18px;}
+.choice-head h2{margin:7px 0 5px;font:600 clamp(2rem,5vw,3rem)/.95 "Cormorant Garamond",serif;}
+.choice-subtitle{margin:0;color:#9f9793;font-size:.78rem;line-height:1.5;}
+.choice-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}
+.choice-option{min-height:58px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 13px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.045);color:#d9d3d0;text-align:left;cursor:pointer;transition:.25s var(--ease);}
+.choice-option:hover,.choice-option.selected{border-color:rgba(209,31,26,.55);background:rgba(209,31,26,.12);color:#fff;transform:translateY(-1px);}
+.choice-option span{font-size:.82rem;font-weight:700;line-height:1.25;}
+.choice-option small{flex:0 0 auto;color:#8b8380;font-size:.66rem;font-weight:700;}
+.choice-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);}
+.choice-actions .btn{min-width:130px;}
+.cart-choice{color:#9b928e;}
+@media (max-width:600px){
+  .choice-modal{padding:10px;}
+  .choice-panel{padding:17px;border-radius:20px;max-height:92vh;}
+  .choice-options{grid-template-columns:1fr;}
+  .choice-option{min-height:52px;}
+  .choice-actions{position:sticky;bottom:-1px;background:rgba(13,13,13,.97);}
+  .choice-actions .btn{flex:1;min-width:0;}
+}

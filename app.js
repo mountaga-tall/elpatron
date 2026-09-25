@@ -10,14 +10,41 @@
   const totalPrice=c=>c.reduce((a,i)=>a+(Number(i.amount)||0)*(Number(i.qty)||0),0);
   function esc(s){return String(s??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]))}
   const escAttr=esc;
-  function cartKey(product,option){return product.id+'::'+(option?.label||'');}
-  function addToCart(product,option){
+  function cartKey(product,option,choice){return product.id+'::'+(option?.label||'')+'::'+(choice?.label||'');}
+  function addToCart(product,option,choice){
     const chosen=option||product.price?.[0];
     if(!chosen){showToast('Ce produit ne peut pas être ajouté au panier');return}
-    const cart=loadCart(),key=cartKey(product,chosen),idx=cart.findIndex(i=>i.key===key);
+    const cart=loadCart(),key=cartKey(product,chosen,choice),idx=cart.findIndex(i=>i.key===key);
     if(idx>-1)cart[idx].qty+=1;
-    else cart.push({key,id:product.id,name:product.name,label:chosen.label||'',amount:chosen.amount,qty:1});
+    else cart.push({key,id:product.id,name:product.name,label:chosen.label||'',amount:Number(chosen.amount)||0,choiceLabel:choice?.label||'',choiceAmount:Number(choice?.amount)||0,choiceKind:choice?.kind||'',qty:1});
     saveCart(cart);updateCartBadge();showToast(product.name+' ajouté au panier');
+  }
+  function choiceFor(product,chosen){
+    if(product?.flavorOptions?.length)return {title:'Choisissez le parfum',subtitle:'1 boule incluse · sélection obligatoire',options:product.flavorOptions,kind:'flavor'};
+    const labels=product?.accompanimentForLabels;
+    const needs=product?.requiresAccompaniment || (Array.isArray(labels)&&labels.includes(chosen?.label));
+    if(needs && product?.accompanimentOptions?.length)return {title:'Choisissez votre accompagnement',subtitle:'Accompagnement inclus · 0 FCFA',options:product.accompanimentOptions,kind:'accompaniment'};
+    return null;
+  }
+  function ensureChoiceModal(){
+    if($('.choice-modal'))return;
+    document.body.insertAdjacentHTML('beforeend',`<div class="choice-modal" hidden><div class="choice-backdrop" data-choice-close></div><section class="choice-panel" role="dialog" aria-modal="true" aria-labelledby="choice-title"><div class="choice-head"><div><div class="kicker">Personnalisez</div><h2 id="choice-title">Choisissez</h2><p class="choice-subtitle"></p></div><button type="button" class="icon-btn choice-close" data-choice-close aria-label="Fermer">${ICONS.close}</button></div><div class="choice-options"></div><div class="choice-actions"><button type="button" class="btn btn-glass" data-choice-close>Annuler</button><button type="button" class="btn btn-primary" data-choice-confirm>Confirmer</button></div></section></div>`);
+    const modal=$('.choice-modal');
+    const close=()=>{modal.hidden=true;modal.removeAttribute('data-kind')};
+    $$('[data-choice-close]',modal).forEach(b=>b.addEventListener('click',close));
+    modal.addEventListener('click',e=>{if(e.target.closest('[data-choice-option]')){const b=e.target.closest('[data-choice-option]');$$('[data-choice-option]',modal).forEach(x=>{x.classList.remove('selected');x.setAttribute('aria-pressed','false')});b.classList.add('selected');b.setAttribute('aria-pressed','true')}});
+    $('[data-choice-confirm]',modal).addEventListener('click',()=>{const choice=$('[data-choice-option].selected',modal);if(!choice){showToast('Veuillez choisir une option');return}const pending=modal._pending;if(pending){pending(choice.dataset.choiceLabel,Number(choice.dataset.choiceAmount)||0)}close()});
+    modal._close=close;
+  }
+  function openChoiceModal(product,chosen,config,done){
+    ensureChoiceModal();
+    const modal=$('.choice-modal'),options=Array.isArray(config?.options)?config.options:[];
+    $('.choice-title',modal)?.remove();
+    $('#choice-title').textContent=config.title;
+    $('.choice-subtitle',modal).textContent=config.subtitle||'';
+    $('.choice-options',modal).innerHTML=options.map((o,i)=>`<button type="button" class="choice-option ${i===0?'selected':''}" data-choice-option data-choice-label="${escAttr(o.label)}" data-choice-amount="${Number(o.amount)||0}" aria-pressed="${i===0?'true':'false'}"><span>${esc(o.label)}</span><small>${money(Number(o.amount)||0)}</small></button>`).join('');
+    modal._pending=(label,amount)=>done({label,amount,kind:config.kind||''});
+    modal.hidden=false;
   }
   function updateCartBadge(){
     const count=totalQty(loadCart());
@@ -27,7 +54,7 @@
   function renderCart(){
     const list=$('.cart-items');if(!list)return;
     const cart=loadCart();
-    list.innerHTML=cart.length?cart.map(i=>`<article class="cart-item"><div class="cart-item-row"><div><div class="cart-item-name">${esc(i.name)}</div><div class="cart-item-meta">${i.label?esc(i.label)+' · ':''}${money(i.amount)}</div></div><strong>${money(i.amount*i.qty)}</strong></div><div class="qty"><button type="button" data-cart-action="dec" data-key="${escAttr(i.key)}" aria-label="Retirer un article">−</button><b>${i.qty}</b><button type="button" data-cart-action="inc" data-key="${escAttr(i.key)}" aria-label="Ajouter un article">+</button><button type="button" class="cart-remove" data-cart-action="del" data-key="${escAttr(i.key)}" aria-label="Supprimer ${escAttr(i.name)}" title="Supprimer">${ICONS.trash}</button></div></article>`).join(''):`<div class="empty">Votre panier est vide.<br><small>Ajoutez une spécialité El Patrón pour commencer.</small></div>`;
+    list.innerHTML=cart.length?cart.map(i=>`<article class="cart-item"><div class="cart-item-row"><div><div class="cart-item-name">${esc(i.name)}</div><div class="cart-item-meta">${i.label?esc(i.label)+' · ':''}${money(i.amount)}${i.choiceLabel?`<br><span class="cart-choice">${i.choiceKind==='accompaniment'?'Accompagnement : ':'Parfum : '}${esc(i.choiceLabel)}${i.choiceKind==='accompaniment'?` · ${money(i.choiceAmount||0)}`:''}</span>`:''}</div></div><strong>${money(i.amount*i.qty)}</strong></div><div class="qty"><button type="button" data-cart-action="dec" data-key="${escAttr(i.key)}" aria-label="Retirer un article">−</button><b>${i.qty}</b><button type="button" data-cart-action="inc" data-key="${escAttr(i.key)}" aria-label="Ajouter un article">+</button><button type="button" class="cart-remove" data-cart-action="del" data-key="${escAttr(i.key)}" aria-label="Supprimer ${escAttr(i.name)}" title="Supprimer">${ICONS.trash}</button></div></article>`).join(''):`<div class="empty">Votre panier est vide.<br><small>Ajoutez une spécialité El Patrón pour commencer.</small></div>`;
     const total=totalPrice(cart);
     $$('.cart-total').forEach(e=>e.textContent=money(total));
     $$('.cart-count-text').forEach(e=>e.textContent=totalQty(cart));
@@ -39,7 +66,9 @@
     const cart=loadCart();
     if(!cart.length){showToast('Votre panier est vide');return}
     let msg='Bonjour EL PATRÓN,\n\nJe souhaite commander :\n';
-    cart.forEach(i=>msg+=`- ${i.name}${i.label?' ('+i.label+')':''} × ${i.qty} = ${money(i.amount*i.qty)}\n`);
+    cart.forEach(i=>{
+      msg+=`- ${i.name}${i.label?' ('+i.label+')':''}${i.choiceLabel?(i.choiceKind==='accompaniment'?' — Accompagnement : '+i.choiceLabel+' = '+money(i.choiceAmount||0):' — Parfum : '+i.choiceLabel):''} × ${i.qty} = ${money(i.amount*i.qty)}\n`;
+    });
     msg+=`\nTotal : ${money(totalPrice(cart))}\n\nMerci.`;
     const phone=window.EL_PATRON_SITE?.phoneRaw;
     if(phone)location.href='https://wa.me/'+phone+'?text='+encodeURIComponent(msg);
@@ -81,8 +110,10 @@
   function productCard(p,idx,categoryTitle,categorySlug){
     if(p.noteOnly)return `<article class="product-note reveal"><div class="product-note-kicker">${esc(categoryTitle)}</div><div class="product-note-title">${esc(p.name)}</div><p>${esc(p.desc)}</p></article>`;
     const options=p.price||[],hasPrice=options.length>0;
-    const priceMarkup=options.length?money(options[0].amount):'Sur demande';
-    const optionsMarkup=options.length>1?`<div class="option-list">${options.map((o,i)=>`<button type="button" class="option-pill ${i===0?'selected':''}" data-option-index="${i}" aria-pressed="${i===0?'true':'false'}">${esc(o.label)} · ${money(o.amount)}</button>`).join('')}</div>`:'';
+    const defaultIndex=Math.max(0, options.findIndex(o=>o.label===p.defaultOptionLabel));
+    const displayIndex=defaultIndex<0?0:defaultIndex;
+    const priceMarkup=options.length?money(options[displayIndex]?.amount):'Sur demande';
+    const optionsMarkup=options.length>1?`<div class="option-list">${options.map((o,i)=>`<button type="button" class="option-pill ${i===displayIndex?'selected':''}" data-option-index="${i}" aria-pressed="${i===displayIndex?'true':'false'}">${esc(o.label)} · ${money(o.amount)}</button>`).join('')}</div>`:'';
     const productImages=Array.isArray(p.images)?p.images.filter(Boolean).slice(0,2):[];
     const imageMarkup=productImages.length?`<div class="product-images" aria-label="Images de ${escAttr(p.name)}">${productImages.map((src,i)=>`<img src="${escAttr(src)}" alt="${escAttr(p.name)} — image ${i+1}" loading="lazy" decoding="async" onerror="this.hidden=true;const p=this.parentElement;if(p&&!p.querySelector('img:not([hidden])'))p.hidden=true">`).join('')}</div>`:'';
     const addButton=hasPrice?`<button type="button" class="add-btn" data-add="true" aria-label="Ajouter ${escAttr(p.name)} au panier">${ICONS.plus}</button>`:'';
@@ -91,9 +122,10 @@
   function bindProductButtons(scope,items){
     $$('.product-card',scope).forEach(card=>{
       const p=items.find(x=>x.id===card.dataset.productId);if(!p)return;
-      let selected=0;
+      let selected=Math.max(0,p.price?.findIndex(o=>o.label===p.defaultOptionLabel));
+      if(!Number.isFinite(selected)||selected<0)selected=0;
       $$('.option-pill',card).forEach((b,i)=>b.addEventListener('click',()=>{selected=i;$$('.option-pill',card).forEach(x=>{x.classList.remove('selected');x.setAttribute('aria-pressed','false')});b.classList.add('selected');b.setAttribute('aria-pressed','true');const price=$('[data-price]',card);if(price)price.innerHTML=money(p.price[i].amount)+'<small>'+esc(p.price[i].label)+'</small>'}));
-      $('[data-add]',card)?.addEventListener('click',()=>addToCart(p,p.price[selected]));
+      $('[data-add]',card)?.addEventListener('click',()=>{const chosen=p.price[selected];const config=choiceFor(p,chosen);if(config)openChoiceModal(p,chosen,config,choice=>addToCart(p,chosen,choice));else addToCart(p,chosen)});
     });
   }
   function renderPageMeta(){
@@ -160,7 +192,7 @@
   }
   function renderFullCart(){
     const host=$('.full-cart-list');if(!host)return;
-    function draw(){const c=loadCart();host.innerHTML=c.length?c.map(i=>`<article class="cart-item"><div class="cart-item-row"><div><div class="cart-item-name">${esc(i.name)}</div><div class="cart-item-meta">${i.label?esc(i.label)+' · ':''}${money(i.amount)}</div></div><strong>${money(i.amount*i.qty)}</strong></div><div class="qty"><button type="button" data-cart-action="dec" data-key="${escAttr(i.key)}" aria-label="Retirer un article">−</button><b>${i.qty}</b><button type="button" data-cart-action="inc" data-key="${escAttr(i.key)}" aria-label="Ajouter un article">+</button><button type="button" class="cart-remove" data-cart-action="del" data-key="${escAttr(i.key)}" aria-label="Supprimer ${escAttr(i.name)}" title="Supprimer">${ICONS.trash}</button></div></article>`).join(''):`<div class="empty">Votre panier est vide.</div>`;const total=$('.full-total');if(total)total.textContent=money(totalPrice(c))}
+    function draw(){const c=loadCart();host.innerHTML=c.length?c.map(i=>`<article class="cart-item"><div class="cart-item-row"><div><div class="cart-item-name">${esc(i.name)}</div><div class="cart-item-meta">${i.label?esc(i.label)+' · ':''}${money(i.amount)}${i.choiceLabel?`<br><span class="cart-choice">${i.choiceKind==='accompaniment'?'Accompagnement : ':'Parfum : '}${esc(i.choiceLabel)}${i.choiceKind==='accompaniment'?` · ${money(i.choiceAmount||0)}`:''}</span>`:''}</div></div><strong>${money(i.amount*i.qty)}</strong></div><div class="qty"><button type="button" data-cart-action="dec" data-key="${escAttr(i.key)}" aria-label="Retirer un article">−</button><b>${i.qty}</b><button type="button" data-cart-action="inc" data-key="${escAttr(i.key)}" aria-label="Ajouter un article">+</button><button type="button" class="cart-remove" data-cart-action="del" data-key="${escAttr(i.key)}" aria-label="Supprimer ${escAttr(i.name)}" title="Supprimer">${ICONS.trash}</button></div></article>`).join(''):`<div class="empty">Votre panier est vide.</div>`;const total=$('.full-total');if(total)total.textContent=money(totalPrice(c))}
     draw();window.renderFullCart=draw;
   }
   function observeReveals(root=document){
@@ -189,6 +221,6 @@
   }
   document.addEventListener('DOMContentLoaded',()=>{
     if(!window.EL_PATRON_MENU||!window.EL_PATRON_CATEGORIES||!window.EL_PATRON_SITE){document.body.classList.add('site-error');return}
-    globalErrorGuard();renderHeader();renderFooter();setupCart();renderPageMeta();renderHome();observeReveals();bindTilts();setupGlobalMotion();renderFullCart();
+    globalErrorGuard();renderHeader();ensureChoiceModal();renderFooter();setupCart();renderPageMeta();renderHome();observeReveals();bindTilts();setupGlobalMotion();renderFullCart();
   });
 })();
