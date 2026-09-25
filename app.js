@@ -1,5 +1,14 @@
 (function(){
+  'use strict';
   const KEY='elpatronCartV1';
+  const FREE_ACCOMPANIMENT_IDS=new Set([
+    'plats-1','plats-2','plats-3','plats-4','plats-5','plats-6','plats-7','plats-8','plats-9','plats-10','plats-11','plats-12','plats-13','plats-14','plats-15',
+    'grill-1','grill-2','grill-3','grill-4','grill-5','grill-6',
+    'poulet-1','poulet-2','poulet-3','poulet-4','poulet-5'
+  ]);
+  const ACCOMPANIMENTS=['Alloco','Attiéké','Frites','Purée de pommes de terre','Pommes de terre sautées','Riz nature','Riz curry','Riz sauce tomate'];
+  const ICE_FLAVORS=['Vanille','Américain','Fraise','Malaga','Café','Menthe Chocolat','Chocolat Noir','Plombière','Yaourt Fraise'];
+  const ICE_PATTERN=/\bboules?\s+de\s+glace\b/i;
   const $=(s,r=document)=>r.querySelector(s);
   const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
   const money=n=>new Intl.NumberFormat('fr-FR').format(Number(n)||0)+' FCFA';
@@ -10,51 +19,65 @@
   const totalPrice=c=>c.reduce((a,i)=>a+(Number(i.amount)||0)*(Number(i.qty)||0),0);
   function esc(s){return String(s??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]))}
   const escAttr=esc;
-  function cartKey(product,option,choice){return product.id+'::'+(option?.label||'')+'::'+(choice?.label||'');}
-  function addToCart(product,option,choice){
+  function hasIceChoice(p,categorySlug){
+    if(categorySlug!=='desserts')return false;
+    const text=`${p.name||''} ${p.desc||''}`;
+    if(/milkshake/i.test(text))return false;
+    return ICE_PATTERN.test(text);
+  }
+  function needsAccompaniment(p){return FREE_ACCOMPANIMENT_IDS.has(p.id)}
+  function cartKey(product,option,meta={}){
+    return JSON.stringify([product.id,option?.label||'',Number(option?.amount)||0,meta.accompaniment||'',meta.iceFlavor||'']);
+  }
+  function optionSummary(option,meta={}){
+    const parts=[];
+    if(option?.label)parts.push(option.label);
+    if(meta.accompaniment)parts.push(`Accompagnement : ${meta.accompaniment}`);
+    if(meta.iceFlavor)parts.push(`Parfum : ${meta.iceFlavor}`);
+    return parts.join(' · ');
+  }
+  function addToCart(product,option,meta={}){
     const chosen=option||product.price?.[0];
     if(!chosen){showToast('Ce produit ne peut pas être ajouté au panier');return}
-    const cart=loadCart(),key=cartKey(product,chosen,choice),idx=cart.findIndex(i=>i.key===key);
-    if(idx>-1)cart[idx].qty+=1;
-    else cart.push({key,id:product.id,name:product.name,label:chosen.label||'',amount:Number(chosen.amount)||0,choiceLabel:choice?.label||'',choiceAmount:Number(choice?.amount)||0,choiceKind:choice?.kind||'',qty:1});
+    const normalizedMeta={
+      accompaniment:meta.accompaniment||'',
+      iceFlavor:meta.iceFlavor||''
+    };
+    const cart=loadCart();
+    const key=cartKey(product,chosen,normalizedMeta);
+    const idx=cart.findIndex(i=>i.key===key);
+    if(idx>-1)cart[idx].qty=(Number(cart[idx].qty)||0)+1;
+    else cart.push({
+      key,
+      id:product.id,
+      name:product.name,
+      label:optionSummary(chosen,normalizedMeta),
+      variant:chosen.label||'',
+      accompaniment:normalizedMeta.accompaniment,
+      iceFlavor:normalizedMeta.iceFlavor,
+      amount:Number(chosen.amount)||0,
+      qty:1
+    });
     saveCart(cart);updateCartBadge();showToast(product.name+' ajouté au panier');
-  }
-  function choiceFor(product,chosen){
-    if(product?.flavorOptions?.length)return {title:'Choisissez le parfum',subtitle:'1 boule incluse · sélection obligatoire',options:product.flavorOptions,kind:'flavor'};
-    const labels=product?.accompanimentForLabels;
-    const needs=product?.requiresAccompaniment || (Array.isArray(labels)&&labels.includes(chosen?.label));
-    if(needs && product?.accompanimentOptions?.length)return {title:'Choisissez votre accompagnement',subtitle:'Accompagnement inclus · 0 FCFA',options:product.accompanimentOptions,kind:'accompaniment'};
-    return null;
-  }
-  function ensureChoiceModal(){
-    if($('.choice-modal'))return;
-    document.body.insertAdjacentHTML('beforeend',`<div class="choice-modal" hidden><div class="choice-backdrop" data-choice-close></div><section class="choice-panel" role="dialog" aria-modal="true" aria-labelledby="choice-title"><div class="choice-head"><div><div class="kicker">Personnalisez</div><h2 id="choice-title">Choisissez</h2><p class="choice-subtitle"></p></div><button type="button" class="icon-btn choice-close" data-choice-close aria-label="Fermer">${ICONS.close}</button></div><div class="choice-options"></div><div class="choice-actions"><button type="button" class="btn btn-glass" data-choice-close>Annuler</button><button type="button" class="btn btn-primary" data-choice-confirm>Confirmer</button></div></section></div>`);
-    const modal=$('.choice-modal');
-    const close=()=>{modal.hidden=true;modal.removeAttribute('data-kind')};
-    $$('[data-choice-close]',modal).forEach(b=>b.addEventListener('click',close));
-    modal.addEventListener('click',e=>{if(e.target.closest('[data-choice-option]')){const b=e.target.closest('[data-choice-option]');$$('[data-choice-option]',modal).forEach(x=>{x.classList.remove('selected');x.setAttribute('aria-pressed','false')});b.classList.add('selected');b.setAttribute('aria-pressed','true')}});
-    $('[data-choice-confirm]',modal).addEventListener('click',()=>{const choice=$('[data-choice-option].selected',modal);if(!choice){showToast('Veuillez choisir une option');return}const pending=modal._pending;if(pending){pending(choice.dataset.choiceLabel,Number(choice.dataset.choiceAmount)||0)}close()});
-    modal._close=close;
-  }
-  function openChoiceModal(product,chosen,config,done){
-    ensureChoiceModal();
-    const modal=$('.choice-modal'),options=Array.isArray(config?.options)?config.options:[];
-    $('.choice-title',modal)?.remove();
-    $('#choice-title').textContent=config.title;
-    $('.choice-subtitle',modal).textContent=config.subtitle||'';
-    $('.choice-options',modal).innerHTML=options.map((o,i)=>`<button type="button" class="choice-option ${i===0?'selected':''}" data-choice-option data-choice-label="${escAttr(o.label)}" data-choice-amount="${Number(o.amount)||0}" aria-pressed="${i===0?'true':'false'}"><span>${esc(o.label)}</span><small>${money(Number(o.amount)||0)}</small></button>`).join('');
-    modal._pending=(label,amount)=>done({label,amount,kind:config.kind||''});
-    modal.hidden=false;
   }
   function updateCartBadge(){
     const count=totalQty(loadCart());
     $$('.cart-badge').forEach(b=>{b.textContent=count;b.hidden=count===0});
     $$('.cart-count-text').forEach(e=>e.textContent=count);
   }
+  function cartMeta(i){
+    if(i.accompaniment||i.iceFlavor){
+      return [i.variant||'',i.accompaniment?`Accompagnement : ${i.accompaniment}`:'',i.iceFlavor?`Parfum : ${i.iceFlavor}`:''].filter(Boolean).join(' · ');
+    }
+    return i.label||'';
+  }
+  function cartLine(i){
+    return `<article class="cart-item"><div class="cart-item-row"><div><div class="cart-item-name">${esc(i.name)}</div><div class="cart-item-meta">${cartMeta(i)?esc(cartMeta(i))+' · ':''}${money(i.amount)}</div></div><strong>${money(i.amount*i.qty)}</strong></div><div class="qty"><button type="button" data-cart-action="dec" data-key="${escAttr(i.key)}" aria-label="Retirer un article">−</button><b>${i.qty}</b><button type="button" data-cart-action="inc" data-key="${escAttr(i.key)}" aria-label="Ajouter un article">+</button><button type="button" class="cart-remove" data-cart-action="del" data-key="${escAttr(i.key)}" aria-label="Supprimer ${escAttr(i.name)}" title="Supprimer">${ICONS.trash}</button></div></article>`;
+  }
   function renderCart(){
     const list=$('.cart-items');if(!list)return;
     const cart=loadCart();
-    list.innerHTML=cart.length?cart.map(i=>`<article class="cart-item"><div class="cart-item-row"><div><div class="cart-item-name">${esc(i.name)}</div><div class="cart-item-meta">${i.label?esc(i.label)+' · ':''}${money(i.amount)}${i.choiceLabel?`<br><span class="cart-choice">${i.choiceKind==='accompaniment'?'Accompagnement : ':'Parfum : '}${esc(i.choiceLabel)}${i.choiceKind==='accompaniment'?` · ${money(i.choiceAmount||0)}`:''}</span>`:''}</div></div><strong>${money(i.amount*i.qty)}</strong></div><div class="qty"><button type="button" data-cart-action="dec" data-key="${escAttr(i.key)}" aria-label="Retirer un article">−</button><b>${i.qty}</b><button type="button" data-cart-action="inc" data-key="${escAttr(i.key)}" aria-label="Ajouter un article">+</button><button type="button" class="cart-remove" data-cart-action="del" data-key="${escAttr(i.key)}" aria-label="Supprimer ${escAttr(i.name)}" title="Supprimer">${ICONS.trash}</button></div></article>`).join(''):`<div class="empty">Votre panier est vide.<br><small>Ajoutez une spécialité El Patrón pour commencer.</small></div>`;
+    list.innerHTML=cart.length?cart.map(cartLine).join(''):`<div class="empty">Votre panier est vide.<br><small>Ajoutez une spécialité El Patrón pour commencer.</small></div>`;
     const total=totalPrice(cart);
     $$('.cart-total').forEach(e=>e.textContent=money(total));
     $$('.cart-count-text').forEach(e=>e.textContent=totalQty(cart));
@@ -67,7 +90,8 @@
     if(!cart.length){showToast('Votre panier est vide');return}
     let msg='Bonjour EL PATRÓN,\n\nJe souhaite commander :\n';
     cart.forEach(i=>{
-      msg+=`- ${i.name}${i.label?' ('+i.label+')':''}${i.choiceLabel?(i.choiceKind==='accompaniment'?' — Accompagnement : '+i.choiceLabel+' = '+money(i.choiceAmount||0):' — Parfum : '+i.choiceLabel):''} × ${i.qty} = ${money(i.amount*i.qty)}\n`;
+      const meta=cartMeta(i);
+      msg+=`- ${i.name}${meta?' ('+meta+')':''} × ${i.qty} = ${money(i.amount*i.qty)}\n`;
     });
     msg+=`\nTotal : ${money(totalPrice(cart))}\n\nMerci.`;
     const phone=window.EL_PATRON_SITE?.phoneRaw;
@@ -76,12 +100,18 @@
   function setupCart(){
     $$('.open-cart').forEach(b=>b.addEventListener('click',openCart));
     $$('.close-cart,.cart-backdrop').forEach(b=>b.addEventListener('click',closeCart));
-    document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCart();window.closeMobile?.()}});
+    document.addEventListener('keydown',e=>{
+      if(e.key==='Escape'){
+        closeCart();
+        closeProductOptions();
+        window.closeMobile?.();
+      }
+    });
     document.addEventListener('click',e=>{
       const a=e.target.closest('[data-cart-action]');if(!a)return;
       const key=a.dataset.key,cart=loadCart(),idx=cart.findIndex(i=>i.key===key);if(idx<0)return;
-      if(a.dataset.cartAction==='inc')cart[idx].qty+=1;
-      if(a.dataset.cartAction==='dec'){cart[idx].qty-=1;if(cart[idx].qty<=0)cart.splice(idx,1)}
+      if(a.dataset.cartAction==='inc')cart[idx].qty=(Number(cart[idx].qty)||0)+1;
+      if(a.dataset.cartAction==='dec'){cart[idx].qty=(Number(cart[idx].qty)||0)-1;if(cart[idx].qty<=0)cart.splice(idx,1)}
       if(a.dataset.cartAction==='del')cart.splice(idx,1);
       saveCart(cart);renderCart();updateCartBadge();
       if(location.pathname.endsWith('/panier.html'))renderFullCart();
@@ -96,7 +126,7 @@
     const root=$('[data-shell]');if(!root)return;
     const cats=window.EL_PATRON_CATEGORIES||[],navCats=cats.slice(0,8),base=root.dataset.base||'';
     root.insertAdjacentHTML('afterbegin',`<header class="site-header"><div class="header-inner"><a class="brand" href="${root.dataset.home||'index.html'}" aria-label="El Patrón — accueil"><img src="${root.dataset.logo||'images/logo.png'}" alt="El Patrón"><div class="brand-text"><div class="brand-title">EL PATRÓN</div><div class="brand-sub">Restaurant · Bar · Café</div></div></a><nav class="desktop-nav" aria-label="Navigation principale"><a href="${root.dataset.home||'index.html'}">Accueil</a>${navCats.map(c=>`<a href="${base}pages/${c.slug}.html">${esc(c.title)}</a>`).join('')}</nav>${searchMarkup(base)}<div class="header-actions"><button type="button" class="icon-btn open-cart" aria-label="Ouvrir le panier">${ICONS.bag}<span class="cart-badge" hidden>0</span></button><button type="button" class="icon-btn red menu-toggle" aria-label="Ouvrir le menu">${ICONS.menu}</button></div></div></header><div class="mobile-menu" aria-hidden="true"><div class="mobile-menu-head"><a class="brand" href="${root.dataset.home||'index.html'}"><img src="${root.dataset.logo||'images/logo.png'}" alt="El Patrón"><div class="brand-text"><div class="brand-title">EL PATRÓN</div><div class="brand-sub">Restaurant · Bar · Café</div></div></a><button type="button" class="icon-btn close-mobile" aria-label="Fermer le menu">${ICONS.close}</button></div><div class="mobile-search-wrap">${searchMarkup(base)}</div><nav class="mobile-links" aria-label="Menu mobile"><a href="${root.dataset.home||'index.html'}">Accueil</a>${cats.map(c=>`<a href="${base}pages/${c.slug}.html">${esc(c.title)}</a>`).join('')}<a href="${base}pages/panier.html">Panier <span class="cart-count-text">0</span></a><a href="${base}pages/contact.html">Contact</a></nav></div>`);
-    document.body.insertAdjacentHTML('beforeend',`<div class="cart-drawer"><div class="cart-backdrop"></div><aside class="cart-panel" aria-label="Panier"><div class="cart-head"><h2>Votre panier</h2><button type="button" class="icon-btn close-cart" aria-label="Fermer le panier">${ICONS.close}</button></div><div class="cart-items"></div><div class="cart-bottom"><div class="total-row"><span>Total</span><span class="cart-total">0 FCFA</span></div><div class="cart-actions"><button type="button" class="btn btn-primary order-whatsapp">${ICONS.wa}<span>Commander sur WhatsApp</span></button><a class="btn btn-glass" href="${base}pages/panier.html">Voir le panier</a></div></div></aside></div><div class="toast" role="status" aria-live="polite"></div><a class="floating-whatsapp" target="_blank" rel="noopener" href="https://wa.me/${window.EL_PATRON_SITE?.phoneRaw||''}" aria-label="Contacter El Patrón sur WhatsApp"><span class="wa-dot">${ICONS.wa}</span><span class="wa-label">WhatsApp</span></a>`);
+    document.body.insertAdjacentHTML('beforeend',`<div class="cart-drawer"><div class="cart-backdrop"></div><aside class="cart-panel" aria-label="Panier"><div class="cart-head"><h2>Votre panier</h2><button type="button" class="icon-btn close-cart" aria-label="Fermer le panier">${ICONS.close}</button></div><div class="cart-items"></div><div class="cart-bottom"><div class="total-row"><span>Total</span><span class="cart-total">0 FCFA</span></div><div class="cart-actions"><button type="button" class="btn btn-primary order-whatsapp">${ICONS.wa}<span>Commander sur WhatsApp</span></button><a class="btn btn-glass" href="${base}pages/panier.html">Voir le panier</a></div></div></aside></div><div class="product-options-modal" hidden><div class="product-options-backdrop" data-options-close></div><section class="product-options-panel" role="dialog" aria-modal="true" aria-labelledby="options-title"><button type="button" class="icon-btn product-options-close" data-options-close aria-label="Fermer">${ICONS.close}</button><div class="kicker">Personnalisez votre choix</div><h2 id="options-title">Options</h2><p class="product-options-product" data-options-product></p><form class="product-options-form"><div class="product-option-group" data-accompaniment-group hidden><div class="product-option-label">Choisissez votre accompagnement <span>0 F</span></div><div class="product-option-grid" data-accompaniment-list></div></div><div class="product-option-group" data-ice-group hidden><div class="product-option-label">Choisissez votre parfum de glace <span>Inclus</span></div><div class="product-option-grid" data-ice-list></div></div><div class="product-options-actions"><button type="button" class="btn btn-glass" data-options-close>Annuler</button><button type="submit" class="btn btn-primary">Ajouter au panier</button></div></form></section></div><div class="toast" role="status" aria-live="polite"></div><a class="floating-whatsapp" target="_blank" rel="noopener" href="https://wa.me/${window.EL_PATRON_SITE?.phoneRaw||''}" aria-label="Contacter El Patrón sur WhatsApp"><span class="wa-dot">${ICONS.wa}</span><span class="wa-label">WhatsApp</span></a>`);
     $$('.site-search [name="q"]').forEach(input=>input.value=new URLSearchParams(location.search).get('q')||'');
     $$('[data-global-search-form]').forEach(form=>form.addEventListener('submit',e=>{e.preventDefault();const q=new FormData(form).get('q')?.toString().trim()||'';const home=root.dataset.home||'index.html';location.href=home+(q?'?q='+encodeURIComponent(q):'')+'#recherche'}));
     const menu=$('.mobile-menu'),toggle=$('.menu-toggle');
@@ -106,26 +136,88 @@
     window.closeMobile=closeMobile;
     const here=location.pathname.split('/').pop()||'index.html';
     $$('.desktop-nav a').forEach(a=>{const href=a.getAttribute('href');if(href&&href.endsWith(here))a.classList.add('active')});
+    setupProductOptions();
+  }
+  function setupProductOptions(){
+    const modal=$('.product-options-modal');
+    if(!modal||modal.dataset.ready==='true')return;
+    modal.dataset.ready='true';
+    const form=$('.product-options-form',modal);
+    const productName=$('[data-options-product]',modal);
+    const accompGroup=$('[data-accompaniment-group]',modal);
+    const accompList=$('[data-accompaniment-list]',modal);
+    const iceGroup=$('[data-ice-group]',modal);
+    const iceList=$('[data-ice-list]',modal);
+    let state=null;
+    let closeTimer=0;
+    function buildButtons(list,values,name){
+      list.innerHTML=values.map((value,i)=>`<button type="button" class="modal-choice ${i===0?'selected':''}" data-choice-name="${escAttr(name)}" data-choice-value="${escAttr(value)}" aria-pressed="${i===0?'true':'false'}">${esc(value)}</button>`).join('');
+    }
+    function open(product,option,categorySlug){
+      clearTimeout(closeTimer);
+      const hasAcc=needsAccompaniment(product),hasIce=hasIceChoice(product,categorySlug);
+      if(!hasAcc&&!hasIce){addToCart(product,option);return}
+      state={product,option,categorySlug,accompaniment:hasAcc?ACCOMPANIMENTS[0]:'',iceFlavor:hasIce?ICE_FLAVORS[0]:''};
+      productName.textContent=product.name;
+      accompGroup.hidden=!hasAcc;iceGroup.hidden=!hasIce;
+      if(hasAcc)buildButtons(accompList,ACCOMPANIMENTS,'accompaniment');else accompList.innerHTML='';
+      if(hasIce)buildButtons(iceList,ICE_FLAVORS,'iceFlavor');else iceList.innerHTML='';
+      modal.hidden=false;
+      requestAnimationFrame(()=>modal.classList.add('open'));
+      document.body.classList.add('options-open');
+      setTimeout(()=>$('.modal-choice',modal)?.focus(),50);
+    }
+    function close(){
+      if(modal.hidden)return;
+      modal.classList.remove('open');
+      document.body.classList.remove('options-open');
+      closeTimer=window.setTimeout(()=>{modal.hidden=true;state=null;closeTimer=0},260);
+    }
+    modal.addEventListener('click',e=>{
+      const choice=e.target.closest('.modal-choice');
+      if(choice){
+        const group=choice.closest('.product-option-group');
+        $$('.modal-choice',group).forEach(x=>{x.classList.remove('selected');x.setAttribute('aria-pressed','false')});
+        choice.classList.add('selected');choice.setAttribute('aria-pressed','true');
+        if(state)state[choice.dataset.choiceName]=choice.dataset.choiceValue;
+        return;
+      }
+      if(e.target.closest('[data-options-close]'))close();
+    });
+    form.addEventListener('submit',e=>{
+      e.preventDefault();
+      if(!state)return;
+      addToCart(state.product,state.option,{accompaniment:state.accompaniment,iceFlavor:state.iceFlavor});
+      close();
+    });
+    window.openProductOptions=open;
+    window.closeProductOptions=close;
   }
   function productCard(p,idx,categoryTitle,categorySlug){
     if(p.noteOnly)return `<article class="product-note reveal"><div class="product-note-kicker">${esc(categoryTitle)}</div><div class="product-note-title">${esc(p.name)}</div><p>${esc(p.desc)}</p></article>`;
     const options=p.price||[],hasPrice=options.length>0;
-    const defaultIndex=Math.max(0, options.findIndex(o=>o.label===p.defaultOptionLabel));
-    const displayIndex=defaultIndex<0?0:defaultIndex;
-    const priceMarkup=options.length?money(options[displayIndex]?.amount):'Sur demande';
-    const optionsMarkup=options.length>1?`<div class="option-list">${options.map((o,i)=>`<button type="button" class="option-pill ${i===displayIndex?'selected':''}" data-option-index="${i}" aria-pressed="${i===displayIndex?'true':'false'}">${esc(o.label)} · ${money(o.amount)}</button>`).join('')}</div>`:'';
+    const priceMarkup=options.length?money(options[0].amount):'Sur demande';
+    const optionsMarkup=options.length>1?`<div class="option-list">${options.map((o,i)=>`<button type="button" class="option-pill ${i===0?'selected':''}" data-option-index="${i}" aria-pressed="${i===0?'true':'false'}">${esc(o.label)} · ${money(o.amount)}</button>`).join('')}</div>`:'';
     const productImages=Array.isArray(p.images)?p.images.filter(Boolean).slice(0,2):[];
     const imageMarkup=productImages.length?`<div class="product-images" aria-label="Images de ${escAttr(p.name)}">${productImages.map((src,i)=>`<img src="${escAttr(src)}" alt="${escAttr(p.name)} — image ${i+1}" loading="lazy" decoding="async" onerror="this.hidden=true;const p=this.parentElement;if(p&&!p.querySelector('img:not([hidden])'))p.hidden=true">`).join('')}</div>`:'';
     const addButton=hasPrice?`<button type="button" class="add-btn" data-add="true" aria-label="Ajouter ${escAttr(p.name)} au panier">${ICONS.plus}</button>`:'';
-    return `<article class="product-card reveal tilt" data-product-id="${escAttr(p.id)}">${imageMarkup}<div class="product-top"><div class="product-num">${String(idx+1).padStart(2,'0')} · EL PATRÓN</div>${p.sub?`<span class="sub-chip">${esc(p.sub)}</span>`:''}<div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||'Composition selon la recette El Patrón.')}</p>${p.note?`<div class="product-note-inline">${esc(p.note)}</div>`:''}${optionsMarkup}<div class="product-foot"><div class="price" data-price>${priceMarkup}<small>${options.length>1?esc(options[0].label||'Choisissez un format'):''}</small></div>${addButton}</div></div></article>`;
+    return `<article class="product-card reveal tilt" data-product-id="${escAttr(p.id)}" data-category-slug="${escAttr(categorySlug)}">${imageMarkup}<div class="product-top"><div class="product-num">${String(idx+1).padStart(2,'0')} · EL PATRÓN</div>${p.sub?`<span class="sub-chip">${esc(p.sub)}</span>`:''}<div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||'Composition selon la recette El Patrón.')}</p>${p.note?`<div class="product-note-inline">${esc(p.note)}</div>`:''}${optionsMarkup}<div class="product-foot"><div class="price" data-price>${priceMarkup}<small>${options.length>1?esc(options[0].label||'Choisissez un format'):''}</small></div>${addButton}</div></div></article>`;
   }
-  function bindProductButtons(scope,items){
+  function bindProductButtons(scope,items,categorySlug){
     $$('.product-card',scope).forEach(card=>{
       const p=items.find(x=>x.id===card.dataset.productId);if(!p)return;
-      let selected=Math.max(0,p.price?.findIndex(o=>o.label===p.defaultOptionLabel));
-      if(!Number.isFinite(selected)||selected<0)selected=0;
-      $$('.option-pill',card).forEach((b,i)=>b.addEventListener('click',()=>{selected=i;$$('.option-pill',card).forEach(x=>{x.classList.remove('selected');x.setAttribute('aria-pressed','false')});b.classList.add('selected');b.setAttribute('aria-pressed','true');const price=$('[data-price]',card);if(price)price.innerHTML=money(p.price[i].amount)+'<small>'+esc(p.price[i].label)+'</small>'}));
-      $('[data-add]',card)?.addEventListener('click',()=>{const chosen=p.price[selected];const config=choiceFor(p,chosen);if(config)openChoiceModal(p,chosen,config,choice=>addToCart(p,chosen,choice));else addToCart(p,chosen)});
+      let selected=0;
+      $$('.option-pill',card).forEach((b,i)=>b.addEventListener('click',()=>{
+        selected=i;
+        $$('.option-pill',card).forEach(x=>{x.classList.remove('selected');x.setAttribute('aria-pressed','false')});
+        b.classList.add('selected');b.setAttribute('aria-pressed','true');
+        const price=$('[data-price]',card);if(price)price.innerHTML=money(p.price[i].amount)+'<small>'+esc(p.price[i].label)+'</small>';
+      }));
+      $('[data-add]',card)?.addEventListener('click',()=>{
+        const option=p.price[selected]||p.price?.[0];
+        if(window.openProductOptions&&(needsAccompaniment(p)||hasIceChoice(p,categorySlug)))window.openProductOptions(p,option,categorySlug);
+        else addToCart(p,option);
+      });
     });
   }
   function renderPageMeta(){
@@ -146,7 +238,7 @@
       const products=visible.filter(p=>!p.noteOnly);
       count.textContent=`${products.length} ${products.length>1?'produits':'produit'}`;
       grid.innerHTML=visible.length?visible.map((p,idx)=>productCard(p,idx,cat.title,slug)).join(''):`<div class="empty">Aucun produit ne correspond à « ${esc(filter)} ».</div>`;
-      bindProductButtons(grid,items);observeReveals(grid);bindTilts(grid);
+      bindProductButtons(grid,items,slug);observeReveals(grid);bindTilts(grid);
     }
     search?.addEventListener('input',e=>draw(e.target.value));
     draw();
@@ -168,8 +260,7 @@
       observeReveals(host);
     }
     input.addEventListener('input',e=>draw(e.target.value));
-    if(q){draw(q);setTimeout(()=>document.querySelector('#recherche')?.scrollIntoView({behavior:'smooth',block:'start'}),80)}
-    else draw('');
+    if(q){draw(q);setTimeout(()=>document.querySelector('#recherche')?.scrollIntoView({behavior:'smooth',block:'start'}),80)}else draw('');
   }
   function renderHome(){
     const grid=$('.category-grid'),cats=window.EL_PATRON_CATEGORIES||[];
@@ -192,7 +283,11 @@
   }
   function renderFullCart(){
     const host=$('.full-cart-list');if(!host)return;
-    function draw(){const c=loadCart();host.innerHTML=c.length?c.map(i=>`<article class="cart-item"><div class="cart-item-row"><div><div class="cart-item-name">${esc(i.name)}</div><div class="cart-item-meta">${i.label?esc(i.label)+' · ':''}${money(i.amount)}${i.choiceLabel?`<br><span class="cart-choice">${i.choiceKind==='accompaniment'?'Accompagnement : ':'Parfum : '}${esc(i.choiceLabel)}${i.choiceKind==='accompaniment'?` · ${money(i.choiceAmount||0)}`:''}</span>`:''}</div></div><strong>${money(i.amount*i.qty)}</strong></div><div class="qty"><button type="button" data-cart-action="dec" data-key="${escAttr(i.key)}" aria-label="Retirer un article">−</button><b>${i.qty}</b><button type="button" data-cart-action="inc" data-key="${escAttr(i.key)}" aria-label="Ajouter un article">+</button><button type="button" class="cart-remove" data-cart-action="del" data-key="${escAttr(i.key)}" aria-label="Supprimer ${escAttr(i.name)}" title="Supprimer">${ICONS.trash}</button></div></article>`).join(''):`<div class="empty">Votre panier est vide.</div>`;const total=$('.full-total');if(total)total.textContent=money(totalPrice(c))}
+    function draw(){
+      const c=loadCart();
+      host.innerHTML=c.length?c.map(cartLine).join(''):`<div class="empty">Votre panier est vide.</div>`;
+      const total=$('.full-total');if(total)total.textContent=money(totalPrice(c));
+    }
     draw();window.renderFullCart=draw;
   }
   function observeReveals(root=document){
@@ -203,6 +298,8 @@
   function bindTilts(root=document){
     if(window.matchMedia('(prefers-reduced-motion: reduce)').matches || !window.matchMedia('(hover:hover) and (pointer:fine)').matches)return;
     $$('.tilt',root).forEach(card=>{
+      if(card.dataset.tiltReady==='true')return;
+      card.dataset.tiltReady='true';
       card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;card.style.transform=`perspective(900px) rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*7).toFixed(2)}deg) translateY(-5px)`});
       card.addEventListener('pointerleave',()=>card.style.transform='');
     });
@@ -211,16 +308,19 @@
     if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     window.addEventListener('pointermove',e=>{document.documentElement.style.setProperty('--mx',e.clientX+'px');document.documentElement.style.setProperty('--my',e.clientY+'px')},{passive:true});
     document.addEventListener('click',e=>{
-      const b=e.target.closest('.btn,.icon-btn,.add-btn,.option-pill');if(!b)return;
-      b.animate([{transform:'scale(1)'},{transform:'scale(.97)'},{transform:'scale(1)'}],{duration:220,easing:'ease-out'});
+      const b=e.target.closest('.btn,.icon-btn,.add-btn,.option-pill,.modal-choice');if(!b)return;
+      if(typeof b.animate==='function')b.animate([{transform:'scale(1)'},{transform:'scale(.97)'},{transform:'scale(1)'}],{duration:220,easing:'ease-out'});
     });
-    document.querySelectorAll('a[href]').forEach(a=>{const href=a.getAttribute('href');if(!href||href.startsWith('#')||/^(https?:|mailto:|tel:)/i.test(href))return;a.addEventListener('click',e=>{if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();document.body.classList.add('is-leaving');setTimeout(()=>location.href=href,330)})});
+    document.querySelectorAll('a[href]').forEach(a=>{
+      const href=a.getAttribute('href');if(!href||href.startsWith('#')||/^(https?:|mailto:|tel:)/i.test(href)||a.target==='_blank')return;
+      a.addEventListener('click',e=>{if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();document.body.classList.add('is-leaving');setTimeout(()=>location.href=href,330)});
+    });
   }
-  function globalErrorGuard(){
-    window.addEventListener('error',e=>{if(e.message&&/EL_PATRON|Cannot read properties|undefined/.test(e.message))console.error('EL PATRÓN:',e.message)});
-  }
+  function globalErrorGuard(){window.addEventListener('error',e=>{if(e.message&&/EL_PATRON|Cannot read properties|undefined/.test(e.message))console.error('EL PATRÓN:',e.message)});}
   document.addEventListener('DOMContentLoaded',()=>{
     if(!window.EL_PATRON_MENU||!window.EL_PATRON_CATEGORIES||!window.EL_PATRON_SITE){document.body.classList.add('site-error');return}
-    globalErrorGuard();renderHeader();ensureChoiceModal();renderFooter();setupCart();renderPageMeta();renderHome();observeReveals();bindTilts();setupGlobalMotion();renderFullCart();
+    try{
+      globalErrorGuard();renderHeader();renderFooter();setupCart();renderPageMeta();renderHome();observeReveals();bindTilts();setupGlobalMotion();renderFullCart();
+    }catch(error){console.error('EL PATRÓN init:',error);document.body.classList.remove('site-error');}
   });
 })();

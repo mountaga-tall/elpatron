@@ -30,21 +30,21 @@
 (() => {
   const loader = document.getElementById('app-loader');
   if (!loader) return;
-  const started = performance.now();
-  let done = false;
-  const hide = () => {
-    if (done) return;
-    done = true;
-    const wait = Math.max(0, 650 - (performance.now() - started));
-    setTimeout(() => {
-      loader.classList.add('is-hidden');
-      document.body.classList.remove('loader-active');
-      setTimeout(() => loader.remove(), 700);
-    }, wait);
+  let hidden = false;
+  const startedAt = performance.now();
+  const reveal = () => {
+    if (hidden) return;
+    hidden = true;
+    loader.classList.add('is-hidden');
+    document.body.classList.remove('loader-active');
+    window.setTimeout(() => loader.remove(), 450);
   };
-  if (document.readyState === 'complete') hide();
-  else window.addEventListener('load', hide, { once: true });
-  setTimeout(hide, 3500);
+  const waitForThreeSeconds = () => {
+    const remaining = Math.max(0, 3000 - (performance.now() - startedAt));
+    window.setTimeout(reveal, remaining);
+  };
+  // The loader never waits for images, fonts, or window.load: it always releases the site at 3 s.
+  waitForThreeSeconds();
 })();
 </script>
 </body>

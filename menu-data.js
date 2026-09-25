@@ -417,9 +417,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Poulet, frites, pâte à l'ail, cornichons.",
-      "id": "snack-1",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "snack-1"
     },
     {
       "name": "CHAWARMA VIANDE",
@@ -434,9 +432,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Viande, oignons persillés, tomates, cornichons, tarator.",
-      "id": "snack-2",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "snack-2"
     },
     {
       "name": "CHAWARMA MIX",
@@ -451,9 +447,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Poulet, viande, rosto, merguez, sojok, foie de poulet, foie de bœuf, boulettes de viande, gésier et petits pois.",
-      "id": "snack-3",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "snack-3"
     },
     {
       "name": "CHAWARMA BROCHETTE",
@@ -468,9 +462,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Filet de bœuf, kafta (viande hachée), shish taouk (escalope de poulet marinée) et agneau.",
-      "id": "snack-4",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "snack-4"
     },
     {
       "name": "SANDWICH CRISPY",
@@ -485,9 +477,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Blanc de poulet pané, frites, salade, tomate, cheddar et pâte à l’ail.",
-      "id": "snack-5",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "snack-5"
     },
     {
       "name": "SANDWICH FRANCISCO",
@@ -502,9 +492,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Poulet, mozzarella, mayonnaise, maïs, cornichons, laitue et sauce soja.",
-      "id": "snack-6",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "snack-6"
     },
     {
       "name": "SANDWICH CHICKEN SUB",
@@ -519,9 +507,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Poulet, mozzarella, sauce à l’ail, maïs doux, cornichon et laitue.",
-      "id": "snack-7",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "snack-7"
     },
     {
       "name": "SANDWICH FAHITA",
@@ -536,9 +522,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Poulet, poivrons, sauce à l’avocat, oignons, champignons, maïs, mozzarella et salade.",
-      "id": "snack-8",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "snack-8"
     },
     {
       "name": "SANDWICH PHILADELPHIA",
@@ -553,9 +537,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Viande de bœuf, poivrons, maïs, oignons, champignons, mayonnaise, mozzarella et salade.",
-      "id": "snack-9",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "snack-9"
     },
     {
       "name": "SANDWICH ZINGER",
@@ -570,9 +552,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Steak de blanc de poulet pané, cheddar, sauce BBQ, pâte à l'ail, salade.",
-      "id": "snack-10",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "snack-10"
     }
   ],
   "burgers": [
@@ -589,9 +569,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Steak de viande, cheddar, salade de chou, frites et ketchup.",
-      "id": "burgers-1",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "burgers-1"
     },
     {
       "name": "CHEESE BURGER",
@@ -606,9 +584,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Steak de viande, cheddar, mayonnaise, tomates, oignons frais et ketchup.",
-      "id": "burgers-2",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "burgers-2"
     },
     {
       "name": "EGG & CHEESE BURGER",
@@ -623,9 +599,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Steak de viande, cheddar, œuf, mayonnaise, tomates, oignons frais et ketchup.",
-      "id": "burgers-3",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "burgers-3"
     },
     {
       "name": "AMERICAN BURGER",
@@ -640,9 +614,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Steak de viande, cheddar, sauce cocktail, tomates, oignons cuits et salade.",
-      "id": "burgers-4",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "burgers-4"
     },
     {
       "name": "BBQ BURGER",
@@ -657,9 +629,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Viande, cheddar, sauce BBQ, tomates, oignons cuits et salade.",
-      "id": "burgers-5",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "burgers-5"
     },
     {
       "name": "ESCALOPE CHICKEN BURGER",
@@ -674,9 +644,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Blanc de poulet pané, ketchup, mayonnaise, salade de chou et frites.",
-      "id": "burgers-6",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "burgers-6"
     },
     {
       "name": "CHICKEN BURGER",
@@ -691,9 +659,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Steak de poulet, cheddar, sauce cocktail, tomates, oignons cuits et salade.",
-      "id": "burgers-7",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "burgers-7"
     },
     {
       "name": "CRISPY BURGER",
@@ -708,9 +674,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Blanc de poulet pané, sauce cocktail, cheddar, tomates et salade.",
-      "id": "burgers-8",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "burgers-8"
     },
     {
       "name": "CHICKEN MOZZA BURGER",
@@ -725,9 +689,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Steak de poulet, mozzarella panée, sauce cocktail, oignons et tomates cuits, salade.",
-      "id": "burgers-9",
-      "defaultOptionLabel": "Plat",
-      "note": "Format Plat : avec un plat de frites (+ 1 500 FCFA)."
+      "id": "burgers-9"
     },
     {
       "name": "PLAT DE FRITES",
@@ -891,42 +853,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Chawarma poulet, viande ou mix, accompagné de légumes, pâte à l’ail et pain libanais. Accompagnement au choix.",
-      "id": "plats-1",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "plats-1"
     },
     {
       "name": "PLAT CRISPY",
@@ -937,42 +864,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "6 languettes de blanc de poulet pané croustillant + portion de frites, salade de chou, pâte à l’ail, sauce cocktail et pain.",
-      "id": "plats-2",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "plats-2"
     },
     {
       "name": "ESCALOPE DE POULET",
@@ -983,42 +875,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Steak de blanc de poulet pané + portion de frites, salade de chou, pâte à l’ail, sauce cocktail et pain.",
-      "id": "plats-3",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "plats-3"
     },
     {
       "name": "STEAK AU POULET",
@@ -1029,42 +886,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Steak de poulet à la crème et aux champignons. Accompagnement au choix.",
-      "id": "plats-4",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "plats-4"
     },
     {
       "name": "STEAK AMÉRICAIN",
@@ -1075,42 +897,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Steak de bœuf, légumes sautés aux champignons. Accompagnement au choix.",
-      "id": "plats-5",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "plats-5"
     },
     {
       "name": "STEAK À LA CRÈME",
@@ -1121,42 +908,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Steak de bœuf à la crème et aux champignons. Accompagnement au choix.",
-      "id": "plats-6",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "plats-6"
     },
     {
       "name": "CHICKEN HAWAÏ",
@@ -1167,42 +919,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Blanc de poulet, crème fraîche et ananas. Accompagnement au choix.",
-      "id": "plats-7",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "plats-7"
     },
     {
       "name": "QUESADILLA POULET",
@@ -1213,42 +930,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Pain tortilla, poulet, poivrons, tomates, oignons, champignons, maïs, mozzarella, sauce cocktail + portion de frites.",
-      "id": "plats-8",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "plats-8"
     },
     {
       "name": "QUESADILLA VIANDE",
@@ -1259,42 +941,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Pain tortilla, viande, poivrons, tomates, oignons, champignons, maïs, mozzarella, sauce cocktail + portion de frites.",
-      "id": "plats-9",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "plats-9"
     },
     {
       "name": "FAHITAS AL FORNO",
@@ -1305,42 +952,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Blanc de poulet, poivrons, tomates, oignons, champignons, maïs, mozzarella au four. Accompagnés de pain tortilla + portion de frites.",
-      "id": "plats-10",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "plats-10"
     },
     {
       "name": "PHILADELPHIA AL FORNO",
@@ -1351,42 +963,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Viande de bœuf, poivrons, tomates, oignons, champignons, mozzarella au four, sauce cocktail, pain tortilla + frites.",
-      "id": "plats-11",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "plats-11"
     },
     {
       "name": "FAHITAS CREVETTES SAUTÉES",
@@ -1397,42 +974,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Crevettes, poivrons, tomates, oignons, champignons, maïs, sauce cocktail, pain tortilla + portion de frites.",
-      "id": "plats-12",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "plats-12"
     },
     {
       "name": "POISSON SOSSO BRAISÉ",
@@ -1443,42 +985,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Poisson sosso braisé avec des légumes sautés. Accompagnement au choix.",
-      "id": "plats-13",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "plats-13"
     },
     {
       "name": "POISSON CARPE BRAISÉE",
@@ -1489,42 +996,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Poisson carpe d’eau douce braisé avec des légumes sautés. Accompagnement au choix.",
-      "id": "plats-14",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "plats-14"
     },
     {
       "name": "RIZ CANTONAIS",
@@ -1535,42 +1007,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Riz cantonais aux crevettes ou au poulet, œuf, petits pois et carottes, oignons verts, accompagné de piment.",
-      "id": "plats-15",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "plats-15"
     }
   ],
   "grill": [
@@ -1583,42 +1020,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "12 ailes de poulet braisées, accompagnées de légumes, pâte à l’ail, piment et pain. Accompagnement au choix.",
-      "id": "grill-1",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "grill-1"
     },
     {
       "name": "BROCHETTES SHISH TAOUK",
@@ -1629,42 +1031,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "3 brochettes de poulet taouk, accompagnées de légumes, pâte à l’ail, piment et pain. Accompagnement au choix.",
-      "id": "grill-2",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "grill-2"
     },
     {
       "name": "BROCHETTES KAFTA",
@@ -1675,42 +1042,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "3 brochettes de viande kafta, accompagnées de légumes, pâte à l’ail, piment et pain. Accompagnement au choix.",
-      "id": "grill-3",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "grill-3"
     },
     {
       "name": "BROCHETTES DE FILET",
@@ -1721,42 +1053,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "3 brochettes de filet de bœuf, accompagnées de légumes, pâte à l’ail, piment et pain. Accompagnement au choix.",
-      "id": "grill-4",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "grill-4"
     },
     {
       "name": "BROCHETTES D'AGNEAU",
@@ -1767,42 +1064,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "3 brochettes d’agneau, accompagnées de légumes, pâte à l’ail, piment et pain. Accompagnement au choix.",
-      "id": "grill-5",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "grill-5"
     },
     {
       "name": "BROCHETTES MIX GRILL",
@@ -1813,42 +1075,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "1 brochette de taouk, 1 brochette de kafta, 1 brochette de filet, accompagnées de légumes, pâte à l’ail, piment et pain. Accompagnement au choix.",
-      "id": "grill-6",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "grill-6"
     }
   ],
   "poulet": [
@@ -1865,42 +1092,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Poulet au four accompagné de légumes, pâte à l’ail, piment et pain. Accompagnement au choix.",
-      "id": "poulet-1",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "poulet-1"
     },
     {
       "name": "POULET BRAISÉ",
@@ -1915,42 +1107,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Poulet braisé, accompagné de légumes, pâte à l’ail, piment et pain. Accompagnement au choix.",
-      "id": "poulet-2",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "poulet-2"
     },
     {
       "name": "POULET FRIT",
@@ -1965,42 +1122,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Poulet frit, accompagné de légumes, pâte à l’ail, piment et pain. Accompagnement au choix.",
-      "id": "poulet-3",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "poulet-3"
     },
     {
       "name": "POULET SAUTÉ",
@@ -2015,42 +1137,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Poulet braisé, rôti ou frit, sauté aux légumes, accompagné de légumes, pâte à l’ail, piment et pain. Accompagnement au choix.",
-      "id": "poulet-4",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "poulet-4"
     },
     {
       "name": "POULET PANÉ",
@@ -2065,42 +1152,7 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Poulet pané, accompagné de légumes, salade de chou, pâte à l’ail, piment et pain. Accompagnement au choix.",
-      "id": "poulet-5",
-      "requiresAccompaniment": true,
-      "accompanimentOptions": [
-        {
-          "label": "Alloco",
-          "amount": 0
-        },
-        {
-          "label": "Attiéké",
-          "amount": 0
-        },
-        {
-          "label": "Frites",
-          "amount": 0
-        },
-        {
-          "label": "Purée de pommes de terre",
-          "amount": 0
-        },
-        {
-          "label": "Pommes de terre sautées",
-          "amount": 0
-        },
-        {
-          "label": "Riz nature",
-          "amount": 0
-        },
-        {
-          "label": "Riz curry",
-          "amount": 0
-        },
-        {
-          "label": "Riz sauce tomate",
-          "amount": 0
-        }
-      ]
+      "id": "poulet-5"
     }
   ],
   "supplements": [
@@ -2620,47 +1672,9 @@ window.EL_PATRON_MENU={
           "amount": 1000
         }
       ],
-      "desc": "Parfum au choix : vanille, américain, fraise, malaga, café, menthe chocolat, chocolat noir, plombière ou yaourt fraise.",
+      "desc": "Vanille, chocolat, fraise, menthe, américain, malaga, plombière, yaourt fraise.",
       "sub": "Glaces",
-      "id": "desserts-7",
-      "flavorOptions": [
-        {
-          "label": "Vanille",
-          "amount": 0
-        },
-        {
-          "label": "Américain",
-          "amount": 0
-        },
-        {
-          "label": "Fraise",
-          "amount": 0
-        },
-        {
-          "label": "Malaga",
-          "amount": 0
-        },
-        {
-          "label": "Café",
-          "amount": 0
-        },
-        {
-          "label": "Menthe chocolat",
-          "amount": 0
-        },
-        {
-          "label": "Chocolat noir",
-          "amount": 0
-        },
-        {
-          "label": "Plombière",
-          "amount": 0
-        },
-        {
-          "label": "Yaourt fraise",
-          "amount": 0
-        }
-      ]
+      "id": "desserts-7"
     },
     {
       "name": "BANANE SPLIT",
@@ -3298,4 +2312,186 @@ window.EL_PATRON_MENU={
       "id": "vins-vins-mousseux-5"
     }
   ]
+};
+
+window.EL_PATRON_CATEGORIES=[
+  {
+    "slug": "petit-dej",
+    "title": "Petit-Déj",
+    "kicker": "PETIT-DÉJ",
+    "description": "Œufs, omelettes et formule spéciale",
+    "icon": "egg"
+  },
+  {
+    "slug": "manaiches",
+    "title": "Manaïches",
+    "kicker": "MANAÏCHES",
+    "description": "Le savoir-faire levantin en version El Patrón",
+    "icon": "manakish"
+  },
+  {
+    "slug": "salades",
+    "title": "Salades",
+    "kicker": "SALADES",
+    "description": "Fraîcheur, croquant et couleurs",
+    "icon": "salad"
+  },
+  {
+    "slug": "entrees",
+    "title": "Entrées",
+    "kicker": "ENTRÉES",
+    "description": "À partager ou à ouvrir en douceur",
+    "icon": "spark"
+  },
+  {
+    "slug": "snack",
+    "title": "Snack",
+    "kicker": "SNACK",
+    "description": "Chawarma, sandwichs et recettes généreuses",
+    "icon": "sandwich"
+  },
+  {
+    "slug": "burgers",
+    "title": "Burgers",
+    "kicker": "BURGERS",
+    "description": "Du cheese au chicken mozza",
+    "icon": "burger",
+    "note": "La formule « Plat » est accompagnée de frites, salade de chou, crudités, ketchup et piment."
+  },
+  {
+    "slug": "tacos-kebab",
+    "title": "Tacos Kebab",
+    "kicker": "TACOS KEBAB",
+    "description": "Formats L & XL, sauce, fromage et gourmandise",
+    "icon": "taco"
+  },
+  {
+    "slug": "pastas",
+    "title": "Pastas",
+    "kicker": "PASTAS",
+    "description": "Pâtes crémeuses, épicées et gratinées",
+    "icon": "pasta"
+  },
+  {
+    "slug": "plats",
+    "title": "Plats",
+    "kicker": "PLATS",
+    "description": "Les grands classiques maison",
+    "icon": "plate",
+    "note": "Accompagnements au choix : frites, alloco, attiéké, pommes sautées, purée de pommes de terre."
+  },
+  {
+    "slug": "grill",
+    "title": "Grill",
+    "kicker": "GRILL",
+    "description": "Brochettes et grillades",
+    "icon": "grill",
+    "note": "Accompagnements au choix : frites, alloco, attiéké, pommes sautées, purée de pommes de terre."
+  },
+  {
+    "slug": "poulet",
+    "title": "Poulet",
+    "kicker": "POULET",
+    "description": "Rôti, braisé, frit, sauté ou pané",
+    "icon": "chicken"
+  },
+  {
+    "slug": "supplements",
+    "title": "Suppléments",
+    "kicker": "SUPPLÉMENTS",
+    "description": "Ajoutez votre accompagnement",
+    "icon": "plus"
+  },
+  {
+    "slug": "pizzas",
+    "title": "Pizzas",
+    "kicker": "PIZZAS",
+    "description": "Les recettes à partager en deux formats",
+    "icon": "pizza"
+  },
+  {
+    "slug": "boissons-chaudes",
+    "title": "Boissons chaudes",
+    "kicker": "BOISSONS CHAUDES",
+    "description": "Café, thé et boissons chaudes",
+    "icon": "coffee"
+  },
+  {
+    "slug": "softs",
+    "title": "Softs",
+    "kicker": "SOFTS",
+    "description": "Rafraîchissements et boissons froides",
+    "icon": "drink"
+  },
+  {
+    "slug": "bieres",
+    "title": "Bières",
+    "kicker": "BIÈRES",
+    "description": "Sélection de bouteilles et canettes",
+    "icon": "beer"
+  },
+  {
+    "slug": "desserts",
+    "title": "Desserts",
+    "kicker": "DESSERTS",
+    "description": "Crêpes, glaces et fruits",
+    "icon": "dessert"
+  },
+  {
+    "slug": "cocktails-sans-alcool",
+    "title": "Cocktails sans alcool",
+    "kicker": "COCKTAILS SANS ALCOOL",
+    "description": "Frais, fruités, pétillants",
+    "icon": "mocktail"
+  },
+  {
+    "slug": "shishas",
+    "title": "Shishas",
+    "kicker": "SHISHAS",
+    "description": "Khaloud, Quasar et parfums",
+    "icon": "shisha"
+  },
+  {
+    "slug": "boissons-smoothies",
+    "title": "Jus, Smoothies & Milkshakes",
+    "kicker": "JUS, SMOOTHIES & MILKSHAKES",
+    "description": "Frais, frappés et onctueux",
+    "icon": "smoothie"
+  },
+  {
+    "slug": "cocktails-alcoolises",
+    "title": "Cocktails alcoolisés",
+    "kicker": "COCKTAILS ALCOOLISÉS",
+    "description": "La carte cocktails du bar",
+    "icon": "cocktail"
+  },
+  {
+    "slug": "shots",
+    "title": "Shots",
+    "kicker": "SHOTS",
+    "description": "À découvrir au bar",
+    "icon": "shot"
+  },
+  {
+    "slug": "vins",
+    "title": "Vins",
+    "kicker": "VINS",
+    "description": "La cave El Patrón",
+    "icon": "wine",
+    "note": "Pour plus de choix, visitez notre cave au bar."
+  }
+];
+
+window.EL_PATRON_SITE={
+  "name": "EL PATRÓN",
+  "subtitle": "Restaurant · Bar · Café · Salon de thé",
+  "phone": "+225 07 04 40 04 00",
+  "phoneRaw": "2250704400400",
+  "email": "el.patron.abidjan@gmail.com",
+  "address": "5°24'11.2\"N 3°58'49.7\"W",
+  "site": "https://www.elpatron.ci",
+  "facebook": "https://www.facebook.com/elpatronabidjan/",
+  "instagram": "https://www.instagram.com/elpatronabidjan/",
+  "tiktok": "https://www.tiktok.com/@elpatronci1",
+  "glovo": "https://glovo.go.link/open?adjust_deeplink=glovoapp%3A%2F%2Fopen%3Flink_type%3Dstore%26store_id%3D561009&adjust_t=s321jkn"
 };
