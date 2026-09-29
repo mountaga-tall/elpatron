@@ -408,151 +408,161 @@ window.EL_PATRON_MENU={
       "name": "CHAWARMA POULET",
       "price": [
         {
-          "label": "Plat",
-          "amount": 4000
-        },
-        {
           "label": "Sandwich",
           "amount": 2500
+        },
+        {
+          "label": "Plat",
+          "amount": 4000
         }
       ],
       "desc": "Poulet, frites, pâte à l'ail, cornichons.",
-      "id": "snack-1"
+      "id": "snack-1",
+      "defaultPriceOnly": true
     },
     {
       "name": "CHAWARMA VIANDE",
       "price": [
         {
-          "label": "Plat",
-          "amount": 4000
-        },
-        {
           "label": "Sandwich",
           "amount": 2500
+        },
+        {
+          "label": "Plat",
+          "amount": 4000
         }
       ],
       "desc": "Viande, oignons persillés, tomates, cornichons, tarator.",
-      "id": "snack-2"
+      "id": "snack-2",
+      "defaultPriceOnly": true
     },
     {
       "name": "CHAWARMA MIX",
       "price": [
         {
-          "label": "Plat",
-          "amount": 4000
-        },
-        {
           "label": "Sandwich",
           "amount": 2500
+        },
+        {
+          "label": "Plat",
+          "amount": 4000
         }
       ],
       "desc": "Poulet, viande, rosto, merguez, sojok, foie de poulet, foie de bœuf, boulettes de viande, gésier et petits pois.",
-      "id": "snack-3"
+      "id": "snack-3",
+      "defaultPriceOnly": true
     },
     {
       "name": "CHAWARMA BROCHETTE",
       "price": [
         {
-          "label": "Plat",
-          "amount": 5000
-        },
-        {
           "label": "Sandwich",
           "amount": 3500
+        },
+        {
+          "label": "Plat",
+          "amount": 5000
         }
       ],
       "desc": "Filet de bœuf, kafta (viande hachée), shish taouk (escalope de poulet marinée) et agneau.",
-      "id": "snack-4"
+      "id": "snack-4",
+      "defaultPriceOnly": true
     },
     {
       "name": "SANDWICH CRISPY",
       "price": [
         {
-          "label": "Plat",
-          "amount": 5000
-        },
-        {
           "label": "Sandwich",
           "amount": 3500
+        },
+        {
+          "label": "Plat",
+          "amount": 5000
         }
       ],
       "desc": "Blanc de poulet pané, frites, salade, tomate, cheddar et pâte à l’ail.",
-      "id": "snack-5"
+      "id": "snack-5",
+      "defaultPriceOnly": true
     },
     {
       "name": "SANDWICH FRANCISCO",
       "price": [
         {
-          "label": "Plat",
-          "amount": 5000
-        },
-        {
           "label": "Sandwich",
           "amount": 3500
+        },
+        {
+          "label": "Plat",
+          "amount": 5000
         }
       ],
       "desc": "Poulet, mozzarella, mayonnaise, maïs, cornichons, laitue et sauce soja.",
-      "id": "snack-6"
+      "id": "snack-6",
+      "defaultPriceOnly": true
     },
     {
       "name": "SANDWICH CHICKEN SUB",
       "price": [
         {
-          "label": "Plat",
-          "amount": 5000
-        },
-        {
           "label": "Sandwich",
           "amount": 3500
+        },
+        {
+          "label": "Plat",
+          "amount": 5000
         }
       ],
       "desc": "Poulet, mozzarella, sauce à l’ail, maïs doux, cornichon et laitue.",
-      "id": "snack-7"
+      "id": "snack-7",
+      "defaultPriceOnly": true
     },
     {
       "name": "SANDWICH FAHITA",
       "price": [
         {
-          "label": "Plat",
-          "amount": 5000
-        },
-        {
           "label": "Sandwich",
           "amount": 3500
+        },
+        {
+          "label": "Plat",
+          "amount": 5000
         }
       ],
       "desc": "Poulet, poivrons, sauce à l’avocat, oignons, champignons, maïs, mozzarella et salade.",
-      "id": "snack-8"
+      "id": "snack-8",
+      "defaultPriceOnly": true
     },
     {
       "name": "SANDWICH PHILADELPHIA",
       "price": [
         {
-          "label": "Plat",
-          "amount": 5000
-        },
-        {
           "label": "Sandwich",
           "amount": 3500
+        },
+        {
+          "label": "Plat",
+          "amount": 5000
         }
       ],
       "desc": "Viande de bœuf, poivrons, maïs, oignons, champignons, mayonnaise, mozzarella et salade.",
-      "id": "snack-9"
+      "id": "snack-9",
+      "defaultPriceOnly": true
     },
     {
       "name": "SANDWICH ZINGER",
       "price": [
         {
-          "label": "Plat",
-          "amount": 5000
-        },
-        {
           "label": "Sandwich",
           "amount": 3500
+        },
+        {
+          "label": "Plat",
+          "amount": 5000
         }
       ],
       "desc": "Steak de blanc de poulet pané, cheddar, sauce BBQ, pâte à l'ail, salade.",
-      "id": "snack-10"
+      "id": "snack-10",
+      "defaultPriceOnly": true
     }
   ],
   "burgers": [
@@ -560,136 +570,145 @@ window.EL_PATRON_MENU={
       "name": "LEBANESE BURGER",
       "price": [
         {
-          "label": "Plat",
-          "amount": 4500
-        },
-        {
           "label": "Sandwich",
           "amount": 3000
+        },
+        {
+          "label": "Plat",
+          "amount": 4500
         }
       ],
       "desc": "Steak de viande, cheddar, salade de chou, frites et ketchup.",
-      "id": "burgers-1"
+      "id": "burgers-1",
+      "defaultPriceOnly": true
     },
     {
       "name": "CHEESE BURGER",
       "price": [
         {
-          "label": "Plat",
-          "amount": 4500
-        },
-        {
           "label": "Sandwich",
           "amount": 3000
+        },
+        {
+          "label": "Plat",
+          "amount": 4500
         }
       ],
       "desc": "Steak de viande, cheddar, mayonnaise, tomates, oignons frais et ketchup.",
-      "id": "burgers-2"
+      "id": "burgers-2",
+      "defaultPriceOnly": true
     },
     {
       "name": "EGG & CHEESE BURGER",
       "price": [
         {
-          "label": "Plat",
-          "amount": 5000
-        },
-        {
           "label": "Sandwich",
           "amount": 3500
+        },
+        {
+          "label": "Plat",
+          "amount": 5000
         }
       ],
       "desc": "Steak de viande, cheddar, œuf, mayonnaise, tomates, oignons frais et ketchup.",
-      "id": "burgers-3"
+      "id": "burgers-3",
+      "defaultPriceOnly": true
     },
     {
       "name": "AMERICAN BURGER",
       "price": [
         {
-          "label": "Plat",
-          "amount": 5000
-        },
-        {
           "label": "Sandwich",
           "amount": 3500
+        },
+        {
+          "label": "Plat",
+          "amount": 5000
         }
       ],
       "desc": "Steak de viande, cheddar, sauce cocktail, tomates, oignons cuits et salade.",
-      "id": "burgers-4"
+      "id": "burgers-4",
+      "defaultPriceOnly": true
     },
     {
       "name": "BBQ BURGER",
       "price": [
         {
-          "label": "Plat",
-          "amount": 5000
-        },
-        {
           "label": "Sandwich",
           "amount": 3500
+        },
+        {
+          "label": "Plat",
+          "amount": 5000
         }
       ],
       "desc": "Viande, cheddar, sauce BBQ, tomates, oignons cuits et salade.",
-      "id": "burgers-5"
+      "id": "burgers-5",
+      "defaultPriceOnly": true
     },
     {
       "name": "ESCALOPE CHICKEN BURGER",
       "price": [
         {
-          "label": "Plat",
-          "amount": 5500
-        },
-        {
           "label": "Sandwich",
           "amount": 4000
+        },
+        {
+          "label": "Plat",
+          "amount": 5500
         }
       ],
       "desc": "Blanc de poulet pané, ketchup, mayonnaise, salade de chou et frites.",
-      "id": "burgers-6"
+      "id": "burgers-6",
+      "defaultPriceOnly": true
     },
     {
       "name": "CHICKEN BURGER",
       "price": [
         {
-          "label": "Plat",
-          "amount": 5500
-        },
-        {
           "label": "Sandwich",
           "amount": 4000
+        },
+        {
+          "label": "Plat",
+          "amount": 5500
         }
       ],
       "desc": "Steak de poulet, cheddar, sauce cocktail, tomates, oignons cuits et salade.",
-      "id": "burgers-7"
+      "id": "burgers-7",
+      "defaultPriceOnly": true
     },
     {
       "name": "CRISPY BURGER",
       "price": [
         {
-          "label": "Plat",
-          "amount": 6000
-        },
-        {
           "label": "Sandwich",
           "amount": 4500
+        },
+        {
+          "label": "Plat",
+          "amount": 6000
         }
       ],
       "desc": "Blanc de poulet pané, sauce cocktail, cheddar, tomates et salade.",
-      "id": "burgers-8"
+      "id": "burgers-8",
+      "defaultPriceOnly": true
     },
     {
       "name": "CHICKEN MOZZA BURGER",
       "price": [
         {
-          "label": "Plat",
-          "amount": 6500
-        },
-        {
           "label": "Sandwich",
           "amount": 5000
+        },
+        {
+          "label": "Plat",
+          "amount": 6500
         }
       ],
       "desc": "Steak de poulet, mozzarella panée, sauce cocktail, oignons et tomates cuits, salade.",
-      "id": "burgers-9"
+      "id": "burgers-9",
+      "defaultPriceOnly": true
     },
     {
       "name": "PLAT DE FRITES",
@@ -706,73 +725,148 @@ window.EL_PATRON_MENU={
   ],
   "tacos-kebab": [
     {
-      "name": "POULET",
+      "name": "TACOS POULET — L",
       "price": [
         {
-          "label": "XL Royal",
-          "amount": 8000
-        },
-        {
-          "label": "XL",
-          "amount": 7000
-        },
-        {
-          "label": "L Royal",
-          "amount": 5000
-        },
-        {
-          "label": "L",
+          "label": "",
           "amount": 4000
         }
       ],
-      "desc": "Sauce cocktail, frites, poulet, mozzarella, tomates, oignons, poivrons sautés + portion de frites.",
-      "id": "tacos-kebab-1"
+      "desc": "Sauce cocktail, frites, poulet, mozzarella, tomates, oignons, poivrons sautés + portion de frites. Format L.",
+      "id": "tacos-kebab-1",
+      "sub": "L"
     },
     {
-      "name": "VIANDE",
+      "name": "TACOS VIANDE — L",
       "price": [
         {
-          "label": "XL Royal",
-          "amount": 8000
-        },
-        {
-          "label": "XL",
-          "amount": 7000
-        },
-        {
-          "label": "L Royal",
-          "amount": 5000
-        },
-        {
-          "label": "L",
+          "label": "",
           "amount": 4000
         }
       ],
-      "desc": "Sauce cocktail, mozzarella, viande, frites, salade, poivrons, oignons, tomates + portion de frites.",
-      "id": "tacos-kebab-3"
+      "desc": "Sauce cocktail, mozzarella, viande, frites, salade, poivrons, oignons, tomates + portion de frites. Format L.",
+      "id": "tacos-kebab-2",
+      "sub": "L"
     },
     {
-      "name": "MIX",
+      "name": "TACOS MIX — L",
       "price": [
         {
-          "label": "XL Royal",
-          "amount": 8000
-        },
-        {
-          "label": "XL",
-          "amount": 7000
-        },
-        {
-          "label": "L Royal",
-          "amount": 5000
-        },
-        {
-          "label": "L",
+          "label": "",
           "amount": 4000
         }
       ],
-      "desc": "Sauce cocktail, mozzarella, viande de bœuf et poulet, frites, salade, poivrons, oignons, tomates + portion de frites.",
-      "id": "tacos-kebab-5"
+      "desc": "Sauce cocktail, mozzarella, viande de bœuf et poulet, frites, salade, poivrons, oignons, tomates + portion de frites. Format L.",
+      "id": "tacos-kebab-3",
+      "sub": "L"
+    },
+    {
+      "name": "TACOS POULET — L ROYAL",
+      "price": [
+        {
+          "label": "",
+          "amount": 5000
+        }
+      ],
+      "desc": "Sauce cocktail, frites, poulet, mozzarella, tomates, oignons, poivrons sautés + portion de frites. Format L Royal.",
+      "id": "tacos-kebab-4",
+      "sub": "L ROYAL"
+    },
+    {
+      "name": "TACOS VIANDE — L ROYAL",
+      "price": [
+        {
+          "label": "",
+          "amount": 5000
+        }
+      ],
+      "desc": "Sauce cocktail, mozzarella, viande, frites, salade, poivrons, oignons, tomates + portion de frites. Format L Royal.",
+      "id": "tacos-kebab-5",
+      "sub": "L ROYAL"
+    },
+    {
+      "name": "TACOS MIX — L ROYAL",
+      "price": [
+        {
+          "label": "",
+          "amount": 5000
+        }
+      ],
+      "desc": "Sauce cocktail, mozzarella, viande de bœuf et poulet, frites, salade, poivrons, oignons, tomates + portion de frites. Format L Royal.",
+      "id": "tacos-kebab-6",
+      "sub": "L ROYAL"
+    },
+    {
+      "name": "TACOS POULET — XL",
+      "price": [
+        {
+          "label": "",
+          "amount": 7000
+        }
+      ],
+      "desc": "Sauce cocktail, frites, poulet, mozzarella, tomates, oignons, poivrons sautés + portion de frites. Format XL.",
+      "id": "tacos-kebab-7",
+      "sub": "XL"
+    },
+    {
+      "name": "TACOS VIANDE — XL",
+      "price": [
+        {
+          "label": "",
+          "amount": 7000
+        }
+      ],
+      "desc": "Sauce cocktail, mozzarella, viande, frites, salade, poivrons, oignons, tomates + portion de frites. Format XL.",
+      "id": "tacos-kebab-8",
+      "sub": "XL"
+    },
+    {
+      "name": "TACOS MIX — XL",
+      "price": [
+        {
+          "label": "",
+          "amount": 7000
+        }
+      ],
+      "desc": "Sauce cocktail, mozzarella, viande de bœuf et poulet, frites, salade, poivrons, oignons, tomates + portion de frites. Format XL.",
+      "id": "tacos-kebab-9",
+      "sub": "XL"
+    },
+    {
+      "name": "TACOS POULET — XL ROYAL",
+      "price": [
+        {
+          "label": "",
+          "amount": 8000
+        }
+      ],
+      "desc": "Sauce cocktail, frites, poulet, mozzarella, tomates, oignons, poivrons sautés + portion de frites. Format XL Royal.",
+      "id": "tacos-kebab-10",
+      "sub": "XL ROYAL"
+    },
+    {
+      "name": "TACOS VIANDE — XL ROYAL",
+      "price": [
+        {
+          "label": "",
+          "amount": 8000
+        }
+      ],
+      "desc": "Sauce cocktail, mozzarella, viande, frites, salade, poivrons, oignons, tomates + portion de frites. Format XL Royal.",
+      "id": "tacos-kebab-11",
+      "sub": "XL ROYAL"
+    },
+    {
+      "name": "TACOS MIX — XL ROYAL",
+      "price": [
+        {
+          "label": "",
+          "amount": 8000
+        }
+      ],
+      "desc": "Sauce cocktail, mozzarella, viande de bœuf et poulet, frites, salade, poivrons, oignons, tomates + portion de frites. Format XL Royal.",
+      "id": "tacos-kebab-12",
+      "sub": "XL ROYAL"
     }
   ],
   "pastas": [
@@ -785,7 +879,10 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Pâtes penne, sauce tomate arrabiata et fromage.",
-      "id": "pastas-1"
+      "id": "pastas-1",
+      "images": [
+        "images/pastas/arrabiata.webp"
+      ]
     },
     {
       "name": "SPAGHETTIS BOLOGNAISE",
@@ -796,7 +893,10 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Spaghettis, viande de bœuf hachée et sauce bolognaise.",
-      "id": "pastas-2"
+      "id": "pastas-2",
+      "images": [
+        "images/pastas/bolognaise.webp"
+      ]
     },
     {
       "name": "SPAGHETTIS PHILLY STEAK",
@@ -807,7 +907,10 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Spaghettis, sauce tomate épicée et steak de bœuf.",
-      "id": "pastas-3"
+      "id": "pastas-3",
+      "images": [
+        "images/pastas/phillysteack.webp"
+      ]
     },
     {
       "name": "TAGLIATELLES ALFREDO",
@@ -818,7 +921,10 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Tagliatelles, sauce crémière aux champignons et blanc de poulet grillé.",
-      "id": "pastas-4"
+      "id": "pastas-4",
+      "images": [
+        "images/pastas/alfredo.webp"
+      ]
     },
     {
       "name": "TAGLIATELLES AUX CREVETTES",
@@ -829,7 +935,10 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Tagliatelles, crevettes et sauce crémière aux champignons.",
-      "id": "pastas-5"
+      "id": "pastas-5",
+      "images": [
+        "images/pastas/crevettes.webp"
+      ]
     },
     {
       "name": "PENNE AL FORNO",
@@ -840,7 +949,10 @@ window.EL_PATRON_MENU={
         }
       ],
       "desc": "Penne, sauce crémière aux champignons, blanc de poulet et mozzarella fondue au four.",
-      "id": "pastas-6"
+      "id": "pastas-6",
+      "images": [
+        "images/pastas/alforno.webp"
+      ]
     }
   ],
   "plats": [

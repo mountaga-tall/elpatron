@@ -6,7 +6,7 @@ Site statique multi-pages HTML/CSS/JS, pensé mobile-first et installable comme 
 
 - `index.html` — accueil + écran de chargement au lancement du site/PWA uniquement
 - `styles.css` — identité blanche premium + responsive + animations
-- `app.js` — navigation, panier, variantes, WhatsApp, recherche et micro-interactions
+- `app.js` — navigation, panier, variantes, WhatsApp, recherche, images produits et micro-interactions
 - `icons.js` — icônes SVG inline
 - `menu-data.js` — contenu du menu source, prix et compositions
 - `images/logo.webp` — logo principal en WebP
@@ -15,7 +15,7 @@ Site statique multi-pages HTML/CSS/JS, pensé mobile-first et installable comme 
 
 ## Images produits
 
-Chaque produit peut recevoir jusqu’à **2 images WebP** via :
+Les **6 photos de pâtes présentes dans l’archive sont maintenant reliées automatiquement aux 6 produits correspondants**. Chaque produit peut recevoir jusqu’à **2 images WebP** via :
 
 ```js
 images: [

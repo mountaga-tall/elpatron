@@ -22,3 +22,10 @@ images: [
 ```
 
 L’interface les affichera automatiquement en galerie responsive.
+
+## Modifications intégrées
+
+- 12 tacos distincts issus des 3 recettes et 4 formats existants, triés du moins cher au plus cher.
+- Burgers et Snack affichent par défaut le montant du format sandwich, puis l’option « Plat ».
+- Les 6 photos de pâtes sont reliées à leurs produits et leurs chemins sont corrigés pour les pages dans `pages/`.
+- Effet hover « wow » : inclinaison 3D, halo lumineux, zoom des images et révélations décalées, avec respect de `prefers-reduced-motion`.

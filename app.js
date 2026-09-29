@@ -19,6 +19,31 @@
   const totalPrice=c=>c.reduce((a,i)=>a+(Number(i.amount)||0)*(Number(i.qty)||0),0);
   function esc(s){return String(s??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]))}
   const escAttr=esc;
+  function assetUrl(src){
+    const value=String(src??'').trim();
+    if(!value||/^(?:https?:|data:|blob:|\/)/i.test(value))return value;
+    const root=$('[data-shell]');
+    const base=root?.dataset.base||'';
+    return base+value.replace(/^\.\/?/,'');
+  }
+  function productImageMarkup(p){
+    const images=Array.isArray(p.images)?p.images.filter(Boolean).slice(0,2):[];
+    if(!images.length)return '';
+    return `<div class="product-images" aria-label="Images de ${escAttr(p.name)}">${images.map((src,i)=>`<img src="${escAttr(assetUrl(src))}" alt="${escAttr(p.name)} — image ${i+1}" loading="lazy" decoding="async" onerror="this.closest('.product-images')?.classList.add('image-error')">`).join('')}</div>`;
+  }
+  function defaultPriceOnly(p,options){
+    return Boolean(p.defaultPriceOnly)||((options?.[0]?.label||'')===''&&options.length===1);
+  }
+  function priceMarkup(p){
+    const options=p.price||[];
+    if(!options.length)return 'Sur demande';
+    const first=options[0];
+    const small=!defaultPriceOnly(p,options)&&first.label?`<small>${esc(first.label)}</small>`:'';
+    return money(first.amount)+small;
+  }
+  function productCardShellClasses(p){
+    return Array.isArray(p.images)&&p.images.some(Boolean)?' has-images':'';
+  }
   function hasIceChoice(p,categorySlug){
     if(categorySlug!=='desserts')return false;
     const text=`${p.name||''} ${p.desc||''}`;
@@ -95,7 +120,8 @@
     });
     msg+=`\nTotal : ${money(totalPrice(cart))}\n\nMerci.`;
     const phone=window.EL_PATRON_SITE?.phoneRaw;
-    if(phone)location.href='https://wa.me/'+phone+'?text='+encodeURIComponent(msg);
+    if(phone){location.href='https://wa.me/'+phone+'?text='+encodeURIComponent(msg);return}
+    showToast('Numéro WhatsApp indisponible');
   }
   function setupCart(){
     $$('.open-cart').forEach(b=>b.addEventListener('click',openCart));
@@ -196,12 +222,11 @@
   function productCard(p,idx,categoryTitle,categorySlug){
     if(p.noteOnly)return `<article class="product-note reveal"><div class="product-note-kicker">${esc(categoryTitle)}</div><div class="product-note-title">${esc(p.name)}</div><p>${esc(p.desc)}</p></article>`;
     const options=p.price||[],hasPrice=options.length>0;
-    const priceMarkup=options.length?money(options[0].amount):'Sur demande';
-    const optionsMarkup=options.length>1?`<div class="option-list">${options.map((o,i)=>`<button type="button" class="option-pill ${i===0?'selected':''}" data-option-index="${i}" aria-pressed="${i===0?'true':'false'}">${esc(o.label)} · ${money(o.amount)}</button>`).join('')}</div>`:'';
-    const productImages=Array.isArray(p.images)?p.images.filter(Boolean).slice(0,2):[];
-    const imageMarkup=productImages.length?`<div class="product-images" aria-label="Images de ${escAttr(p.name)}">${productImages.map((src,i)=>`<img src="${escAttr(src)}" alt="${escAttr(p.name)} — image ${i+1}" loading="lazy" decoding="async" onerror="this.hidden=true;const p=this.parentElement;if(p&&!p.querySelector('img:not([hidden])'))p.hidden=true">`).join('')}</div>`:'';
+    const currentPrice=priceMarkup(p);
+    const optionsMarkup=options.length>1?`<div class="option-list">${options.map((o,i)=>`<button type="button" class="option-pill ${i===0?'selected':''}" data-option-index="${i}" aria-pressed="${i===0?'true':'false'}">${o.label?esc(o.label)+' · ':''}${money(o.amount)}</button>`).join('')}</div>`:'';
+    const imageMarkup=productImageMarkup(p);
     const addButton=hasPrice?`<button type="button" class="add-btn" data-add="true" aria-label="Ajouter ${escAttr(p.name)} au panier">${ICONS.plus}</button>`:'';
-    return `<article class="product-card reveal tilt" data-product-id="${escAttr(p.id)}" data-category-slug="${escAttr(categorySlug)}">${imageMarkup}<div class="product-top"><div class="product-num">${String(idx+1).padStart(2,'0')} · EL PATRÓN</div>${p.sub?`<span class="sub-chip">${esc(p.sub)}</span>`:''}<div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||'Composition selon la recette El Patrón.')}</p>${p.note?`<div class="product-note-inline">${esc(p.note)}</div>`:''}${optionsMarkup}<div class="product-foot"><div class="price" data-price>${priceMarkup}<small>${options.length>1?esc(options[0].label||'Choisissez un format'):''}</small></div>${addButton}</div></div></article>`;
+    return `<article class="product-card reveal tilt${productCardShellClasses(p)}" style="--reveal-delay:${Math.min(idx,10)*45}ms" data-product-id="${escAttr(p.id)}" data-category-slug="${escAttr(categorySlug)}">${imageMarkup}<div class="product-top"><div class="product-num">${String(idx+1).padStart(2,'0')} · EL PATRÓN</div>${p.sub?`<span class="sub-chip">${esc(p.sub)}</span>`:''}<div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||'Composition selon la recette El Patrón.')}</p>${p.note?`<div class="product-note-inline">${esc(p.note)}</div>`:''}${optionsMarkup}<div class="product-foot"><div class="price" data-price>${currentPrice}</div>${addButton}</div></div></article>`;
   }
   function bindProductButtons(scope,items,categorySlug){
     $$('.product-card',scope).forEach(card=>{
@@ -211,7 +236,7 @@
         selected=i;
         $$('.option-pill',card).forEach(x=>{x.classList.remove('selected');x.setAttribute('aria-pressed','false')});
         b.classList.add('selected');b.setAttribute('aria-pressed','true');
-        const price=$('[data-price]',card);if(price)price.innerHTML=money(p.price[i].amount)+'<small>'+esc(p.price[i].label)+'</small>';
+        const price=$('[data-price]',card);if(price)price.innerHTML=money(p.price[i].amount)+(p.price[i].label?'<small>'+esc(p.price[i].label)+'</small>':'');
       }));
       $('[data-add]',card)?.addEventListener('click',()=>{
         const option=p.price[selected]||p.price?.[0];
@@ -256,7 +281,7 @@
       if(!n){host.hidden=true;host.innerHTML='';return}
       const matches=all.filter(p=>normalize([p.name,p.desc,p.categoryTitle].join(' ')).includes(n));
       host.hidden=false;
-      host.innerHTML=matches.length?`<div class="global-results-head"><span>${matches.length} résultat${matches.length>1?'s':''}</span><span>Recherche : « ${esc(value)} »</span></div><div class="product-grid">${matches.map((p,i)=>`<article class="product-card reveal"><div class="product-top"><div class="product-num">${esc(p.categoryTitle)} · ${String(i+1).padStart(2,'0')}</div><div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||'')}</p><div class="product-foot"><div class="price">${p.price.length===1?money(p.price[0].amount):'À partir de '+money(Math.min(...p.price.map(x=>x.amount)))}</div><a class="add-btn" href="pages/${escAttr(p.categorySlug)}.html" aria-label="Voir ${escAttr(p.name)}">${ICONS.arrow}</a></div></div></article>`).join('')}</div>`:`<div class="empty">Aucun résultat pour « ${esc(value)} ».</div>`;
+      host.innerHTML=matches.length?`<div class="global-results-head"><span>${matches.length} résultat${matches.length>1?'s':''}</span><span>Recherche : « ${esc(value)} »</span></div><div class="product-grid">${matches.map((p,i)=>`<article class="product-card reveal${productCardShellClasses(p)}" style="--reveal-delay:${Math.min(i,10)*35}ms">${productImageMarkup(p)}<div class="product-top"><div class="product-num">${esc(p.categoryTitle)} · ${String(i+1).padStart(2,'0')}</div><div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||'')}</p><div class="product-foot"><div class="price">${p.price.length===1?money(p.price[0].amount):'À partir de '+money(Math.min(...p.price.map(x=>x.amount)))}</div><a class="add-btn" href="pages/${escAttr(p.categorySlug)}.html" aria-label="Voir ${escAttr(p.name)}">${ICONS.arrow}</a></div></div></article>`).join('')}</div>`:`<div class="empty">Aucun résultat pour « ${esc(value)} ».</div>`;
       observeReveals(host);
     }
     input.addEventListener('input',e=>draw(e.target.value));
@@ -268,7 +293,7 @@
     const fgrid=$('.featured-grid'),featured=['burgers','pizzas','plats','grill','cocktails-sans-alcool','desserts'];
     if(fgrid){
       const arr=[];featured.forEach(slug=>(window.EL_PATRON_MENU?.[slug]||[]).filter(x=>!x.noteOnly).slice(0,2).forEach(x=>arr.push({p:x,slug})));
-      fgrid.innerHTML=arr.map((entry,i)=>{const p=entry.p;return `<article class="product-card reveal tilt"><div class="product-top"><div class="product-num">Sélection · ${String(i+1).padStart(2,'0')}</div><div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||'Composition maison El Patrón.')}</p><div class="product-foot"><div class="price">${p.price.length===1?money(p.price[0].amount):'À partir de '+money(Math.min(...p.price.map(x=>x.amount)))}</div><a class="add-btn" href="pages/${entry.slug}.html" aria-label="Découvrir ${escAttr(p.name)}">${ICONS.arrow}</a></div></div></article>`}).join('');
+      fgrid.innerHTML=arr.map((entry,i)=>{const p=entry.p;return `<article class="product-card reveal tilt${productCardShellClasses(p)}" style="--reveal-delay:${Math.min(i,10)*35}ms">${productImageMarkup(p)}<div class="product-top"><div class="product-num">Sélection · ${String(i+1).padStart(2,'0')}</div><div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||'Composition maison El Patrón.')}</p><div class="product-foot"><div class="price">${p.price.length===1?money(p.price[0].amount):'À partir de '+money(Math.min(...p.price.map(x=>x.amount)))}</div><a class="add-btn" href="pages/${entry.slug}.html" aria-label="Découvrir ${escAttr(p.name)}">${ICONS.arrow}</a></div></div></article>`}).join('');
     }
     renderGlobalSearch();
   }
@@ -300,8 +325,16 @@
     $$('.tilt',root).forEach(card=>{
       if(card.dataset.tiltReady==='true')return;
       card.dataset.tiltReady='true';
-      card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;card.style.transform=`perspective(900px) rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*7).toFixed(2)}deg) translateY(-5px)`});
-      card.addEventListener('pointerleave',()=>card.style.transform='');
+      card.addEventListener('pointermove',e=>{
+        const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+        const px=((x+.5)*100).toFixed(1),py=((y+.5)*100).toFixed(1);
+        card.style.setProperty('--shine-x',px+'%');
+        card.style.setProperty('--shine-y',py+'%');
+        card.style.setProperty('--lift-y','-5px');
+        card.style.transform=`perspective(900px) rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*7).toFixed(2)}deg) translateY(-5px)`;
+      });
+      card.addEventListener('pointerenter',()=>card.classList.add('is-tilting'));
+      card.addEventListener('pointerleave',()=>{card.style.transform='';card.style.removeProperty('--shine-x');card.style.removeProperty('--shine-y');card.style.removeProperty('--lift-y');card.classList.remove('is-tilting')});
     });
   }
   function setupGlobalMotion(){

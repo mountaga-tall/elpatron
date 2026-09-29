@@ -239,7 +239,14 @@ img { max-width:100%; display:block; }
 .result-count { color:#8f8986; font-size:.78rem; }
 .product-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 .product-card { position:relative; padding:0; min-height:290px; border-radius:24px; overflow:hidden; border:1px solid var(--line); background:linear-gradient(150deg,rgba(255,255,255,.072),rgba(255,255,255,.025)); backdrop-filter:blur(16px); transition:transform .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease); transform-style:preserve-3d; }
-.product-card:hover { border-color:rgba(209,31,26,.33); box-shadow:0 24px 55px rgba(0,0,0,.25); }
+.product-card:hover { border-color:rgba(209,31,26,.38); box-shadow:0 28px 70px rgba(0,0,0,.22),0 0 0 1px rgba(209,31,26,.04) inset; }
+.product-card::before { content:""; position:absolute; inset:-1px; z-index:5; pointer-events:none; opacity:0; background:radial-gradient(circle at var(--shine-x,50%) var(--shine-y,25%),rgba(255,255,255,.30),transparent 20%); mix-blend-mode:screen; transition:opacity .45s var(--ease); }
+.product-card.is-tilting::before { opacity:.55; }
+.product-card.has-images .product-images { position:relative; z-index:1; }
+.product-card.has-images .product-images::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(115deg,transparent 0 35%,rgba(255,255,255,.18) 48%,transparent 62%); transform:translateX(-120%); transition:transform .8s var(--ease); }
+.product-card.has-images:hover .product-images::after { transform:translateX(120%); }
+.product-card.has-images .product-images img { transition:transform .7s var(--ease),filter .7s var(--ease); }
+.product-card.has-images:hover .product-images img { transform:scale(1.045); filter:saturate(1.06) contrast(1.03); }
 .product-top { min-height:122px; padding:20px 20px 15px; position:relative; overflow:hidden; background:radial-gradient(circle at 85% 20%,rgba(209,31,26,.18),transparent 26%); }
 .product-top::after { content:""; position:absolute; width:110px; height:110px; right:-18px; top:-18px; border-radius:50%; border:1px solid rgba(209,31,26,.22); }
 .product-num { font-size:.67rem; letter-spacing:.15em; color:#79726f; text-transform:uppercase; }
@@ -296,7 +303,7 @@ img { max-width:100%; display:block; }
 .mobile-links a:hover { color:#fff; }
 .toast { position:fixed; left:50%; bottom:32px; z-index:3000; transform:translate(-50%,30px); opacity:0; padding:11px 14px; background:rgba(12,12,12,.92); border:1px solid var(--line); border-radius:13px; backdrop-filter:blur(16px); font-size:.78rem; pointer-events:none; transition:.45s var(--ease); box-shadow:0 18px 50px rgba(0,0,0,.35); }
 .toast.show { opacity:1; transform:translate(-50%,0); }
-.reveal { opacity:0; transform:translateY(28px); transition:opacity .8s var(--ease),transform .8s var(--ease); }
+.reveal { opacity:0; transform:translateY(28px); transition:opacity .8s var(--ease) var(--reveal-delay,0ms),transform .8s var(--ease) var(--reveal-delay,0ms); }
 .reveal.is-visible { opacity:1; transform:none; }
 .tilt { will-change:transform; }
 .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
@@ -360,7 +367,9 @@ img { max-width:100%; display:block; }
 /* Future product gallery: adding two images later requires only p.images = [path1, path2]. */
 .product-images { display:grid; grid-template-columns:repeat(2,1fr); gap:6px; padding:10px 10px 0; }
 .product-images:has(img:only-child) { grid-template-columns:1fr; }
+.product-images { position:relative; }
 .product-images img { width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:16px; border:1px solid var(--line); display:block; background:#121212; }
+.product-images.image-error:empty { display:none; }
 @media (max-width:560px) { .product-images { padding:8px 8px 0; gap:5px; } .product-images img { border-radius:13px; } }
 
 
@@ -640,4 +649,6 @@ body.options-open{overflow:hidden}
 }
 @media(prefers-reduced-motion:reduce){
   .product-options-modal,.product-options-panel,.modal-choice{transition:none}
+  .product-card::before,.product-card.has-images .product-images::after{display:none}
+  .product-card.has-images .product-images img{transition:none}
 }
