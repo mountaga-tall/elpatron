@@ -153,8 +153,18 @@ function translateDom(){
   rewriteLinks(root);
 }
 translateDom();
+window.EL_PATRON_TEXT=function(value){return tr(value);};
 window.EL_PATRON_I18N_POST_RENDER=function(){
   translateDom();
   addLanguageSwitcher();
 };
+new MutationObserver(function(records){
+  for(var i=0;i<records.length;i++){
+    if(records[i].addedNodes && records[i].addedNodes.length){
+      translateDom();
+      addLanguageSwitcher();
+      break;
+    }
+  }
+}).observe(document.body,{subtree:true,childList:true});
 })();
