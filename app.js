@@ -2,6 +2,9 @@
   'use strict';
   const KEY='elpatronCartV1';
   const LANG=(window.EL_PATRON_LANG||document.documentElement.lang||'fr').toLowerCase().slice(0,2);
+  const tx=s=>window.EL_PATRON_TEXT?window.EL_PATRON_TEXT(s):s;
+  const addedSuffix=LANG==='en'?' added to cart':LANG==='ar'?' تمت إضافته إلى السلة':' ajouté au panier';
+  const emptyCartText=LANG==='en'?'Your cart is empty':LANG==='ar'?'سلتك فارغة':'Votre panier est vide';
   const FREE_ACCOMPANIMENT_IDS=new Set([
     'plats-1','plats-2','plats-3','plats-4','plats-5','plats-6','plats-7','plats-8','plats-9','plats-10','plats-11','plats-12','plats-13','plats-14','plats-15',
     'grill-1','grill-2','grill-3','grill-4','grill-5','grill-6',
@@ -64,7 +67,7 @@
   }
   function addToCart(product,option,meta={}){
     const chosen=option||product.price?.[0];
-    if(!chosen){showToast('Ce produit ne peut pas être ajouté au panier');return}
+    if(!chosen){showToast(tx('Ce produit ne peut pas être ajouté au panier'));return}
     const normalizedMeta={
       accompaniment:meta.accompaniment||'',
       iceFlavor:meta.iceFlavor||''
@@ -84,7 +87,7 @@
       amount:Number(chosen.amount)||0,
       qty:1
     });
-    saveCart(cart);updateCartBadge();showToast(product.name+' ajouté au panier');
+    saveCart(cart);updateCartBadge();showToast(product.name+addedSuffix);
   }
   function updateCartBadge(){
     const count=totalQty(loadCart());
@@ -113,7 +116,7 @@
   function showToast(t){const e=$('.toast');if(!e)return;e.textContent=t;e.classList.add('show');clearTimeout(showToast.t);showToast.t=setTimeout(()=>e.classList.remove('show'),1800)}
   function orderWhatsApp(){
     const cart=loadCart();
-    if(!cart.length){showToast('Votre panier est vide');return}
+    if(!cart.length){showToast(emptyCartText);return}
     let msg=LANG==='en'?'Hello EL PATRÓN,\n\nI would like to order:\n':LANG==='ar'?'مرحباً إل باترون،\n\nأرغب في طلب:\n':'Bonjour EL PATRÓN,\n\nJe souhaite commander :\n';
     cart.forEach(i=>{
       const meta=cartMeta(i);
@@ -122,7 +125,7 @@
     msg+=`\n${LANG==='en'?'Total':LANG==='ar'?'الإجمالي':'Total'} : ${money(totalPrice(cart))}\n\n${LANG==='en'?'Thank you.':LANG==='ar'?'شكراً لكم.':'Merci.'}`;
     const phone=window.EL_PATRON_SITE?.phoneRaw;
     if(phone){location.href='https://wa.me/'+phone+'?text='+encodeURIComponent(msg);return}
-    showToast('Numéro WhatsApp indisponible');
+    showToast(LANG==='en'?'WhatsApp number unavailable':LANG==='ar'?'رقم واتساب غير متوفر':'Numéro WhatsApp indisponible');
   }
   function setupCart(){
     $$('.open-cart').forEach(b=>b.addEventListener('click',openCart));
