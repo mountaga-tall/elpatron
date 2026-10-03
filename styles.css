@@ -191,7 +191,7 @@ img { max-width:100%; display:block; }
 .nav-scroll-prev svg { transform:rotate(180deg); }
 [dir="rtl"] .nav-scroll-prev svg { transform:none; }
 [dir="rtl"] .nav-scroll-next svg { transform:rotate(180deg); }
-.desktop-nav { margin-left:auto; display:flex; gap:6px; align-items:center; }
+.desktop-nav { gap:6px; align-items:center; }
 .desktop-nav a { padding:10px 12px; color:#d8d2cf; font-size:.82rem; border-radius:10px; transition:transform .35s var(--ease), background .35s var(--ease), color .35s var(--ease); }
 .desktop-nav a:hover,.desktop-nav a.active { color:#fff; background:rgba(255,255,255,.07); transform:translateY(-2px); }
 .header-actions { display:flex; gap:7px; margin-left:auto; }
