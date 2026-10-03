@@ -157,6 +157,12 @@
     const cats=window.EL_PATRON_CATEGORIES||[];
     const pathParts=location.pathname.split('/').filter(Boolean);
     const inPages=pathParts[pathParts.length-2]==='pages';
+    const localeInPath=pathParts.some(x=>x==='fr'||x==='en'||x==='ar');
+    if(inPages&&!localeInPath){
+      const legacyFile=pathParts[pathParts.length-1]||'index.html';
+      location.replace('../fr/pages/'+legacyFile);
+      return;
+    }
     const pageBase=inPages?'../':'';
     const homeHref=pageBase||'./';
     const categoryHref=slug=>pageBase+'pages/'+slug+'.html';
