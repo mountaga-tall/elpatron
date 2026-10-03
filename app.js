@@ -15,7 +15,7 @@
   const ICE_PATTERN=/\bboules?\s+de\s+(?:glace|ice cream)\b|\bscoops?\s+of\s+ice cream\b|\bboules?\s+de\s+(?:آيس كريم|الآيس كريم)\b|كرات\s+(?:من\s+)?الآيس كريم/i;
   const $=(s,r=document)=>r.querySelector(s);
   const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
-  const money=n=>new Intl.NumberFormat('fr-FR').format(Number(n)||0)+' FCFA';
+  const money=n=>(LANG==='ar'?new Intl.NumberFormat('ar-EG',{useGrouping:true}).format(Number(n)||0):new Intl.NumberFormat('fr-FR').format(Number(n)||0))+' FCFA';
   const normalize=s=>String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   const loadCart=()=>{try{const c=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(c)?c:[]}catch{return[]}};
   const saveCart=c=>localStorage.setItem(KEY,JSON.stringify(c));
