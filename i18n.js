@@ -173,18 +173,6 @@ function arDesc(value){
 }
 function arLabel(value){return AR_LABELS[value]||arName(value);}
 
-function tr(s){")");
-    o=o.replace(new RegExp("(^|[^A-Za-zÀ-ÿŒœ])"+esc+"(?=$|[^A-Za-zÀ-ÿŒœ])","giu"),function(_,pre){return pre+pairs[i][1];});
-  }
-  return o;
-}
-function arName(value){return arApplyPairs(value,AR_NAME_PHRASES);}
-function arDesc(value){
-  var o=arApplyPairs(value,AR_DESC_PHRASES);
-  return arRegexApply(o,AR_DESC_SAFE).replace(/\\s{2,}/g," ").replace(/\\s+([،.])/g,"$1").trim();
-}
-function arLabel(value){return AR_LABELS[value]||arName(value);}
-
 function tr(s){
   if(typeof s!=='string'||lang==='fr')return s;
   var exact=U[lang]||{};
