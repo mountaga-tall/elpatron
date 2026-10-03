@@ -45,3 +45,13 @@ Aucun build n’est nécessaire. Pour tester localement :
 ```bash
 python -m http.server 8080
 ```
+
+## Multilingue
+
+Le site est disponible en trois versions :
+
+- Français : `/fr/`
+- English : `/en/`
+- العربية : `/ar/` (RTL)
+
+Le sélecteur de langue est présent dans l’en-tête et le menu mobile. Le catalogue et les prix restent partagés entre les trois versions afin d’éviter les écarts de contenu.
