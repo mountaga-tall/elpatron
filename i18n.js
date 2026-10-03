@@ -100,7 +100,7 @@ document.body.dir=lang==='ar'?'rtl':'ltr';
 function rewriteLinks(root){
   var nodes=(root||document).querySelectorAll? (root||document).querySelectorAll('a[href]') : [];
   for(var i=0;i<nodes.length;i++){
-    var a=nodes[i],h=a.getAttribute('href');if(!h||/^(https?:|mailto:|tel:|#|javascript:|data:)/i.test(h))continue;
+    var a=nodes[i],h=a.getAttribute('href');if(a.closest('.language-switcher')||a.closest('.language-mobile'))continue;if(!h||/^(https?:|mailto:|tel:|#|javascript:|data:)/i.test(h))continue;
     var parts=location.pathname.split('/').filter(Boolean),inPages=parts[parts.length-2]==='pages';
     var base=inPages?'../':'./';
     var m=h.match(/pages\/([^?#]+\.html)([?#].*)?$/);
