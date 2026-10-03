@@ -110,6 +110,8 @@ function rewriteLinks(root){
 }
 
 function addLanguageSwitcher(){
+  var existing=document.querySelectorAll('.language-switcher[data-lang="'+lang+'"],.language-mobile[data-lang="'+lang+'"]');
+  if(existing.length>=2 && document.querySelector('.language-switcher[data-lang="'+lang+'"]') && document.querySelector('.language-mobile[data-lang="'+lang+'"]'))return;
   var old=document.querySelectorAll('.language-switcher,.language-mobile');
   for(var oi=0;oi<old.length;oi++)old[oi].remove();
   var langs=['fr','en','ar'],parts=location.pathname.split('/').filter(Boolean),inPages=parts[parts.length-2]==='pages',file=parts[parts.length-1]||'index.html';
