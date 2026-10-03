@@ -64,6 +64,79 @@ var R={
 en:[['Œuf au plat','fried egg'],['œuf au plat','fried egg'],['œufs','eggs'],['omelette','omelette'],['fromage','cheese'],['jambon','beef or turkey ham'],['légumes','vegetables'],['viande de bœuf','beef'],['viande','meat'],['poulet','chicken'],['crevettes','shrimp'],['crabe','crab'],['salade','salad'],['tomates','tomatoes'],['concombres','cucumbers'],['oignons','onions'],['poivrons','peppers'],['carottes','carrots'],['maïs','sweet corn'],['olives','olives'],['persil','parsley'],['menthe','mint'],['pain','bread'],['beurre','butter'],['huile d’olive','olive oil'],['sauce','sauce'],['frites','fries'],['riz','rice'],['pommes de terre','potatoes'],['purée','mashed potatoes'],['champignons','mushrooms'],['mozzarella','mozzarella'],['cheddar','cheddar'],['parmesan','parmesan'],['piment','chili'],['sucre','sugar'],['miel','honey'],['glace','ice cream'],['fruits','fruit'],['frais','fresh'],['fraîche','fresh'],['frappé','blended'],['crémeux','creamy'],['accompagné','served with'],['accompagnées','served with'],['maison','house-made'],['bouteille','bottle'],['verre','glass'],['plat','plate'],['grand','large'],['moyen','medium'],['nature','plain'],['spéciale','special'],['spécial','special'],['royale','royal'],['royal','royal'],['sans alcool','alcohol-free'],['alcoolisés','alcoholic'],['alcoolisé','alcoholic']],
 ar:[['Œuf au plat','بيض مقلي'],['œuf au plat','بيض مقلي'],['œufs','بيض'],['omelette','عجة'],['fromage','جبن'],['jambon','هام'],['légumes','خضروات'],['viande de bœuf','لحم بقري'],['viande','لحم'],['poulet','دجاج'],['crevettes','روبيان'],['crabe','سلطعون'],['salade','سلطة'],['tomates','طماطم'],['concombres','خيار'],['oignons','بصل'],['poivrons','فلفل'],['carottes','جزر'],['maïs','ذرة حلوة'],['olives','زيتون'],['persil','بقدونس'],['menthe','نعناع'],['pain','خبز'],['beurre','زبدة'],['huile d’olive','زيت الزيتون'],['sauce','صلصة'],['frites','بطاطس مقلية'],['riz','أرز'],['pommes de terre','بطاطس'],['purée','بطاطس مهروسة'],['champignons','فطر'],['mozzarella','موزاريلا'],['cheddar','شيدر'],['parmesan','بارميزان'],['piment','فلفل حار'],['sucre','سكر'],['miel','عسل'],['glace','آيس كريم'],['fruits','فاكهة'],['frais','طازج'],['fraîche','طازج'],['frappé','مخلوط'],['crémeux','كريمي'],['accompagné','يُقدّم مع'],['accompagnées','تُقدّم مع'],['maison','خاص بالمطعم'],['bouteille','زجاجة'],['verre','كأس'],['plat','طبق'],['grand','كبير'],['moyen','متوسط'],['nature','سادة'],['spéciale','خاص'],['spécial','خاص'],['royale','رويال'],['royal','رويال'],['sans alcool','بدون كحول'],['alcoolisés','بالكحول'],['alcoolisé','بالكحول']]
 };
+
+/* Arabic catalogue layer: dedicated product-name/description translations. */
+var AR_NAME_PHRASES=[
+["OMELETTE NATURE","عجة سادة"],["OMELETTE FROMAGE","عجة بالجبن"],["OMELETTE SPÉCIALE","عجة خاصة"],["OMELETTE ROYALE","عجة رويال"],["FORMULE SPÉCIALE","الوجبة الخاصة"],
+["SALADE DE CHOUX","سلطة الملفوف"],["AVOCATS CREVETTES","أفوكادو بالروبيان"],["BEIGNETS DE CREVETTES","فطائر الروبيان المقلية"],["FRITES AU FROMAGE","بطاطس مقلية بالجبن"],["POMMES SAUTÉES","بطاطس سوتيه"],["HOUMMOUS VIANDE","حمص باللحم"],["MOZZARELLA STICKS","أصابع موزاريلا"],["CHEESY ROLLS","لفائف الجبن"],["FATAYER VIANDE","فطائر باللحم"],["FATAYER LÉGUMES","فطائر بالخضار"],
+["CHAWARMA POULET","شاورما دجاج"],["CHAWARMA VIANDE","شاورما لحم"],["CHAWARMA MIX","شاورما ميكس"],["CHAWARMA BROCHETTE","شاورما بالأسياخ"],
+["SANDWICH CHICKEN SUB","سندويتش تشيكن صب"],["SANDWICH CRISPY","سندويتش كريسبي"],["SANDWICH PHILADELPHIA","سندويتش فيلادلفيا"],["SANDWICH FRANCISCO","سندويتش فرانسيسكو"],["SANDWICH FAHITA","سندويتش فاهيتا"],["SANDWICH ZINGER","سندويتش زنجر"],
+["LEBANESE BURGER","البرغر اللبناني"],["CHEESE BURGER","تشيز برغر"],["EGG & CHEESE BURGER","برغر بالبيض والجبن"],["AMERICAN BURGER","البرغر الأمريكي"],["BBQ BURGER","برغر بصوص الباربكيو"],["ESCALOPE CHICKEN BURGER","برغر إسكالوب الدجاج"],["CHICKEN BURGER","برغر الدجاج"],["CRISPY BURGER","برغر الدجاج المقرمش"],["CHICKEN MOZZA BURGER","برغر الدجاج بالموزاريلا"],["PLAT DE FRITES","طبق بطاطس مقلية"],
+["TACOS POULET —","تاكوس دجاج —"],["TACOS VIANDE —","تاكوس لحم —"],["TACOS MIX —","تاكوس ميكس —"],
+["PENNE ARRABIATA","بيني أرابياتا"],["SPAGHETTIS BOLOGNAISE","سباغيتي بولونيز"],["SPAGHETTIS PHILLY STEAK","سباغيتي فيلي ستيك"],["TAGLIATELLES ALFREDO","تاغلياتيل ألفريدو"],["TAGLIATELLES AUX CREVETTES","تاغلياتيل بالروبيان"],["PENNE AL FORNO","بيني بالفرن"],
+["PLAT CHAWARMA","طبق شاورما"],["PLAT CRISPY","طبق كريسبي"],["ESCALOPE DE POULET","إسكالوب الدجاج"],["STEAK AU POULET","ستيك الدجاج"],["STEAK AMÉRICAIN","ستيك أمريكي"],["STEAK À LA CRÈME","ستيك بالكريمة"],["CHICKEN HAWAÏ","دجاج هاواي"],
+["QUESADILLA POULET","كيساديلا دجاج"],["QUESADILLA VIANDE","كيساديلا لحم"],["FAHITAS AL FORNO","فاهيتا بالفرن"],["PHILADELPHIA AL FORNO","فيلادلفيا بالفرن"],["FAHITAS CREVETTES SAUTÉES","فاهيتا روبيان سوتيه"],["POISSON SOSSO BRAISÉ","سمك سوسو مشوي"],["POISSON CARPE BRAISÉE","سمك الشبوط المشوي"],["RIZ CANTONAIS","أرز كانتوني"],
+["BROCHETTES AILES DE POULET","أسياخ أجنحة الدجاج"],["BROCHETTES SHISH TAOUK","أسياخ شيش طاووق"],["BROCHETTES KAFTA","أسياخ كفتة"],["BROCHETTES DE FILET","أسياخ فيليه اللحم"],["BROCHETTES D'AGNEAU","أسياخ لحم الضأن"],["BROCHETTES MIX GRILL","أسياخ مشاوي مشكلة"],
+["POULET RÔTI","دجاج مشوي بالفرن"],["POULET BRAISÉ","دجاج مطهو"],["POULET FRIT","دجاج مقلي"],["POULET SAUTÉ","دجاج سوتيه"],["POULET PANÉ","دجاج مقرمش بالبقسماط"],
+["PLAT FRITES","طبق بطاطس مقلية"],["PLAT ALLOCO","طبق ألوكو"],["PLAT ATTIÉKÉ","طبق أتيكيه"],["PLAT DE RIZ BASMATI","طبق أرز بسمتي"],["PLAT DE RIZ LÉGUMES","طبق أرز بالخضار"],
+["MARGHERITA","مارغريتا"],["VÉGÉTARIENNE","بيتزا خضار"],["ROYALE CRÉMIÈRE","رويال بالكريمة"],["ROYALE","رويال"],["PEPPERONI","بيبروني"],["CALABRAISE","كالابريزية"],["MEXICAINE","مكسيكية"],["POULET CRÉMIÈRE","دجاج بالكريمة"],["POULET","دجاج"],["CORDON BLEU","كوردون بلو"],["THON","تونة"],["CREVETTES","روبيان"],["QUATRE SAISONS","أربعة فصول"],
+["ESPRESSO","إسبريسو"],["NESCAFÉ","نسكافيه"],["CAFÉ AU LAIT","قهوة بالحليب"],["CAPPUCCINO","كابتشينو"],["CHOCO CHAUD","شوكولاتة ساخنة"],["NAJAR","نجّار"],["THÉ ORIENTAL","شاي شرقي"],["THÉ GINGEMBRE","شاي بالزنجبيل"],
+["PETITE EAU 50 CL","ماء صغير 50 سل"],["GRANDE EAU 1 L","ماء كبير 1 لتر"],
+["CRÊPE SALÉE","كريب مالحة"],["CRÊPE NUTELLA","كريب نوتيلا"],["CRÊPE SPECULOOS","كريب سبكولوس"],["CRÊPE OREO CHOCOLAT","كريب أوريو بالشوكولاتة"],["CRÊPE EL PATRÓN","كريب إل باترون"],["BOULE DE GLACE","كرة آيس كريم"],["BANANE SPLIT","بانانا سبليت"],["SALADE DE FRUITS","سلطة فواكه"],["ASSIETTE DE FRUITS","طبق فواكه"],
+["VIRGIN MOJITO","موهيتو فيرجن"],["VIRGIN PASSIONNÉE","باشن فيرجن"],["FLEUR D'AMOUR","زهرة الحب"],["PIÑA COLADA","بينا كولادا"],["PARFUMS / GOÛTS","النكهات / الأذواق"],["JUS NATURELS","عصائر طبيعية"],["SMOOTHIES FRAPPÉS","سموثي مثلج"],["MILKSHAKES","ميلك شيك"],["MILKSHAKES SPÉCIAUX","ميلك شيك خاص"],
+["MOJITO","موهيتو"],["DESPEJITO","ديسبيجيتو"],["LONG ISLAND","لونغ آيلاند"],["SEX ON THE BEACH","سِكس أون ذا بيتش"],["LA PASSIONNÉE","باشن"],["BLEU LAGOON","بلو لاغون"],["MARGARITA","مارغريتا"],["TEQUILA SUNRISE","تيكيلا صن رايز"],["CHOCOLATINI","شوكولاتيني"],["JAGER BOMB","جيغر بومب"],["SHOT SANGLE","شوت سانغل"],["RAYON DE 6 SHOTS","مجموعة من 6 شوتات"]
+];
+var AR_DESC_PHRASES=[
+["La formule des plat est accompagnée de frites salade de choux, crudité, ketchup et piment.","خيار الطبق يأتي مع البطاطس المقلية وسلطة الملفوف والخضار الطازجة والكاتشب والفلفل الحار."],
+["Omelette ou œuf au plat, avec pain et beurre.","عجة أو بيض مقلي، مع الخبز والزبدة."],
+["Omelette ou œuf au plat au fromage, avec pain et beurre.","عجة أو بيض مقلي بالجبن، مع الخبز والزبدة."],
+["Omelette ou œuf au plat, fromage, jambon et légumes, avec pain et beurre.","عجة أو بيض مقلي، جبن، هام وخضار، مع الخبز والزبدة."],
+["Omelette ou œuf au plat, fromage, jambon, légumes, salade et avocat, avec pain et beurre.","عجة أو بيض مقلي، جبن، هام، خضار، سلطة وأفوكادو، مع الخبز والزبدة."],
+["Omelette ou œuf au plat spécial, pain et beurre, café au lait ou thé, et jus naturel.","عجة أو بيض مقلي خاص، خبز وزبدة، قهوة بالحليب أو شاي، وعصير طبيعي."],
+["Akkawi spécial manaïches.","عكاوي خاصة بالمناقيش."],["Thym oriental.","زعتر شرقي."],["Accompagnées de ketchup.","تُقدّم مع الكاتشب."],["Accompagnés de piment.","تُقدّم مع الفلفل الحار."],["Ailes de poulet grillées (8 pièces), accompagnées de sauce cocktail ou sauce BBQ, pâte à l’ail et piment.","أجنحة دجاج مشوية (8 قطع)، تُقدّم مع صلصة كوكتيل أو صلصة باربكيو، صلصة بالثوم وفلفل حار."],
+["Rouleaux croustillants vietnamiens, frits et garnis de viande de bœuf ou de poulet (10 pièces), accompagnés de sauce nems et de piment.","لفائف فيتنامية مقرمشة، مقلية ومحشوة باللحم البقري أو الدجاج (10 قطع)، تُقدّم مع صلصة النيم والفلفل الحار."],
+["Purée de pois chiches, accompagnée de légumes, pain, pâte à l’ail et piment.","حمص مهروس، يُقدّم مع الخضار والخبز وصلصة الثوم والفلفل الحار."],["Purée de pois chiches avec viande chawarma, accompagnée de légumes, pain, pâte à l’ail et piment.","حمص مهروس مع لحم الشاورما، يُقدّم مع الخضار والخبز وصلصة الثوم والفلفل الحار."],["Purée d’aubergines, accompagnée de légumes, pain, pâte à l’ail et piment.","باذنجان مهروس، يُقدّم مع الخضار والخبز وصلصة الثوم والفلفل الحار."],
+["Format L Royal","بحجم L رويال"],["Format XL Royal","بحجم XL رويال"],["Format L","بحجم L"],["Format XL","بحجم XL"],["portion de frites","حصة من البطاطس المقلية"],["Accompagnement au choix","الطبق الجانبي حسب الاختيار"],
+["Pâtes penne, sauce tomate arrabiata et fromage.","باستا بيني، صلصة طماطم أرابياتا وجبن."],["Spaghettis, viande de bœuf hachée et sauce bolognaise.","سباغيتي، لحم بقري مفروم وصلصة بولونيز."],["Spaghettis, sauce tomate épicée et steak de bœuf.","سباغيتي، صلصة طماطم حارة وستيك لحم بقري."],["Tagliatelles, sauce crémière aux champignons et blanc de poulet grillé.","تاغلياتيل، صلصة كريمية بالفطر وصدر دجاج مشوي."],["Tagliatelles, crevettes et sauce crémière aux champignons.","تاغلياتيل، روبيان وصلصة كريمية بالفطر."],["Penne, sauce crémière aux champignons, blanc de poulet et mozzarella fondue au four.","بيني، صلصة كريمية بالفطر، صدر دجاج وموزاريلا مذابة في الفرن."],
+["Café court ou allongé.","قهوة إسبريسو قصيرة أو طويلة."],["Tasse de Nescafé.","كوب نسكافيه."],["Café espresso ou Nescafé, lait chaud.","إسبريسو أو نسكافيه مع حليب ساخن."],["Cacao et lait chaud fait maison.","كاكاو وحليب ساخن محضّر في المطعم."],["Chocolat chaud fait maison.","شوكولاتة ساخنة محضّرة في المطعم."],["Carafe de café libanais.","إبريق قهوة لبنانية."],["Carafe orientale à la menthe.","إبريق شاي شرقي بالنعناع."],["Carafe de thé au gingembre et au miel.","إبريق شاي بالزنجبيل والعسل."],
+["Nutella, banane, Oreo, sauce chocolat.","نوتيلا، موز، أوريو وصلصة شوكولاتة."],["Jambon de bœuf ou de dinde, fromage mozzarella.","هام بقري أو هام ديك رومي وجبن موزاريلا."],["Vanille, chocolat, fraise, menthe, américain, malaga, plombière, yaourt fraise.","فانيليا، شوكولاتة، فراولة، نعناع، أمريكان، مالاغا، بلومبيير، وزبادي بالفراولة."],["3 boules de glace, banane, chantilly, sauce chocolat et fraise.","3 كرات آيس كريم، موز، كريمة مخفوقة وصلصة شوكولاتة وفراولة."],["3 boules de glace au choix, chantilly, sauce chocolat et fraise, Oreo.","3 كرات آيس كريم حسب الاختيار، كريمة مخفوقة، صلصة شوكولاتة وفراولة، وأوريو."],["Tasse de salade de fruits de saison.","كوب من سلطة فواكه الموسم."],["Fruits de saison.","فواكه الموسم."],
+["Menthe fraîche, San Pellegrino, sirop de canne et citron.","نعناع طازج، سان بيليغرينو، شراب قصب السكر وليمون."],["Menthe fraîche, jus de passion frais et citron.","نعناع طازج، عصير باشن فروت طازج وليمون."],["Jus de passion mixé et frais, orange et grenadine.","عصير باشن فروت طازج ومخلوط، برتقال وغرينادين."],["Pulpe de jus d’orange, Perrier et sirop de fraise.","لب عصير البرتقال، بيريه وشراب الفراولة."],["Jus de fraise mixé, orange, passion, ananas et citron.","عصير فراولة مخلوط، برتقال، باشن فروت، أناناس وليمون."],["Jus d’orange, jus de passion, Perrier et curaçao bleu.","عصير برتقال، عصير باشن فروت، بيريه وكوراساو أزرق."],["Lait de coco, jus d’ananas frais et sirop caribéen.","حليب جوز الهند، عصير أناناس طازج وشراب كاريبي."],
+["Rhum blanc, menthe fraîche, S. Pellegrino et citron.","روم أبيض، نعناع طازج، سان بيليغرينو وليمون."],["Rhum blanc, menthe fraîche, bière Desperados et citron.","روم أبيض، نعناع طازج، بيرة ديسبيرادوس وليمون."],["Gin, rhum blanc, vodka, tequila, Coca et citron.","جن، روم أبيض، فودكا، تيكيلا، كوكاكولا وليمون."],["Chambord, cranberry, vodka et jus d’orange.","شامبور، توت بري، فودكا وعصير برتقال."],["Vodka, rhum blanc, triple sec, menthe et citron.","فودكا، روم أبيض، تربل سيك، نعناع وليمون."],["Vodka, curaçao bleu et citron.","فودكا، كوراساو أزرق وليمون."],["Cointreau, tequila et citron.","كوانترو، تيكيلا وليمون."],["Tequila, jus d’orange et grenadine.","تيكيلا، عصير برتقال وغرينادين."],["Baileys, Kahlúa et Nutella.","بايليز، كاهلوا ونوتيلا."],["Jägermeister et Red Bull.","ياغرمايستر وريد بُل."],["Tequila, rhum, Jägermeister et Bombay Gin.","تيكيلا، روم، ياغرمايستر وجن بومباي."],["Vodka fruitée.","فودكا بنكهة الفاكهة."],
+["Whisky — tournée (verre).","ويسكي — جولة (كأس)."],["Rhum & tequila — tournée (verre).","روم وتيكيلا — جولة (كأس)."],["Gin & vodka — tournée (verre).","جن وفودكا — جولة (كأس)."],["Cognac — tournée (verre).","كونياك — جولة (كأس)."],["Spiritueux, liqueurs & apéritifs — tournée (verre).","مشروبات روحية وليكيورات ومقبلات — جولة (كأس)."],["Champagnes — tournée (verre).","شمبانيا — جولة (كأس)."],
+["Whisky — bouteille.","ويسكي — زجاجة."],["Rhum & tequila — bouteille.","روم وتيكيلا — زجاجة."],["Gin & vodka — bouteille.","جن وفودكا — زجاجة."],["Cognac — bouteille.","كونياك — زجاجة."],["Spiritueux, liqueurs & apéritifs — bouteille.","مشروبات روحية وليكيورات ومقبلات — زجاجة."],["Champagnes — bouteille.","شمبانيا — زجاجة."],["Bouteille.","زجاجة."]
+];
+var AR_LABELS={"Sandwich":"سندويتش","Plat":"طبق","Demi":"نصف","Entier":"كامل","Grand":"كبير","Moyen":"متوسط","Verre":"كأس","Bouteille":"زجاجة","Bouteilles 33 cl":"زجاجات 33 سل","Canettes 50 cl":"علب 50 سل"};
+function arApplyPairs(value,pairs){
+  var o=value||"";
+  for(var i=0;i<pairs.length;i++)o=o.split(pairs[i][0]).join(pairs[i][1]);
+  return o;
+}
+function arName(value){
+  var o=arApplyPairs(value,AR_NAME_PHRASES);
+  if(o===value){
+    var extra=[["NATURE","سادة"],["SPÉCIALE","خاص"],["SPÉCIAL","خاص"],["LÉGUMES","خضار"],["VIANDE","لحم"],["FROMAGE","جبن"],["JAMBON","هام"],["POULET","دجاج"],["CREVETTES","روبيان"],["FRITES","بطاطس مقلية"],["THÉ","شاي"],["JUS","عصير"],["CRÊPE","كريب"],["PIZZA","بيتزا"]];
+    for(var i=0;i<extra.length;i++)o=o.split(extra[i][0]).join(extra[i][1]);
+  }
+  return o;
+}
+function arDesc(value){
+  var o=arApplyPairs(value,AR_DESC_PHRASES);
+  var extra=[
+["œuf au plat","بيض مقلي"],["œufs","بيض"],["omelette","عجة"],["fromage","جبن"],["jambon","هام"],["légumes","خضار"],["viande de bœuf","لحم بقري"],["viande hachée","لحم مفروم"],["viande","لحم"],["poulet","دجاج"],["filet","فيليه"],["steak","ستيك"],["crevettes","روبيان"],["crabe","سلطعون"],["thon","تونة"],
+["salade de chou","سلطة الملفوف"],["salade","سلطة"],["tomates","طماطم"],["concombres","خيار"],["oignons verts","بصل أخضر"],["oignons","بصل"],["poivrons","فلفل"],["champignons","فطر"],["carottes","جزر"],["maïs doux","ذرة حلوة"],["maïs","ذرة"],["olives noires","زيتون أسود"],["olives","زيتون"],["persil","بقدونس"],["menthe","نعناع"],["radis","فجل"],["chou","ملفوف"],["épinards","سبانخ"],["semoule","سميد"],["haricots","فاصوليا"],["petits pois","بازلاء"],
+["pommes de terre","بطاطس"],["frites","بطاطس مقلية"],["pain libanais","خبز لبناني"],["pain tortilla","خبز تورتيلا"],["pain","خبز"],["beurre","زبدة"],["mozzarella","موزاريلا"],["cheddar","شيدر"],["parmesan","بارميزان"],["mayonnaise","مايونيز"],["ketchup","كاتشب"],["piment","فلفل حار"],
+["ananas","أناناس"],["mangue","مانجو"],["pomme","تفاح"],["orange","برتقال"],["banane","موز"],["fraise","فراولة"],["citron","ليمون"],["passion","باشن فروت"],["fruits","فواكه"],["vanille","فانيليا"],["chocolat","شوكولاتة"],["glace","آيس كريم"],["chantilly","كريمة مخفوقة"],["sirop","شراب مركز"],["lait","حليب"],["café","قهوة"],["thé","شاي"],["gingembre","زنجبيل"],["miel","عسل"],["cacao","كاكاو"],
+["sauce cocktail","صلصة كوكتيل"],["Sauce cocktail","صلصة كوكتيل"],["sauce BBQ","صلصة باربكيو"],["sauce blanche crémière","صلصة بيضاء كريمية"],["sauce crémière","صلصة كريمية"],["sauce tomate","صلصة الطماطم"],["sauce mayonnaise","صلصة المايونيز"],["pâte à l’ail","صلصة بالثوم"],["pâte à l'ail","صلصة بالثوم"],
+["Rhum","روم"],["rhum","روم"],["Whisky","ويسكي"],["Gin","جن"],["Vodka","فودكا"],["Tequila","تيكيلا"],["Cognac","كونياك"],["Champagnes","شمبانيا"],["liqueurs","ليكيورات"],["Spiritueux","مشروبات روحية"],["bière","بيرة"],
+["grillé","مشوي"],["grillée","مشوية"],["grillées","مشوية"],["braisé","مطهو"],["braisée","مطهية"],["frit","مقلي"],["fritte","مقلية"],["pané","مغطى بالبقسماط"],["panée","مغطاة بالبقسماط"],["sauté","سوتيه"],["sautée","سوتيه"],["croustillant","مقرمش"],["croustillante","مقرمشة"],["crémeux","كريمي"],["fraîche","طازجة"],["frais","طازج"],["naturel","طبيعي"],["naturels","طبيعية"],["fait maison","محضّر في المطعم"],["au four","في الفرن"],
+["Accompagnement au choix","الطبق الجانبي حسب الاختيار"],["au choix","حسب الاختيار"],["portion","حصة"],["pièce","قطعة"],["pièces","قطع"],["Format","بحجم"],["tournée","جولة"],["verre","كأس"],["bouteille","زجاجة"],
+["avec","مع"],[" ou "," أو "],[" ou"," أو"],["et ","و "]
+  ];
+  for(var j=0;j<extra.length;j++)o=o.split(extra[j][0]).join(extra[j][1]);
+  return o.replace(/\\s{2,}/g," ").replace(/\\s+([،.])/g,"$1").trim();
+}
+function arLabel(value){return AR_LABELS[value]||value;}
+
 function tr(s){
   if(typeof s!=='string'||lang==='fr')return s;
   var exact=U[lang]||{};
@@ -83,8 +156,15 @@ if(window.EL_PATRON_MENU){
   Object.keys(window.EL_PATRON_MENU).forEach(function(slug){
     out[slug]=(window.EL_PATRON_MENU[slug]||[]).map(function(p){
       var q=Object.assign({},p);
-      ['name','sub','desc','note'].forEach(function(k){if(typeof q[k]==='string')q[k]=tr(q[k]);});
-      if(Array.isArray(q.price))q.price=q.price.map(function(o){return Object.assign({},o,{label:typeof o.label==='string'?tr(o.label):o.label});});
+      if(lang==='ar'){
+        if(typeof q.name==='string')q.name=arName(q.name);
+        if(typeof q.sub==='string')q.sub=arName(q.sub);
+        if(typeof q.desc==='string')q.desc=arDesc(q.desc);
+        if(typeof q.note==='string')q.note=arDesc(q.note);
+      }else{
+        ['name','sub','desc','note'].forEach(function(k){if(typeof q[k]==='string')q[k]=tr(q[k]);});
+      }
+      if(Array.isArray(q.price))q.price=q.price.map(function(o){return Object.assign({},o,{label:typeof o.label==='string'?(lang==='ar'?arLabel(o.label):tr(o.label)):o.label});});
       return q;
     });
   });
