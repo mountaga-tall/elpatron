@@ -1,6 +1,7 @@
 (function(){
   'use strict';
   const KEY='elpatronCartV1';
+  const LANG=(window.EL_PATRON_LANG||document.documentElement.lang||'fr').toLowerCase().slice(0,2);
   const FREE_ACCOMPANIMENT_IDS=new Set([
     'plats-1','plats-2','plats-3','plats-4','plats-5','plats-6','plats-7','plats-8','plats-9','plats-10','plats-11','plats-12','plats-13','plats-14','plats-15',
     'grill-1','grill-2','grill-3','grill-4','grill-5','grill-6',
@@ -8,7 +9,7 @@
   ]);
   const ACCOMPANIMENTS=['Alloco','Attiéké','Frites','Purée de pommes de terre','Pommes de terre sautées','Riz nature','Riz curry','Riz sauce tomate'];
   const ICE_FLAVORS=['Vanille','Américain','Fraise','Malaga','Café','Menthe Chocolat','Chocolat Noir','Plombière','Yaourt Fraise'];
-  const ICE_PATTERN=/\bboules?\s+de\s+glace\b/i;
+  const ICE_PATTERN=/\bboules?\s+de\s+(?:glace|ice cream)\b|\bscoops?\s+of\s+ice cream\b|\bboules?\s+de\s+(?:آيس كريم|الآيس كريم)\b|كرات\s+(?:من\s+)?الآيس كريم/i;
   const $=(s,r=document)=>r.querySelector(s);
   const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
   const money=n=>new Intl.NumberFormat('fr-FR').format(Number(n)||0)+' FCFA';
@@ -113,12 +114,12 @@
   function orderWhatsApp(){
     const cart=loadCart();
     if(!cart.length){showToast('Votre panier est vide');return}
-    let msg='Bonjour EL PATRÓN,\n\nJe souhaite commander :\n';
+    let msg=LANG==='en'?'Hello EL PATRÓN,\n\nI would like to order:\n':LANG==='ar'?'مرحباً إل باترون،\n\nأرغب في طلب:\n':'Bonjour EL PATRÓN,\n\nJe souhaite commander :\n';
     cart.forEach(i=>{
       const meta=cartMeta(i);
       msg+=`- ${i.name}${meta?' ('+meta+')':''} × ${i.qty} = ${money(i.amount*i.qty)}\n`;
     });
-    msg+=`\nTotal : ${money(totalPrice(cart))}\n\nMerci.`;
+    msg+=`\n${LANG==='en'?'Total':LANG==='ar'?'الإجمالي':'Total'} : ${money(totalPrice(cart))}\n\n${LANG==='en'?'Thank you.':LANG==='ar'?'شكراً لكم.':'Merci.'}`;
     const phone=window.EL_PATRON_SITE?.phoneRaw;
     if(phone){location.href='https://wa.me/'+phone+'?text='+encodeURIComponent(msg);return}
     showToast('Numéro WhatsApp indisponible');
