@@ -660,7 +660,7 @@ body.options-open{overflow:hidden}
 [dir="rtl"] .brand-text,[dir="rtl"] .site-search,[dir="rtl"] .search-box,[dir="rtl"] .mobile-search-wrap,[dir="rtl"] .menu-toolbar,[dir="rtl"] .mobile-links{text-align:right}
 [dir="rtl"] .site-search input,[dir="rtl"] .search-box input{direction:rtl;text-align:right}
 [dir="rtl"] .hero-cta,[dir="rtl"] .cart-actions,[dir="rtl"] .product-foot,[dir="rtl"] .total-row,[dir="rtl"] .product-options-panel,[dir="rtl"] .product-options-actions{direction:rtl}
-[dir="rtl"] .category-arrow{left:auto;right:22px;transform:scaleX(-1)}
+[dir="rtl"] .category-arrow{left:22px;right:auto;transform:scaleX(-1)}
 [dir="rtl"] .footer-links{direction:rtl}
 
 
