@@ -108,6 +108,35 @@ function rewriteLinks(root){
     else if(/index\.html/.test(h)){var q=h.match(/index\.html([?#].*)?$/);a.setAttribute('href',base+'index.html'+(q?q[1]||'':''));}
   }
 }
+
+function addLanguageSwitcher(){
+  if(document.querySelector('.language-switcher'))return;
+  var actions=document.querySelector('.header-actions');
+  if(actions){
+    var box=document.createElement('div');box.className='language-switcher';box.setAttribute('aria-label','Language');
+    var parts=location.pathname.split('/').filter(Boolean),inPages=parts[parts.length-2]==='pages',file=parts[parts.length-1]||'index.html';
+    ['fr','en','ar'].forEach(function(l){
+      var a=document.createElement('a');a.className=l===lang?'active':'';
+      a.textContent=l==='ar'?'العربية':l.toUpperCase();
+      a.href=inPages?'../../'+l+'/pages/'+file:'../'+l+'/';
+      a.setAttribute('aria-label',l==='ar'?'العربية':l.toUpperCase());
+      box.appendChild(a);
+    });
+    actions.insertBefore(box,actions.firstChild);
+  }
+  var links=document.querySelector('.mobile-links');
+  if(links&&!links.querySelector('.language-mobile')){
+    var row=document.createElement('div');row.className='language-mobile';
+    ['fr','en','ar'].forEach(function(l){
+      var a=document.createElement('a');var parts=location.pathname.split('/').filter(Boolean),inPages=parts[parts.length-2]==='pages',file=parts[parts.length-1]||'index.html';
+      a.textContent=l==='ar'?'العربية':l.toUpperCase();a.className=l===lang?'active':'';
+      a.href=inPages?'../../'+l+'/pages/'+file:'../'+l+'/';
+      row.appendChild(a);
+    });
+    links.appendChild(row);
+  }
+}
+
 function translateDom(){
   var root=document.body,walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),arr=[],n;
   while(n=walker.nextNode())arr.push(n);
@@ -132,5 +161,6 @@ function translateDom(){
   rewriteLinks(root);
 }
 translateDom();
-new MutationObserver(function(){translateDom();}).observe(document.documentElement,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['href','placeholder','aria-label']});
+addLanguageSwitcher();
+new MutationObserver(function(){translateDom();addLanguageSwitcher();}).observe(document.documentElement,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['href','placeholder','aria-label']});
 })();
