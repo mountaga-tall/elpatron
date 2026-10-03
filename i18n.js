@@ -110,8 +110,11 @@ function rewriteLinks(root){
 }
 
 function addLanguageSwitcher(){
-  var langs=['fr','en','ar'],parts=location.pathname.split('/').filter(Boolean),inPages=parts[parts.length-2]==='pages',file=parts[parts.length-1]||'index.html';
-  function target(l){return inPages?'../../'+l+'/pages/'+file:'../'+l+'/';}
+  var langs=['fr','en','ar'],parts=location.pathname.split('/').filter(Boolean),hasLocale=langs.indexOf(parts[0])>=0,inPages=parts[parts.length-2]==='pages',file=parts[parts.length-1]||'index.html';
+  function target(l){
+    if(inPages)return (hasLocale?'../../':'../')+l+'/pages/'+file;
+    return (hasLocale?'../':'./')+l+'/';
+  }
   function build(cls){
     var box=document.createElement('div');box.className=cls;box.setAttribute('role','tablist');box.setAttribute('aria-label','Language');box.dataset.lang=lang;
     var track=document.createElement('span');track.className='language-thumb';track.setAttribute('aria-hidden','true');box.appendChild(track);
