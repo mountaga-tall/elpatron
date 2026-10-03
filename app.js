@@ -354,7 +354,7 @@
   document.addEventListener('DOMContentLoaded',()=>{
     if(!window.EL_PATRON_MENU||!window.EL_PATRON_CATEGORIES||!window.EL_PATRON_SITE){document.body.classList.add('site-error');return}
     try{
-      globalErrorGuard();renderHeader();renderFooter();setupCart();renderPageMeta();renderHome();observeReveals();bindTilts();setupGlobalMotion();renderFullCart();
+      globalErrorGuard();renderHeader();renderFooter();setupCart();renderPageMeta();renderHome();observeReveals();bindTilts();setupGlobalMotion();renderFullCart();window.EL_PATRON_I18N_POST_RENDER?.();
     }catch(error){console.error('EL PATRÓN init:',error);document.body.classList.remove('site-error');}
   });
 })();
