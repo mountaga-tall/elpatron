@@ -152,6 +152,41 @@ var AR_DESC_SAFE=[
 ["Accompagnées","تُقدّم"],["Accompagnés","تُقدّم"],["Accompagné","يُقدّم"],["accompagnées","تُقدّم"],["accompagnés","تُقدّم"],["accompagné","يُقدّم"],["pané","مغطى بالبقسماط"],["panée","مغطاة بالبقسماط"],["grillé","مشوي"],["grillée","مشوية"],["grillées","مشوية"],["braisé","مطهو"],["braisée","مطهية"],["sauté","سوتيه"],["sautée","سوتيه"],["croustillant","مقرمش"],["croustillante","مقرمشة"],["crémière","كريمية"],["crémeuse","كريمية"],["maison","محضّر في المطعم"],["fait maison","محضّر في المطعم"],["au four","في الفرن"],["au choix","حسب الاختيار"],["portion","حصة"],["pièces","قطع"],["pièce","قطعة"],["Format","بحجم"],["Bouteille","زجاجة"],["Verre","كأس"],["Grand","كبير"],["Moyen","متوسط"],["Demi","نصف"],["Entier","كامل"],["tournée","جولة"],["avec","مع"],["ou","أو"],["et","و"],["aux","بـ"],["au","بـ"],["à","بـ"],["de","من"],["des",""],["du",""],["les",""],["la",""],["le",""]
 ];
 AR_DESC_SAFE.sort(function(a,b){return b[0].length-a[0].length;});
+
+AR_NAME_PHRASES.push(
+["LÉGUMES","خضار"],["VIANDE","لحم"],["FROMAGE","جبن"],["JAMBON FROMAGE","هام بالجبن"],["FRITES","بطاطس مقلية"],
+["BORA-BORA","بورا بورا"],["ROLAND GARROS","رولان غاروس"],["HAWAÏ","هاواي"],["KHALOUD","خلود"],["QUASAR","كوازار"],["Jameson","جيمسون"],["Martell VS","مارتيل VS"],["Prince d'Arignac VS","برنس دارينيّاك VS"]
+);
+AR_NAME_PHRASES.sort(function(a,b){return b[0].length-a[0].length;});
+AR_DESC_SAFE.push(
+["Viande de bœuf","لحم بقري"],["Viande de dinde","لحم ديك رومي"],["Viande hachée","لحم مفروم"],["Viande","لحم"],["Akkawi","عكاوي"],["zaatar","زعتر"],
+["Tomates","طماطم"],["tomates","طماطم"],["Salade","سلطة"],["salade","سلطة"],["Crevettes","روبيان"],["crème","كريمة"],["mayonnaise","مايونيز"],["ketchup","كاتشب"],
+["avocats","أفوكادو"],["Surimi de crabe","سوريمي السلطعون"],["crabe","سلطعون"],["mangue","مانجو"],["pomme","تفاح"],["orange","برتقال"],
+["libanais","لبناني"],["croustillant","مقرمش"],["râpé","مبشور"],["bouillies","مسلوقة"],["doux","حلوة"],["hachées","مفرومة"],["hachée","مفروم"],
+["Galette de pain fourrée à la viande hachée","عجينة خبز محشوة باللحم المفروم"],["Galette de pain fourrée aux épinards, oignons et tomates","عجينة خبز محشوة بالسبانخ والبصل والطماطم"],
+["Coque fine de boulgour fourrée à la viande hachée","قشرة رقيقة من البرغل محشوة باللحم المفروم"],["Briquettes farcies à la viande hachée","رقائق محشوة باللحم المفروم"],
+["Bâtonnets de mozzarella panés","أصابع موزاريلا مغطاة بالبقسماط"],["Rouleaux de brick fourrés au fromage","لفائف بريك محشوة بالجبن"],
+["morceaux de poulet pané","قطع دجاج مغطاة بالبقسماط"],["steak de blanc de poulet pané","ستيك من صدر الدجاج المغطى بالبقسماط"],
+["Filet de bœuf","فيليه لحم بقري"],["filet de bœuf","فيليه لحم بقري"],["steak de bœuf","ستيك لحم بقري"],["steak de poulet","ستيك دجاج"],
+["Blanc de poulet","صدر دجاج"],["blanc de poulet","صدر دجاج"],["poulet pané","دجاج مغطى بالبقسماط"],["poulet braisé","دجاج مطهو"],["poulet frit","دجاج مقلي"],
+["oignons persillés","بصل مع البقدونس"],["oignons frais","بصل طازج"],["oignons cuits","بصل مطهو"],["foie de poulet","كبد الدجاج"],["foie de bœuf","كبد البقر"],["boulettes de viande","كرات اللحم"],["petits pois","بازلاء"],["gésier","قوانص"],
+["shish taouk","شيش طاووق"],["escalope de poulet marinée","شرائح دجاج متبلة"],["agneau","لحم ضأن"],["kafta","كفتة"],["rosto","روستو"],["merguez","مرقاز"],["sojok","سجق سوجوك"],
+["tortilla","تورتيلا"],["pain tortilla","خبز تورتيلا"],["pain libanais","خبز لبناني"],["pain croustillant","خبز مقرمش"],["pain","خبز"],
+["pommes de terre bouillies","بطاطس مسلوقة"],["pommes de terre","بطاطس"],["frites","بطاطس مقلية"],["persil","بقدونس"],["menthe","نعناع"],["chou","ملفوف"],["laitue","خس"],
+["haricots","فاصوليا"],["semoule","سميد"],["épinards","سبانخ"],["radis","فجل"],["maïs doux","ذرة حلوة"],["maïs","ذرة"],["olives noires","زيتون أسود"],["olives","زيتون"],["poivrons","فلفل"],["oignons","بصل"],["concombres","خيار"],["carottes","جزر"],
+["huile d’olive","زيت الزيتون"],["origan","أوريغانو"],["beurre","زبدة"],["mozzarella","موزاريلا"],["cheddar","شيدر"],["parmesan","بارميزان"],
+["sauce cocktail","صلصة كوكتيل"],["Sauce cocktail","صلصة كوكتيل"],["sauce BBQ","صلصة باربكيو"],["sauce blanche crémière","صلصة بيضاء كريمية"],["sauce crémière","صلصة كريمية"],["sauce tomate","صلصة الطماطم"],["sauce mayonnaise","صلصة المايونيز"],["sauce beignet","صلصة الفطائر"],["sauce nems","صلصة النيم"],["sauce soja","صلصة الصويا"],
+["pâte à l’ail","صلصة بالثوم"],["pâte à l'ail","صلصة بالثوم"],["lait chaud","حليب ساخن"],["café libanais","قهوة لبنانية"],["thé au gingembre","شاي بالزنجبيل"],["thé oriental","شاي شرقي"],
+["jus d’orange","عصير برتقال"],["jus d'ananas","عصير أناناس"],["jus d’ananas","عصير أناناس"],["jus de passion","عصير باشن فروت"],["jus de fraise","عصير فراولة"],["jus naturel","عصير طبيعي"],
+["menthe fraîche","نعناع طازج"],["fraise","فراولة"],["ananas","أناناس"],["mangue","مانجو"],["banane","موز"],["citron","ليمون"],["chocolat","شوكولاتة"],["vanille","فانيليا"],["glace","آيس كريم"],["chantilly","كريمة مخفوقة"],["sirop","شراب مركز"],["pulpe","لب"],["fruits","فواكه"],["saison","الموسم"],
+["accompagnée de","تُقدّم مع"],["accompagnées de","تُقدّم مع"],["accompagné de","يُقدّم مع"],["accompagnés de","تُقدّم مع"],["accompagnée","تُقدّم مع"],["accompagnés","تُقدّم مع"],["accompagnées","تُقدّم مع"],["accompagné","يُقدّم مع"],
+["fouillée","محشوة"],["fourrée","محشوة"],["fourrés","محشوة"],["farcie","محشوة"],["farci","محشو"],["panée","مغطاة بالبقسماط"],["pané","مغطى بالبقسماط"],["grillées","مشوية"],["grillée","مشوية"],["grillé","مشوي"],["braisée","مطهية"],["braisé","مطهو"],["frites","مقلية"],["sautée","سوتيه"],["sauté","سوتيه"],
+["Café","قهوة"],["Tasse","كوب"],["Carafe","إبريق"],["Bouteille","زجاجة"],["Verre","كأس"],["Whisky","ويسكي"],["Rhum","روم"],["rhum","روم"],["Gin","جن"],["Vodka","فودكا"],["Tequila","تيكيلا"],["Cognac","كونياك"],["Champagnes","شمبانيا"],["Spiritueux","مشروبات روحية"],["liqueurs","ليكيورات"],
+["Bouteilles 33 cl","زجاجات 33 سل"],["Canettes 50 cl","علب 50 سل"],["tournée","جولة"],["bouteille","زجاجة"],["verre","كأس"],["Format","بحجم"],["portion","حصة"],["pièces","قطع"],["pièce","قطعة"],
+["au choix","حسب الاختيار"],["avec","مع"],["ou","أو"],["et","و"],["pour","لـ"],["dans","في"],["sur","على"],["aux","بـ"],["au","بـ"],["à","بـ"],["de","من"],["des",""],["du",""],["les",""],["la",""],["le",""],["d’une","من"],["d'un","من"],["l’",""]
+);
+AR_DESC_SAFE.sort(function(a,b){return b[0].length-a[0].length;});
+
 function arEsc(s){
   var out="";
   var special="\\^$*+?.()|[]{}-";
