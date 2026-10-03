@@ -152,10 +152,28 @@ var AR_DESC_SAFE=[
 ["Accompagnées","تُقدّم"],["Accompagnés","تُقدّم"],["Accompagné","يُقدّم"],["accompagnées","تُقدّم"],["accompagnés","تُقدّم"],["accompagné","يُقدّم"],["pané","مغطى بالبقسماط"],["panée","مغطاة بالبقسماط"],["grillé","مشوي"],["grillée","مشوية"],["grillées","مشوية"],["braisé","مطهو"],["braisée","مطهية"],["sauté","سوتيه"],["sautée","سوتيه"],["croustillant","مقرمش"],["croustillante","مقرمشة"],["crémière","كريمية"],["crémeuse","كريمية"],["maison","محضّر في المطعم"],["fait maison","محضّر في المطعم"],["au four","في الفرن"],["au choix","حسب الاختيار"],["portion","حصة"],["pièces","قطع"],["pièce","قطعة"],["Format","بحجم"],["Bouteille","زجاجة"],["Verre","كأس"],["Grand","كبير"],["Moyen","متوسط"],["Demi","نصف"],["Entier","كامل"],["tournée","جولة"],["avec","مع"],["ou","أو"],["et","و"],["aux","بـ"],["au","بـ"],["à","بـ"],["de","من"],["des",""],["du",""],["les",""],["la",""],["le",""]
 ];
 AR_DESC_SAFE.sort(function(a,b){return b[0].length-a[0].length;});
+function arEsc(s){
+  var out="";
+  var special="\\^$*+?.()|[]{}-";
+  for(var i=0;i<s.length;i++){var ch=s.charAt(i);if(special.indexOf(ch)>=0)out+="\\";out+=ch;}
+  return out;
+}
 function arRegexApply(value,pairs){
   var o=value||"";
   for(var i=0;i<pairs.length;i++){
-    var esc=pairs[i][0].replace(/[.*+?^$()|[\]{}\\-]/g,"\\replace(/[.*+?^$()|[\]\\\\{}]/g,"\\\\function tr(s){")");
+    var esc=arEsc(pairs[i][0]);
+    o=o.replace(new RegExp("(^|[^A-Za-zÀ-ÿŒœ])"+esc+"(?=$|[^A-Za-zÀ-ÿŒœ])","giu"),function(_,pre){return pre+pairs[i][1];});
+  }
+  return o;
+}
+function arName(value){return arApplyPairs(value,AR_NAME_PHRASES);}
+function arDesc(value){
+  var o=arApplyPairs(value,AR_DESC_PHRASES);
+  return arRegexApply(o,AR_DESC_SAFE).replace(/\s{2,}/g," ").replace(/\s+([،.])/g,"$1").trim();
+}
+function arLabel(value){return AR_LABELS[value]||arName(value);}
+
+function tr(s){")");
     o=o.replace(new RegExp("(^|[^A-Za-zÀ-ÿŒœ])"+esc+"(?=$|[^A-Za-zÀ-ÿŒœ])","giu"),function(_,pre){return pre+pairs[i][1];});
   }
   return o;
