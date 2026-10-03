@@ -133,7 +133,7 @@ function arDesc(value){
 ["avec","مع"],[" ou "," أو "],[" ou"," أو"],["et ","و "]
   ];
   for(var j=0;j<extra.length;j++)o=o.split(extra[j][0]).join(extra[j][1]);
-  return o.replace(/\\s{2,}/g," ").replace(/\\s+([،.])/g,"$1").trim();
+  return o.replace(/\s{2,}/g," ").replace(/\s+([،.])/g,"$1").trim();
 }
 function arLabel(value){return AR_LABELS[value]||value;}
 
@@ -155,7 +155,7 @@ AR_DESC_SAFE.sort(function(a,b){return b[0].length-a[0].length;});
 function arRegexApply(value,pairs){
   var o=value||"";
   for(var i=0;i<pairs.length;i++){
-    var esc=pairs[i][0].replace(/[.*+?^$()|[\]\\\\{}]/g,"\\\\function tr(s){");
+    var esc=pairs[i][0].replace(/[.*+?^$()|[\]{}\\-]/g,"\\replace(/[.*+?^$()|[\]\\\\{}]/g,"\\\\function tr(s){")");
     o=o.replace(new RegExp("(^|[^A-Za-zÀ-ÿŒœ])"+esc+"(?=$|[^A-Za-zÀ-ÿŒœ])","giu"),function(_,pre){return pre+pairs[i][1];});
   }
   return o;
