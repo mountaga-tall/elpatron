@@ -662,3 +662,11 @@ body.options-open{overflow:hidden}
 [dir="rtl"] .hero-cta,[dir="rtl"] .cart-actions,[dir="rtl"] .product-foot,[dir="rtl"] .total-row,[dir="rtl"] .product-options-panel,[dir="rtl"] .product-options-actions{direction:rtl}
 [dir="rtl"] .category-arrow{left:auto;right:22px;transform:scaleX(-1)}
 [dir="rtl"] .footer-links{direction:rtl}
+
+
+/* Language switcher */
+.language-switcher{display:flex;align-items:center;gap:4px;border:1px solid rgba(17,17,17,.12);border-radius:999px;padding:4px;background:#fff}
+.language-switcher a,.language-mobile a{display:inline-flex;align-items:center;justify-content:center;min-height:30px;padding:0 9px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.04em;color:#222;text-decoration:none}
+.language-switcher a.active,.language-mobile a.active{background:#111;color:#fff}
+.language-mobile{display:flex;gap:6px;flex-wrap:wrap;padding:16px 0;border-top:1px solid rgba(17,17,17,.08);margin-top:12px}
+[dir="rtl"] .language-switcher{direction:ltr}
