@@ -137,6 +137,36 @@ function arDesc(value){
 }
 function arLabel(value){return AR_LABELS[value]||value;}
 
+
+AR_NAME_PHRASES.push(
+["ZAATAR","زعتر"],["COCKTAIL","كوكتيل"],["FATTOUCHE","فتوش"],["TABOULÉ","تبولة"],["NIÇOISE","نيسواز"],["CÉSAR","سيزر"],["EL PATRÓN","إل باترون"],["CRABE","سلطعون"],["KEBBEH","كبة"],["SAMOUSSA","سمبوسة"],["WINGS","أجنحة الدجاج"],["NUGGETS","ناجتس الدجاج"],["NEMS","نيم"],["ALLOCOS","ألوكو"],["HOUMMOUS","حمص"],["MOUTABBAL","متبل"],["EGG & CHEESE BURGER","برغر بالبيض والجبن"],["MILKSHAKES SPÉCIAUX","ميلك شيك خاص"],
+["Fresco","فريسكو"],["Coca - Fanta - Sprite","كوكا - فانتا - سبرايت"],["Orangina - Malta - Cody's - Bavaria - Sanbitter","أورانجينا - مالتا - كودي - بافاريا - سانبيتر"],["Red Bull - Perrier - Schweppes tonic - Schweppes agrumes - Oasis - Lipton Ice Tea","ريد بُل - بيرييه - شويبس تونك - شويبس بالحمضيات - أوازيس - ليبتون آيس تي"],
+["Heineken - Guinness - Castel - Desperados","هاينيكن - غينيس - كاستل - ديسبيرادوس"],["Budweiser - Corona - Beaufort","بدوايزر - كورونا - بوفور"],
+["Johnny Red Label","جوني ريد ليبل"],["J&B","جيه آند بي"],["Clan Campbell","كلان كامبل"],["Ballantine's","بالانتاينز"],["Jack Daniel's Honey","جاك دانيالز هاني"],["Jack Daniel's","جاك دانيالز"],["Johnny Black Label","جوني بلاك ليبل"],["Johnny Double Black","جوني دابل بلاك"],["Chivas Regal 12","شيفاز ريغال 12"],["Havana","هافانا"],["Saint James","سانت جيمس"],["Rhum Cubano","روم كوبانو"],["Tequilla","تيكيلا"],["Gordon's","غوردنز"],["Bombay Sapphire","بومباي سافير"],["Vodka Absolut","فودكا أبسولوت"],["Vodka Smirnoff","فودكا سميرنوف"],["Belvedere","بلفيدير"],["Grey Goose","غراي غوس"],["Prince d'Arignac VS","برنس دارينيّاك VS"],["Hennessy Cognac","هينيسي كونياك"],["Martell VS","مارتيل VS"],["Get 27","جيت 27"],["Baileys","بايليز"],["Martini Rouge (Rosso)","مارتيني أحمر (روسو)"],["Martini Blanc (Bianco)","مارتيني أبيض (بيانكو)"],["Ricard","ريكارد"],["Pastis 51","باستيس 51"],["Campari","كامباري"],["Nicolas Feuillatte","نيكولا فويّات"],["Laurent Perrier","لوران بيرييه"],["Moët & Chandon","مويت وشاندون"],["Veuve Clicquot","فوف كليكو"],["Ruinart","روينار"],
+["Valentino","فالنتينو"],["Baron d’Arignac Demi-Sec","بارون دارينيّاك ديمي-سيك"],["Baron d’Arignac Brut","بارون دارينيّاك بروت"],["Baron d’Arignac","بارون دارينيّاك"],["Chamberi","شامبيري"],["Ch. Rousseau","شاتو روسو"],["Rochet Mazet","روشيه مازي"],["Calvet Moelleux","كالفِيه موالّو"],["Souvenirs","سوفونير"],["Chemin des Sables","شومان دي سابل"],["Kasra Sunset","كاسرا سانسيت"],["Cabernet d’Anjou","كابيرنيه دانجو"],["Mateus","ماتيوس"],["Bleu de Mer","بلو دو مير"],["Gris Blanc","غري بلان"],["Calvet Bordeaux","كالفِيه بوردو"],["Mouton Cadet","موتون كاديه"],["Haussmann","هوسمان"],["Côtes du Rhône","كوت دو رون"],["Château Ferrande Graves","شاتو فيراند غراف"],["J.P. Chenet Ice","جي بي شينيه آيس"],["Calvet Ice","كالفِيه آيس"],["Pierlant Demi-Sec Or","بييرلان ديمي-سيك أور"]
+);
+AR_NAME_PHRASES.sort(function(a,b){return b[0].length-a[0].length;});
+var AR_DESC_SAFE=[
+["huile d’olive","زيت الزيتون"],["huile d'olive","زيت الزيتون"],["origan","أوريغانو"],["ail","ثوم"],["cornichons","مخللات"],["cornichon","مخلل"],["bœuf","لحم بقري"],["dinde","ديك رومي"],["hachées","مفرومة"],["hachée","مفروم"],["tranché","مقطّع"],["verte","خضراء"],["vert","أخضر"],["noires","سوداء"],["noirs","سوداء"],["cuits","مطهو"],["cuite","مطهوة"],["marinée","متبلة"],["épicée","حارة"],["épicé","حار"],["fourrée","محشوة"],["fourrés","محشوة"],["fourré","محشو"],["farcie","محشوة"],["farci","محشو"],["enrobées","مغطاة"],["recouvertes","مغطاة"],["recouvert","مغطى"],["Briquettes","رقائق"],["Galette de pain","عجينة خبز"],["Bâtonnets","أصابع"],["Rouleaux","لفائف"],["Morceaux","قطع"],["boulettes","كرات اللحم"],["gésier","قوانص"],["foie","كبد"],["rosto","روستو"],["merguez","مرقاز"],["sojok","سجق سوجوك"],["kafta","كفتة"],["shish taouk","شيش طاووق"],["escalope","إسكالوب"],["chawarma","شاورما"],["tortilla","تورتيلا"],
+["crème fraîche","كريمة طازجة"],["crème","كريمة"],["jalapeños","هالابينو"],["haricots","فاصوليا"],["petits pois","بازلاء"],["radis","فجل"],["semoule","سميد"],["aubergines","باذنجان"],["pois chiches","حمص"],["Perrier","بيرييه"],["San Pellegrino","سان بيليغرينو"],["S. Pellegrino","سان بيليغرينو"],["Desperados","ديسبيرادوس"],["Red Bull","ريد بُل"],["Coca","كوكاكولا"],["cranberry","توت بري"],["triple sec","تربل سيك"],["curaçao bleu","كوراساو أزرق"],["Jägermeister","ياغرمايستر"],["Bombay Gin","جن بومباي"],["Kahlúa","كاهلوا"],["Akkawi","عكاوي"],["américain","أمريكان"],["malaga","مالاغا"],["plombière","بلومبيير"],["yaourt","زبادي"],["sauce beignet","صلصة الفطائر"],["sauce nems","صلصة النيم"],["jus","عصير"],["pulpe","لب"],["sirop","شراب مركز"],["caribéen","كاريبي"],["canne","قصب السكر"],["passion","باشن فروت"],["vanille","فانيليا"],["chantilly","كريمة مخفوقة"],["saison","الموسم"],["frappés","مثلج"],["laitue","خس"],["tomates","طماطم"],["concombres","خيار"],["oignons verts","بصل أخضر"],["oignons","بصل"],["poivrons","فلفل"],["champignons","فطر"],["carottes","جزر"],["maïs","ذرة"],["olives","زيتون"],["persil","بقدونس"],["menthe","نعناع"],["chou","ملفوف"],["fromage","جبن"],["œuf","بيض"],["œufs","بيض"],["beurre","زبدة"],["pain","خبز"],["lait","حليب"],["café","قهوة"],["thé","شاي"],["gingembre","زنجبيل"],["miel","عسل"],["pommes de terre","بطاطس"],["frites","بطاطس مقلية"],["riz","أرز"],
+["Accompagnées","تُقدّم"],["Accompagnés","تُقدّم"],["Accompagné","يُقدّم"],["accompagnées","تُقدّم"],["accompagnés","تُقدّم"],["accompagné","يُقدّم"],["pané","مغطى بالبقسماط"],["panée","مغطاة بالبقسماط"],["grillé","مشوي"],["grillée","مشوية"],["grillées","مشوية"],["braisé","مطهو"],["braisée","مطهية"],["sauté","سوتيه"],["sautée","سوتيه"],["croustillant","مقرمش"],["croustillante","مقرمشة"],["crémière","كريمية"],["crémeuse","كريمية"],["maison","محضّر في المطعم"],["fait maison","محضّر في المطعم"],["au four","في الفرن"],["au choix","حسب الاختيار"],["portion","حصة"],["pièces","قطع"],["pièce","قطعة"],["Format","بحجم"],["Bouteille","زجاجة"],["Verre","كأس"],["Grand","كبير"],["Moyen","متوسط"],["Demi","نصف"],["Entier","كامل"],["tournée","جولة"],["avec","مع"],["ou","أو"],["et","و"],["aux","بـ"],["au","بـ"],["à","بـ"],["de","من"],["des",""],["du",""],["les",""],["la",""],["le",""]
+];
+AR_DESC_SAFE.sort(function(a,b){return b[0].length-a[0].length;});
+function arRegexApply(value,pairs){
+  var o=value||"";
+  for(var i=0;i<pairs.length;i++){
+    var esc=pairs[i][0].replace(/[.*+?^$()|[\]\\\\{}]/g,"\\\\function tr(s){");
+    o=o.replace(new RegExp("(^|[^A-Za-zÀ-ÿŒœ])"+esc+"(?=$|[^A-Za-zÀ-ÿŒœ])","giu"),function(_,pre){return pre+pairs[i][1];});
+  }
+  return o;
+}
+function arName(value){return arApplyPairs(value,AR_NAME_PHRASES);}
+function arDesc(value){
+  var o=arApplyPairs(value,AR_DESC_PHRASES);
+  return arRegexApply(o,AR_DESC_SAFE).replace(/\\s{2,}/g," ").replace(/\\s+([،.])/g,"$1").trim();
+}
+function arLabel(value){return AR_LABELS[value]||arName(value);}
+
 function tr(s){
   if(typeof s!=='string'||lang==='fr')return s;
   var exact=U[lang]||{};
