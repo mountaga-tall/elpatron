@@ -180,6 +180,17 @@ img { max-width:100%; display:block; }
 .brand-text { line-height:1; }
 .brand-title { font-family:"Cormorant Garamond",serif; font-size:1.22rem; font-weight:700; letter-spacing:.18em; }
 .brand-sub { color:var(--muted); font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; margin-top:5px; }
+.header-nav-shell { flex:1 1 auto; min-width:0; max-width:100%; display:flex; align-items:center; gap:5px; margin-left:8px; }
+.desktop-nav { display:flex; gap:4px; align-items:center; min-width:0; overflow-x:auto; overflow-y:hidden; flex:1 1 auto; scrollbar-width:none; scroll-behavior:smooth; overscroll-behavior-x:contain; -webkit-overflow-scrolling:touch; }
+.desktop-nav::-webkit-scrollbar { display:none; }
+.desktop-nav a { flex:0 0 auto; white-space:nowrap; }
+.nav-scroll-btn { width:30px; height:30px; flex:0 0 30px; display:grid; place-items:center; border:1px solid var(--line); border-radius:9px; background:rgba(255,255,255,.05); color:#fff; cursor:pointer; transition:opacity .2s var(--ease), transform .2s var(--ease), background .2s var(--ease); }
+.nav-scroll-btn svg { width:14px; height:14px; }
+.nav-scroll-btn:hover:not(:disabled) { background:rgba(255,255,255,.1); transform:translateY(-1px); }
+.nav-scroll-btn:disabled { opacity:.25; cursor:default; }
+.nav-scroll-prev svg { transform:rotate(180deg); }
+[dir="rtl"] .nav-scroll-prev svg { transform:none; }
+[dir="rtl"] .nav-scroll-next svg { transform:rotate(180deg); }
 .desktop-nav { margin-left:auto; display:flex; gap:6px; align-items:center; }
 .desktop-nav a { padding:10px 12px; color:#d8d2cf; font-size:.82rem; border-radius:10px; transition:transform .35s var(--ease), background .35s var(--ease), color .35s var(--ease); }
 .desktop-nav a:hover,.desktop-nav a.active { color:#fff; background:rgba(255,255,255,.07); transform:translateY(-2px); }
@@ -319,6 +330,7 @@ img { max-width:100%; display:block; }
 @keyframes ring { from{transform:rotateX(68deg) rotateZ(16deg) scale(.98)} to{transform:rotateX(72deg) rotateZ(42deg) scale(1.05)} }
 .site-search{display:flex;align-items:center;gap:7px;flex:0 1 245px;min-width:0;padding:7px 8px 7px 10px;border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:13px}.site-search-icon{display:grid;place-items:center;color:#8e8885;flex:0 0 auto}.site-search-icon svg{width:17px;height:17px}.site-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#fff;font-size:.76rem}.site-search input::placeholder{color:#77716e}.site-search button{width:32px;height:32px;flex:0 0 auto;border:0;border-radius:9px;background:var(--red);color:#fff;display:grid;place-items:center;cursor:pointer}.site-search button svg{width:15px;height:15px}.mobile-search-wrap{padding:18px 22px 2px}.mobile-search-wrap .site-search{max-width:none;flex-basis:auto}.global-home-search{max-width:700px;margin-bottom:20px}.global-home-search svg{width:18px}.global-results{margin-top:22px}.global-results-head{display:flex;justify-content:space-between;gap:12px;align-items:center;color:#8f8986;font-size:.78rem;margin:0 0 14px}.global-results .product-grid{margin-top:0}.category-note{margin-top:18px;padding:15px 17px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.035);color:#aaa39f;font-size:.82rem;line-height:1.6}.product-note{grid-column:1/-1;padding:22px;border:1px solid rgba(209,31,26,.25);border-radius:20px;background:linear-gradient(145deg,rgba(209,31,26,.09),rgba(255,255,255,.025))}.product-note-kicker{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:#ff756c}.product-note-title{margin-top:7px;font:600 1.55rem/1.05 "Cormorant Garamond",serif}.product-note p{margin:8px 0 0;color:#aaa39f;line-height:1.6;font-size:.86rem}.product-note-inline{font-size:.72rem;color:#7f7976;margin-bottom:10px}.footer-menu-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px}
 @media (max-width: 1050px){
+  .header-nav-shell { display:none; }
   .desktop-nav,.site-search { display:none; }
   .hero-inner,.menu-hero-grid { grid-template-columns:1fr; }
   .hero-stage { min-height:430px; }
