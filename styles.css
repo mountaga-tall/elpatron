@@ -528,7 +528,7 @@ body::after{background:radial-gradient(circle,rgba(209,31,26,.08),transparent 68
   backdrop-filter:blur(20px);
 }
 .brand-title,.hero h1,.section h2,.category-card h3,.menu-hero h1,.product-name,.footer h3,.cart-head h2,.contact-card h3,.mobile-links a{color:#171313;}
-.brand-sub,.result-count,.product-num,.section-intro,.menu-hero p,.product-desc,.product-note p,.footer p,.contact-line,.cart-item-meta,.global-results-head,.category-card p,.product-note-inline{color:#6d6662;}
+.brand-sub,.result-count,.section-intro,.menu-hero p,.product-desc,.product-note p,.footer p,.contact-line,.cart-item-meta,.global-results-head,.category-card p,.product-note-inline{color:#6d6662;}
 .icon-btn{background:rgba(255,255,255,.90);color:#171313;border-color:rgba(27,23,21,.12);}
 .icon-btn:hover{background:#fff;border-color:rgba(209,31,26,.24);}
 .icon-btn.red{color:#fff;background:linear-gradient(145deg,var(--red),#a40d09);}
