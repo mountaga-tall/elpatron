@@ -246,7 +246,6 @@ img { max-width:100%; display:block; }
 .product-card.has-images:hover .product-images img { transform:scale(1.045); filter:saturate(1.06) contrast(1.03); }
 .product-top { min-height:122px; padding:20px 20px 15px; position:relative; overflow:hidden; background:radial-gradient(circle at 85% 20%,rgba(209,31,26,.18),transparent 26%); }
 .product-top::after { content:""; position:absolute; width:110px; height:110px; right:-18px; top:-18px; border-radius:50%; border:1px solid rgba(209,31,26,.22); }
-.product-num { font-size:.67rem; letter-spacing:.15em; color:#79726f; text-transform:uppercase; }
 .product-name { margin:8px 0 0; font:600 1.65rem/.96 "Cormorant Garamond",serif; max-width:83%; }
 .product-body { padding:0 20px 20px; display:flex; flex-direction:column; height:calc(100% - 122px); }
 .product-desc { color:#aaa39f; font-size:.84rem; line-height:1.6; margin:0 0 14px; flex:1; }
