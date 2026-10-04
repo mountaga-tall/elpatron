@@ -93,7 +93,7 @@ var AR_NAME_PHRASES=[
 ["VIRGIN MOJITO","موهيتو فيرجن"],["VIRGIN PASSIONNÉE","باشن فيرجن"],["FLEUR D'AMOUR","زهرة الحب"],["PIÑA COLADA","بينا كولادا"],["PARFUMS / GOÛTS","النكهات / الأذواق"],["JUS NATURELS","عصائر طبيعية"],["SMOOTHIES FRAPPÉS","سموثي مثلج"],["MILKSHAKES","ميلك شيك"],["MILKSHAKES SPÉCIAUX","ميلك شيك خاص"],
 ["MOJITO","موهيتو"],["DESPEJITO","ديسبيجيتو"],["LONG ISLAND","لونغ آيلاند"],["SEX ON THE BEACH","سِكس أون ذا بيتش"],["LA PASSIONNÉE","باشن"],["BLEU LAGOON","بلو لاغون"],["MARGARITA","مارغريتا"],["TEQUILA SUNRISE","تيكيلا صن رايز"],["CHOCOLATINI","شوكولاتيني"],["JAGER BOMB","جيغر بومب"],["SHOT SANGLE","شوت سانغل"],["RAYON DE 6 SHOTS","مجموعة من 6 شوتات"]
 ];
-var AR_DESC_PHRASES=[
+var AR_DESC_PHRASES=[["Love 66, Hawaï, Mi Amor, Lady Killer, 2 pommes, menthe, raisin, citron-menthe et encore plus de goûts…","لوف 66، هاواي، مي أمور، ليدي كيلر، تفاح، نعناع، عنب، ليمون ونعناع، والمزيد من النكهات…"],\n
 ["La formule des plat est accompagnée de frites salade de choux, crudité, ketchup et piment.","خيار الطبق يأتي مع البطاطس المقلية وسلطة الملفوف والخضار الطازجة والكاتشب والفلفل الحار."],
 ["Omelette ou œuf au plat, avec pain et beurre.","عجة أو بيض مقلي، مع الخبز والزبدة."],
 ["Omelette ou œuf au plat au fromage, avec pain et beurre.","عجة أو بيض مقلي بالجبن، مع الخبز والزبدة."],
