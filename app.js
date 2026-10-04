@@ -136,7 +136,7 @@
     let msg=LANG==='en'?'Hello EL PATRÓN,\n\nI would like to order:\n':LANG==='ar'?'مرحباً إل باترون،\n\nأرغب في طلب:\n':'Bonjour EL PATRÓN,\n\nJe souhaite commander :\n';
     cart.forEach(i=>{
       const meta=cartMeta(i);
-      msg+=`- ${i.name}${meta?' ('+meta+')':''} × ${i.qty} = ${money(i.amount*i.qty)}\n`;
+      const product=localizedCartProduct(i);\n      const name=product?.name||i.name;\n      msg+=`- ${name}${meta?' ('+meta+')':''} × ${i.qty} = ${money(i.amount*i.qty)}\n`;
     });
     msg+=`\n${LANG==='en'?'Total':LANG==='ar'?'الإجمالي':'Total'} : ${money(totalPrice(cart))}\n\n${LANG==='en'?'Thank you.':LANG==='ar'?'شكراً لكم.':'Merci.'}`;
     const phone=window.EL_PATRON_SITE?.phoneRaw;
