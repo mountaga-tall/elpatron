@@ -2292,7 +2292,7 @@ window.EL_PATRON_MENU={
       "id": "tournees-13"
     },
     {
-      "name": "Tequilla",
+      "name": "Tequila",
       "sub": "RHUM & TEQUILA",
       "price": [
         {
@@ -2714,7 +2714,7 @@ window.EL_PATRON_MENU={
       "id": "bouteilles-13"
     },
     {
-      "name": "Tequilla",
+      "name": "Tequila",
       "sub": "RHUM & TEQUILA",
       "price": [
         {
