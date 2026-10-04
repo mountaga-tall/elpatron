@@ -9,7 +9,7 @@
     ar:{home:'الرئيسية',cart:'السلة',contact:'اتصل بنا',openCart:'فتح السلة',openMenu:'فتح القائمة',closeMenu:'إغلاق القائمة',menuMobile:'القائمة للجوال',search:'ابحث في القائمة…',searchLabel:'ابحث في القائمة كاملة',launchSearch:'بدء البحث',emptyCart:'سلتك فارغة.',emptyStart:'سلتك فارغة. أضف أحد أصناف إل باترون للبدء.',removeOne:'إزالة قطعة',addOne:'إضافة قطعة',delete:'حذف',yourCart:'سلتك',closeCart:'إغلاق السلة',total:'الإجمالي',orderWhatsApp:'الطلب عبر واتساب',orderGlovo:'الطلب عبر Glovo',viewCart:'عرض السلة',customize:'خصّص اختيارك',options:'الخيارات',chooseSide:'اختر الطبق الجانبي',chooseFlavor:'اختر نكهة الآيس كريم',included:'مشمول',cancel:'إلغاء',addToCart:'أضف إلى السلة',side:'الطبق الجانبي',flavor:'النكهة',request:'عند الطلب',noProduct:'لا يوجد منتج يطابق',noResults:'لا توجد نتائج لـ',result:'نتيجة',results:'نتائج',from:'ابتداءً من',discover:'اكتشف',imagesOf:'صور',image:'صورة',houseDescription:'محضّر وفق وصفة إل باترون.',officialInfo:'عرض المعلومات العملية',menu:'القائمة'}
   };
   const t=k=>UI[LANG]?.[k]||UI.fr[k]||k;
-  const siteSubtitle=window.EL_PATRON_SITE?.subtitle||'Restaurant · Bar · Café · Salon de thé';
+  const siteSubtitle=LANG==='en'?'Restaurant · Bar · Café · Tea Room':LANG==='ar'?'مطعم · بار · مقهى · صالون شاي':'Restaurant · Bar · Café · Salon de thé';
   const addedSuffix=LANG==='en'?' added to cart':LANG==='ar'?' تمت إضافته إلى السلة':' ajouté au panier';
   const emptyCartText=LANG==='en'?'Your cart is empty':LANG==='ar'?'سلتك فارغة':'Votre panier est vide';
   const FREE_ACCOMPANIMENT_IDS=new Set([
@@ -204,7 +204,7 @@
     let state=null;
     let closeTimer=0;
     function buildButtons(list,values,name){
-      list.innerHTML=values.map((value,i)=>`<button type="button" class="modal-choice ${i===0?'selected':''}" data-choice-name="${escAttr(name)}" data-choice-value="${escAttr(value)}" aria-pressed="${i===0?'true':'false'}">${esc(value)}</button>`).join('');
+      list.innerHTML=values.map((value,i)=>`<button type="button" class="modal-choice ${i===0?'selected':''}" data-choice-name="${escAttr(name)}" data-choice-value="${escAttr(value)}" aria-pressed="${i===0?'true':'false'}">${esc(tx(value))}</button>`).join('');
     }
     function open(product,option,categorySlug){
       clearTimeout(closeTimer);
