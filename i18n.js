@@ -298,18 +298,6 @@ if(window.EL_PATRON_SITE){
 }
 document.documentElement.lang=lang;
 document.body.dir=lang==='ar'?'rtl':'ltr';
-function rewriteLinks(root){
-  var nodes=(root||document).querySelectorAll? (root||document).querySelectorAll('a[href]') : [];
-  for(var i=0;i<nodes.length;i++){
-    var a=nodes[i],h=a.getAttribute('href');if(a.closest('.language-switcher')||a.closest('.language-mobile'))continue;if(!h||/^(https?:|mailto:|tel:|#|javascript:|data:)/i.test(h))continue;
-    var parts=location.pathname.split('/').filter(Boolean),inPages=parts[parts.length-2]==='pages';
-    var base=inPages?'../':'./';
-    var m=h.match(/pages\/([^?#]+\.html)([?#].*)?$/);
-    if(m)a.setAttribute('href',base+'pages/'+m[1]+(m[2]||''));
-    else if(/index\.html/.test(h)){var q=h.match(/index\.html([?#].*)?$/);a.setAttribute('href',base+'index.html'+(q?q[1]||'':''));}
-  }
-}
-
 function addLanguageSwitcher(){
   var langs=['fr','en','ar'],parts=location.pathname.split('/').filter(Boolean),localeIndex=-1;
   for(var li=0;li<langs.length;li++){var found=parts.indexOf(langs[li]);if(found>=0){localeIndex=found;break;}}
@@ -356,7 +344,6 @@ function translateDom(){
   for(var j=0;j<els.length;j++){
     ['placeholder','aria-label','title'].forEach(function(k){if(els[j].hasAttribute(k))els[j].setAttribute(k,tr(els[j].getAttribute(k)));});
   }
-  rewriteLinks(root);
 }
 translateDom();
 window.EL_PATRON_TEXT=function(value){return tr(value);};
