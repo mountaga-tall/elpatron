@@ -3,6 +3,13 @@
   const KEY='elpatronCartV1';
   const LANG=(window.EL_PATRON_LANG||document.documentElement.lang||'fr').toLowerCase().slice(0,2);
   const tx=s=>window.EL_PATRON_TEXT?window.EL_PATRON_TEXT(s):s;
+  const UI={
+    fr:{home:'Accueil',cart:'Panier',contact:'Contact',openCart:'Ouvrir le panier',openMenu:'Ouvrir le menu',closeMenu:'Fermer le menu',menuMobile:'Menu mobile',search:'Rechercher dans le menu…',searchLabel:'Rechercher dans tout le menu',launchSearch:'Lancer la recherche',emptyCart:'Votre panier est vide.',emptyStart:'Votre panier est vide. Ajoutez une spécialité El Patrón pour commencer.',removeOne:'Retirer un article',addOne:'Ajouter un article',delete:'Supprimer',yourCart:'Votre panier',closeCart:'Fermer le panier',total:'Total',orderWhatsApp:'Commander sur WhatsApp',viewCart:'Voir le panier',customize:'Personnalisez votre choix',options:'Options',chooseSide:'Choisissez votre accompagnement',chooseFlavor:'Choisissez votre parfum de glace',included:'Inclus',cancel:'Annuler',addToCart:'Ajouter au panier',side:'Accompagnement',flavor:'Parfum',request:'Sur demande',noProduct:'Aucun produit ne correspond à',noResults:'Aucun résultat pour',result:'résultat',results:'résultats',from:'À partir de',discover:'Découvrir',imagesOf:'Images de',image:'image',houseDescription:'Composition selon la recette El Patrón.',officialInfo:'Voir les informations pratiques',menu:'Menu'},
+    en:{home:'Home',cart:'Cart',contact:'Contact',openCart:'Open cart',openMenu:'Open menu',closeMenu:'Close menu',menuMobile:'Mobile menu',search:'Search the menu…',searchLabel:'Search the full menu',launchSearch:'Start search',emptyCart:'Your cart is empty.',emptyStart:'Your cart is empty. Add an El Patrón specialty to get started.',removeOne:'Remove one item',addOne:'Add one item',delete:'Delete',yourCart:'Your cart',closeCart:'Close cart',total:'Total',orderWhatsApp:'Order on WhatsApp',viewCart:'View cart',customize:'Customize your choice',options:'Options',chooseSide:'Choose your side',chooseFlavor:'Choose your ice-cream flavor',included:'Included',cancel:'Cancel',addToCart:'Add to cart',side:'Side',flavor:'Flavor',request:'On request',noProduct:'No product matches',noResults:'No results for',result:'result',results:'results',from:'From',discover:'Discover',imagesOf:'Images of',image:'image',houseDescription:'Prepared according to the El Patrón recipe.',officialInfo:'View practical information',menu:'Menu'},
+    ar:{home:'الرئيسية',cart:'السلة',contact:'اتصل بنا',openCart:'فتح السلة',openMenu:'فتح القائمة',closeMenu:'إغلاق القائمة',menuMobile:'القائمة للجوال',search:'ابحث في القائمة…',searchLabel:'ابحث في القائمة كاملة',launchSearch:'بدء البحث',emptyCart:'سلتك فارغة.',emptyStart:'سلتك فارغة. أضف أحد أصناف إل باترون للبدء.',removeOne:'إزالة قطعة',addOne:'إضافة قطعة',delete:'حذف',yourCart:'سلتك',closeCart:'إغلاق السلة',total:'الإجمالي',orderWhatsApp:'الطلب عبر واتساب',viewCart:'عرض السلة',customize:'خصّص اختيارك',options:'الخيارات',chooseSide:'اختر الطبق الجانبي',chooseFlavor:'اختر نكهة الآيس كريم',included:'مشمول',cancel:'إلغاء',addToCart:'أضف إلى السلة',side:'الطبق الجانبي',flavor:'النكهة',request:'عند الطلب',noProduct:'لا يوجد منتج يطابق',noResults:'لا توجد نتائج لـ',result:'نتيجة',results:'نتائج',from:'ابتداءً من',discover:'اكتشف',imagesOf:'صور',image:'صورة',houseDescription:'محضّر وفق وصفة إل باترون.',officialInfo:'عرض المعلومات العملية',menu:'القائمة'}
+  };
+  const t=k=>UI[LANG]?.[k]||UI.fr[k]||k;
+  const siteSubtitle=window.EL_PATRON_SITE?.subtitle||'Restaurant · Bar · Café · Salon de thé';
   const addedSuffix=LANG==='en'?' added to cart':LANG==='ar'?' تمت إضافته إلى السلة':' ajouté au panier';
   const emptyCartText=LANG==='en'?'Your cart is empty':LANG==='ar'?'سلتك فارغة':'Votre panier est vide';
   const FREE_ACCOMPANIMENT_IDS=new Set([
@@ -33,14 +40,14 @@
   function productImageMarkup(p){
     const images=Array.isArray(p.images)?p.images.filter(Boolean).slice(0,2):[];
     if(!images.length)return '';
-    return `<div class="product-images" aria-label="Images de ${escAttr(p.name)}">${images.map((src,i)=>`<img src="${escAttr(assetUrl(src))}" alt="${escAttr(p.name)} — image ${i+1}" loading="lazy" decoding="async" onerror="this.closest('.product-images')?.classList.add('image-error')">`).join('')}</div>`;
+    return `<div class="product-images" aria-label="${escAttr(t('imagesOf')+' '+p.name)}">${images.map((src,i)=>`<img src="${escAttr(assetUrl(src))}" alt="${escAttr(p.name)} — ${t('image')} ${i+1}" loading="lazy" decoding="async" onerror="this.closest('.product-images')?.classList.add('image-error')">`).join('')}</div>`;
   }
   function defaultPriceOnly(p,options){
     return Boolean(p.defaultPriceOnly)||((options?.[0]?.label||'')===''&&options.length===1);
   }
   function priceMarkup(p){
     const options=p.price||[];
-    if(!options.length)return 'Sur demande';
+    if(!options.length)return t('request');
     const first=options[0];
     const small=!defaultPriceOnly(p,options)&&first.label?`<small>${esc(first.label)}</small>`:'';
     return money(first.amount)+small;
@@ -61,8 +68,8 @@
   function optionSummary(option,meta={}){
     const parts=[];
     if(option?.label)parts.push(option.label);
-    if(meta.accompaniment)parts.push(`Accompagnement : ${meta.accompaniment}`);
-    if(meta.iceFlavor)parts.push(`Parfum : ${meta.iceFlavor}`);
+    if(meta.accompaniment)parts.push(t('side')+' : '+tx(meta.accompaniment));
+    if(meta.iceFlavor)parts.push(t('flavor')+' : '+tx(meta.iceFlavor));
     return parts.join(' · ');
   }
   function addToCart(product,option,meta={}){
@@ -94,19 +101,29 @@
     $$('.cart-badge').forEach(b=>{b.textContent=count;b.hidden=count===0});
     $$('.cart-count-text').forEach(e=>e.textContent=count);
   }
+  function localizedCartProduct(i){
+    const all=Object.values(window.EL_PATRON_MENU||{}).flat();
+    return all.find(p=>p.id===i.id)||null;
+  }
   function cartMeta(i){
-    if(i.accompaniment||i.iceFlavor){
-      return [i.variant||'',i.accompaniment?`Accompagnement : ${i.accompaniment}`:'',i.iceFlavor?`Parfum : ${i.iceFlavor}`:''].filter(Boolean).join(' · ');
-    }
-    return i.label||'';
+    const product=localizedCartProduct(i);
+    const option=product?.price?.find(o=>Number(o.amount)===Number(i.amount));
+    const parts=[];
+    if(option?.label)parts.push(tx(option.label));
+    else if(i.variant)parts.push(tx(i.variant));
+    if(i.accompaniment)parts.push(t('side')+' : '+tx(i.accompaniment));
+    if(i.iceFlavor)parts.push(t('flavor')+' : '+tx(i.iceFlavor));
+    return parts.join(' · ');
   }
   function cartLine(i){
-    return `<article class="cart-item"><div class="cart-item-row"><div><div class="cart-item-name">${esc(i.name)}</div><div class="cart-item-meta">${cartMeta(i)?esc(cartMeta(i))+' · ':''}${money(i.amount)}</div></div><strong>${money(i.amount*i.qty)}</strong></div><div class="qty"><button type="button" data-cart-action="dec" data-key="${escAttr(i.key)}" aria-label="Retirer un article">−</button><b>${i.qty}</b><button type="button" data-cart-action="inc" data-key="${escAttr(i.key)}" aria-label="Ajouter un article">+</button><button type="button" class="cart-remove" data-cart-action="del" data-key="${escAttr(i.key)}" aria-label="Supprimer ${escAttr(i.name)}" title="Supprimer">${ICONS.trash}</button></div></article>`;
+    const product=localizedCartProduct(i);
+    const name=product?.name||i.name;
+    return `<article class="cart-item"><div class="cart-item-row"><div><div class="cart-item-name">${esc(name)}</div><div class="cart-item-meta">${cartMeta(i)?esc(cartMeta(i))+' · ':''}${money(i.amount)}</div></div><strong>${money(i.amount*i.qty)}</strong></div><div class="qty"><button type="button" data-cart-action="dec" data-key="${escAttr(i.key)}" aria-label="${escAttr(t('removeOne'))}">−</button><b>${i.qty}</b><button type="button" data-cart-action="inc" data-key="${escAttr(i.key)}" aria-label="${escAttr(t('addOne'))}">+</button><button type="button" class="cart-remove" data-cart-action="del" data-key="${escAttr(i.key)}" aria-label="${escAttr(t('delete')+' '+name)}" title="${escAttr(t('delete'))}">${ICONS.trash}</button></div></article>`;
   }
   function renderCart(){
     const list=$('.cart-items');if(!list)return;
     const cart=loadCart();
-    list.innerHTML=cart.length?cart.map(cartLine).join(''):`<div class="empty">Votre panier est vide.<br><small>Ajoutez une spécialité El Patrón pour commencer.</small></div>`;
+    list.innerHTML=cart.length?cart.map(cartLine).join(''):`<div class="empty">${esc(t('emptyStart'))}</div>`;
     const total=totalPrice(cart);
     $$('.cart-total').forEach(e=>e.textContent=money(total));
     $$('.cart-count-text').forEach(e=>e.textContent=totalQty(cart));
@@ -150,10 +167,11 @@
     updateCartBadge();
   }
   function searchMarkup(){
-    return `<form class="site-search" data-global-search-form role="search"><span class="site-search-icon">${ICONS.search}</span><input type="search" name="q" placeholder="Rechercher dans le menu…" aria-label="Rechercher dans tout le menu"><button type="submit" aria-label="Lancer la recherche">${ICONS.arrow}</button></form>`;
+    return `<form class="site-search" data-global-search-form role="search"><span class="site-search-icon">${ICONS.search}</span><input type="search" name="q" placeholder="${escAttr(t('search'))}" aria-label="${escAttr(t('searchLabel'))}"><button type="submit" aria-label="${escAttr(t('launchSearch'))}">${ICONS.arrow}</button></form>`;
   }
   function renderHeader(){
     const root=$('[data-shell]');if(!root)return;
+    const cats=window.EL_PATRON_CATEGORIES||[];
     const pathParts=location.pathname.split('/').filter(Boolean);
     const inPages=pathParts[pathParts.length-2]==='pages';
     const pageBase=inPages?'../':'';
@@ -162,8 +180,9 @@
     const contactHref=pageBase+'pages/contact.html';
     const cartHref=pageBase+'pages/panier.html';
     const brandHref=homeHref;
-    root.insertAdjacentHTML('afterbegin',`<header class="site-header"><div class="header-inner"><a class="brand" href="${brandHref}" aria-label="El Patrón — accueil"><img src="${root.dataset.logo||'images/logo.png'}" alt="El Patrón"><div class="brand-text"><div class="brand-title">EL PATRÓN</div><div class="brand-sub">Restaurant · Bar · Café</div></div></a><div class="header-actions"><button type="button" class="icon-btn open-cart" aria-label="Ouvrir le panier">${ICONS.bag}<span class="cart-badge" hidden>0</span></button><button type="button" class="icon-btn red menu-toggle" aria-label="Ouvrir le menu">${ICONS.menu}</button></div></div></header><div class="mobile-menu" aria-hidden="true"><div class="mobile-menu-head"><a class="brand" href="${brandHref}"><img src="${root.dataset.logo||'images/logo.png'}" alt="El Patrón"><div class="brand-text"><div class="brand-title">EL PATRÓN</div><div class="brand-sub">Restaurant · Bar · Café</div></div></a><button type="button" class="icon-btn close-mobile" aria-label="Fermer le menu">${ICONS.close}</button></div><div class="mobile-search-wrap">${searchMarkup()}</div><nav class="mobile-links" aria-label="Menu mobile"><a href="${homeHref}">Accueil</a>${cats.map(c=>`<a href="${categoryHref(c.slug)}">${esc(c.title)}</a>`).join('')}<a href="${cartHref}">Panier <span class="cart-count-text">0</span></a><a href="${contactHref}">Contact</a></nav></div>`);
-    document.body.insertAdjacentHTML('beforeend',`<div class="cart-drawer"><div class="cart-backdrop"></div><aside class="cart-panel" aria-label="Panier"><div class="cart-head"><h2>Votre panier</h2><button type="button" class="icon-btn close-cart" aria-label="Fermer le panier">${ICONS.close}</button></div><div class="cart-items"></div><div class="cart-bottom"><div class="total-row"><span>Total</span><span class="cart-total">0 FCFA</span></div><div class="cart-actions"><button type="button" class="btn btn-primary order-whatsapp">${ICONS.wa}<span>Commander sur WhatsApp</span></button><a class="btn btn-glass" href="${cartHref}">Voir le panier</a></div></div></aside></div><div class="product-options-modal" hidden><div class="product-options-backdrop" data-options-close></div><section class="product-options-panel" role="dialog" aria-modal="true" aria-labelledby="options-title"><button type="button" class="icon-btn product-options-close" data-options-close aria-label="Fermer">${ICONS.close}</button><div class="kicker">Personnalisez votre choix</div><h2 id="options-title">Options</h2><p class="product-options-product" data-options-product></p><form class="product-options-form"><div class="product-option-group" data-accompaniment-group hidden><div class="product-option-label">Choisissez votre accompagnement <span>0 F</span></div><div class="product-option-grid" data-accompaniment-list></div></div><div class="product-option-group" data-ice-group hidden><div class="product-option-label">Choisissez votre parfum de glace <span>Inclus</span></div><div class="product-option-grid" data-ice-list></div></div><div class="product-options-actions"><button type="button" class="btn btn-glass" data-options-close>Annuler</button><button type="submit" class="btn btn-primary">Ajouter au panier</button></div></form></section></div><div class="toast" role="status" aria-live="polite"></div><a class="floating-whatsapp" target="_blank" rel="noopener" href="https://wa.me/${window.EL_PATRON_SITE?.phoneRaw||''}" aria-label="Contacter El Patrón sur WhatsApp"><span class="wa-dot">${ICONS.wa}</span><span class="wa-label">WhatsApp</span></a>`);
+    const homeLabel=LANG==='en'?'El Patrón — home':LANG==='ar'?'إل باترون — الرئيسية':'El Patrón — accueil';
+    root.insertAdjacentHTML('afterbegin',`<header class="site-header"><div class="header-inner"><a class="brand" href="${brandHref}" aria-label="${escAttr(homeLabel)}"><img src="${root.dataset.logo||'images/logo.png'}" alt="El Patrón"><div class="brand-text"><div class="brand-title">EL PATRÓN</div><div class="brand-sub">${esc(siteSubtitle)}</div></div></a><div class="header-actions"><button type="button" class="icon-btn open-cart" aria-label="${escAttr(t('openCart'))}">${ICONS.bag}<span class="cart-badge" hidden>0</span></button><button type="button" class="icon-btn red menu-toggle" aria-label="${escAttr(t('openMenu'))}">${ICONS.menu}</button></div></div></header><div class="mobile-menu" aria-hidden="true"><div class="mobile-menu-head"><a class="brand" href="${brandHref}" aria-label="${escAttr(homeLabel)}"><img src="${root.dataset.logo||'images/logo.png'}" alt="El Patrón"><div class="brand-text"><div class="brand-title">EL PATRÓN</div><div class="brand-sub">${esc(siteSubtitle)}</div></div></a><button type="button" class="icon-btn close-mobile" aria-label="${escAttr(t('closeMenu'))}">${ICONS.close}</button></div><div class="mobile-search-wrap">${searchMarkup()}</div><nav class="mobile-links" aria-label="${escAttr(t('menuMobile'))}"><a href="${homeHref}">${esc(t('home'))}</a>${cats.map(c=>`<a href="${categoryHref(c.slug)}">${esc(c.title)}</a>`).join('')}<a href="${cartHref}">${esc(t('cart'))} <span class="cart-count-text">0</span></a><a href="${contactHref}">${esc(t('contact'))}</a></nav></div>`);
+    document.body.insertAdjacentHTML('beforeend',`<div class="cart-drawer"><div class="cart-backdrop"></div><aside class="cart-panel" aria-label="${escAttr(t('cart'))}"><div class="cart-head"><h2>${esc(t('yourCart'))}</h2><button type="button" class="icon-btn close-cart" aria-label="${escAttr(t('closeCart'))}">${ICONS.close}</button></div><div class="cart-items"></div><div class="cart-bottom"><div class="total-row"><span>${esc(t('total'))}</span><span class="cart-total">0 FCFA</span></div><div class="cart-actions"><button type="button" class="btn btn-primary order-whatsapp">${ICONS.wa}<span>${esc(t('orderWhatsApp'))}</span></button><a class="btn btn-glass" href="${cartHref}">${esc(t('viewCart'))}</a></div></div></aside></div><div class="product-options-modal" hidden><div class="product-options-backdrop" data-options-close></div><section class="product-options-panel" role="dialog" aria-modal="true" aria-labelledby="options-title"><button type="button" class="icon-btn product-options-close" data-options-close aria-label="${escAttr(t('closeMenu'))}">${ICONS.close}</button><div class="kicker">${esc(t('customize'))}</div><h2 id="options-title">${esc(t('options'))}</h2><p class="product-options-product" data-options-product></p><form class="product-options-form"><div class="product-option-group" data-accompaniment-group hidden><div class="product-option-label">${esc(t('chooseSide'))} <span>0 F</span></div><div class="product-option-grid" data-accompaniment-list></div></div><div class="product-option-group" data-ice-group hidden><div class="product-option-label">${esc(t('chooseFlavor'))} <span>${esc(t('included'))}</span></div><div class="product-option-grid" data-ice-list></div></div><div class="product-options-actions"><button type="button" class="btn btn-glass" data-options-close>${esc(t('cancel'))}</button><button type="submit" class="btn btn-primary">${esc(t('addToCart'))}</button></div></form></section></div><div class="toast" role="status" aria-live="polite"></div><a class="floating-whatsapp" target="_blank" rel="noopener" href="https://wa.me/${window.EL_PATRON_SITE?.phoneRaw||''}" aria-label="WhatsApp"><span class="wa-dot">${ICONS.wa}</span><span class="wa-label">WhatsApp</span></a>`);
     $$('[data-global-search-form]').forEach(form=>form.addEventListener('submit',e=>{e.preventDefault();const q=new FormData(form).get('q')?.toString().trim()||'';location.href=homeHref+(q?'?q='+encodeURIComponent(q):'')+'#recherche'}));
     const menu=$('.mobile-menu'),toggle=$('.menu-toggle');
     toggle?.addEventListener('click',()=>{menu?.classList.add('open');menu?.setAttribute('aria-hidden','false');document.body.classList.add('menu-open')});
@@ -233,8 +252,8 @@
     const currentPrice=priceMarkup(p);
     const optionsMarkup=options.length>1?`<div class="option-list">${options.map((o,i)=>`<button type="button" class="option-pill ${i===0?'selected':''}" data-option-index="${i}" aria-pressed="${i===0?'true':'false'}">${o.label?esc(o.label)+' · ':''}${money(o.amount)}</button>`).join('')}</div>`:'';
     const imageMarkup=productImageMarkup(p);
-    const addButton=hasPrice?`<button type="button" class="add-btn" data-add="true" aria-label="Ajouter ${escAttr(p.name)} au panier">${ICONS.plus}</button>`:'';
-    return `<article class="product-card reveal tilt${productCardShellClasses(p)}" style="--reveal-delay:${Math.min(idx,10)*45}ms" data-product-id="${escAttr(p.id)}" data-category-slug="${escAttr(categorySlug)}">${imageMarkup}<div class="product-top">${p.sub?`<span class="sub-chip">${esc(p.sub)}</span>`:''}<div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||'Composition selon la recette El Patrón.')}</p>${p.note?`<div class="product-note-inline">${esc(p.note)}</div>`:''}${optionsMarkup}<div class="product-foot"><div class="price" data-price>${currentPrice}</div>${addButton}</div></div></article>`;
+    const addButton=hasPrice?`<button type="button" class="add-btn" data-add="true" aria-label="${escAttr(t('addToCart')+' '+p.name)}">${ICONS.plus}</button>`:'';
+    return `<article class="product-card reveal tilt${productCardShellClasses(p)}" style="--reveal-delay:${Math.min(idx,10)*45}ms" data-product-id="${escAttr(p.id)}" data-category-slug="${escAttr(categorySlug)}">${imageMarkup}<div class="product-top">${p.sub?`<span class="sub-chip">${esc(p.sub)}</span>`:''}<div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||t('houseDescription'))}</p>${p.note?`<div class="product-note-inline">${esc(p.note)}</div>`:''}${optionsMarkup}<div class="product-foot"><div class="price" data-price>${currentPrice}</div>${addButton}</div></div></article>`;
   }
   function bindProductButtons(scope,items,categorySlug){
     $$('.product-card',scope).forEach(card=>{
@@ -269,8 +288,8 @@
       const normalized=normalize(filter);
       const visible=items.filter(p=>normalize([p.name,p.desc,p.sub].filter(Boolean).join(' ')).includes(normalized));
       const products=visible.filter(p=>!p.noteOnly);
-      count.textContent=`${products.length} ${products.length>1?'produits':'produit'}`;
-      grid.innerHTML=visible.length?visible.map((p,idx)=>productCard(p,idx,cat.title,slug)).join(''):`<div class="empty">Aucun produit ne correspond à « ${esc(filter)} ».</div>`;
+      count.textContent=`${products.length} ${products.length>1?t('results'):t('result')}`;
+      grid.innerHTML=visible.length?visible.map((p,idx)=>productCard(p,idx,cat.title,slug)).join(''):`<div class="empty">${esc(t('noProduct')+' « '+filter+' ».')}</div>`;
       bindProductButtons(grid,items,slug);observeReveals(grid);bindTilts(grid);
     }
     search?.addEventListener('input',e=>draw(e.target.value));
@@ -289,7 +308,7 @@
       if(!n){host.hidden=true;host.innerHTML='';return}
       const matches=all.filter(p=>normalize([p.name,p.desc,p.categoryTitle].join(' ')).includes(n));
       host.hidden=false;
-      host.innerHTML=matches.length?`<div class="global-results-head"><span>${matches.length} résultat${matches.length>1?'s':''}</span><span>Recherche : « ${esc(value)} »</span></div><div class="product-grid">${matches.map((p,i)=>`<article class="product-card reveal${productCardShellClasses(p)}" style="--reveal-delay:${Math.min(i,10)*35}ms">${productImageMarkup(p)}<div class="product-top"><div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||'')}</p><div class="product-foot"><div class="price">${p.price.length===1?money(p.price[0].amount):'À partir de '+money(Math.min(...p.price.map(x=>x.amount)))}</div><a class="add-btn" href="pages/${escAttr(p.categorySlug)}.html" aria-label="Voir ${escAttr(p.name)}">${ICONS.arrow}</a></div></div></article>`).join('')}</div>`:`<div class="empty">Aucun résultat pour « ${esc(value)} ».</div>`;
+      host.innerHTML=matches.length?`<div class="global-results-head"><span>${matches.length} ${matches.length>1?t('results'):t('result')}</span><span>Recherche : « ${esc(value)} »</span></div><div class="product-grid">${matches.map((p,i)=>`<article class="product-card reveal${productCardShellClasses(p)}" style="--reveal-delay:${Math.min(i,10)*35}ms">${productImageMarkup(p)}<div class="product-top"><div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||'')}</p><div class="product-foot"><div class="price">${p.price.length===1?money(p.price[0].amount):t('from')+' '+money(Math.min(...p.price.map(x=>x.amount)))}</div><a class="add-btn" href="pages/${escAttr(p.categorySlug)}.html" aria-label="Voir ${escAttr(p.name)}">${ICONS.arrow}</a></div></div></article>`).join('')}</div>`:`<div class="empty">Aucun résultat pour « ${esc(value)} ».</div>`;
       observeReveals(host);
     }
     input.addEventListener('input',e=>draw(e.target.value));
@@ -301,7 +320,7 @@
     const fgrid=$('.featured-grid'),featured=['burgers','pizzas','plats','grill','cocktails-sans-alcool','desserts'];
     if(fgrid){
       const arr=[];featured.forEach(slug=>(window.EL_PATRON_MENU?.[slug]||[]).filter(x=>!x.noteOnly).slice(0,2).forEach(x=>arr.push({p:x,slug})));
-      fgrid.innerHTML=arr.map((entry,i)=>{const p=entry.p;return `<article class="product-card reveal tilt${productCardShellClasses(p)}" style="--reveal-delay:${Math.min(i,10)*35}ms">${productImageMarkup(p)}<div class="product-top"><div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||'Composition maison El Patrón.')}</p><div class="product-foot"><div class="price">${p.price.length===1?money(p.price[0].amount):'À partir de '+money(Math.min(...p.price.map(x=>x.amount)))}</div><a class="add-btn" href="pages/${entry.slug}.html" aria-label="Découvrir ${escAttr(p.name)}">${ICONS.arrow}</a></div></div></article>`}).join('');
+      fgrid.innerHTML=arr.map((entry,i)=>{const p=entry.p;return `<article class="product-card reveal tilt${productCardShellClasses(p)}" style="--reveal-delay:${Math.min(i,10)*35}ms">${productImageMarkup(p)}<div class="product-top"><div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||'Composition maison El Patrón.')}</p><div class="product-foot"><div class="price">${p.price.length===1?money(p.price[0].amount):'À partir de '+money(Math.min(...p.price.map(x=>x.amount)))}</div><a class="add-btn" href="pages/${entry.slug}.html" aria-label="${escAttr(t('discover')+' '+p.name)}">${ICONS.arrow}</a></div></div></article>`}).join('');
     }
     renderGlobalSearch();
   }
@@ -312,13 +331,13 @@
   function renderFooter(){
     const root=$('[data-shell]');if(!root)return;
     const cats=window.EL_PATRON_CATEGORIES||[],base=root.dataset.base||'';
-    document.body.insertAdjacentHTML('beforeend',`<footer class="footer"><div class="container"><div class="footer-grid"><div><h3>EL PATRÓN</h3><p>${esc(window.EL_PATRON_SITE?.subtitle||'Restaurant · Bar · Café · Salon de thé')}. Une carte généreuse, le bar, le café et le salon de thé dans une même expérience.</p><div class="socials"><a href="${window.EL_PATRON_SITE?.facebook||'#'}" target="_blank" rel="noopener" aria-label="Facebook">${ICONS.facebook}</a><a href="${window.EL_PATRON_SITE?.instagram||'#'}" target="_blank" rel="noopener" aria-label="Instagram">${ICONS.instagram}</a><a href="${window.EL_PATRON_SITE?.tiktok||'#'}" target="_blank" rel="noopener" aria-label="TikTok">${ICONS.tiktok}</a></div></div><div><h3>Menu</h3><div class="footer-links footer-menu-links">${cats.map(c=>`<a href="${base}pages/${c.slug}.html">${esc(c.title)}</a>`).join('')}<a href="${base}pages/panier.html">Panier</a></div></div><div><h3>Contact</h3><div class="footer-links"><a href="tel:${window.EL_PATRON_SITE?.phoneRaw||''}">${esc(window.EL_PATRON_SITE?.phone||'')}</a><a href="mailto:${window.EL_PATRON_SITE?.email||''}">${esc(window.EL_PATRON_SITE?.email||'')}</a><a href="${window.EL_PATRON_SITE?.glovo||'#'}" target="_blank" rel="noopener">Commander sur Glovo</a><a href="${base}pages/contact.html">Voir les informations pratiques</a></div></div></div><div class="copyright"><span>© <span id="year">${new Date().getFullYear()}</span> EL PATRÓN</span><span>${esc(window.EL_PATRON_SITE?.address||'')}</span></div></div></footer>`);
+    document.body.insertAdjacentHTML('beforeend',`<footer class="footer"><div class="container"><div class="footer-grid"><div><h3>EL PATRÓN</h3><p>${esc(siteSubtitle)}. ${esc(t('footerIntro'))}</p><div class="socials"><a href="${window.EL_PATRON_SITE?.facebook||'#'}" target="_blank" rel="noopener" aria-label="Facebook">${ICONS.facebook}</a><a href="${window.EL_PATRON_SITE?.instagram||'#'}" target="_blank" rel="noopener" aria-label="Instagram">${ICONS.instagram}</a><a href="${window.EL_PATRON_SITE?.tiktok||'#'}" target="_blank" rel="noopener" aria-label="TikTok">${ICONS.tiktok}</a></div></div><div><h3>${esc(t('menu'))}</h3><div class="footer-links footer-menu-links">${cats.map(c=>`<a href="${base}pages/${c.slug}.html">${esc(c.title)}</a>`).join('')}<a href="${base}pages/panier.html">${esc(t('cart'))}</a></div></div><div><h3>${esc(t('contact'))}</h3><div class="footer-links"><a href="tel:${window.EL_PATRON_SITE?.phoneRaw||''}">${esc(window.EL_PATRON_SITE?.phone||'')}</a><a href="mailto:${window.EL_PATRON_SITE?.email||''}">${esc(window.EL_PATRON_SITE?.email||'')}</a><a href="${window.EL_PATRON_SITE?.glovo||'#'}" target="_blank" rel="noopener">${esc(t('orderWhatsApp').replace('WhatsApp','Glovo'))}</a><a href="${base}pages/contact.html">${esc(t('officialInfo'))}</a></div></div></div><div class="copyright"><span>© <span id="year">${new Date().getFullYear()}</span> EL PATRÓN</span><span>${esc(window.EL_PATRON_SITE?.address||'')}</span></div></div></footer>`);
   }
   function renderFullCart(){
     const host=$('.full-cart-list');if(!host)return;
     function draw(){
       const c=loadCart();
-      host.innerHTML=c.length?c.map(cartLine).join(''):`<div class="empty">Votre panier est vide.</div>`;
+      host.innerHTML=c.length?c.map(cartLine).join(''):`<div class="empty">${esc(t('emptyCart'))}</div>`;
       const total=$('.full-total');if(total)total.textContent=money(totalPrice(c));
     }
     draw();window.renderFullCart=draw;
