@@ -11,7 +11,7 @@ Site statique multi-pages HTML/CSS/JS, pensé mobile-first et installable comme 
 - `menu-data.js` — contenu du menu source, prix et compositions
 - `images/logo.webp` — logo principal en WebP
 - `icons/icon-192.webp` / `icons/icon-512.webp` — icônes PWA
-- `pages/*.html` — une rubrique par page + panier + contact
+- `fr\/pages\/\*.html`, `en\/pages\/\*.html`, `ar\/pages\/\*.html` — pages localisées + panier + contact
 
 ## Images produits
 

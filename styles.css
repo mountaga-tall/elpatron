@@ -180,20 +180,6 @@ img { max-width:100%; display:block; }
 .brand-text { line-height:1; }
 .brand-title { font-family:"Cormorant Garamond",serif; font-size:1.22rem; font-weight:700; letter-spacing:.18em; }
 .brand-sub { color:var(--muted); font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; margin-top:5px; }
-.header-nav-shell { flex:1 1 auto; min-width:0; max-width:100%; display:flex; align-items:center; gap:5px; margin-left:8px; }
-.desktop-nav { display:flex; gap:4px; align-items:center; min-width:0; overflow-x:auto; overflow-y:hidden; flex:1 1 auto; scrollbar-width:none; scroll-behavior:smooth; overscroll-behavior-x:contain; -webkit-overflow-scrolling:touch; }
-.desktop-nav::-webkit-scrollbar { display:none; }
-.desktop-nav a { flex:0 0 auto; white-space:nowrap; }
-.nav-scroll-btn { width:30px; height:30px; flex:0 0 30px; display:grid; place-items:center; border:1px solid var(--line); border-radius:9px; background:rgba(255,255,255,.05); color:#fff; cursor:pointer; transition:opacity .2s var(--ease), transform .2s var(--ease), background .2s var(--ease); }
-.nav-scroll-btn svg { width:14px; height:14px; }
-.nav-scroll-btn:hover:not(:disabled) { background:rgba(255,255,255,.1); transform:translateY(-1px); }
-.nav-scroll-btn:disabled { opacity:.25; cursor:default; }
-.nav-scroll-prev svg { transform:rotate(180deg); }
-[dir="rtl"] .nav-scroll-prev svg { transform:none; }
-[dir="rtl"] .nav-scroll-next svg { transform:rotate(180deg); }
-.desktop-nav { gap:6px; align-items:center; }
-.desktop-nav a { padding:10px 12px; color:#d8d2cf; font-size:.82rem; border-radius:10px; transition:transform .35s var(--ease), background .35s var(--ease), color .35s var(--ease); }
-.desktop-nav a:hover,.desktop-nav a.active { color:#fff; background:rgba(255,255,255,.07); transform:translateY(-2px); }
 .header-actions { display:flex; gap:7px; margin-left:auto; }
 .icon-btn { width:44px; height:44px; border:1px solid var(--line); background:rgba(255,255,255,.05); border-radius:12px; display:grid; place-items:center; cursor:pointer; transition:transform .35s var(--ease),background .35s var(--ease),border-color .35s var(--ease); position:relative; }
 .icon-btn:hover { transform:translateY(-2px); background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.2); }
