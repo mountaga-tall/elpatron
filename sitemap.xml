@@ -1,87 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.elpatron.ci/</loc></url>
   <url><loc>https://www.elpatron.ci/fr/</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/contact.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/panier.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/bieres.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/boissons-chaudes.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/boissons-smoothies.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/burgers.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/cocktails-alcoolises.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/cocktails-sans-alcool.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/desserts.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/entrees.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/grill.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/manaiches.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/pastas.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/</loc></url>
   <url><loc>https://www.elpatron.ci/fr/pages/petit-dej.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/pizzas.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/plats.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/poulet.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/manaiches.html</loc></url>
   <url><loc>https://www.elpatron.ci/fr/pages/salades.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/shishas.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/shots.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/entrees.html</loc></url>
   <url><loc>https://www.elpatron.ci/fr/pages/snack.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/softs.html</loc></url>
-  <url><loc>https://www.elpatron.ci/fr/pages/supplements.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/burgers.html</loc></url>
   <url><loc>https://www.elpatron.ci/fr/pages/tacos-kebab.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/pastas.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/plats.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/grill.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/poulet.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/supplements.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/pizzas.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/boissons-chaudes.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/softs.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/bieres.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/desserts.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/cocktails-sans-alcool.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/shishas.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/boissons-smoothies.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/cocktails-alcoolises.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/shots.html</loc></url>
   <url><loc>https://www.elpatron.ci/fr/pages/tournees.html</loc></url>
   <url><loc>https://www.elpatron.ci/fr/pages/bouteilles.html</loc></url>
   <url><loc>https://www.elpatron.ci/fr/pages/vins.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/contact.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/panier.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/bieres.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/boissons-chaudes.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/boissons-smoothies.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/burgers.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/cocktails-alcoolises.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/cocktails-sans-alcool.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/desserts.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/entrees.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/grill.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/manaiches.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/pastas.html</loc></url>
   <url><loc>https://www.elpatron.ci/en/pages/petit-dej.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/pizzas.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/plats.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/poulet.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/manaiches.html</loc></url>
   <url><loc>https://www.elpatron.ci/en/pages/salades.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/shishas.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/shots.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/entrees.html</loc></url>
   <url><loc>https://www.elpatron.ci/en/pages/snack.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/softs.html</loc></url>
-  <url><loc>https://www.elpatron.ci/en/pages/supplements.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/burgers.html</loc></url>
   <url><loc>https://www.elpatron.ci/en/pages/tacos-kebab.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/pastas.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/plats.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/grill.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/poulet.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/supplements.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/pizzas.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/boissons-chaudes.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/softs.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/bieres.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/desserts.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/cocktails-sans-alcool.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/shishas.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/boissons-smoothies.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/cocktails-alcoolises.html</loc></url>
+  <url><loc>https://www.elpatron.ci/en/pages/shots.html</loc></url>
   <url><loc>https://www.elpatron.ci/en/pages/tournees.html</loc></url>
   <url><loc>https://www.elpatron.ci/en/pages/bouteilles.html</loc></url>
   <url><loc>https://www.elpatron.ci/en/pages/vins.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/contact.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/panier.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/bieres.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/boissons-chaudes.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/boissons-smoothies.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/burgers.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/cocktails-alcoolises.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/cocktails-sans-alcool.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/desserts.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/entrees.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/grill.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/manaiches.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/pastas.html</loc></url>
   <url><loc>https://www.elpatron.ci/ar/pages/petit-dej.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/pizzas.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/plats.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/poulet.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/manaiches.html</loc></url>
   <url><loc>https://www.elpatron.ci/ar/pages/salades.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/shishas.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/shots.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/entrees.html</loc></url>
   <url><loc>https://www.elpatron.ci/ar/pages/snack.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/softs.html</loc></url>
-  <url><loc>https://www.elpatron.ci/ar/pages/supplements.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/burgers.html</loc></url>
   <url><loc>https://www.elpatron.ci/ar/pages/tacos-kebab.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/pastas.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/plats.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/grill.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/poulet.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/supplements.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/pizzas.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/boissons-chaudes.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/softs.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/bieres.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/desserts.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/cocktails-sans-alcool.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/shishas.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/boissons-smoothies.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/cocktails-alcoolises.html</loc></url>
+  <url><loc>https://www.elpatron.ci/ar/pages/shots.html</loc></url>
   <url><loc>https://www.elpatron.ci/ar/pages/tournees.html</loc></url>
   <url><loc>https://www.elpatron.ci/ar/pages/bouteilles.html</loc></url>
   <url><loc>https://www.elpatron.ci/ar/pages/vins.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/contact.html</loc></url>
+  <url><loc>https://www.elpatron.ci/fr/pages/panier.html</loc></url>
 </urlset>
