@@ -3462,6 +3462,5 @@ window.EL_PATRON_SITE={
   "site": "https://www.elpatron.ci",
   "facebook": "https://www.facebook.com/elpatronabidjan/",
   "instagram": "https://www.instagram.com/elpatronabidjan/",
-  "tiktok": "https://www.tiktok.com/@elpatronci1",
-  "glovo": "https://glovo.go.link/open?adjust_deeplink=glovoapp%3A%2F%2Fopen%3Flink_type%3Dstore%26store_id%3D561009&adjust_t=s321jkn"
+  "tiktok": "https://www.tiktok.com/@elpatronci1"
 };
