@@ -3458,7 +3458,7 @@ window.EL_PATRON_SITE={
   "phone": "+225 07 04 40 04 00",
   "phoneRaw": "2250704400400",
   "email": "el.patron.abidjan@gmail.com",
-  "address": "5°24'11.2\"N 3°58'49.7\"W",
+  "address": "C239+6R5, Angré, L 160, Abidjan, Côte d'Ivoire",
   "site": "https://www.elpatron.ci",
   "facebook": "https://www.facebook.com/elpatronabidjan/",
   "instagram": "https://www.instagram.com/elpatronabidjan/",
