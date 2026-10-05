@@ -1,0 +1,5 @@
+const CACHE='elpatron-v20261005-wow1';
+const CORE=['./','./manifest.webmanifest','./styles.css','./app.js','./enhancements.js','./icons.js','./menu-data.js','./i18n.js','./images/logo.webp','./icons/icon-192.webp','./icons/icon-512.webp','./fr/','./en/','./ar/'];
+self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE).catch(()=>{})).then(()=>self.skipWaiting())));
+self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
+self.addEventListener('fetch',e=>{const r=e.request;if(r.method!=='GET')return;const u=new URL(r.url);if(u.origin!==self.location.origin)return;if(r.mode==='navigate'){e.respondWith(fetch(r).then(x=>{const c=x.clone();caches.open(CACHE).then(a=>a.put(r,c));return x}).catch(()=>caches.match(r).then(x=>x||caches.match('./fr/').then(x=>x||caches.match('./')))));return}e.respondWith(caches.match(r).then(x=>x||fetch(r).then(y=>{const c=y.clone();caches.open(CACHE).then(a=>a.put(r,c));return y})))})
