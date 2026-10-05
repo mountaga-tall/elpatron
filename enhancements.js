@@ -64,6 +64,29 @@ function orderForm(){
  const s=document.createElement('section');s.className='ep-order-info';s.innerHTML='<div class="kicker">'+esc(t('info'))+'</div><h3>'+esc(t('info'))+'</h3><div class="ep-order-grid"><label>'+esc(t('name'))+'<input name="n" value="'+esc(saved.n||'')+'"></label><label>'+esc(t('phone'))+'<input name="tel" inputmode="tel" value="'+esc(saved.tel||'')+'"></label><label>'+esc(t('mode'))+'<select name="m"><option value="d">'+esc(t('dine'))+'</option><option value="t">'+esc(t('take'))+'</option><option value="l">'+esc(t('delivery'))+'</option></select></label></div><label>'+esc(t('notes'))+'<textarea name="x" rows="3">'+esc(saved.x||'')+'</textarea></label><button type="button" class="btn btn-glass" data-save-order>'+esc(t('save'))+'</button>';
  $('.cart-actions',card)?.parentElement?.prepend(s);s.querySelector('[name="m"]').value=saved.m||'d';s.querySelector('[data-save-order]').onclick=()=>{localStorage.setItem(orderKey,JSON.stringify({n:s.querySelector('[name="n"]').value.trim(),tel:s.querySelector('[name="tel"]').value.trim(),m:s.querySelector('[name="m"]').value,x:s.querySelector('[name="x"]').value.trim()}));toast(t('saved'))}
 }
+function categoryVisual(){
+ const root=$('[data-category-page]'),v=$('.menu-visual');if(!root||!v)return;
+ const items=window.EL_PATRON_MENU?.[root.dataset.category]||[],src=items.find(p=>p.images?.length)?.images?.[0];
+ if(!src)return;
+ const url=String(src).startsWith('http')?src:(base+String(src).replace(/^\.\/?/,''));
+ v.style.backgroundImage='linear-gradient(135deg,rgba(23,19,19,.12),rgba(209,31,26,.18)),url("'+url.replace(/"/g,'%22')+'")';
+ v.classList.add('ep-has-category-image');
+}
+function quickRecs(){
+ const drawer=$('.cart-panel'),bottom=$('.cart-bottom');if(!drawer||!bottom||$('.ep-recos',drawer))return;
+ const all=products().filter(p=>p.price?.length&&p.price[0]?.amount);
+ const picks=all.slice().sort(()=>0.5-Math.random()).slice(0,3);
+ const s=document.createElement('section');s.className='ep-recos';
+ s.innerHTML='<div class="ep-recos-head"><span>El Patrón</span><b>À ajouter à votre commande</b></div><div class="ep-recos-grid">'+picks.map(p=>'<a href="'+base+'pages/'+esc(p.slug)+'.html#product-'+encodeURIComponent(p.id)+'" class="ep-reco"><strong>'+esc(p.name)+'</strong><span>'+money(p.price[0].amount)+'</span></a>').join('')+'</div>';
+ bottom.insertBefore(s,bottom.firstChild);
+}
+function metaTags(){
+ const desc=document.querySelector('meta[name="description"]')?.content||'EL PATRÓN — Restaurant, Bar, Café & Salon de thé à Abidjan.';
+ const canonical=document.querySelector('link[rel="canonical"]')||document.head.appendChild(Object.assign(document.createElement('link'),{rel:'canonical'}));
+ canonical.href=location.href.split('#')[0];
+ const vals={description:desc,og:title:document.title||'EL PATRÓN',og:description:desc,og:type:'restaurant',og:url:location.href.split('#')[0],og:image:new URL(base+'images/logo.webp',location.href).href,twitter:card:'summary_large_image',twitter:title:document.title||'EL PATRÓN',twitter:description:desc,twitter:image:new URL(base+'images/logo.webp',location.href).href};
+ Object.entries(vals).forEach(([k,v])=>{let sel=k.startsWith('og:')?{name:'property',value:k}:k.startsWith('twitter:')?{name:'name',value:k}:{name:'name',value:k};let el=document.head.querySelector('meta['+sel.name+'="'+sel.value+'"]');if(!el){el=document.createElement('meta');el.setAttribute(sel.name,sel.value);document.head.append(el)}el.content=v});
+}
 function status(){if($('.ep-status'))return;const m=new Date().getHours()*60+new Date().getMinutes(),open=m>=480||m<120,e=document.createElement('div');e.className='ep-status '+(open?'open':'closed');e.innerHTML='<span class="ep-status-dot"></span><div><b>'+t(open?'openNow':'closed')+'</b><span>'+t('hours')+'</span></div><a href="'+maps+'" target="_blank" rel="noopener">'+t('route')+' ↗</a>';$('.hero,.menu-hero')?.append(e)}
 function schema(){if($('script[data-ep-schema]'))return;const s=document.createElement('script');s.type='application/ld+json';s.dataset.epSchema='1';s.textContent=JSON.stringify({'@context':'https://schema.org','@type':'Restaurant','name':site.name||'EL PATRÓN','url':site.site||location.origin,'telephone':site.phone||'+225 07 04 40 04 00','email':site.email||'el.patron.abidjan@gmail.com','geo':{'@type':'GeoCoordinates','latitude':5.403111,'longitude':-3.980472},'address':{'@type':'PostalAddress','addressLocality':'Abidjan','addressRegion':'Cocody','addressCountry':'CI'},'openingHoursSpecification':[0,1,2,3,4,5,6].map(d=>({'@type':'OpeningHoursSpecification','dayOfWeek':['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d],'opens':'08:00','closes':'02:00'}))});document.head.append(s)}
 function pwa(){if('serviceWorker' in navigator)navigator.serviceWorker.register(base+'sw.js',{scope:base}).catch(()=>{});window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();const b=document.createElement('button');b.className='ep-install';b.textContent='＋ '+t('install');b.onclick=async()=>{try{await e.prompt();await e.userChoice}catch{}b.remove()};document.body.append(b)})}
@@ -79,6 +102,6 @@ function events(){
  });
  document.addEventListener('click',e=>{const b=e.target.closest('.order-whatsapp');if(!b)return;let c=[];try{c=JSON.parse(localStorage.getItem('elpatronCartV1')||'[]')}catch{};if(!c.length)return;let i={};try{i=JSON.parse(localStorage.getItem(orderKey)||'{}')}catch{};e.preventDefault();e.stopImmediatePropagation();const lines=c.map(x=>'- '+x.name+(x.variant?' — '+x.variant:'')+(x.accompaniment?' — '+x.accompaniment:'')+(x.iceFlavor?' — '+x.iceFlavor:'')+' × '+x.qty+' = '+money(x.amount*x.qty)).join('\\n');const msg='Bonjour EL PATRÓN, je souhaite passer cette commande :\\n\\n'+lines+'\\n\\nType : '+(i.m==='l'?t('delivery'):i.m==='t'?t('take'):t('dine'))+(i.n?'\\nNom : '+i.n:'')+(i.tel?'\\nTéléphone : '+i.tel:'')+(i.x?'\\nNotes : '+i.x:'')+'\\n\\nTotal : '+money(c.reduce((s,x)=>s+(Number(x.amount)||0)*(Number(x.qty)||0),0));location.href='https://wa.me/'+(site.phoneRaw||'')+'?text='+encodeURIComponent(msg)},true);
 }
-function init(){enhanceProducts();lightbox();favoritesModal();headerFav();mobileBar();reviewsBlock();reservation();orderForm();status();schema();pwa();events();syncFav();const m=new MutationObserver(enhanceProducts);m.observe(document.body,{childList:true,subtree:true});const h=location.hash.match(/^#product-(.+)$/);if(h)setTimeout(()=>{const c=$$('.product-card[data-product-id]').find(x=>x.dataset.productId===decodeURIComponent(h[1]));if(c){c.scrollIntoView({behavior:'smooth',block:'center'});c.classList.add('ep-pulse')}},180)}
+function init(){enhanceProducts();lightbox();favoritesModal();headerFav();mobileBar();reviewsBlock();reservation();orderForm();status();schema();metaTags();categoryVisual();quickRecs();pwa();events();syncFav();const m=new MutationObserver(enhanceProducts);m.observe(document.body,{childList:true,subtree:true});const h=location.hash.match(/^#product-(.+)$/);if(h)setTimeout(()=>{const c=$$('.product-card[data-product-id]').find(x=>x.dataset.productId===decodeURIComponent(h[1]));if(c){c.scrollIntoView({behavior:'smooth',block:'center'});c.classList.add('ep-pulse')}},180)}
 document.addEventListener('DOMContentLoaded',()=>setTimeout(init,60));
 })();
