@@ -384,4 +384,11 @@
       globalErrorGuard();renderHeader();renderFooter();setupCart();renderPageMeta();renderHome();observeReveals();bindTilts();setupGlobalMotion();renderFullCart();window.EL_PATRON_I18N_POST_RENDER?.();
     }catch(error){console.error('EL PATRÓN init:',error);document.body.classList.remove('site-error');}
   });
+  // Load the premium UX layer on every page, including every menu category.
+  if(!window.__EL_PATRON_ENHANCEMENTS__) {
+    window.__EL_PATRON_ENHANCEMENTS__=true;
+    const s=document.createElement('script');
+    s.src=(document.querySelector('[data-shell]')?.dataset.base||'')+'enhancements.js?v=20261005wow1';
+    document.head.appendChild(s);
+  }
 })();
