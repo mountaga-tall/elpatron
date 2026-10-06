@@ -13,7 +13,25 @@ const products=()=>Object.entries(window.EL_PATRON_MENU||{}).flatMap(([slug,item
 const product=id=>products().find(p=>p.id===id);
 const money=n=>new Intl.NumberFormat(lang==='fr'?'fr-FR':'en-US').format(Number(n)||0)+' FCFA';
 const maps='https://www.google.com/maps/search/?api=1&query=5.403111,-3.980472';
-const reviews='https://www.google.com/maps/search/?api=1&query=EL%20PATR%C3%93N%20Abidjan';
+const googleReviewUrl='https://www.google.com/maps/search/?api=1&query=El%20Patr%C3%B3n%20Abidjan';
+const reviews=googleReviewUrl;
+const googleReviews={
+  fr:[
+    {name:'COLORS « Sortez de l\'ombre » LOROUGNON Hermann',meta:'Google · 5/5',text:'Cuisine, service et ambiance évalués 5/5.'},
+    {name:'LA MAISON DU BITCOIN CÔTE D’IVOIRE',meta:'Google · 5/5',text:'Cuisine, service et ambiance évalués 5/5.'},
+    {name:'Ousman Sylla',meta:'Google · 5/5',text:'« Mr Tall is the best manager… » — un accueil et un service particulièrement appréciés.'}
+  ],
+  en:[
+    {name:'COLORS “sortez de l\'ombre” LOROUGNON Hermann',meta:'Google · 5/5',text:'Food, service and atmosphere rated 5/5.'},
+    {name:'LA MAISON DU BITCOIN CÔTE D’IVOIRE',meta:'Google · 5/5',text:'Food, service and atmosphere rated 5/5.'},
+    {name:'Ousman Sylla',meta:'Google · 5/5',text:'“Mr Tall is the best manager…” — warm welcome and service especially appreciated.'}
+  ],
+  ar:[
+    {name:'COLORS «Sortez de l\'ombre» LOROUGNON Hermann',meta:'Google · 5/5',text:'الطعام والخدمة والأجواء حصلت على 5/5.'},
+    {name:'LA MAISON DU BITCOIN CÔTE D’IVOIRE',meta:'Google · 5/5',text:'الطعام والخدمة والأجواء حصلت على 5/5.'},
+    {name:'Ousman Sylla',meta:'Google · 5/5',text:'«Mr Tall is the best manager…» — إشادة خاصة بالترحيب وجودة الخدمة.'}
+  ]
+};
 const favs=()=>{try{return JSON.parse(localStorage.getItem(favKey)||'[]')}catch{return[]}};
 const setFavs=a=>localStorage.setItem(favKey,JSON.stringify([...new Set(a)]));
 function toast(msg){let e=$('.ep-toast');if(!e){e=document.createElement('div');e.className='ep-toast';document.body.append(e)}e.textContent=msg;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),1800)}
@@ -49,8 +67,12 @@ function favoritesModal(){
 function headerFav(){const h=$('.header-actions');if(!h||h.querySelector('[data-open-favorites]'))return;const b=document.createElement('button');b.type='button';b.className='icon-btn';b.dataset.openFavorites='1';b.setAttribute('aria-label',t('fav'));b.innerHTML='♡<span data-ep-fav-count class="ep-fav-count" hidden>0</span>';h.prepend(b)}
 function mobileBar(){if($('.ep-mobile-bar'))return;const b=document.createElement('nav');b.className='ep-mobile-bar';b.innerHTML='<button data-q-search>⌕<span>'+esc(t('search'))+'</span></button><button data-q-fav>♡<span>'+esc(t('fav'))+'</span><em data-ep-fav-count hidden>0</em></button><button data-q-cart>🛍<span>'+esc(t('cart'))+'</span></button><a href="https://wa.me/'+esc(site.phoneRaw||'')+'" target="_blank" rel="noopener">◉<span>'+esc(t('whatsapp'))+'</span></a><button data-q-menu>☰<span>'+esc(t('menu'))+'</span></button>';document.body.append(b);document.body.classList.add('ep-mobile-ready')}
 function reviewsBlock(){
- if(!/\/fr\/?$|\/en\/?$|\/ar\/?$|pages\/contact\.html$/.test(location.pathname)||$('.ep-reviews'))return;const s=document.createElement('section');s.className='section ep-reviews';
- s.innerHTML='<div class="container"><div class="section-head"><div><div class="kicker">'+esc(t('reviews'))+'</div><h2>'+esc(t('reviewsSub'))+'</h2></div><p class="section-intro">'+esc(t('count'))+'</p></div><div class="ep-reviews-grid"><article class="ep-rating-card"><strong class="ep-rating-number">4.9</strong><div class="ep-stars">★★★★★</div><b>'+esc(t('rating'))+'</b><span>'+esc(t('count'))+'</span><div class="ep-rating-actions"><a class="btn btn-primary" href="'+reviews+'" target="_blank" rel="noopener">'+esc(t('review'))+'</a><a class="btn btn-glass" href="'+reviews+'" target="_blank" rel="noopener">'+esc(t('write'))+'</a></div></article><div class="ep-review-quote-list"><article class="ep-review-quote">★★★★★<p>Les avis en ligne mettent en avant la cuisine, le service et l’ambiance.</p></article><article class="ep-review-quote">★★★★★<p>Des retours récents soulignent également l’accueil et la qualité de l’expérience.</p></article><article class="ep-review-quote">★★★★★<p>El Patrón est référencé parmi les établissements très bien notés de Cocody.</p></article></div></div></div>';
+ if(!/\\/fr\\/?$|\\/en\\/?$|\\/ar\\/?$|pages\\/contact\\.html$/.test(location.pathname)||$('.ep-reviews'))return;
+ const s=document.createElement('section');s.className='section ep-reviews';
+ const rateLabel=lang==='en'?'Rate us on Google':lang==='ar'?'قيّمنا على Google':'Noter El Patrón sur Google';
+ const viewLabel=lang==='en'?'See all Google reviews':lang==='ar'?'عرض جميع آراء Google':'Voir tous les avis Google';
+ const data=googleReviews[lang]||googleReviews.fr;
+ s.innerHTML='<div class="container"><div class="section-head"><div><div class="kicker">'+esc(t('reviews'))+'</div><h2>'+esc(t('reviewsSub'))+'</h2></div><p class="section-intro">'+esc(t('count'))+'</p></div><div class="ep-reviews-grid"><article class="ep-rating-card"><strong class="ep-rating-number">4.9</strong><div class="ep-stars">★★★★★</div><b>'+esc(t('rating'))+'</b><span>'+esc(t('count'))+'</span><div class="ep-rating-actions"><a class="btn btn-primary" href="'+googleReviewUrl+'" target="_blank" rel="noopener noreferrer">'+esc(rateLabel)+'</a><a class="btn btn-glass" href="'+googleReviewUrl+'" target="_blank" rel="noopener noreferrer">'+esc(viewLabel)+'</a></div></article><div class="ep-review-quote-list">'+data.map(r=>'<article class="ep-review-quote"><div class="ep-review-stars">★★★★★</div><strong>'+esc(r.name)+'</strong><span>'+esc(r.meta)+'</span><p>'+esc(r.text)+'</p></article>').join('')+'</div></div><p class="section-intro" style="margin:18px auto 0;max-width:900px">'+esc(lang==='en'?'Reviews shown here are public Google feedback excerpts; use the buttons above to read the full listing or leave your own rating.':lang==='ar'?'الآراء المعروضة هنا مقتطفات من تقييمات Google العامة؛ استخدم الأزرار أعلاه لقراءة القائمة كاملة أو إضافة تقييمك.':'Les avis affichés ici sont des extraits d’avis Google publics ; utilisez les boutons ci-dessus pour lire la fiche complète ou laisser votre propre note.')+'</p></div>';
  const target=$('.global-search-section')||$('.contact-grid')?.parentElement?.parentElement||$('#contenu');target?.insertAdjacentElement('afterend',s);
 }
 function reservation(){
