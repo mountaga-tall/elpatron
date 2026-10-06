@@ -1041,3 +1041,35 @@ body::after{
   }
   .ep-mobile-bar button,.ep-mobile-bar a{color:var(--brand-ink)}
 }
+
+/* ==========================================================
+   EL PATRÓN — EXPERIENCE / CONVERSION / ACCESSIBILITY
+========================================================== */
+.btn-quiet{border-color:transparent;background:transparent;color:var(--brand-red)}
+.btn-quiet:hover{background:rgba(181,31,37,.06);box-shadow:none}
+.ep-conversion-rail{padding-top:10px;padding-bottom:30px}
+.ep-conversion-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:30px;border:1px solid var(--brand-line);border-radius:26px;background:linear-gradient(135deg,#fffaf4 0%,#f1e6d9 100%);box-shadow:var(--brand-shadow);position:relative;overflow:hidden}
+.ep-conversion-grid::after{content:"";position:absolute;width:220px;height:220px;border:1px solid rgba(184,148,93,.24);border-radius:50%;right:-70px;bottom:-100px}
+.ep-conversion-grid h2{margin:5px 0 8px;font:600 clamp(2rem,4vw,3.5rem)/.95 "Cormorant Garamond",serif;color:var(--brand-ink)}
+.ep-conversion-grid p{margin:0;color:var(--brand-muted);line-height:1.7;max-width:680px}
+.ep-conversion-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;position:relative;z-index:1}
+.ep-recos{padding-bottom:14px;margin-bottom:4px;border-bottom:1px solid var(--brand-line)}
+.ep-recos-head{display:flex;justify-content:space-between;gap:12px;margin-bottom:9px;font-size:11px;color:var(--brand-muted)}
+.ep-recos-head span{font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--brand-red)}
+.ep-recos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.ep-reco{display:grid;gap:3px;padding:10px;border:1px solid var(--brand-line);border-radius:12px;background:#fff;color:var(--brand-ink);transition:transform .25s ease,border-color .25s ease}
+.ep-reco:hover{transform:translateY(-2px);border-color:rgba(181,31,37,.25)}
+.ep-reco strong{font-size:11px;line-height:1.25}.ep-reco span{font-size:10px;color:var(--brand-muted)}
+.experience-hero .page-intro{max-width:760px;font-size:1.08rem;line-height:1.8}
+.experience-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.experience-card{padding:26px;border:1px solid var(--brand-line);border-radius:22px;background:#fffaf4;box-shadow:var(--brand-shadow);position:relative;overflow:hidden;min-height:220px}
+.experience-card::after{content:"";position:absolute;width:130px;height:130px;border:1px solid rgba(181,31,37,.12);border-radius:50%;right:-55px;top:-55px}
+.experience-index{font:700 12px/1 Inter,sans-serif;letter-spacing:.16em;color:var(--brand-red)}
+.experience-card h3{margin:34px 0 8px;font:600 clamp(1.8rem,4vw,2.7rem)/.95 "Cormorant Garamond",serif;color:var(--brand-ink)}
+.experience-card p{margin:0;max-width:540px;line-height:1.7;color:var(--brand-muted)}
+.experience-manifesto{padding-top:20px}.experience-cta{padding-top:30px;padding-bottom:120px}
+@media(max-width:760px){
+ .ep-conversion-grid{grid-template-columns:1fr;padding:22px}.ep-conversion-actions{justify-content:flex-start}.experience-grid{grid-template-columns:1fr}.ep-recos-grid{grid-template-columns:1fr 1fr}.ep-reco:last-child{grid-column:1/-1}
+ .experience-cta{padding-bottom:100px}
+}
+@media(prefers-reduced-motion:reduce){.ep-reco{transition:none}}
