@@ -11,7 +11,7 @@ Site statique multi-pages HTML/CSS/JS, pensé mobile-first et installable comme 
 - `menu-data.js` — contenu du menu source, prix et compositions
 - `images/logo.webp` — logo principal en WebP
 - `icons/icon-192.webp` / `icons/icon-512.webp` — icônes PWA
-- `fr\/pages\/\*.html`, `en\/pages\/\*.html`, `ar\/pages\/\*.html` — pages localisées + panier + contact
+- `fr\/pages\/\*.html`, `en\/pages\/\*.html`, `ar\/pages\/\*.html` — pages localisées + expérience + panier + contact
 
 ## Images produits
 
@@ -34,6 +34,9 @@ Les deux images s’affichent automatiquement en galerie dans la fiche produit e
 - Le panier utilise une icône poubelle pour supprimer un article.
 - Les commandes sont préparées puis envoyées sur WhatsApp.
 - Les avis Google sont visibles sur l’accueil et la page Contact, avec un lien pour lire les avis et déposer une note.
+- Une page `experience.html` présente l’ADN El Patrón en français, anglais et arabe.
+- Le parcours de conversion met en avant la carte, la réservation et la commande WhatsApp.
+- Les pages locales publient automatiquement les métadonnées SEO, les URLs canoniques et les variantes `hreflang`.
 
 ## PWA
 
