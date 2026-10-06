@@ -32,6 +32,8 @@ Les deux images s’affichent automatiquement en galerie dans la fiche produit e
 - Tacos : `XL Royal` puis `XL` puis `L Royal` puis `L`, avec `XL Royal` sélectionné par défaut.
 - Vins : chaque bouteille est un produit individuel avec son nom, son prix et sa catégorie.
 - Le panier utilise une icône poubelle pour supprimer un article.
+- Les commandes sont préparées puis envoyées sur WhatsApp.
+- Les avis Google sont visibles sur l’accueil et la page Contact, avec un lien pour lire les avis et déposer une note.
 
 ## PWA
 
@@ -53,5 +55,7 @@ Le site est disponible en trois versions :
 - Français : `/fr/`
 - English : `/en/`
 - العربية : `/ar/` (RTL)
+
+Le domaine `elpatron.ci` reste volontairement à gérer séparément du dépôt.
 
 Le sélecteur de langue est présent dans l’en-tête et le menu mobile. Le catalogue et les prix restent partagés entre les trois versions afin d’éviter les écarts de contenu.
