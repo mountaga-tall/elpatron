@@ -794,3 +794,250 @@ body.options-open{overflow:hidden}
  .ep-lb-prev{left:8px}.ep-lb-next{right:8px}.ep-lb-close{top:8px;right:8px}
 }
 @media(prefers-reduced-motion:reduce){.ep-tool,.ep-toast,.ep-pulse{transition:none;animation:none}}
+
+
+/* ==========================================================
+   EL PATRÓN — CHARTE ÉDITORIALE & GRAPHIQUE
+   Palette inspirée du logo : rouge signature, noir encre,
+   ivoire papier, accent doré discret.
+========================================================== */
+:root{
+  --brand-paper:#f6efe6;
+  --brand-paper-2:#fffaf4;
+  --brand-ink:#171313;
+  --brand-muted:#706761;
+  --brand-red:#b51f25;
+  --brand-red-deep:#7e1015;
+  --brand-gold:#b8945d;
+  --brand-line:rgba(23,19,19,.12);
+  --brand-shadow:0 18px 50px rgba(51,36,23,.09);
+}
+body{
+  background:
+    radial-gradient(circle at 87% 6%,rgba(181,31,37,.08),transparent 26%),
+    radial-gradient(circle at 7% 82%,rgba(184,148,93,.09),transparent 24%),
+    var(--brand-paper);
+  color:var(--brand-ink);
+}
+body::before{
+  background-image:radial-gradient(rgba(23,19,19,.10) .55px,transparent .55px);
+  background-size:12px 12px;
+  opacity:.055;
+}
+body::after{
+  background:radial-gradient(circle,rgba(181,31,37,.08),transparent 68%);
+}
+.site-header{inset:14px 14px auto}
+.header-inner{
+  background:rgba(255,250,244,.90);
+  border:1px solid var(--brand-line);
+  box-shadow:var(--brand-shadow);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+.brand-title{color:var(--brand-ink)}
+.brand-sub{color:var(--brand-muted)}
+.icon-btn{
+  background:rgba(255,255,255,.72);
+  border-color:var(--brand-line);
+  color:var(--brand-ink);
+}
+.icon-btn:hover{
+  background:#fff;
+  border-color:rgba(181,31,37,.28);
+}
+.icon-btn.red{
+  background:linear-gradient(135deg,var(--brand-red),var(--brand-red-deep));
+  color:#fff;
+}
+.cart-badge{
+  background:var(--brand-ink);
+  color:#fff;
+  border-color:var(--brand-paper-2);
+}
+.hero{padding-top:150px}
+.eyebrow{
+  color:var(--brand-red);
+  background:rgba(181,31,37,.065);
+  border-color:rgba(181,31,37,.24);
+}
+.dot{background:var(--brand-red);box-shadow:0 0 12px rgba(181,31,37,.34)}
+.hero h1{color:var(--brand-ink)}
+.hero h1 span{
+  color:var(--brand-red);
+  -webkit-text-stroke:0;
+}
+.hero p{color:var(--brand-muted)}
+.btn{
+  border-color:var(--brand-line);
+  border-radius:12px;
+}
+.btn:hover{box-shadow:0 14px 32px rgba(51,36,23,.12)}
+.btn-primary{
+  background:linear-gradient(135deg,var(--brand-red),var(--brand-red-deep));
+  color:#fff;
+}
+.btn-glass{
+  background:rgba(255,255,255,.78);
+  color:var(--brand-ink);
+  border-color:var(--brand-line);
+  backdrop-filter:none;
+}
+.hero-stamp{
+  color:var(--brand-muted);
+  background:rgba(255,250,244,.9);
+  border-color:var(--brand-line);
+  backdrop-filter:blur(10px);
+}
+.logo-orbit{border-color:rgba(181,31,37,.16);box-shadow:0 0 100px rgba(181,31,37,.07) inset}
+.logo-orbit::before,.logo-orbit::after{background:var(--brand-red);box-shadow:0 0 16px rgba(181,31,37,.25)}
+.logo-aura{background:radial-gradient(circle,rgba(181,31,37,.18),transparent 62%)}
+.hero-logo{filter:drop-shadow(0 24px 45px rgba(51,36,23,.16))}
+.hero-ring{border-color:rgba(23,19,19,.10)}
+.section h2,.menu-hero h1{color:var(--brand-ink)}
+.section-intro,.menu-hero p{color:var(--brand-muted)}
+.kicker{color:var(--brand-red)}
+.category-card,.product-card,.contact-card{
+  background:rgba(255,250,244,.92);
+  border-color:var(--brand-line);
+  box-shadow:var(--brand-shadow);
+  backdrop-filter:none;
+}
+.category-card:hover,.product-card:hover{
+  border-color:rgba(181,31,37,.28);
+  box-shadow:0 22px 55px rgba(51,36,23,.11);
+  transform:translateY(-5px);
+}
+.category-icon{
+  background:rgba(181,31,37,.07);
+  border-color:rgba(181,31,37,.20);
+  color:var(--brand-red);
+}
+.category-card h3,.product-name,.footer h3{color:var(--brand-ink)}
+.category-card p,.product-desc,.footer p{color:var(--brand-muted)}
+.category-arrow{
+  border-color:var(--brand-line);
+  color:var(--brand-ink);
+  background:#fff;
+}
+.menu-visual{
+  background:
+    radial-gradient(circle at 30% 20%,rgba(181,31,37,.11),transparent 32%),
+    linear-gradient(145deg,#fffaf4,#f2e8dc);
+  border-color:var(--brand-line);
+}
+.menu-visual::before{border-color:rgba(184,148,93,.28);box-shadow:0 0 80px rgba(184,148,93,.08)}
+.menu-visual::after{color:rgba(181,31,37,.10)}
+.search-box{
+  background:rgba(255,255,255,.84);
+  border-color:var(--brand-line);
+  backdrop-filter:none;
+}
+.search-box input{color:var(--brand-ink)}
+.result-count{color:var(--brand-muted)}
+.product-top{
+  background:radial-gradient(circle at 85% 20%,rgba(181,31,37,.08),transparent 26%);
+}
+.product-top::after{border-color:rgba(184,148,93,.24)}
+.sub-chip{background:rgba(184,148,93,.09);color:#7b6547}
+.option-pill{
+  border-color:var(--brand-line);
+  background:#fff;
+  color:#5f5751;
+}
+.option-pill:hover,.option-pill.selected{
+  background:rgba(181,31,37,.08);
+  border-color:rgba(181,31,37,.35);
+  color:var(--brand-ink);
+}
+.price{color:var(--brand-ink)}
+.price small{color:var(--brand-muted)}
+.add-btn{
+  border-color:rgba(181,31,37,.30);
+  background:rgba(181,31,37,.08);
+  color:var(--brand-red);
+}
+.add-btn:hover{background:var(--brand-red);color:#fff}
+.empty{border-color:var(--brand-line);color:var(--brand-muted)}
+.footer{border-top-color:var(--brand-line)}
+.footer-links a{color:#655d57}
+.footer-links a:hover{color:var(--brand-red)}
+.socials a{
+  border-color:var(--brand-line);
+  background:#fff;
+  color:var(--brand-ink);
+}
+.copyright{border-top-color:var(--brand-line);color:#8a8179}
+.floating-whatsapp{
+  background:rgba(255,250,244,.94);
+  border-color:var(--brand-line);
+  box-shadow:var(--brand-shadow);
+  color:var(--brand-ink);
+  backdrop-filter:blur(12px);
+}
+.cart-backdrop{background:rgba(23,19,19,.42)}
+.cart-panel{
+  background:var(--brand-paper-2);
+  color:var(--brand-ink);
+  border-left:1px solid var(--brand-line);
+  box-shadow:-30px 0 70px rgba(51,36,23,.14);
+  backdrop-filter:none;
+}
+.cart-head{border-bottom-color:var(--brand-line)}
+.cart-head h2{color:var(--brand-ink)}
+.cart-item{
+  background:#fff;
+  border-color:var(--brand-line);
+}
+.cart-item-meta{color:var(--brand-muted)}
+.qty button{
+  background:#fff;
+  border-color:var(--brand-line);
+  color:var(--brand-ink);
+}
+.cart-bottom{border-top-color:var(--brand-line)}
+.mobile-menu{
+  background:var(--brand-paper-2);
+  color:var(--brand-ink);
+  border-color:var(--brand-line);
+}
+.mobile-links a{color:var(--brand-ink)}
+.mobile-search-wrap .site-search{
+  background:#fff;
+  border-color:var(--brand-line);
+}
+.product-options-panel{
+  background:var(--brand-paper-2);
+  color:var(--brand-ink);
+  border-color:var(--brand-line);
+}
+.contact-line{color:var(--brand-ink)}
+.ep-tool{
+  background:#fff;
+  color:#615951;
+  border-color:var(--brand-line);
+}
+.ep-tool:hover,.ep-tool.is-favorite{
+  color:var(--brand-red);
+  border-color:rgba(181,31,37,.30);
+  background:rgba(181,31,37,.06);
+}
+.ep-reviews-grid,.ep-reservation-card{color:var(--brand-ink)}
+.ep-rating-card,.ep-review-quote,.ep-reservation-card,.ep-order-info{
+  background:#fff;
+  border-color:var(--brand-line);
+  box-shadow:var(--brand-shadow);
+}
+.ep-review-quote{font-weight:700}
+.ep-rating-number{color:var(--brand-ink)}
+.ep-stars{color:var(--brand-red)}
+.ep-install{background:var(--brand-ink);color:#fff}
+@media(max-width:760px){
+  .ep-mobile-bar{
+    background:rgba(255,250,244,.94);
+    border-color:var(--brand-line);
+    box-shadow:0 18px 50px rgba(51,36,23,.13);
+    backdrop-filter:blur(14px);
+  }
+  .ep-mobile-bar button,.ep-mobile-bar a{color:var(--brand-ink)}
+}
