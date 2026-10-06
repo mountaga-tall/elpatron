@@ -67,7 +67,7 @@ function favoritesModal(){
 function headerFav(){const h=$('.header-actions');if(!h||h.querySelector('[data-open-favorites]'))return;const b=document.createElement('button');b.type='button';b.className='icon-btn';b.dataset.openFavorites='1';b.setAttribute('aria-label',t('fav'));b.innerHTML='♡<span data-ep-fav-count class="ep-fav-count" hidden>0</span>';h.prepend(b)}
 function mobileBar(){if($('.ep-mobile-bar'))return;const b=document.createElement('nav');b.className='ep-mobile-bar';b.innerHTML='<button data-q-search>⌕<span>'+esc(t('search'))+'</span></button><button data-q-fav>♡<span>'+esc(t('fav'))+'</span><em data-ep-fav-count hidden>0</em></button><button data-q-cart>🛍<span>'+esc(t('cart'))+'</span></button><a href="https://wa.me/'+esc(site.phoneRaw||'')+'" target="_blank" rel="noopener">◉<span>'+esc(t('whatsapp'))+'</span></a><button data-q-menu>☰<span>'+esc(t('menu'))+'</span></button>';document.body.append(b);document.body.classList.add('ep-mobile-ready')}
 function reviewsBlock(){
- if(!/\\/fr\\/?$|\\/en\\/?$|\\/ar\\/?$|pages\\/contact\\.html$/.test(location.pathname)||$('.ep-reviews'))return;
+ if(!/\/fr\/?$|\/en\/?$|\/ar\/?$|pages\/contact\.html$/.test(location.pathname)||$('.ep-reviews'))return;
  const s=document.createElement('section');s.className='section ep-reviews';
  const rateLabel=lang==='en'?'Rate us on Google':lang==='ar'?'قيّمنا على Google':'Noter El Patrón sur Google';
  const viewLabel=lang==='en'?'See all Google reviews':lang==='ar'?'عرض جميع آراء Google':'Voir tous les avis Google';
