@@ -1,5 +1,7 @@
 (function(){
 'use strict';
+if(window.__EL_PATRON_ENHANCEMENTS_INIT__)return;
+window.__EL_PATRON_ENHANCEMENTS_INIT__=true;
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const base=$('[data-shell]')?.dataset.base||'', lang=(window.EL_PATRON_LANG||document.documentElement.lang||'fr').slice(0,2), site=window.EL_PATRON_SITE||{};
 const favKey='ep-favorites-v1', orderKey='ep-order-v1';
@@ -78,7 +80,7 @@ function reviewsBlock(){
 function reservation(){
  if(!/\/fr\/?$|\/en\/?$|\/ar\/?$|pages\/contact\.html$/.test(location.pathname)||$('.ep-reservation'))return;const s=document.createElement('section');s.className='section ep-reservation';
  s.innerHTML='<div class="container" id="reservation"><div class="ep-reservation-card"><div><div class="kicker">'+esc(t('book'))+'</div><h2>'+esc(t('book'))+'</h2><p>'+esc(t('bookSub'))+'</p></div><form><label>'+esc(t('date'))+'<input type="date" name="d" required></label><label>'+esc(t('time'))+'<input type="time" name="h" required></label><label>'+esc(t('people'))+'<input type="number" name="p" min="1" max="30" value="2" required></label><button class="btn btn-primary">'+esc(t('send'))+'</button></form></div></div>';
- const target=$('.ep-reviews')||$('.contact-grid')?.parentElement?.parentElement||$('#contenu');target?.insertAdjacentElement('afterend',s);
+ const target=$('.ep-reviews')||$('.contact-grid')?.parentElement?.parentElement||$('#contenu');if(target){target.insertAdjacentElement('afterend',s);if(location.hash==='#reservation')requestAnimationFrame(()=>s.scrollIntoView({behavior:'smooth',block:'start'}));}
  s.querySelector('form').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.currentTarget);const msg=lang==='en'?'Hello EL PATRÓN, I would like to book a table.\nDate: '+f.get('d')+'\nTime: '+f.get('h')+'\nGuests: '+f.get('p'):lang==='ar'?'مرحباً إل باترون، أود حجز طاولة.\nالتاريخ: '+f.get('d')+'\nالوقت: '+f.get('h')+'\nعدد الأشخاص: '+f.get('p'):'Bonjour EL PATRÓN, je souhaite réserver une table.\nDate : '+f.get('d')+'\nHeure : '+f.get('h')+'\nPersonnes : '+f.get('p');location.href='https://wa.me/'+(site.phoneRaw||'')+'?text='+encodeURIComponent(msg)});
 }
 function orderForm(){
