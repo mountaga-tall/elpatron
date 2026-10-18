@@ -382,10 +382,8 @@
       const b=e.target.closest('.btn,.icon-btn,.add-btn,.option-pill,.modal-choice');if(!b)return;
       if(typeof b.animate==='function')b.animate([{transform:'scale(1)'},{transform:'scale(.97)'},{transform:'scale(1)'}],{duration:220,easing:'ease-out'});
     });
-    document.querySelectorAll('a[href]').forEach(a=>{
-      const href=a.getAttribute('href');if(!href||href.startsWith('#')||/^(https?:|mailto:|tel:)/i.test(href)||a.target==='_blank')return;
-      a.addEventListener('click',e=>{if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();document.body.classList.add('is-leaving');setTimeout(()=>location.href=href,330)});
-    });
+    // Keep native anchor navigation: it is more reliable on mobile and for PWA users.
+    // Do not call preventDefault() on ordinary internal links.
   }
   function globalErrorGuard(){window.addEventListener('error',e=>{if(e.message&&/EL_PATRON|Cannot read properties|undefined/.test(e.message))console.error('EL PATRÓN:',e.message)});}
   document.addEventListener('DOMContentLoaded',()=>{
