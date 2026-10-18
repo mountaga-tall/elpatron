@@ -318,7 +318,7 @@
       if(!n){host.hidden=true;host.innerHTML='';return}
       const matches=all.filter(p=>normalize([p.name,p.desc,p.categoryTitle].join(' ')).includes(n));
       host.hidden=false;
-      host.innerHTML=matches.length?`<div class="global-results-head"><span>${matches.length} ${matches.length>1?t('results'):t('result')}</span><span>${esc(t('query'))} : « ${esc(value)} »</span></div><div class="product-grid">${matches.map((p,i)=>`<article class="product-card reveal${productCardShellClasses(p)}" style="--reveal-delay:${Math.min(i,10)*35}ms">${productImageMarkup(p)}<div class="product-top"><div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||'')}</p><div class="product-foot"><div class="price">${p.price.length===1?money(p.price[0].amount):t('from')+' '+money(Math.min(...p.price.map(x=>x.amount)))}</div><a class="add-btn" href="pages/${escAttr(p.categorySlug)}.html" aria-label="${escAttr(t('discover')+' '+p.name)}">${ICONS.arrow}</a></div></div></article>`).join('')}</div>`:`<div class="empty">${esc(t('noResults')+' « '+value+' ».')}</div>`;
+      host.innerHTML=matches.length?`<div class="global-results-head"><span>${matches.length} ${matches.length>1?t('results'):t('result')}</span><span>${esc(t('query'))} : « ${esc(value)} »</span></div><div class="product-grid">${matches.map((p,i)=>`<article class="product-card reveal${productCardShellClasses(p)}" data-product-id="${escAttr(p.id)}" style="--reveal-delay:${Math.min(i,10)*35}ms">${productImageMarkup(p)}<div class="product-top"><div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||'')}</p><div class="product-foot"><div class="price">${p.price.length===1?money(p.price[0].amount):t('from')+' '+money(Math.min(...p.price.map(x=>x.amount)))}</div><a class="add-btn" href="pages/${escAttr(p.categorySlug)}.html#product-${encodeURIComponent(p.id)}" aria-label="${escAttr(t('discover')+' '+p.name)}">${ICONS.arrow}</a></div></div></article>`).join('')}</div>`:`<div class="empty">${esc(t('noResults')+' « '+value+' ».')}</div>`;
       observeReveals(host);
     }
     input.addEventListener('input',e=>draw(e.target.value));
@@ -330,7 +330,7 @@
     const fgrid=$('.featured-grid'),featured=['burgers','pizzas','plats','grill','cocktails-sans-alcool','desserts'];
     if(fgrid){
       const arr=[];featured.forEach(slug=>(window.EL_PATRON_MENU?.[slug]||[]).filter(x=>!x.noteOnly).slice(0,2).forEach(x=>arr.push({p:x,slug})));
-      fgrid.innerHTML=arr.map((entry,i)=>{const p=entry.p;return `<article class="product-card reveal tilt${productCardShellClasses(p)}" style="--reveal-delay:${Math.min(i,10)*35}ms">${productImageMarkup(p)}<div class="product-top"><div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||t('houseDescription'))}</p><div class="product-foot"><div class="price">${p.price.length===1?money(p.price[0].amount):t('from')+' '+money(Math.min(...p.price.map(x=>x.amount)))}</div><a class="add-btn" href="pages/${entry.slug}.html" aria-label="${escAttr(t('discover')+' '+p.name)}">${ICONS.arrow}</a></div></div></article>`}).join('');
+      fgrid.innerHTML=arr.map((entry,i)=>{const p=entry.p;return `<article class="product-card reveal tilt${productCardShellClasses(p)}" data-product-id="${escAttr(p.id)}" style="--reveal-delay:${Math.min(i,10)*35}ms">${productImageMarkup(p)}<div class="product-top"><div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||t('houseDescription'))}</p><div class="product-foot"><div class="price">${p.price.length===1?money(p.price[0].amount):t('from')+' '+money(Math.min(...p.price.map(x=>x.amount)))}</div><a class="add-btn" href="pages/${entry.slug}.html#product-${encodeURIComponent(p.id)}" aria-label="${escAttr(t('discover')+' '+p.name)}">${ICONS.arrow}</a></div></div></article>`}).join('');
     }
     renderGlobalSearch();
   }
@@ -397,7 +397,7 @@
   if(!window.__EL_PATRON_ENHANCEMENTS__) {
     window.__EL_PATRON_ENHANCEMENTS__=true;
     const s=document.createElement('script');
-    s.src=(document.querySelector('[data-shell]')?.dataset.base||'')+'enhancements.js?v=20261005wow1';
+    s.src=(document.querySelector('[data-shell]')?.dataset.base||'')+'enhancements.js?v=20261018fix1';
     document.head.appendChild(s);
   }
 })();
