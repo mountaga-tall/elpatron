@@ -396,8 +396,13 @@
   // Load the premium UX layer on every page, including every menu category.
   if(!window.__EL_PATRON_ENHANCEMENTS__) {
     window.__EL_PATRON_ENHANCEMENTS__=true;
-    const s=document.createElement('script');
-    s.src=(document.querySelector('[data-shell]')?.dataset.base||'')+'enhancements.js?v=20261018fix1';
-    document.head.appendChild(s);
+    const loadEnhancements=()=>{
+      if(window.__EL_PATRON_ENHANCEMENTS_INIT__)return;
+      const s=document.createElement('script');
+      s.src=(document.querySelector('[data-shell]')?.dataset.base||'')+'enhancements.js?v=20261018fix1';
+      document.head.appendChild(s);
+    };
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',loadEnhancements,{once:true});
+    else loadEnhancements();
   }
 })();
