@@ -23,8 +23,9 @@
   const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
   const money=n=>(LANG==='ar'?new Intl.NumberFormat('ar-EG',{useGrouping:true}).format(Number(n)||0):new Intl.NumberFormat('fr-FR').format(Number(n)||0))+' FCFA';
   const normalize=s=>String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-  const loadCart=()=>{try{const c=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(c)?c:[]}catch{return[]}};
-  const saveCart=c=>localStorage.setItem(KEY,JSON.stringify(c));
+  let memoryCart=[];
+  const loadCart=()=>{try{const raw=localStorage.getItem(KEY);if(raw===null)return memoryCart;const c=JSON.parse(raw);if(Array.isArray(c)){memoryCart=c;return c}return memoryCart}catch{return memoryCart}};
+  const saveCart=c=>{memoryCart=Array.isArray(c)?c:[];try{localStorage.setItem(KEY,JSON.stringify(memoryCart))}catch{}};
   const totalQty=c=>c.reduce((a,i)=>a+(Number(i.qty)||0),0);
   const totalPrice=c=>c.reduce((a,i)=>a+(Number(i.amount)||0)*(Number(i.qty)||0),0);
   function esc(s){return String(s??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]))}
@@ -140,7 +141,7 @@
       const name=product?.name||i.name;
       msg+=`- ${name}${meta?' ('+meta+')':''} × ${i.qty} = ${money(i.amount*i.qty)}\n`;
     });
-    let saved={};try{saved=JSON.parse(localStorage.getItem('ep-order-v1')||'{}')}catch{}
+    let saved=window.EL_PATRON_ORDER_DETAILS||{};try{const raw=localStorage.getItem('ep-order-v1');if(raw){const parsed=JSON.parse(raw);if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed)){saved=parsed;window.EL_PATRON_ORDER_DETAILS=parsed}}}catch{}
     const modeLabel=saved.m?(LANG==='en'?({d:'Dine in',t:'Takeaway',l:'Delivery'}[saved.m]||saved.m):LANG==='ar'?({d:'في المطعم',t:'استلام',l:'توصيل'}[saved.m]||saved.m):({d:'Sur place',t:'À emporter',l:'Livraison'}[saved.m]||saved.m)):'';
     if(saved.n||saved.tel||modeLabel||saved.x){
       msg+=LANG==='en'?'\nCustomer details:\n':LANG==='ar'?'\nبيانات الطلب:\n':'\nInformations client :\n';
