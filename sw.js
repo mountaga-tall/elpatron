@@ -1,4 +1,4 @@
-const CACHE='elpatron-v20261019-interaction-fix1';
+const CACHE='elpatron-v20261019-interaction-fix2';
 const CORE=['./','./manifest.webmanifest','./styles.css','./app.js','./enhancements.js','./icons.js','./menu-data.js','./i18n.js','./images/logo.webp','./icons/icon-192.webp','./icons/icon-512.webp','./fr/','./en/','./ar/','./fr/pages/experience.html','./en/pages/experience.html','./ar/pages/experience.html'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE).catch(()=>{})).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
@@ -15,20 +15,18 @@ self.addEventListener('fetch',e=>{
     return;
   }
   e.respondWith((async()=>{
-    // Use an exact cached URL first; don't let an old query-string variant win.
-    const exact=await caches.match(r);
-    if(exact)return exact;
+    const isCode=/\.(?:js|css)$/i.test(u.pathname);
     try{
-      // Revalidate scripts/styles instead of serving an older cached version forever.
-      const fresh=await fetch(r,{cache:'no-cache'});
+      // Always revalidate executable code and styles so deployed fixes take effect.
+      const fresh=await fetch(r,{cache:isCode?'no-cache':'default'});
       if(fresh&&fresh.ok){
         const copy=fresh.clone();
         caches.open(CACHE).then(a=>a.put(r,copy)).catch(()=>{});
       }
       return fresh;
     }catch(error){
-      // Preserve offline support for files pre-cached without query strings.
-      const fallback=await caches.match(r,{ignoreSearch:true});
+      // Use cached files only when the network is unavailable.
+      const fallback=await caches.match(r)||await caches.match(r,{ignoreSearch:true});
       if(fallback)return fallback;
       throw error;
     }
