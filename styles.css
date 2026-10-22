@@ -1222,3 +1222,10 @@ body[data-home] .section:has(.featured-grid:empty) {
 .reservation-slot:empty { display:none; }
 body[data-reservation-page] .ep-reservation { padding-top:16px; }
 @media(max-width:760px) { .reservation-events-grid { grid-template-columns:1fr; gap:14px; } .reservation-event-art { min-height:210px; } .reservation-event-copy { padding:22px; } .reservation-note { align-items:flex-start; flex-direction:column; padding:18px; } .ep-reservation-form { grid-template-columns:1fr; } }
+
+/* Closed off-canvas navigation must never intercept page clicks on desktop or touch devices. */
+.mobile-menu { pointer-events:none; }
+.mobile-menu.open { pointer-events:auto; }
+body::before, body::after,
+.product-card::before,
+.product-card.has-images .product-images::after { pointer-events:none; }
