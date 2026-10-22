@@ -1,0 +1,66 @@
+name: Deploy EL PATRÓN to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check app.js
+          node --check enhancements.js
+          node --check icons.js
+          node --check menu-data.js
+          node --check i18n.js
+          node --check sw.js
+
+      - name: Check required localized pages
+        run: |
+          test -f index.html
+          test -f fr/index.html
+          test -f en/index.html
+          test -f ar/index.html
+          test -f fr/pages/reservation.html
+          test -f en/pages/reservation.html
+          test -f ar/pages/reservation.html
+          test -f images/logo.webp
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload static website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Publish website
+        id: deployment
+        uses: actions/deploy-pages@v4
