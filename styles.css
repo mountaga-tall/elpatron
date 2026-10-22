@@ -1192,3 +1192,33 @@ body[data-home] .section:has(.featured-grid:empty) {
     gap: 12px;
   }
 }
+
+
+/* Reservations: event page, category selector and responsive illustrations */
+.ep-reservation-form select { width:100%; box-sizing:border-box; min-height:43px; padding:12px 32px 12px 12px; border:1px solid var(--brand-line); border-radius:12px; background-color:#fff; color:var(--brand-ink); font:500 13px Inter,sans-serif; cursor:pointer; }
+.ep-reservation-form input:focus,.ep-reservation-form select:focus { outline:3px solid rgba(181,31,37,.16); border-color:var(--brand-red); }
+.ep-reservation-form button { white-space:normal; min-height:43px; }
+.ep-reservation-more { margin-top:14px; }
+.ep-reservation-more p { margin-bottom:12px; font-size:.9rem; }
+.ep-reservation-more .btn { font-size:.82rem; }
+.reservation-page-hero { padding-bottom:44px; }
+.reservation-page-hero h1 { max-width:850px; }
+.reservation-events-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+.reservation-event-card { min-width:0; overflow:hidden; border:1px solid var(--brand-line); border-radius:26px; background:rgba(255,250,244,.94); box-shadow:var(--brand-shadow); }
+.reservation-event-art { position:relative; min-height:250px; display:grid; place-items:center; padding:20px; overflow:hidden; background:linear-gradient(145deg,#f8eee2,#e9d7c2); }
+.reservation-event-art::before,.reservation-event-art::after { content:""; position:absolute; border:1px solid rgba(181,31,37,.18); border-radius:50%; pointer-events:none; }
+.reservation-event-art::before { width:260px;height:260px; }
+.reservation-event-art::after { width:330px;height:330px; }
+.reservation-event-art img { position:relative; z-index:1; display:block; width:min(100%,420px); height:auto; }
+.reservation-event-art--professional { background:linear-gradient(145deg,#e7edf0,#f5eadd); }
+.reservation-event-copy { padding:25px 28px 28px; }
+.reservation-event-copy .kicker { margin-bottom:8px; }
+.reservation-event-copy h2 { margin:0 0 8px; font:600 clamp(1.8rem,3.1vw,2.6rem)/.98 "Cormorant Garamond",serif; color:var(--brand-ink); }
+.reservation-event-copy p { margin:0; color:var(--brand-muted); line-height:1.7; }
+.reservation-event-list { display:flex; flex-wrap:wrap; gap:8px; margin-top:17px; }
+.reservation-event-list span { border:1px solid var(--brand-line); border-radius:999px; background:#fff; padding:7px 10px; color:var(--brand-muted); font-size:.75rem; }
+.reservation-note { margin-top:24px; padding:20px 24px; display:flex; gap:16px; align-items:center; justify-content:space-between; border:1px solid rgba(181,31,37,.15); border-radius:22px; background:linear-gradient(135deg,rgba(181,31,37,.06),rgba(255,250,244,.95)); }
+.reservation-note p { margin:4px 0 0; max-width:760px; color:var(--brand-muted); line-height:1.65; }
+.reservation-slot:empty { display:none; }
+body[data-reservation-page] .ep-reservation { padding-top:16px; }
+@media(max-width:760px) { .reservation-events-grid { grid-template-columns:1fr; gap:14px; } .reservation-event-art { min-height:210px; } .reservation-event-copy { padding:22px; } .reservation-note { align-items:flex-start; flex-direction:column; padding:18px; } .ep-reservation-form { grid-template-columns:1fr; } }
