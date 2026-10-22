@@ -84,11 +84,41 @@ function reviewsBlock(){
  const target=$('.global-search-section')||$('.contact-grid')?.parentElement?.parentElement||$('#contenu');target?.insertAdjacentElement('afterend',s);
 }
 function reservation(){
- if(!/\/fr\/?$|\/en\/?$|\/ar\/?$|pages\/contact\.html$/.test(location.pathname)||$('.ep-reservation'))return;const s=document.createElement('section');s.className='section ep-reservation';
- s.innerHTML='<div class="container" id="reservation"><div class="ep-reservation-card"><div><div class="kicker">'+esc(t('book'))+'</div><h2>'+esc(t('book'))+'</h2><p>'+esc(t('bookSub'))+'</p></div><form><label>'+esc(t('date'))+'<input type="date" name="d" required></label><label>'+esc(t('time'))+'<input type="time" name="h" required></label><label>'+esc(t('people'))+'<input type="number" name="p" min="1" max="30" value="2" required></label><button class="btn btn-primary">'+esc(t('send'))+'</button></form></div></div>';
+ if(!/\/fr\/?$|\/en\/?$|\/ar\/?$|pages\/contact\.html$|pages\/reservation\.html$/.test(location.pathname)||$('.ep-reservation'))return;
+ const bookingTypes=lang==='en'?[
+  {value:'table',label:'Restaurant table'},
+  {value:'celebration',label:'Birthday or celebration'},
+  {value:'ceremony',label:'Private ceremony'},
+  {value:'professional',label:'Professional event'},
+  {value:'private',label:'Private hire / other'}
+ ]:lang==='ar'?[
+  {value:'table',label:'طاولة في المطعم'},
+  {value:'celebration',label:'عيد ميلاد أو احتفال'},
+  {value:'ceremony',label:'مناسبة خاصة'},
+  {value:'professional',label:'فعالية مهنية'},
+  {value:'private',label:'حجز خاص / أخرى'}
+ ]:[
+  {value:'table',label:'Table au restaurant'},
+  {value:'celebration',label:'Anniversaire ou célébration'},
+  {value:'ceremony',label:'Cérémonie privée'},
+  {value:'professional',label:'Événement professionnel'},
+  {value:'private',label:'Privatisation / autre'}
+ ];
+ const occasionLabel=lang==='en'?'Booking type':lang==='ar'?'نوع الحجز':'Type de réservation';
+ const pageCta=lang==='en'?'Ceremonies & events':lang==='ar'?'المناسبات والفعاليات':'Cérémonies & événements';
+ const pageIntro=lang==='en'?'Planning a celebration or a professional gathering? Explore our event options.':lang==='ar'?'هل تخطط لاحتفال أو لقاء مهني؟ اكتشف خيارات مناسباتنا.':'Vous préparez une cérémonie ou un événement professionnel ? Découvrez nos possibilités.';
+ const s=document.createElement('section');s.className='section ep-reservation';
+ s.innerHTML='<div class="container" id="reservation"><div class="ep-reservation-card"><div class="ep-reservation-intro"><div class="kicker">'+esc(t('book'))+'</div><h2>'+esc(t('book'))+'</h2><p>'+esc(t('bookSub'))+'</p><div class="ep-reservation-more"><p>'+esc(pageIntro)+'</p><a class="btn btn-glass" href="'+pageHref('reservation')+'">'+esc(pageCta)+' →</a></div></div><form class="ep-reservation-form"><label>'+esc(occasionLabel)+'<select name="occasion" required>'+bookingTypes.map(x=>'<option value="'+esc(x.value)+'">'+esc(x.label)+'</option>').join('')+'</select></label><label>'+esc(t('date'))+'<input type="date" name="d" required></label><label>'+esc(t('time'))+'<input type="time" name="h" required></label><label>'+esc(t('people'))+'<input type="number" name="p" min="1" max="200" value="2" required></label><button class="btn btn-primary" type="submit">'+esc(t('send'))+'</button></form></div></div>';
  const dateField=$('input[name="d"]',s);if(dateField)dateField.min=abidjanNow().date;
- const target=$('.ep-reviews')||$('.contact-grid')?.parentElement?.parentElement||$('#contenu');if(target){target.insertAdjacentElement('afterend',s);if(location.hash==='#reservation')requestAnimationFrame(()=>s.scrollIntoView({behavior:'smooth',block:'start'}));}
- s.querySelector('form').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.currentTarget);const msg=lang==='en'?'Hello EL PATRÓN, I would like to book a table.\nDate: '+f.get('d')+'\nTime: '+f.get('h')+'\nGuests: '+f.get('p'):lang==='ar'?'مرحباً إل باترون، أود حجز طاولة.\nالتاريخ: '+f.get('d')+'\nالوقت: '+f.get('h')+'\nعدد الأشخاص: '+f.get('p'):'Bonjour EL PATRÓN, je souhaite réserver une table.\nDate : '+f.get('d')+'\nHeure : '+f.get('h')+'\nPersonnes : '+f.get('p');location.href='https://wa.me/'+(site.phoneRaw||'')+'?text='+encodeURIComponent(msg)});
+ const slot=$('[data-reservation-slot]');
+ const target=slot||$('.ep-reviews')||$('.contact-grid')?.parentElement?.parentElement||$('#contenu');
+ if(target){if(slot)slot.appendChild(s);else target.insertAdjacentElement('afterend',s);if(location.hash==='#reservation'||location.hash==='#reservation-slot')requestAnimationFrame(()=>s.scrollIntoView({behavior:'smooth',block:'start'}));}
+ s.querySelector('form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const f=new FormData(e.currentTarget),selected=bookingTypes.find(x=>x.value===f.get('occasion'))?.label||f.get('occasion');
+  const msg=lang==='en'?'Hello EL PATRÓN, I would like to make a reservation.\nType: '+selected+'\nDate: '+f.get('d')+'\nTime: '+f.get('h')+'\nGuests: '+f.get('p'):lang==='ar'?'مرحباً إل باترون، أود إجراء حجز.\nنوع الحجز: '+selected+'\nالتاريخ: '+f.get('d')+'\nالوقت: '+f.get('h')+'\nعدد الأشخاص: '+f.get('p'):'Bonjour EL PATRÓN, je souhaite faire une réservation.\nType : '+selected+'\nDate : '+f.get('d')+'\nHeure : '+f.get('h')+'\nPersonnes : '+f.get('p');
+  location.href='https://wa.me/'+(site.phoneRaw||'')+'?text='+encodeURIComponent(msg)
+ });
 }
 function orderForm(){
  if(!/pages\/panier\.html$/.test(location.pathname)||$('.ep-order-info'))return;const card=$('.cart-actions')?.closest('.contact-card');if(!card)return;const saved=loadOrder();
