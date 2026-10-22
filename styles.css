@@ -1140,3 +1140,55 @@ img { max-width: 100%; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+
+/* Home page spacing cleanup — shared by French, English and Arabic */
+body[data-home] .hero {
+  min-height: min(88svh, 840px);
+  padding: 118px 0 54px;
+}
+body[data-home] .section {
+  padding-block: clamp(44px, 5.4vw, 68px);
+}
+body[data-home] .section-head {
+  margin-bottom: clamp(18px, 2vw, 28px);
+}
+body[data-home] .category-grid,
+body[data-home] .featured-grid {
+  gap: clamp(12px, 1.35vw, 17px);
+}
+body[data-home] .global-search-section {
+  padding-block: clamp(38px, 4.5vw, 58px);
+}
+body[data-home] .global-results[hidden] {
+  display: none !important;
+}
+body[data-home] .global-results:empty {
+  display: none;
+  margin: 0;
+}
+/* Avoid a large empty block if menu data fails to load. The section returns
+   automatically as soon as JavaScript fills its grid. */
+body[data-home] .section:has(.category-grid:empty),
+body[data-home] .section:has(.featured-grid:empty) {
+  display: none;
+}
+@media (max-width: 680px) {
+  body[data-home] .hero {
+    min-height: auto;
+    padding: 108px 0 36px;
+  }
+  body[data-home] .section {
+    padding-block: 42px;
+  }
+  body[data-home] .section-head {
+    margin-bottom: 20px;
+  }
+  body[data-home] .global-search-section {
+    padding-block: 34px;
+  }
+  body[data-home] .category-grid,
+  body[data-home] .featured-grid {
+    gap: 12px;
+  }
+}
