@@ -392,11 +392,35 @@
     // Do not call preventDefault() on ordinary internal links.
   }
   function globalErrorGuard(){window.addEventListener('error',e=>{if(e.message&&/EL_PATRON|Cannot read properties|undefined/.test(e.message))console.error('EL PATRÓN:',e.message)});}
-  document.addEventListener('DOMContentLoaded',()=>{
-    if(!window.EL_PATRON_MENU||!window.EL_PATRON_CATEGORIES||!window.EL_PATRON_SITE){document.body.classList.add('site-error');return}
+  // Initialize each part independently so one optional feature cannot disable every control.
+  window.EL_PATRON_INIT_STATUS = window.EL_PATRON_INIT_STATUS || {};
+  function runInitPart(name, fn){
     try{
-      globalErrorGuard();renderHeader();renderFooter();setupCart();renderPageMeta();renderHome();observeReveals();bindTilts();setupGlobalMotion();renderFullCart();window.EL_PATRON_I18N_POST_RENDER?.();
-    }catch(error){console.error('EL PATRÓN init:',error);document.body.classList.remove('site-error');}
+      fn();
+      window.EL_PATRON_INIT_STATUS[name]='ok';
+    }catch(error){
+      window.EL_PATRON_INIT_STATUS[name]='error';
+      console.error('EL PATRÓN ['+name+']:',error);
+    }
+  }
+  document.addEventListener('DOMContentLoaded',()=>{
+    globalErrorGuard();
+    if(!window.EL_PATRON_MENU||!window.EL_PATRON_CATEGORIES||!window.EL_PATRON_SITE){
+      document.body.classList.add('site-error');
+      console.error('EL PATRÓN: missing menu data, categories or site settings; check icons.js and menu-data.js load order.');
+      return;
+    }
+    runInitPart('header',renderHeader);
+    runInitPart('footer',renderFooter);
+    runInitPart('cart-controls',setupCart);
+    runInitPart('category-page',renderPageMeta);
+    runInitPart('home-page',renderHome);
+    runInitPart('reveal-effects',observeReveals);
+    runInitPart('hover-effects',bindTilts);
+    runInitPart('click-feedback',setupGlobalMotion);
+    runInitPart('full-cart',renderFullCart);
+    runInitPart('translations',()=>window.EL_PATRON_I18N_POST_RENDER?.());
+    document.documentElement.dataset.elpatronInitialized='true';
   });
   // Load the premium UX layer on every page, including every menu category.
   if(!window.__EL_PATRON_ENHANCEMENTS__) {
