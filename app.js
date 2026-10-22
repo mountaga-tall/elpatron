@@ -39,8 +39,12 @@
   }
   function productImageMarkup(p){
     const images=Array.isArray(p.images)?p.images.filter(Boolean).slice(0,2):[];
-    if(!images.length)return '';
-    return `<div class="product-images" aria-label="${escAttr(t('imagesOf')+' '+p.name)}">${images.map((src,i)=>`<img src="${escAttr(assetUrl(src))}" alt="${escAttr(p.name)} — ${t('image')} ${i+1}" loading="lazy" decoding="async" onerror="this.closest('.product-images')?.classList.add('image-error')">`).join('')}</div>`;
+    const label=escAttr(t('imagesOf')+' '+p.name);
+    // Use the restaurant logo as a consistent temporary visual until real dish photos are supplied.
+    if(!images.length){
+      return `<div class="product-images product-images--placeholder" aria-label="${label}"><img src="${escAttr(assetUrl('images/logo.webp'))}" alt="EL PATRÓN" loading="lazy" decoding="async"></div>`;
+    }
+    return `<div class="product-images" aria-label="${label}">${images.map((src,i)=>`<img src="${escAttr(assetUrl(src))}" alt="${escAttr(p.name)} — ${t('image')} ${i+1}" loading="lazy" decoding="async" onerror="this.closest('.product-images')?.classList.add('image-error')">`).join('')}</div>`;
   }
   function defaultPriceOnly(p,options){
     return Boolean(p.defaultPriceOnly)||((options?.[0]?.label||'')===''&&options.length===1);
@@ -53,7 +57,7 @@
     return money(first.amount)+small;
   }
   function productCardShellClasses(p){
-    return Array.isArray(p.images)&&p.images.some(Boolean)?' has-images':'';
+    return ' has-images';
   }
   function hasIceChoice(p,categorySlug){
     if(categorySlug!=='desserts')return false;
