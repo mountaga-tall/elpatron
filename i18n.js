@@ -67,7 +67,7 @@ if(window.EL_PATRON_MENU){
  Object.keys(window.EL_PATRON_MENU).forEach(function(slug){
   translated[slug]=(window.EL_PATRON_MENU[slug]||[]).map(function(p){
    var q=Object.assign({},p);
-   ["name","sub","desc","note"].forEach(function(key){if(typeof q[key]==="string")q[key]=tr(q[key]);});
+   ["name","sub","desc","note"].forEach(function(key){if(typeof q[key]==="string"){q[key]=tr(q[key]);if(lang==="en"&&key==="name")q[key]=q[key].toLocaleUpperCase("en-US");}});
    if(Array.isArray(q.price))q.price=q.price.map(function(option){
     return Object.assign({},option,{label:typeof option.label==="string"?(EN_LABELS[option.label]||tr(option.label)):option.label});
    });
