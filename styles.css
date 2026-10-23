@@ -1318,3 +1318,34 @@ body:has(.ep-lightbox.open) .ep-mobile-bar {
   visibility:visible!important;
   display:block!important;
 }
+
+
+/* Product card prices/actions: keep visible on home favourites and category grids. */
+.product-card{display:flex!important;flex-direction:column!important;height:100%}
+.product-card .product-body{display:flex!important;flex:1 0 auto!important;flex-direction:column!important;height:auto!important;min-height:0;padding-bottom:18px}
+.product-card .product-desc{flex:0 0 auto!important;min-height:0;margin-bottom:10px}
+.product-card .product-prices{
+  display:flex!important;flex:0 0 auto!important;align-self:stretch;align-items:flex-start;flex-wrap:wrap;gap:7px;
+  width:100%;min-height:30px;margin:8px 0 12px;position:relative;z-index:6;visibility:visible!important;opacity:1!important
+}
+.product-card .product-prices .price-option{
+  display:inline-flex!important;flex-direction:column;align-items:flex-start;gap:3px;padding:7px 9px;
+  background:#fff!important;border:1px solid rgba(27,23,21,.22)!important;border-radius:9px;box-shadow:0 2px 8px rgba(27,23,21,.045)
+}
+.product-card .product-prices .price-option small{display:block!important;color:#94171b!important;font-size:.62rem;font-weight:800;line-height:1.2}
+.product-card .product-prices .price-option strong{display:block!important;color:#171313!important;font-size:.9rem;font-weight:900;line-height:1.2;white-space:nowrap;opacity:1!important;visibility:visible!important}
+.product-card .product-foot{display:flex!important;flex:0 0 auto!important;align-items:center;justify-content:flex-start!important;min-height:42px;margin-top:0;position:relative;z-index:6;visibility:visible!important;opacity:1!important}
+.product-card .product-foot .add-btn{
+  display:inline-flex!important;flex:0 0 auto!important;align-items:center;justify-content:center;gap:8px;width:auto;min-width:162px;max-width:100%;height:42px;
+  padding:0 13px;border:1px solid #94171b;border-radius:11px;background:#b51f25;color:#fff;font:800 12px/1 Inter,sans-serif;
+  white-space:nowrap;visibility:visible!important;opacity:1!important;pointer-events:auto;cursor:pointer
+}
+.product-card .product-foot .add-btn svg{display:block;width:17px;height:17px;flex:0 0 17px}
+.product-card .product-foot .add-btn-label{display:inline!important;color:#fff!important}
+.product-card .product-foot .add-btn:hover{background:#94171b}
+@media(max-width:680px){
+  .product-card .product-prices{gap:6px;margin:7px 0 10px}
+  .product-card .product-prices .price-option{padding:6px 7px}
+  .product-card .product-prices .price-option strong{font-size:.82rem}
+  .product-card .product-foot .add-btn{min-width:150px;height:40px}
+}
