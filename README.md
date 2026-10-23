@@ -8,7 +8,6 @@ Site statique multi-pages HTML/CSS/JavaScript, responsive, installable comme PWA
 - English : `/en/`
 - Page de réservation et d'événements dans les deux langues : `/fr/pages/reservation.html` et `/en/pages/reservation.html`
 - Pages de contact, panier, expérience et catégories de menu dans les deux langues.
-- La version arabe et les styles RTL ne font plus partie du site.
 
 ## Fichiers principaux
 
