@@ -1260,3 +1260,27 @@ body:has(.ep-lightbox.open) .ep-mobile-bar {
 @media(max-width:1024px){.reservation-events-grid--ten{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:760px){.reservation-events-grid--ten{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.reservation-occasion-art{min-height:112px;padding:14px}.reservation-occasion-art svg{width:60px;height:60px}.reservation-occasion-copy{padding:15px 14px 17px}.reservation-occasion-copy h3{font-size:1.35rem}.reservation-occasion-copy p{font-size:.78rem}}
 @media(max-width:360px){.reservation-events-grid--ten{grid-template-columns:minmax(0,1fr)}.reservation-occasion-card{display:grid;grid-template-columns:100px minmax(0,1fr)}.reservation-occasion-art{min-height:100%;padding:10px}.reservation-occasion-art svg{width:54px;height:54px}.reservation-occasion-copy{padding:16px 13px}}
+
+
+/* Mobile header clearance + high contrast for opening hours and directions. */
+.ep-status{
+  background:rgba(255,250,244,.98);
+  border-color:rgba(27,23,21,.15);
+  box-shadow:0 5px 18px rgba(32,25,22,.07);
+  color:#171313;
+}
+.ep-status b{color:#171313}
+.ep-status span:not(.ep-status-dot){color:#625b57}
+.ep-status a{color:#a51d19;border-left-color:rgba(27,23,21,.16)}
+@media(max-width:760px){
+  body[data-home] .hero{padding-top:174px}
+  .menu-hero{padding-top:174px}
+  .ep-status{background:#fffaf4;border-color:rgba(27,23,21,.16)}
+  .ep-status b{color:#171313}
+  .ep-status span:not(.ep-status-dot){color:#5b514b}
+  .ep-status a{color:#a51d19;border-left-color:rgba(27,23,21,.18)}
+}
+@media(max-width:420px){
+  body[data-home] .hero{padding-top:184px}
+  .menu-hero{padding-top:184px}
+}
