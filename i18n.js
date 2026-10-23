@@ -48,7 +48,19 @@ function tr(s){
  var exact=Object.assign({},U.en||{},EN_EXACT||{});
  if(Object.prototype.hasOwnProperty.call(exact,s))return exact[s];
  var out=s,pairs=R.en||[];
+ for(var i=0;i<pairs.length;i++){
+  var escaped=String(pairs[i][0]).replace(/[.*+?^${}()|[\]\\]/g,"\\function tr(s){
+ if(typeof s!=="string"||lang==="fr")return s;
+ var exact=Object.assign({},U.en||{},EN_EXACT||{});
+ if(Object.prototype.hasOwnProperty.call(exact,s))return exact[s];
+ var out=s,pairs=R.en||[];
  for(var i=0;i<pairs.length;i++)out=out.replace(new RegExp(pairs[i][0],"gi"),pairs[i][1]);
+ return out;
+}
+");
+  var pattern=new RegExp("(^|[^\\p{L}\\p{N}])("+escaped+")(?=$|[^\\p{L}\\p{N}])","giu");
+  out=out.replace(pattern,function(match,prefix){return prefix+pairs[i][1];});
+ }
  return out;
 }
 var EN_LABELS={"Sandwich":"Sandwich","Plat":"Plate","Demi":"Half","Entier":"Whole","Grand":"Large","Moyen":"Medium","Verre":"Glass","Bouteille":"Bottle","Bouteilles 33 cl":"Bottles 33 cl","Canettes 50 cl":"Cans 50 cl"};
@@ -77,18 +89,22 @@ document.documentElement.dir="ltr";
 document.body.dir="ltr";
 function addLanguageSwitcher(){
  var languages=["fr","en"],parts=location.pathname.split("/").filter(Boolean);
- var localeIndex=parts.findIndex(function(part){return languages.indexOf(part)>=0;});
- var hasLocale=localeIndex>=0,inPages=parts[parts.length-2]==="pages",file=parts[parts.length-1]||"index.html";
- function target(locale){return inPages?(hasLocale?"../../":"../")+locale+"/pages/"+file:(hasLocale?"../":"./")+locale+"/";}
+ var hasLocale=parts.some(function(part){return languages.indexOf(part)>=0;});
+ var inPages=parts[parts.length-2]==="pages",file=inPages?parts[parts.length-1]:"index.html";
+ function target(locale){
+  var path=inPages?"/"+locale+"/pages/"+file:"/"+locale+"/";
+  return path+(location.search||"")+(location.hash||"");
+ }
  function build(className){
   var box=document.createElement("div");box.className=className;
-  box.setAttribute("role","tablist");box.setAttribute("aria-label",lang==="en"?"Language":"Langue");box.dataset.lang=lang;
+  box.setAttribute("role","group");box.setAttribute("aria-label",lang==="en"?"Language":"Langue");box.dataset.lang=lang;
   var thumb=document.createElement("span");thumb.className="language-thumb";thumb.setAttribute("aria-hidden","true");box.appendChild(thumb);
-  var labels={fr:"FR",en:"EN"};
+  var labels={fr:"FR",en:"EN"},accessibleLabels=lang==="en"?{fr:"French",en:"English"}:{fr:"Français",en:"Anglais"};
   languages.forEach(function(locale){
    var link=document.createElement("a");link.className="language-option"+(locale===lang?" active":"");
-   link.href=target(locale);link.setAttribute("role","tab");link.setAttribute("aria-selected",locale===lang?"true":"false");
-   link.setAttribute("aria-label",labels[locale]);link.textContent=labels[locale];box.appendChild(link);
+   link.href=target(locale);
+   if(locale===lang)link.setAttribute("aria-current","page");
+   link.setAttribute("aria-label",accessibleLabels[locale]);link.textContent=labels[locale];box.appendChild(link);
   });
   return box;
  }
@@ -112,8 +128,8 @@ function translateDom(){
   }
   if(original!==translated)nodes[i].nodeValue=value.replace(original,translated);
  }
- var elements=root.querySelectorAll("input[placeholder],input[aria-label],button[aria-label],a[aria-label],[title]");
- for(var j=0;j<elements.length;j++)["placeholder","aria-label","title"].forEach(function(attribute){
+ var elements=root.querySelectorAll("input[placeholder],input[aria-label],textarea[placeholder],textarea[aria-label],select[aria-label],button[aria-label],a[aria-label],img[alt],[title]");
+ for(var j=0;j<elements.length;j++)["placeholder","aria-label","title","alt"].forEach(function(attribute){
   if(elements[j].hasAttribute(attribute))elements[j].setAttribute(attribute,tr(elements[j].getAttribute(attribute)));
  });
 }
