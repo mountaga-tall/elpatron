@@ -31,7 +31,6 @@ function enhanceProducts(){
   foot.insertBefore(box,foot.lastElementChild);
   $$('.product-images img',card).forEach((img,i)=>{img.dataset.epImg='1';img.dataset.epId=id;img.dataset.epIndex=i});
  });
- syncFav();
 }
 function shareProduct(id){const p=product(id);if(!p)return;const url=location.href.split('#')[0]+'#product-'+encodeURIComponent(id);if(navigator.share){navigator.share({title:p.name,text:p.desc||p.name,url}).then(()=>toast(t('shared'))).catch(()=>{})}else if(navigator.clipboard){navigator.clipboard.writeText(url).then(()=>toast(t('copied'))).catch(()=>{})}else window.prompt(t('share'),url)}
 function lightbox(){
@@ -45,40 +44,116 @@ function lightbox(){
 }
 function mobileBar(){if($('.ep-mobile-bar'))return;const b=document.createElement('nav');b.className='ep-mobile-bar';b.innerHTML='<button data-q-search>⌕<span>'+esc(t('search'))+'</span></button><button data-q-cart>🛍<span>'+esc(t('cart'))+'</span></button><a href="https://wa.me/'+esc(site.phoneRaw||'')+'" target="_blank" rel="noopener">◉<span>'+esc(t('whatsapp'))+'</span></a><button data-q-menu>☰<span>'+esc(t('menu'))+'</span></button>';document.body.append(b);document.body.classList.add('ep-mobile-ready')}
 function reservation(){
- if(!/\/fr\/?$|\/en\/?$|\/ar\/?$|pages\/contact\.html$|pages\/reservation\.html$/.test(location.pathname)||$('.ep-reservation'))return;
+ const localizedHome=/\/(fr|en)\/?$/.test(location.pathname);
+ const infoPage=/pages\/(contact|reservation)\.html$/.test(location.pathname);
+ if((!localizedHome&&!infoPage)||$('.ep-reservation'))return;
+
  const bookingTypes=lang==='en'?[
   {value:'table',label:'Restaurant table'},
-  {value:'celebration',label:'Birthday or celebration'},
-  {value:'ceremony',label:'Private ceremony'},
-  {value:'professional',label:'Professional event'},
-  {value:'private',label:'Private hire / other'}
- ]:lang==='ar'?[
-  {value:'table',label:'طاولة في المطعم'},
-  {value:'celebration',label:'عيد ميلاد أو احتفال'},
-  {value:'ceremony',label:'مناسبة خاصة'},
-  {value:'professional',label:'فعالية مهنية'},
-  {value:'private',label:'حجز خاص / أخرى'}
+  {value:'brunch',label:'Breakfast / brunch'},
+  {value:'birthday',label:'Birthday / celebration'},
+  {value:'wedding',label:'Wedding / engagement'},
+  {value:'family',label:'Family meal / private ceremony'},
+  {value:'business-lunch',label:'Business lunch / professional meeting'},
+  {value:'seminar',label:'Seminar / team building'},
+  {value:'b2b',label:'B2B event / partner meeting'},
+  {value:'private-hire',label:'Private venue hire'},
+  {value:'other',label:'Other request'}
  ]:[
   {value:'table',label:'Table au restaurant'},
-  {value:'celebration',label:'Anniversaire ou célébration'},
-  {value:'ceremony',label:'Cérémonie privée'},
-  {value:'professional',label:'Événement professionnel'},
-  {value:'private',label:'Privatisation / autre'}
+  {value:'brunch',label:'Petit-déjeuner / brunch'},
+  {value:'birthday',label:'Anniversaire / célébration'},
+  {value:'wedding',label:'Mariage / fiançailles'},
+  {value:'family',label:'Repas de famille / cérémonie privée'},
+  {value:'business-lunch',label:'Déjeuner d’affaires / rendez-vous professionnel'},
+  {value:'seminar',label:'Réunion / séminaire / team building'},
+  {value:'b2b',label:'Événement B2B / rencontre de partenaires'},
+  {value:'private-hire',label:'Privatisation du lieu'},
+  {value:'other',label:'Autre demande'}
  ];
- const occasionLabel=lang==='en'?'Booking type':lang==='ar'?'نوع الحجز':'Type de réservation';
- const pageCta=lang==='en'?'Ceremonies & events':lang==='ar'?'المناسبات والفعاليات':'Cérémonies & événements';
- const pageIntro=lang==='en'?'Planning a celebration or a professional gathering? Explore our event options.':lang==='ar'?'هل تخطط لاحتفال أو لقاء مهني؟ اكتشف خيارات مناسباتنا.':'Vous préparez une cérémonie ou un événement professionnel ? Découvrez nos possibilités.';
- const s=document.createElement('section');s.className='section ep-reservation';
- s.innerHTML='<div class="container" id="reservation"><div class="ep-reservation-card"><div class="ep-reservation-intro"><div class="kicker">'+esc(t('book'))+'</div><h2>'+esc(t('book'))+'</h2><p>'+esc(t('bookSub'))+'</p><div class="ep-reservation-more"><p>'+esc(pageIntro)+'</p><a class="btn btn-glass" href="'+pageHref('reservation')+'">'+esc(pageCta)+' →</a></div></div><form class="ep-reservation-form"><label>'+esc(occasionLabel)+'<select name="occasion" required>'+bookingTypes.map(x=>'<option value="'+esc(x.value)+'">'+esc(x.label)+'</option>').join('')+'</select></label><label>'+esc(t('date'))+'<input type="date" name="d" required></label><label>'+esc(t('time'))+'<input type="time" name="h" required></label><label>'+esc(t('people'))+'<input type="number" name="p" min="1" max="200" value="2" required></label><button class="btn btn-primary" type="submit">'+esc(t('send'))+'</button></form></div></div>';
- const dateField=$('input[name="d"]',s);if(dateField)dateField.min=abidjanNow().date;
+ const copy=lang==='en'?{
+  title:'Plan your reservation',intro:'Tell us what you are planning. The details below will be included in your WhatsApp enquiry.',
+  occasion:'Occasion / booking type',date:'Preferred date',time:'Preferred time',people:'Number of guests',
+  name:'Full name',phone:'Phone number',company:'Company / organisation (optional)',message:'Personalised message (optional)',
+  namePlaceholder:'Your first and last name',phonePlaceholder:'+225 …',
+  companyPlaceholder:'Company name',messagePlaceholder:'Tell us about the event, setup, services, timing or any special request…',
+  submit:'Send enquiry on WhatsApp',pageCta:'Ceremonies & events',pageIntro:'Birthday, wedding, private ceremony, business meeting or B2B event: tell us what you have in mind.',
+  hello:'Hello EL PATRÓN, I would like to make a reservation.',
+  guests:'Guests',occasionLine:'Occasion',companyLine:'Company / organisation',messageLine:'Message',
+  details:'Contact details',missing:'Please complete your name and phone number.'
+ }:{
+  title:'Préparer votre réservation',intro:'Décrivez votre projet. Les informations ci-dessous seront incluses dans votre demande WhatsApp.',
+  occasion:'Motif / type de réservation',date:'Date souhaitée',time:'Heure souhaitée',people:'Nombre de personnes',
+  name:'Nom complet',phone:'Numéro de téléphone',company:'Entreprise / organisation (facultatif)',message:'Message personnalisé (facultatif)',
+  namePlaceholder:'Votre prénom et votre nom',phonePlaceholder:'+225 …',
+  companyPlaceholder:'Nom de l’entreprise',messagePlaceholder:'Précisez l’événement, la disposition souhaitée, les prestations, votre budget indicatif ou toute demande particulière…',
+  submit:'Envoyer la demande sur WhatsApp',pageCta:'Cérémonies & événements',pageIntro:'Anniversaire, mariage, cérémonie privée, rendez-vous professionnel ou événement B2B : expliquez-nous votre projet.',
+  hello:'Bonjour EL PATRÓN, je souhaite faire une réservation.',
+  guests:'Personnes',occasionLine:'Motif',companyLine:'Entreprise / organisation',messageLine:'Message personnalisé',
+  details:'Coordonnées',missing:'Veuillez renseigner votre nom et votre numéro de téléphone.'
+ };
+ const s=document.createElement('section');
+ s.className='section ep-reservation';
+ s.innerHTML=
+  '<div class="container" id="reservation">'+
+   '<div class="ep-reservation-card">'+
+    '<div class="ep-reservation-intro">'+
+     '<div class="kicker">'+esc(copy.title)+'</div>'+
+     '<h2>'+esc(copy.title)+'</h2>'+
+     '<p>'+esc(copy.intro)+'</p>'+
+     '<div class="ep-reservation-more"><p>'+esc(copy.pageIntro)+'</p><a class="btn btn-glass" href="'+pageHref('reservation')+'">'+esc(copy.pageCta)+' →</a></div>'+
+    '</div>'+
+    '<form class="ep-reservation-form" novalidate>'+
+     '<label>'+esc(copy.occasion)+'<select name="occasion" required>'+bookingTypes.map(x=>'<option value="'+esc(x.value)+'">'+esc(x.label)+'</option>').join('')+'</select></label>'+
+     '<label>'+esc(copy.date)+'<input type="date" name="d" required></label>'+
+     '<label>'+esc(copy.time)+'<input type="time" name="h" required></label>'+
+     '<label>'+esc(copy.people)+'<input type="number" name="p" min="1" max="200" value="2" required></label>'+
+     '<label>'+esc(copy.name)+'<input type="text" name="fullName" autocomplete="name" maxlength="100" placeholder="'+esc(copy.namePlaceholder)+'" required></label>'+
+     '<label>'+esc(copy.phone)+'<input type="tel" name="phone" autocomplete="tel" inputmode="tel" maxlength="32" placeholder="'+esc(copy.phonePlaceholder)+'" required></label>'+
+     '<label>'+esc(copy.company)+'<input type="text" name="company" autocomplete="organization" maxlength="120" placeholder="'+esc(copy.companyPlaceholder)+'"></label>'+
+     '<label class="ep-reservation-message">'+esc(copy.message)+'<textarea name="message" rows="4" maxlength="1500" placeholder="'+esc(copy.messagePlaceholder)+'"></textarea></label>'+
+     '<button class="btn btn-primary ep-reservation-submit" type="submit">'+esc(copy.submit)+'</button>'+
+    '</form>'+
+   '</div>'+
+  '</div>';
+
+ const dateField=$('input[name="d"]',s);
+ if(dateField)dateField.min=abidjanNow().date;
  const slot=$('[data-reservation-slot]');
- const target=slot||$('.ep-reviews')||$('.contact-grid')?.parentElement?.parentElement||$('#contenu');
- if(target){if(slot)slot.appendChild(s);else target.insertAdjacentElement('afterend',s);if(location.hash==='#reservation'||location.hash==='#reservation-slot')requestAnimationFrame(()=>s.scrollIntoView({behavior:'smooth',block:'start'}));}
- s.querySelector('form').addEventListener('submit',e=>{
+ const target=slot||$('.contact-grid')?.parentElement?.parentElement||$('#contenu');
+ if(target){
+  if(slot)slot.appendChild(s);
+  else target.insertAdjacentElement('afterend',s);
+  if(location.hash==='#reservation'||location.hash==='#reservation-slot')
+   requestAnimationFrame(()=>s.scrollIntoView({behavior:'smooth',block:'start'}));
+ }
+ const form=s.querySelector('form');
+ form.addEventListener('submit',e=>{
   e.preventDefault();
-  const f=new FormData(e.currentTarget),selected=bookingTypes.find(x=>x.value===f.get('occasion'))?.label||f.get('occasion');
-  const msg=lang==='en'?'Hello EL PATRÓN, I would like to make a reservation.\nType: '+selected+'\nDate: '+f.get('d')+'\nTime: '+f.get('h')+'\nGuests: '+f.get('p'):lang==='ar'?'مرحباً إل باترون، أود إجراء حجز.\nنوع الحجز: '+selected+'\nالتاريخ: '+f.get('d')+'\nالوقت: '+f.get('h')+'\nعدد الأشخاص: '+f.get('p'):'Bonjour EL PATRÓN, je souhaite faire une réservation.\nType : '+selected+'\nDate : '+f.get('d')+'\nHeure : '+f.get('h')+'\nPersonnes : '+f.get('p');
-  location.href='https://wa.me/'+(site.phoneRaw||'')+'?text='+encodeURIComponent(msg)
+  const f=new FormData(form);
+  const fullName=String(f.get('fullName')||'').trim();
+  const phone=String(f.get('phone')||'').trim();
+  if(!fullName||!phone){form.reportValidity();toast(copy.missing);return;}
+  if(!form.reportValidity())return;
+  const selected=bookingTypes.find(x=>x.value===f.get('occasion'))?.label||String(f.get('occasion')||'');
+  const company=String(f.get('company')||'').trim();
+  const message=String(f.get('message')||'').trim();
+  const lines=[
+   copy.hello,
+   '',
+   copy.occasionLine+': '+selected,
+   copy.date+': '+f.get('d'),
+   copy.time+': '+f.get('h'),
+   copy.guests+': '+f.get('p'),
+   '',
+   copy.details+':',
+   copy.name+': '+fullName,
+   copy.phone+': '+phone
+  ];
+  if(company)lines.push(copy.companyLine+': '+company);
+  if(message)lines.push('',copy.messageLine+':',message);
+  const url='https://wa.me/'+(site.phoneRaw||'2250704400400')+'?text='+encodeURIComponent(lines.join('\n'));
+  window.location.href=url;
  });
 }
 function orderForm(){
