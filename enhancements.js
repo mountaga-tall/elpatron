@@ -103,7 +103,7 @@ function reservation(){
   'private-hire':'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 40V17L24 7l17 10v23zM18 40V27h12v13M15 20h4m10 0h4M24 16v5"/></svg>',
   other:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="m24 5 4.5 13.5L42 23l-13.5 4.5L24 41l-4.5-13.5L6 23l13.5-4.5z"/><path d="m37 5 1.5 4.5L43 11l-4.5 1.5L37 17l-1.5-4.5L31 11l4.5-1.5z"/></svg>'
  };
- const choiceMarkup=bookingTypes.map((x,i)=>'<label class="ep-reservation-choice"><input type="radio" name="occasion" value="'+esc(x.value)+'" '+(i===0?'required checked':'')+'><span class="ep-reservation-choice-art" aria-hidden="true">'+choiceIllustrations[x.value]+'</span><span class="ep-reservation-choice-label">'+esc(x.label)+'</span></label>').join('');
+ const choiceMarkup=bookingTypes.map((x,i)=>'<label class="ep-reservation-choice"><input type="radio" name="occasion" value="'+esc(x.value)+'" '+(i===0?'required':'')+'><span class="ep-reservation-choice-art" aria-hidden="true">'+choiceIllustrations[x.value]+'</span><span class="ep-reservation-choice-label">'+esc(x.label)+'</span></label>').join('');
 
  const s=document.createElement('section');
  s.className='section ep-reservation';
