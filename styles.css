@@ -669,8 +669,8 @@ body.options-open{overflow:hidden}
 
 
 .ep-mobile-bar{display:none}
-.ep-status{position:absolute;right:24px;bottom:22px;z-index:3;display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid rgba(27,23,21,.1);border-radius:999px;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);box-shadow:0 12px 30px rgba(32,25,22,.1);font:700 11px Inter,sans-serif}
-.ep-status>div{display:grid;gap:2px}.ep-status span:not(.ep-status-dot){color:#777}.ep-status-dot{width:8px;height:8px;border-radius:50%;background:#b01f1a}.ep-status.open .ep-status-dot{background:#198754}.ep-status a{color:#171313;text-decoration:none;margin-left:5px}
+.ep-status{position:static;flex:0 1 auto;min-width:0;display:flex;align-items:center;gap:9px;padding:7px 10px;border:1px solid rgba(255,255,255,.12);border-radius:13px;background:rgba(255,255,255,.045);font:600 11px Inter,sans-serif;white-space:nowrap}
+.ep-status>div{display:grid;gap:3px}.ep-status b{color:#fff;font-size:.68rem}.ep-status span:not(.ep-status-dot){color:#aaa;font-weight:500}.ep-status-dot{width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:#b01f1a}.ep-status.open .ep-status-dot{background:#198754}.ep-status a{color:#fff;text-decoration:none;margin-left:2px;padding-left:10px;border-left:1px solid rgba(255,255,255,.14);font-weight:700}.ep-status a:hover{text-decoration:underline}
 .ep-reservation-card,.ep-order-info{border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.92);box-shadow:0 16px 45px rgba(32,25,22,.055);padding:24px}
 
 .ep-reservation-card{display:grid;grid-template-columns:1fr 1.4fr;gap:24px;align-items:center;background:linear-gradient(145deg,rgba(209,31,26,.06),rgba(255,255,255,.96))}
@@ -1249,3 +1249,24 @@ body:has(.ep-lightbox.open) .ep-mobile-bar {
  .ep-reservation-form .ep-reservation-choice{min-height:0;display:grid;grid-template-columns:42px minmax(0,1fr);align-items:center}
 }
 @media(prefers-reduced-motion:reduce){.ep-reservation-form .ep-reservation-choice{transition:none}}
+
+/* Opening status and directions live in the header, never as a floating hero badge. */
+@media(max-width:760px){
+ .header-inner{flex-wrap:wrap;row-gap:7px}
+ .header-inner>.brand{order:1;flex:1 1 auto}
+ .header-actions{order:2;margin-left:auto}
+ .header-inner>.ep-status{order:3;flex:1 0 100%;justify-content:center;gap:8px;padding:6px 8px}
+ .ep-status>div{display:flex;align-items:center;gap:6px}
+ .ep-status b{font-size:.65rem}
+ .ep-status a{padding-left:8px}
+ .hero{padding-top:138px}
+ .menu-hero{padding-top:150px}
+}
+@media(max-width:420px){
+ .site-header{inset:6px 6px auto}
+ .header-inner{padding:6px;row-gap:6px}
+ .header-inner>.ep-status{gap:6px;padding:6px 5px;font-size:10px}
+ .ep-status>div{gap:4px}
+ .ep-status a{padding-left:6px}
+ .hero{padding-top:132px}
+}
