@@ -1200,3 +1200,52 @@ body:has(.product-options-modal.open) .ep-mobile-bar,
 body:has(.ep-lightbox.open) .ep-mobile-bar {
  display:none !important;
 }
+
+
+/* Reservation type choice cards: each booking option has its own line illustration. */
+.ep-reservation-choices{grid-column:1/-1;min-width:0;margin:0;padding:0;border:0}
+.ep-reservation-choices legend{display:block;width:100%;padding:0 0 10px;color:var(--brand-ink,#171313);font-size:.82rem;font-weight:800}
+.ep-reservation-choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.ep-reservation-form .ep-reservation-choice{
+ position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;
+ gap:9px;min-width:0;min-height:126px;padding:13px;border:1px solid var(--brand-line,rgba(23,19,19,.12));
+ border-radius:15px;background:rgba(255,255,255,.9);color:var(--brand-ink,#171313);cursor:pointer;
+ transition:border-color .2s ease,background .2s ease,transform .2s ease,box-shadow .2s ease;
+}
+.ep-reservation-choice input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.ep-reservation-choice-art{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;
+ background:rgba(181,31,37,.065);color:var(--brand-red,#b51f25)}
+.ep-reservation-choice-art svg{width:30px;height:30px;display:block;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ep-reservation-choice-label{display:block;color:inherit;font-size:.74rem;line-height:1.35;font-weight:750;overflow-wrap:anywhere}
+.ep-reservation-form .ep-reservation-choice:has(input:checked){border-color:rgba(181,31,37,.65);background:#fff7f4;box-shadow:0 0 0 2px rgba(181,31,37,.08)}
+.ep-reservation-choice:has(input:focus-visible){outline:3px solid rgba(181,31,37,.22);outline-offset:2px}
+.ep-reservation-form .ep-reservation-choice:hover{border-color:rgba(181,31,37,.38);transform:translateY(-1px)}
+/* Restore visible cart actions across the drawer and dedicated cart page. */
+.product-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0}
+.product-foot>.price{min-width:0;overflow-wrap:anywhere}
+.product-foot>.add-btn,.product-foot>button.add-btn{
+ display:grid!important;place-items:center;flex:0 0 44px;width:44px;height:44px;min-width:44px;
+ border-radius:13px;border:1px solid rgba(181,31,37,.34);background:rgba(181,31,37,.075);
+ color:var(--brand-red,#b51f25);cursor:pointer;pointer-events:auto;visibility:visible;opacity:1
+}
+.product-foot>.add-btn svg,.product-foot>button.add-btn svg{display:block;width:20px;height:20px}
+.cart-item .qty{display:flex!important;align-items:center;gap:8px;min-height:36px;visibility:visible;opacity:1}
+.cart-item .qty>button{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;min-width:34px;padding:0;border-radius:9px;border:1px solid var(--brand-line,rgba(23,19,19,.12));background:#fff;color:var(--brand-ink,#171313);cursor:pointer;pointer-events:auto}
+.cart-item .qty>button.cart-remove{margin-left:auto;color:var(--brand-red,#b51f25);border-color:rgba(181,31,37,.25);background:#fff7f4}
+.cart-item .qty>b{min-width:16px;text-align:center;font-size:.84rem;font-variant-numeric:tabular-nums}
+.full-cart-list .cart-item{margin-bottom:10px}
+.full-cart-list .qty{flex-wrap:wrap}
+/* Three footer columns become a clean vertical flow on tablet to avoid a stranded third column. */
+@media(max-width:1050px){.footer-grid{grid-template-columns:minmax(0,1fr);gap:25px}.footer-menu-links{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){
+ .ep-reservation-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .ep-reservation-form .ep-reservation-choice{min-height:116px;padding:11px}
+ .ep-reservation-choice-label{font-size:.72rem}
+ .footer-grid{gap:22px}
+ .footer-menu-links{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:360px){
+ .ep-reservation-choice-grid{grid-template-columns:minmax(0,1fr)}
+ .ep-reservation-form .ep-reservation-choice{min-height:0;display:grid;grid-template-columns:42px minmax(0,1fr);align-items:center}
+}
+@media(prefers-reduced-motion:reduce){.ep-reservation-form .ep-reservation-choice{transition:none}}
