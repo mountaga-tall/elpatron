@@ -69,6 +69,8 @@ jobs:
           for token in ("LANG==='ar'", "ar-EG", "ar:{"):
               assert token not in app, f"Arabic cart/navigation code remains: {token}"
           assert 'data-add="true"' in app, "Add-to-cart button markup missing"
+          assert 'class="add-btn-label"' in app and "add-to-cart buttons visible and labeled" not in css, "Desktop add-to-cart label missing"
+          assert "min-width:154px" in css and ".product-foot>button.add-btn .add-btn-label{display:none}" in css, "Desktop add-to-cart visibility/mobile compact style missing"
           for token in ('bindProductButtons(host,all)', 'bindProductButtons(fgrid,featuredItems)', 'data-cart-action="inc"', 'data-cart-action="dec"', 'data-cart-action="del"'):
               assert token in app, f"Cart interaction missing: {token}"
           assert "function cartLine(i)" in app and "renderFullCart" in app, "Full cart controls/rendering missing"
