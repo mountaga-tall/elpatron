@@ -69,79 +69,11 @@ jobs:
           for token in ("LANG==='ar'", "ar-EG", "ar:{"):
               assert token not in app, f"Arabic cart/navigation code remains: {token}"
           assert 'class="price-option"' in app and 'options.map(o=>`<span class="price-option">' in app, "All product price options must be shown"
-          assert 'data-add="true"' in app and 'class="add-btn-label"' in app, "Add-to-cart button must be rendered on each priced product"
-          assert 'const option=options.slice().sort((a,b)=>Number(a.amount)-Number(b.amount))[0]' in app, "Quick add must not open product-choice modal"
-          assert '.product-card .product-prices' in css and '.product-card .product-foot .add-btn' in css, "Product price and add-to-cart UI must remain visible"
-          assert 'class="icon-btn open-cart"' in app and 'class="cart-drawer"' in app, "Cart must remain accessible from the header"
-          for token in ('bindProductButtons(host,all)', 'bindProductButtons(fgrid,featuredItems)'):
-              assert token in app, f"Product card binding missing: {token}"
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: github-pages
-  cancel-in-progress: true
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Check JavaScript syntax and PWA manifest
-        run: |
-          node --check app.js
-          node --check enhancements.js
-          node --check icons.js
-          node --check menu-data.js
-          node --check i18n.js
-          node --check sw.js
-          node -e "JSON.parse(require('fs').readFileSync('manifest.webmanifest', 'utf8'))"
-
-      - name: Check required pages, images and removed features
-        run: |
-          test -f index.html
-          test -f fr/index.html
-          test -f en/index.html
-          test -f fr/pages/reservation.html
-          test -f en/pages/reservation.html
-          test -f images/logo.webp
-          test -f images/events-ceremony.svg
-          test -f images/events-professional.svg
-          test -f icons/icon-192.webp
-          test -f icons/icon-512.webp
-          test ! -d ar
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-
-          app = Path("app.js").read_text(encoding="utf-8")
-          css = Path("styles.css").read_text(encoding="utf-8")
-          i18n = Path("i18n.js").read_text(encoding="utf-8")
-          enhancements = Path("enhancements.js").read_text(encoding="utf-8")
-
-          assert '[dir="rtl"]' not in css
-          assert "LANGUAGE PILL" not in css
-          for token in (".ep-favorites", ".ep-fav-", ".ep-reviews-grid", ".ep-rating-card", ".is-favorite"):
-              assert token not in css, f"Legacy CSS remains: {token}"
-          for token in ("Arabic catalogue layer", "AR_NAME_PHRASES", "AR_DESC_PHRASES", "Object.assign(U.ar"):
-              assert token not in i18n, f"Arabic translation code remains: {token}"
-          for token in ("syncFav", "ep-favorites", "ep-fav-", "ep-reviews", "lang==='ar'"):
-              assert token not in enhancements, f"Removed feature logic remains: {token}"
-          for token in ("LANG==='ar'", "ar-EG", "ar:{"):
-              assert token not in app, f"Arabic cart/navigation code remains: {token}"
-          assert 'class="price-option"' in app and 'options.map(o=>`<span class="price-option">' in app, "All product price options must be visible as static text"
-          assert '.product-foot .price-option strong' in css and 'color:#171313!important' in css, "Displayed prices need high contrast on the light product cards"
-          assert 'data-add="true"' not in app and 'class="add-btn"' not in app, "Product cards must not contain add-to-cart buttons"
-          assert 'class="option-pill ${i===0?' not in app, "Product prices must not require clickable option selectors"
-          assert 'class="icon-btn open-cart"' not in app and 'data-q-cart' not in enhancements, "Cart entry points must be removed from the menu"
+          assert 'data-add="true"' in app and 'class="add-btn-label"' in app, "Add-to-cart button must be rendered on priced products"
+          assert 'const option=options.slice().sort((a,b)=>Number(a.amount)-Number(b.amount))[0]' in app, "Quick add must not open the broken option chooser"
+          assert '.product-card .product-prices' in css and '.product-card .product-foot .add-btn' in css, "Product prices and add-to-cart buttons must remain visible"
+          assert 'class="icon-btn open-cart"' in app and 'class="cart-drawer"' in app, "Cart must be accessible from the header"
+          assert not any(token in css + app + enhancements for token in (".ep-favorites", ".ep-fav-", "is-favorite", "ep-rating-card")), "Removed favourites or rating UI must not return"
           for token in ('bindProductButtons(host,all)', 'bindProductButtons(fgrid,featuredItems)'):
               assert token in app, f"Product rendering missing: {token}"
           assert '<select name="occasion" required>' in enhancements and "ep-reservation-choice-grid" not in css and "choiceIllustrations" not in enhancements, "Classic reservation selector must be restored"
