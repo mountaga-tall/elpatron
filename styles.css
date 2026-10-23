@@ -1284,3 +1284,57 @@ body:has(.ep-lightbox.open) .ep-mobile-bar {
   body[data-home] .hero{padding-top:184px}
   .menu-hero{padding-top:184px}
 }
+
+
+/* Clearly labeled add-to-cart action on desktop; compact icon-only action on mobile. */
+.product-foot>.add-btn,
+.product-foot>button.add-btn{
+  display:inline-flex!important;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  flex:0 0 auto;
+  width:auto;
+  min-width:154px;
+  height:44px;
+  padding:0 13px;
+  border:1px solid var(--brand-red,#b51f25);
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--brand-red,#b51f25),#94171b);
+  color:#fff;
+  font:800 12px/1 Inter,sans-serif;
+  white-space:nowrap;
+  text-align:center;
+  visibility:visible;
+  opacity:1;
+  pointer-events:auto;
+  cursor:pointer;
+  box-shadow:0 5px 14px rgba(181,31,37,.16);
+}
+.product-foot>.add-btn .add-btn-label,
+.product-foot>button.add-btn .add-btn-label{display:inline;line-height:1}
+.product-foot>.add-btn svg,
+.product-foot>button.add-btn svg{display:block;width:18px;height:18px;flex:0 0 18px}
+.product-foot>.add-btn:hover,
+.product-foot>button.add-btn:hover{background:#7e1117;color:#fff;transform:translateY(-1px);box-shadow:0 7px 18px rgba(181,31,37,.22)}
+@media(max-width:760px){
+  .product-foot>.add-btn,
+  .product-foot>button.add-btn{
+    display:grid!important;
+    place-items:center;
+    gap:0;
+    width:44px;
+    min-width:44px;
+    height:44px;
+    flex:0 0 44px;
+    padding:0;
+    border:1px solid rgba(181,31,37,.34);
+    background:rgba(181,31,37,.075);
+    color:var(--brand-red,#b51f25);
+    box-shadow:none;
+  }
+  .product-foot>.add-btn .add-btn-label,
+  .product-foot>button.add-btn .add-btn-label{display:none}
+  .product-foot>.add-btn:hover,
+  .product-foot>button.add-btn:hover{background:var(--brand-red,#b51f25);color:#fff}
+}
