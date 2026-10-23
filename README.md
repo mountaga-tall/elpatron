@@ -33,7 +33,6 @@ Les deux images s’affichent automatiquement en galerie dans la fiche produit e
 - Vins : chaque bouteille est un produit individuel avec son nom, son prix et sa catégorie.
 - Le panier utilise une icône poubelle pour supprimer un article.
 - Les commandes sont préparées puis envoyées sur WhatsApp.
-- Les avis Google sont visibles sur l’accueil et la page Contact, avec un lien pour lire les avis et déposer une note.
 - Une page `experience.html` présente l’ADN El Patrón en français, anglais et arabe.
 - Le parcours de conversion met en avant la carte, la réservation et la commande WhatsApp.
 - Les pages locales publient automatiquement les métadonnées SEO, les URLs canoniques et les variantes `hreflang`.
@@ -53,12 +52,11 @@ python -m http.server 8080
 
 ## Multilingue
 
-Le site est disponible en trois versions :
+Le site est disponible en deux versions :
 
 - Français : `/fr/`
-- English : `/en/`
-- العربية : `/ar/` (RTL)
+- English : `/en/
 
 Le domaine `elpatron.ci` reste volontairement à gérer séparément du dépôt.
 
-Le sélecteur de langue est présent dans l’en-tête et le menu mobile. Le catalogue et les prix restent partagés entre les trois versions afin d’éviter les écarts de contenu.
+Le sélecteur de langue est présent dans l’en-tête et le menu mobile. Le catalogue et les prix restent partagés entre les deux versions afin d’éviter les écarts de contenu.

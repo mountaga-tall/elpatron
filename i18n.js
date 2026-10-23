@@ -1,7 +1,7 @@
 (function(){
 'use strict';
 var lang=(window.EL_PATRON_LANG||document.documentElement.lang||document.body.getAttribute('data-lang')||'fr').toLowerCase().slice(0,2);
-if(['fr','en','ar'].indexOf(lang)<0)return;
+if(['fr','en'].indexOf(lang)<0)return;
 var C={
 en:{
 'petit-dej':['Breakfast','BREAKFAST','Eggs, omelettes and a special set'],
@@ -294,7 +294,7 @@ if(window.EL_PATRON_MENU){
 document.documentElement.lang=lang;
 document.body.dir=lang==='ar'?'rtl':'ltr';
 function addLanguageSwitcher(){
-  var langs=['fr','en','ar'],parts=location.pathname.split('/').filter(Boolean),localeIndex=-1;
+  var langs=['fr','en'],parts=location.pathname.split('/').filter(Boolean),localeIndex=-1;
   for(var li=0;li<langs.length;li++){var found=parts.indexOf(langs[li]);if(found>=0){localeIndex=found;break;}}
   var hasLocale=localeIndex>=0,inPages=parts[parts.length-2]==='pages',file=parts[parts.length-1]||'index.html';
   function target(l){

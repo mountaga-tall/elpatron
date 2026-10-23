@@ -6,40 +6,21 @@ const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelect
 const base=$('[data-shell]')?.dataset.base||'', lang=(window.EL_PATRON_LANG||document.documentElement.lang||'fr').slice(0,2), site=window.EL_PATRON_SITE||{};
 const favKey='ep-favorites-v1', orderKey='ep-order-v1';
 let memoryFavs=[], memoryOrder=window.EL_PATRON_ORDER_DETAILS||{};
-const pathParts=location.pathname.split('/').filter(Boolean),localeIndex=pathParts.findIndex(part=>['fr','en','ar'].includes(part));
+const pathParts=location.pathname.split('/').filter(Boolean),localeIndex=pathParts.findIndex(part=>['fr','en'].includes(part));
 const localePrefix=localeIndex>=0?'/'+pathParts.slice(0,localeIndex+1).join('/')+'/':'/';
 const pageHref=slug=>localePrefix+'pages/'+slug+'.html';
 function loadOrder(){try{const raw=localStorage.getItem(orderKey);if(raw!==null){const value=JSON.parse(raw);if(value&&typeof value==='object'&&!Array.isArray(value)){memoryOrder=value;window.EL_PATRON_ORDER_DETAILS=value;return value}}}catch{}return window.EL_PATRON_ORDER_DETAILS||memoryOrder}
 function saveOrder(value){memoryOrder=value;window.EL_PATRON_ORDER_DETAILS=value;try{localStorage.setItem(orderKey,JSON.stringify(value))}catch{}}
 const T={
-fr:{fav:'Favoris',share:'Partager',search:'Rechercher',cart:'Panier',menu:'Menu',whatsapp:'WhatsApp',reviews:'Avis Google',reviewsSub:'Une expérience saluée par les clients',review:'Voir les avis Google',write:'Laisser un avis',rating:'4,9 / 5',count:'50 avis Google',book:'Réserver une table',bookSub:'Choisissez votre créneau et envoyez la demande sur WhatsApp.',date:'Date',time:'Heure',people:'Personnes',send:'Envoyer la demande',info:'Informations de commande',name:'Nom',phone:'Téléphone',mode:'Type de commande',dine:'Sur place',take:'À emporter',delivery:'Livraison',notes:'Instructions / précision',save:'Enregistrer',saved:'Enregistré',install:'Installer l’app',open:'Ouvrir',emptyFav:'Aucun favori pour le moment.',openNow:'Ouvert maintenant',closed:'Fermé',hours:'08:00 — 02:00',route:'Itinéraire',copied:'Lien copié',shared:'Partagé',addFav:'Ajouter aux favoris',removeFav:'Retirer des favoris'},
-en:{fav:'Favorites',share:'Share',search:'Search',cart:'Cart',menu:'Menu',whatsapp:'WhatsApp',reviews:'Google reviews',reviewsSub:'An experience praised by guests',review:'See Google reviews',write:'Leave a review',rating:'4.9 / 5',count:'50 Google reviews',book:'Book a table',bookSub:'Choose a time and send the request on WhatsApp.',date:'Date',time:'Time',people:'Guests',send:'Send request',info:'Order details',name:'Name',phone:'Phone',mode:'Order type',dine:'Dine in',take:'Takeaway',delivery:'Delivery',notes:'Instructions / notes',save:'Save',saved:'Saved',install:'Install app',open:'Open',emptyFav:'No favorites yet.',openNow:'Open now',closed:'Closed',hours:'08:00 — 02:00',route:'Directions',copied:'Link copied',shared:'Shared',addFav:'Add to favorites',removeFav:'Remove from favorites'},
-ar:{fav:'المفضلة',share:'مشاركة',search:'بحث',cart:'السلة',menu:'القائمة',whatsapp:'واتساب',reviews:'آراء Google',reviewsSub:'تجربة تحظى بإعجاب الزبائن',review:'عرض آراء Google',write:'إضافة تقييم',rating:'4.9 / 5',count:'50 مراجعة على Google',book:'حجز طاولة',bookSub:'اختر الوقت وأرسل الطلب عبر واتساب.',date:'التاريخ',time:'الوقت',people:'الأشخاص',send:'إرسال الطلب',info:'بيانات الطلب',name:'الاسم',phone:'الهاتف',mode:'نوع الطلب',dine:'في المطعم',take:'استلام',delivery:'توصيل',notes:'ملاحظات',save:'حفظ',saved:'تم الحفظ',install:'تثبيت التطبيق',open:'فتح',emptyFav:'لا توجد مفضلات بعد.',openNow:'مفتوح الآن',closed:'مغلق',hours:'08:00 — 02:00',route:'الاتجاهات',copied:'تم نسخ الرابط',shared:'تمت المشاركة',addFav:'إضافة للمفضلة',removeFav:'إزالة من المفضلة'}
+fr:{fav:'Favoris',share:'Partager',search:'Rechercher',cart:'Panier',menu:'Menu',whatsapp:'WhatsApp',book:'Réserver une table',bookSub:'Choisissez votre créneau et envoyez la demande sur WhatsApp.',date:'Date',time:'Heure',people:'Personnes',send:'Envoyer la demande',info:'Informations de commande',name:'Nom',phone:'Téléphone',mode:'Type de commande',dine:'Sur place',take:'À emporter',delivery:'Livraison',notes:'Instructions / précision',save:'Enregistrer',saved:'Enregistré',install:'Installer l’app',open:'Ouvrir',emptyFav:'Aucun favori pour le moment.',openNow:'Ouvert maintenant',closed:'Fermé',hours:'08:00 — 02:00',route:'Itinéraire',copied:'Lien copié',shared:'Partagé',addFav:'Ajouter aux favoris',removeFav:'Retirer des favoris'},
+en:{fav:'Favorites',share:'Share',search:'Search',cart:'Cart',menu:'Menu',whatsapp:'WhatsApp',book:'Book a table',bookSub:'Choose a time and send the request on WhatsApp.',date:'Date',time:'Time',people:'Guests',send:'Send request',info:'Order details',name:'Name',phone:'Phone',mode:'Order type',dine:'Dine in',take:'Takeaway',delivery:'Delivery',notes:'Instructions / notes',save:'Save',saved:'Saved',install:'Install app',open:'Open',emptyFav:'No favorites yet.',openNow:'Open now',closed:'Closed',hours:'08:00 — 02:00',route:'Directions',copied:'Link copied',shared:'Shared',addFav:'Add to favorites',removeFav:'Remove from favorites'},
+ar:{fav:'المفضلة',share:'مشاركة',search:'بحث',cart:'السلة',menu:'القائمة',whatsapp:'واتساب',book:'حجز طاولة',bookSub:'اختر الوقت وأرسل الطلب عبر واتساب.',date:'التاريخ',time:'الوقت',people:'الأشخاص',send:'إرسال الطلب',info:'بيانات الطلب',name:'الاسم',phone:'الهاتف',mode:'نوع الطلب',dine:'في المطعم',take:'استلام',delivery:'توصيل',notes:'ملاحظات',save:'حفظ',saved:'تم الحفظ',install:'تثبيت التطبيق',open:'فتح',emptyFav:'لا توجد مفضلات بعد.',openNow:'مفتوح الآن',closed:'مغلق',hours:'08:00 — 02:00',route:'الاتجاهات',copied:'تم نسخ الرابط',shared:'تمت المشاركة',addFav:'إضافة للمفضلة',removeFav:'إزالة من المفضلة'}
 };
 const t=k=>T[lang]?.[k]||T.fr[k]||k, esc=s=>String(s??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));
 const products=()=>Object.entries(window.EL_PATRON_MENU||{}).flatMap(([slug,items])=>items.filter(p=>!p.noteOnly).map(p=>({...p,slug})));
 const product=id=>products().find(p=>p.id===id);
 const money=n=>new Intl.NumberFormat(lang==='fr'?'fr-FR':'en-US').format(Number(n)||0)+' FCFA';
 const maps='https://www.google.com/maps/search/?api=1&query=5.403111,-3.980472';
-const googleReviewUrl='https://www.google.com/maps/search/?api=1&query=El%20Patr%C3%B3n%20Abidjan';
-const reviews=googleReviewUrl;
-const googleReviews={
-  fr:[
-    {name:'COLORS « Sortez de l\'ombre » LOROUGNON Hermann',meta:'Google · 5/5',text:'Cuisine, service et ambiance évalués 5/5.'},
-    {name:'LA MAISON DU BITCOIN CÔTE D’IVOIRE',meta:'Google · 5/5',text:'Cuisine, service et ambiance évalués 5/5.'},
-    {name:'Ousman Sylla',meta:'Google · 5/5',text:'« Mr Tall is the best manager… » — un accueil et un service particulièrement appréciés.'}
-  ],
-  en:[
-    {name:'COLORS “sortez de l\'ombre” LOROUGNON Hermann',meta:'Google · 5/5',text:'Food, service and atmosphere rated 5/5.'},
-    {name:'LA MAISON DU BITCOIN CÔTE D’IVOIRE',meta:'Google · 5/5',text:'Food, service and atmosphere rated 5/5.'},
-    {name:'Ousman Sylla',meta:'Google · 5/5',text:'“Mr Tall is the best manager…” — warm welcome and service especially appreciated.'}
-  ],
-  ar:[
-    {name:'COLORS «Sortez de l\'ombre» LOROUGNON Hermann',meta:'Google · 5/5',text:'الطعام والخدمة والأجواء حصلت على 5/5.'},
-    {name:'LA MAISON DU BITCOIN CÔTE D’IVOIRE',meta:'Google · 5/5',text:'الطعام والخدمة والأجواء حصلت على 5/5.'},
-    {name:'Ousman Sylla',meta:'Google · 5/5',text:'«Mr Tall is the best manager…» — إشادة خاصة بالترحيب وجودة الخدمة.'}
-  ]
-};
 const favs=()=>{try{const raw=localStorage.getItem(favKey);if(raw!==null){const value=JSON.parse(raw);if(Array.isArray(value)){memoryFavs=value;return value}}}catch{}return memoryFavs};
 const setFavs=a=>{memoryFavs=[...new Set(a)];try{localStorage.setItem(favKey,JSON.stringify(memoryFavs))}catch{}};
 function toast(msg){let e=$('.ep-toast');if(!e){e=document.createElement('div');e.className='ep-toast';document.body.append(e)}e.textContent=msg;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),1800)}
@@ -74,15 +55,6 @@ function favoritesModal(){
 }
 function headerFav(){const h=$('.header-actions');if(!h||h.querySelector('[data-open-favorites]'))return;const b=document.createElement('button');b.type='button';b.className='icon-btn';b.dataset.openFavorites='1';b.setAttribute('aria-label',t('fav'));b.innerHTML='♡<span data-ep-fav-count class="ep-fav-count" hidden>0</span>';h.prepend(b)}
 function mobileBar(){if($('.ep-mobile-bar'))return;const b=document.createElement('nav');b.className='ep-mobile-bar';b.innerHTML='<button data-q-search>⌕<span>'+esc(t('search'))+'</span></button><button data-q-fav>♡<span>'+esc(t('fav'))+'</span><em data-ep-fav-count hidden>0</em></button><button data-q-cart>🛍<span>'+esc(t('cart'))+'</span></button><a href="https://wa.me/'+esc(site.phoneRaw||'')+'" target="_blank" rel="noopener">◉<span>'+esc(t('whatsapp'))+'</span></a><button data-q-menu>☰<span>'+esc(t('menu'))+'</span></button>';document.body.append(b);document.body.classList.add('ep-mobile-ready')}
-function reviewsBlock(){
- if(!/\/fr\/?$|\/en\/?$|\/ar\/?$|pages\/contact\.html$/.test(location.pathname)||$('.ep-reviews'))return;
- const s=document.createElement('section');s.className='section ep-reviews';
- const rateLabel=lang==='en'?'Rate us on Google':lang==='ar'?'قيّمنا على Google':'Noter El Patrón sur Google';
- const viewLabel=lang==='en'?'See all Google reviews':lang==='ar'?'عرض جميع آراء Google':'Voir tous les avis Google';
- const data=googleReviews[lang]||googleReviews.fr;
- s.innerHTML='<div class="container"><div class="section-head"><div><div class="kicker">'+esc(t('reviews'))+'</div><h2>'+esc(t('reviewsSub'))+'</h2></div><p class="section-intro">'+esc(t('count'))+'</p></div><div class="ep-reviews-grid"><article class="ep-rating-card"><strong class="ep-rating-number">4.9</strong><div class="ep-stars">★★★★★</div><b>'+esc(t('rating'))+'</b><span>'+esc(t('count'))+'</span><div class="ep-rating-actions"><a class="btn btn-primary" href="'+googleReviewUrl+'" target="_blank" rel="noopener noreferrer">'+esc(rateLabel)+'</a><a class="btn btn-glass" href="'+googleReviewUrl+'" target="_blank" rel="noopener noreferrer">'+esc(viewLabel)+'</a></div></article><div class="ep-review-quote-list">'+data.map(r=>'<article class="ep-review-quote"><div class="ep-review-stars">★★★★★</div><strong>'+esc(r.name)+'</strong><span>'+esc(r.meta)+'</span><p>'+esc(r.text)+'</p></article>').join('')+'</div></div><p class="section-intro" style="margin:18px auto 0;max-width:900px">'+esc(lang==='en'?'Reviews shown here are public Google feedback excerpts; use the buttons above to read the full listing or leave your own rating.':lang==='ar'?'الآراء المعروضة هنا مقتطفات من تقييمات Google العامة؛ استخدم الأزرار أعلاه لقراءة القائمة كاملة أو إضافة تقييمك.':'Les avis affichés ici sont des extraits d’avis Google publics ; utilisez les boutons ci-dessus pour lire la fiche complète ou laisser votre propre note.')+'</p></div>';
- const target=$('.global-search-section')||$('.contact-grid')?.parentElement?.parentElement||$('#contenu');target?.insertAdjacentElement('afterend',s);
-}
 function reservation(){
  if(!/\/fr\/?$|\/en\/?$|\/ar\/?$|pages\/contact\.html$|pages\/reservation\.html$/.test(location.pathname)||$('.ep-reservation'))return;
  const bookingTypes=lang==='en'?[
@@ -156,7 +128,7 @@ function conversionRail(){
 }
 function abidjanNow(){const now=new Date();try{const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Africa/Abidjan',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(now),v=k=>parts.find(p=>p.type===k)?.value||'00';return{minutes:Number(v('hour'))*60+Number(v('minute')),date:v('year')+'-'+v('month')+'-'+v('day')}}catch{return{minutes:now.getHours()*60+now.getMinutes(),date:now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')}}}
 function status(){if($('.ep-status'))return;const m=abidjanNow().minutes,open=m>=480||m<120,e=document.createElement('div');e.className='ep-status '+(open?'open':'closed');e.innerHTML='<span class="ep-status-dot"></span><div><b>'+t(open?'openNow':'closed')+'</b><span>'+t('hours')+'</span></div><a href="'+maps+'" target="_blank" rel="noopener">'+t('route')+' ↗</a>';$('.hero,.menu-hero')?.append(e)}
-function schema(){if($('script[data-ep-schema]'))return;const s=document.createElement('script');s.type='application/ld+json';s.dataset.epSchema='1';s.textContent=JSON.stringify({'@context':'https://schema.org','@type':'Restaurant','name':site.name||'EL PATRÓN','url':site.site||location.origin,'telephone':site.phone||'+225 07 04 40 04 00','email':site.email||'el.patron.abidjan@gmail.com','geo':{'@type':'GeoCoordinates','latitude':5.403111,'longitude':-3.980472},'address':{'@type':'PostalAddress','addressLocality':'Abidjan','addressRegion':'Cocody','addressCountry':'CI'},'sameAs':[site.facebook,site.instagram,site.tiktok].filter(Boolean),'aggregateRating':{'@type':'AggregateRating','ratingValue':'4.9','reviewCount':'50'},'openingHoursSpecification':[0,1,2,3,4,5,6].map(d=>({'@type':'OpeningHoursSpecification','dayOfWeek':['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d],'opens':'08:00','closes':'02:00'}))});document.head.append(s)}
+function schema(){if($('script[data-ep-schema]'))return;const s=document.createElement('script');s.type='application/ld+json';s.dataset.epSchema='1';s.textContent=JSON.stringify({'@context':'https://schema.org','@type':'Restaurant','name':site.name||'EL PATRÓN','url':site.site||location.origin,'telephone':site.phone||'+225 07 04 40 04 00','email':site.email||'el.patron.abidjan@gmail.com','geo':{'@type':'GeoCoordinates','latitude':5.403111,'longitude':-3.980472},'address':{'@type':'PostalAddress','addressLocality':'Abidjan','addressRegion':'Cocody','addressCountry':'CI'},'sameAs':[site.facebook,site.instagram,site.tiktok].filter(Boolean),'openingHoursSpecification':[0,1,2,3,4,5,6].map(d=>({'@type':'OpeningHoursSpecification','dayOfWeek':['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d],'opens':'08:00','closes':'02:00'}))});document.head.append(s)}
 function pwa(){if('serviceWorker' in navigator)navigator.serviceWorker.register(base+'sw.js',{scope:base}).catch(()=>{});window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();const b=document.createElement('button');b.className='ep-install';b.textContent='＋ '+t('install');b.onclick=async()=>{try{await e.prompt();await e.userChoice}catch{}b.remove()};document.body.append(b)})}
 function events(){
  document.addEventListener('click',e=>{
@@ -188,7 +160,6 @@ function init(){
   ['favorites-modal',favoritesModal],
   ['header-favorites',headerFav],
   ['mobile-bar',mobileBar],
-  ['google-reviews',reviewsBlock],
   ['reservation',reservation],
   ['order-form',orderForm],
   ['conversion-rail',conversionRail],
