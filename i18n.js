@@ -95,7 +95,7 @@ function addLanguageSwitcher(){
  var actions=document.querySelector(".header-actions");
  if(actions&&!actions.querySelector(".language-switcher"))actions.insertBefore(build("language-switcher"),actions.firstChild);
  var mobileLinks=document.querySelector(".mobile-links");
- if(mobileLinks&&!mobileLinks.querySelector(".language-mobile"))mobileLinks.appendChild(build("language-mobile"));
+ if(mobileLinks)mobileLinks.querySelectorAll(".language-mobile").forEach(function(node){node.remove();});
 }
 function translateDom(){
  var root=document.body,walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),nodes=[],node;
