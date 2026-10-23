@@ -168,13 +168,6 @@ function categoryVisual(){
  v.style.backgroundImage='linear-gradient(135deg,rgba(23,19,19,.12),rgba(209,31,26,.18)),url("'+url.replace(/"/g,'%22')+'")';
  v.classList.add('ep-has-category-image');
 }
-function quickRecs(){
- const drawer=$('.cart-panel'),bottom=$('.cart-bottom');if(!drawer||!bottom||$('.ep-recos',drawer))return;
- const all=products().filter(p=>p.price?.length&&p.price[0]?.amount);let currentIds=new Set();try{currentIds=new Set(JSON.parse(localStorage.getItem('elpatronCartV1')||'[]').map(x=>x.id))}catch{}
- const picks=all.filter(p=>!currentIds.has(p.id)).slice(0,3);if(!picks.length)return;
- const label=lang==='en'?'Add to your order':'À ajouter à votre commande';
- const s=document.createElement('section');s.className='ep-recos';s.innerHTML='<div class="ep-recos-head"><span>El Patrón</span><b>'+esc(label)+'</b></div><div class="ep-recos-grid">'+picks.map(p=>'<a href="'+pageHref(p.slug)+'#product-'+encodeURIComponent(p.id)+'" class="ep-reco"><strong>'+esc(p.name)+'</strong><span>'+money(p.price[0].amount)+'</span></a>').join('')+'</div>';bottom.insertBefore(s,bottom.firstChild);
-}
 function metaTags(){
  const desc=document.querySelector('meta[name="description"]')?.content||'EL PATRÓN — Restaurant, Bar, Café & Salon de thé à Abidjan.';
  const canonical=document.querySelector('link[rel="canonical"]')||document.head.appendChild(Object.assign(document.createElement('link'),{rel:'canonical'}));
@@ -227,7 +220,6 @@ function init(){
   ['structured-data',schema],
   ['metadata',metaTags],
   ['category-visual',categoryVisual],
-  ['cart-recommendations',quickRecs],
   ['pwa',pwa],
   ['click-events',events],
   ['product-observer',()=>{const m=new MutationObserver(enhanceProducts);m.observe(document.body,{childList:true,subtree:true})}],
