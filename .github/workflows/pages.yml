@@ -80,6 +80,19 @@ jobs:
           assert "reservation-events-grid--ten" in css, "Ten-occasion grid styles missing"
           assert 'if(actions&&!actions.querySelector(".language-switcher"))actions.insertBefore(build("language-switcher"),actions.firstChild);' in i18n, "Header language switcher missing"
           assert 'if(mobileLinks)mobileLinks.querySelectorAll(".language-mobile").forEach(function(node){node.remove();});' in i18n, "Hamburger language switcher removal missing"
+          assert 'return path+(location.search||"")+(location.hash||"");' in i18n, "Language switcher must preserve query and anchor"
+          assert 'var path=inPages?"/"+locale+"/pages/"+file:"/"+locale+"/";' in i18n, "Language switcher must use stable locale paths"
+          assert "escaped=String(pairs[i][0])" in i18n and '"giu"' in i18n, "Translations must match whole words safely"
+          assert 'img[alt]' in i18n and 'textarea[placeholder]' in i18n, "Accessible image labels and textarea placeholders must be localizable"
+          fr_page_names = {p.name for p in Path("fr/pages").glob("*.html")}
+          en_page_names = {p.name for p in Path("en/pages").glob("*.html")}
+          assert fr_page_names == en_page_names, "French and English page sets must match"
+          for locale in ("fr", "en"):
+              locale_pages = [Path(locale + "/index.html"), *Path(locale + "/pages").glob("*.html")]
+              for page in locale_pages:
+                  html = page.read_text(encoding="utf-8")
+                  assert re.search(r'<html[^>]*\\blang="' + locale + r'"', html), f"Wrong or missing document language: {page}"
+                  assert "i18n.js" in html, f"Language support script missing: {page}"
           assert "const host=$('.site-header .header-inner')" in enhancements, "Opening status must live in the header"
           assert ".ep-status{position:static" in css, "Opening status must not float over the hero"
           assert "body:has(.cart-drawer.open) .ep-mobile-bar" in css, "Mobile overlay click-safety missing"
