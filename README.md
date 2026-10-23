@@ -1,62 +1,52 @@
 # EL PATRÓN — Menu 2027
 
-Site statique multi-pages HTML/CSS/JS, pensé mobile-first et installable comme PWA.
+Site statique multi-pages HTML/CSS/JavaScript, responsive, installable comme PWA et publié via GitHub Pages.
 
-## Structure
+## Langues et pages
 
-- `index.html` — accueil + écran de chargement au lancement du site/PWA uniquement
-- `styles.css` — identité blanche premium + responsive + animations
-- `app.js` — navigation, panier, variantes, WhatsApp, recherche, images produits et micro-interactions
-- `icons.js` — icônes SVG inline
-- `menu-data.js` — contenu du menu source, prix et compositions
-- `images/logo.webp` — logo principal en WebP
-- `icons/icon-192.webp` / `icons/icon-512.webp` — icônes PWA
-- `fr\/pages\/\*.html`, `en\/pages\/\*.html`, `ar\/pages\/\*.html` — pages localisées + expérience + panier + contact
+- Français : `/fr/`
+- English : `/en/`
+- Page de réservation et d'événements dans les deux langues : `/fr/pages/reservation.html` et `/en/pages/reservation.html`
+- Pages de contact, panier, expérience et catégories de menu dans les deux langues.
+- La version arabe et les styles RTL ne font plus partie du site.
 
-## Images produits
+## Fichiers principaux
 
-Les **6 photos de pâtes présentes dans l’archive sont maintenant reliées automatiquement aux 6 produits correspondants**. Chaque produit peut recevoir jusqu’à **2 images WebP** via :
+- `index.html` : sélecteur de langue FR / EN.
+- `styles.css` : identité visuelle, composants, responsive desktop/tablette/mobile et pastille compacte FR / EN.
+- `app.js` : navigation, panier, variantes, recherche et commande WhatsApp.
+- `enhancements.js` : formulaire de réservation/événements, données de contact, partage, galerie photo et petites améliorations d'interface.
+- `i18n.js` : traductions françaises et anglaises uniquement.
+- `menu-data.js` : catalogue, compositions et tarifs.
+- `sw.js` et `manifest.webmanifest` : cache PWA et installation.
+- `icons.js` : icônes SVG inline.
+- `images/logo.webp` et `icons/icon-192.webp` / `icons/icon-512.webp` : logo et icônes PWA.
 
-```js
-images: [
-  "images/produits/nom-produit-1.webp",
-  "images/produits/nom-produit-2.webp"
-]
-```
+## Réservations et événements
 
-Les deux images s’affichent automatiquement en galerie dans la fiche produit et restent responsives sur mobile.
+Le formulaire prend en charge les tables au restaurant, petit-déjeuner/brunch, anniversaires, mariages/fiançailles, repas de famille, cérémonies privées, rendez-vous professionnels, réunions, séminaires, team building, rencontres B2B et privatisation.
 
-## Règles menu mises en place
+Les informations envoyées dans la demande WhatsApp sont : type de réservation, date, heure, nombre de personnes, nom complet et téléphone. Le nom de l'entreprise/organisation et le message personnalisé sont facultatifs. Les disponibilités restent à confirmer par l'équipe.
 
-- Pizzas : `Grand` puis `Moyen`, avec `Grand` sélectionné par défaut.
-- Tacos : `XL Royal` puis `XL` puis `L Royal` puis `L`, avec `XL Royal` sélectionné par défaut.
-- Vins : chaque bouteille est un produit individuel avec son nom, son prix et sa catégorie.
-- Le panier utilise une icône poubelle pour supprimer un article.
-- Les commandes sont préparées puis envoyées sur WhatsApp.
-- Une page `experience.html` présente l’ADN El Patrón en français, anglais et arabe.
-- Le parcours de conversion met en avant la carte, la réservation et la commande WhatsApp.
-- Les pages locales publient automatiquement les métadonnées SEO, les URLs canoniques et les variantes `hreflang`.
+## Panier et images
 
-## PWA
+- Le panier commun permet d'ajouter, modifier et retirer les articles.
+- La commande est préparée dans le navigateur puis transmise via WhatsApp.
+- Les produits peuvent afficher une ou plusieurs images WebP si les chemins sont définis dans leurs données.
+- Les scripts et styles importants sont revalidés par le service worker afin de limiter l'affichage de fichiers périmés.
 
-- `start_url` : accueil
-- écran de chargement visible uniquement à l’ouverture de l’accueil/PWA
-- fond et interface blancs
-- icônes PWA WebP 192×192 et 512×512
+## Vérifications
 
-Aucun build n’est nécessaire. Pour tester localement :
+Le workflow GitHub Actions vérifie la syntaxe JavaScript, le manifeste PWA et la présence des fichiers principaux avant de publier le site. Les tests automatiques ne remplacent pas une vérification manuelle de chaque parcours dans un vrai navigateur.
+
+## Développement local
+
+Aucun build n'est requis. Depuis la racine du dépôt :
 
 ```bash
 python -m http.server 8080
 ```
 
-## Multilingue
+Ouvrez ensuite `http://localhost:8080/`.
 
-Le site est disponible en deux versions :
-
-- Français : `/fr/`
-- English : `/en/
-
-Le domaine `elpatron.ci` reste volontairement à gérer séparément du dépôt.
-
-Le sélecteur de langue est présent dans l’en-tête et le menu mobile. Le catalogue et les prix restent partagés entre les deux versions afin d’éviter les écarts de contenu.
+Le code est publié depuis GitHub. Le domaine personnalisé et ses DNS sont gérés séparément chez Netim.
