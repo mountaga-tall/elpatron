@@ -1191,3 +1191,12 @@ body[data-home] #menu a.category-card:focus-visible {
  .ep-reservation-submit{width:100%}
 }
 @media(prefers-reduced-motion:reduce){.language-thumb{transition:none}}
+
+
+/* Keep the mobile quick-navigation bar out of the way of overlays and cart actions. */
+body:has(.cart-drawer.open) .ep-mobile-bar,
+body:has(.mobile-menu.open) .ep-mobile-bar,
+body:has(.product-options-modal.open) .ep-mobile-bar,
+body:has(.ep-lightbox.open) .ep-mobile-bar {
+ display:none !important;
+}
