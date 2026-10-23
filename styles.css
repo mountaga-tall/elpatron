@@ -1298,3 +1298,23 @@ body:has(.ep-lightbox.open) .ep-mobile-bar {
   .price-option strong{font-size:.82rem}
   body.ep-has-mobile-bar .ep-mobile-bar{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
+
+
+/* High-contrast price chips on the light menu cards (desktop and mobile). */
+.product-foot .price-option{
+  background:#fff!important;
+  border:1px solid rgba(27,23,21,.22)!important;
+  box-shadow:0 2px 8px rgba(27,23,21,.045);
+}
+.product-foot .price-option small{
+  color:#94171b!important;
+  font-weight:800;
+}
+.product-foot .price-option strong{
+  color:#171313!important;
+  font-size:.95rem;
+  font-weight:900;
+  opacity:1!important;
+  visibility:visible!important;
+  display:block!important;
+}
