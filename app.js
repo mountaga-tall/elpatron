@@ -269,7 +269,7 @@
     const currentPrice=priceMarkup(p);
     const optionsMarkup=options.length>1?`<div class="option-list">${options.map((o,i)=>`<button type="button" class="option-pill ${i===0?'selected':''}" data-option-index="${i}" aria-pressed="${i===0?'true':'false'}">${o.label?esc(o.label)+' · ':''}${money(o.amount)}</button>`).join('')}</div>`:'';
     const imageMarkup=productImageMarkup(p);
-    const addButton=hasPrice?`<button type="button" class="add-btn" data-add="true" aria-label="${escAttr(t('addToCart')+' '+p.name)}">${ICONS.plus}</button>`:'';
+    const addButton=hasPrice?`<button type="button" class="add-btn" data-add="true" aria-label="${escAttr(t('addToCart')+' '+p.name)}">${ICONS.plus}<span class="add-btn-label">${esc(t('addToCart'))}</span></button>`:'';
     return `<article class="product-card reveal tilt${productCardShellClasses(p)}" style="--reveal-delay:${Math.min(idx,10)*45}ms" data-product-id="${escAttr(p.id)}" data-category-slug="${escAttr(categorySlug)}">${imageMarkup}<div class="product-top">${p.sub?`<span class="sub-chip">${esc(p.sub)}</span>`:''}<div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||t('houseDescription'))}</p>${p.note?`<div class="product-note-inline">${esc(p.note)}</div>`:''}${optionsMarkup}<div class="product-foot"><div class="price" data-price>${currentPrice}</div>${addButton}</div></div></article>`;
   }
   function bindProductButtons(scope,items,categorySlug){
