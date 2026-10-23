@@ -91,7 +91,7 @@ jobs:
               locale_pages = [Path(locale + "/index.html"), *Path(locale + "/pages").glob("*.html")]
               for page in locale_pages:
                   html = page.read_text(encoding="utf-8")
-                  assert re.search(r'<html[^>]*\\blang="' + locale + r'"', html), f"Wrong or missing document language: {page}"
+                  assert re.search(r'<html[^>]*\blang="' + locale + r'"', html), f"Wrong or missing document language: {page}"
                   assert "i18n.js" in html, f"Language support script missing: {page}"
           assert "const host=$('.site-header .header-inner')" in enhancements, "Opening status must live in the header"
           assert ".ep-status{position:static" in css, "Opening status must not float over the hero"
