@@ -448,7 +448,10 @@
     const loadEnhancements=()=>{
       if(window.__EL_PATRON_ENHANCEMENTS_INIT__)return;
       const s=document.createElement('script');
-      s.src=(document.querySelector('[data-shell]')?.dataset.base||'')+'enhancements.js?v=20261022reservation';
+      const appScript=Array.from(document.scripts).find(script=>/\/app\.js(?:\?|$)/.test(script.src));
+      let assetVersion='runtime';
+      try{if(appScript)assetVersion=new URL(appScript.src,location.href).searchParams.get('v')||assetVersion}catch{}
+      s.src=(document.querySelector('[data-shell]')?.dataset.base||'')+'enhancements.js?v='+encodeURIComponent(assetVersion);
       document.head.appendChild(s);
     };
     if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',loadEnhancements,{once:true});
