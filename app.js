@@ -333,7 +333,21 @@
   }
   function renderHome(){
     const grid=$('.category-grid'),cats=window.EL_PATRON_CATEGORIES||[];
-    if(grid)grid.innerHTML=cats.map(c=>`<a class="category-card reveal tilt" href="pages/${c.slug}.html"><div class="category-icon">${categoryIcon(c.icon)}</div><div class="category-arrow">${ICONS.arrow}</div><h3>${esc(c.title)}</h3><p>${esc(c.description)}</p></a>`).join('');
+    if(grid){
+      // Use absolute locale routes so category links work from /fr, /fr/, and /fr/index.html.
+      const locale=['fr','en','ar'].includes(LANG)?LANG:'fr';
+      grid.innerHTML=cats.map(c=>`<a class="category-card reveal" data-home-category-link href="/${locale}/pages/${encodeURIComponent(c.slug)}.html"><span class="category-card-hit-area" aria-hidden="true"><span class="category-icon">${categoryIcon(c.icon)}</span><span class="category-arrow">${ICONS.arrow}</span><span class="category-card-title">${esc(c.title)}</span><span class="category-card-description">${esc(c.description)}</span></span></a>`).join('');
+      if(!grid.dataset.categoryNavigationReady){
+        grid.dataset.categoryNavigationReady='true';
+        // Navigate explicitly for desktop mouse clicks; keep modified clicks native for new tabs.
+        grid.addEventListener('click',event=>{
+          const card=event.target.closest('a[data-home-category-link]');
+          if(!card||!grid.contains(card)||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+          event.preventDefault();
+          window.location.assign(card.href);
+        },true);
+      }
+    }
     const fgrid=$('.featured-grid'),featured=['burgers','pizzas','plats','grill','cocktails-sans-alcool','desserts'];
     if(fgrid){
       const arr=[];featured.forEach(slug=>(window.EL_PATRON_MENU?.[slug]||[]).filter(x=>!x.noteOnly).slice(0,2).forEach(x=>arr.push({p:x,slug})));
