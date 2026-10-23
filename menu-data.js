@@ -3473,5 +3473,5 @@ window.EL_PATRON_SITE={
   "site": "https://www.elpatron.ci",
   "facebook": "https://www.facebook.com/elpatronabidjan/",
   "instagram": "https://www.instagram.com/elpatronabidjan/",
-  "tiktok": "https://www.tiktok.com/@elpatronci1"
+  "tiktok": "https://www.tiktok.com/@elpatronabidjan1"
 };
