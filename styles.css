@@ -1349,3 +1349,20 @@ body:has(.ep-lightbox.open) .ep-mobile-bar {
   .product-card .product-prices .price-option strong{font-size:.82rem}
   .product-card .product-foot .add-btn{min-width:150px;height:40px}
 }
+
+
+/* Compact and evenly aligned footer menu links; no stray gaps between categories. */
+.footer-menu-links{
+  align-content:start;
+  grid-auto-flow:row;
+  row-gap:3px!important;
+  column-gap:12px!important;
+}
+.footer-menu-links>a{
+  display:block;
+  min-width:0;
+  margin:0!important;
+  padding:0;
+  align-self:start;
+  line-height:1.25;
+}
