@@ -40,10 +40,8 @@ jobs:
           test -f index.html
           test -f fr/index.html
           test -f en/index.html
-          test -f ar/index.html
           test -f fr/pages/reservation.html
           test -f en/pages/reservation.html
-          test -f ar/pages/reservation.html
           test -f images/logo.webp
 
       - name: Configure GitHub Pages
