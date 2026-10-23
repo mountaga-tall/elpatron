@@ -53,18 +53,30 @@ jobs:
           from pathlib import Path
           import re
 
+          app = Path("app.js").read_text(encoding="utf-8")
           css = Path("styles.css").read_text(encoding="utf-8")
           i18n = Path("i18n.js").read_text(encoding="utf-8")
           enhancements = Path("enhancements.js").read_text(encoding="utf-8")
 
           assert '[dir="rtl"]' not in css
           assert "LANGUAGE PILL" not in css
-          for token in (".ep-favorites", ".ep-fav-", ".ep-reviews-grid", ".ep-rating-card"):
+          for token in (".ep-favorites", ".ep-fav-", ".ep-reviews-grid", ".ep-rating-card", ".is-favorite"):
               assert token not in css, f"Legacy CSS remains: {token}"
           for token in ("Arabic catalogue layer", "AR_NAME_PHRASES", "AR_DESC_PHRASES", "Object.assign(U.ar"):
               assert token not in i18n, f"Arabic translation code remains: {token}"
           for token in ("syncFav", "ep-favorites", "ep-fav-", "ep-reviews", "lang==='ar'"):
               assert token not in enhancements, f"Removed feature logic remains: {token}"
+          for token in ("LANG==='ar'", "ar-EG", "ar:{"):
+              assert token not in app, f"Arabic cart/navigation code remains: {token}"
+          assert 'data-add="true"' in app, "Add-to-cart button markup missing"
+          for token in ('bindProductButtons(host,all)', 'bindProductButtons(fgrid,featuredItems)', 'data-cart-action="inc"', 'data-cart-action="dec"', 'data-cart-action="del"'):
+              assert token in app, f"Cart interaction missing: {token}"
+          assert "function cartLine(i)" in app and "renderFullCart" in app, "Full cart controls/rendering missing"
+          assert "choiceIllustrations" in enhancements and "ep-reservation-choice-grid" in css, "Illustrated reservation choices missing"
+          assert "body:has(.cart-drawer.open) .ep-mobile-bar" in css, "Mobile overlay click-safety missing"
+          for source in (app, css, i18n, enhancements):
+              assert not any(0x0600 <= ord(char) <= 0x06FF for char in source), "Arabic-script content remains in site assets"
+
           for name in ('name="fullName"', 'name="phone"', 'name="message"', 'name="company"'):
               assert name in enhancements, f"Reservation field missing: {name}"
 
