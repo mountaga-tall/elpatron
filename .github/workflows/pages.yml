@@ -69,6 +69,7 @@ jobs:
           for token in ("LANG==='ar'", "ar-EG", "ar:{"):
               assert token not in app, f"Arabic cart/navigation code remains: {token}"
           assert 'class="price-option"' in app and 'options.map(o=>`<span class="price-option">' in app, "All product price options must be visible as static text"
+          assert '.product-foot .price-option strong' in css and 'color:#171313!important' in css, "Displayed prices need high contrast on the light product cards"
           assert 'data-add="true"' not in app and 'class="add-btn"' not in app, "Product cards must not contain add-to-cart buttons"
           assert 'class="option-pill ${i===0?' not in app, "Product prices must not require clickable option selectors"
           assert 'class="icon-btn open-cart"' not in app and 'data-q-cart' not in enhancements, "Cart entry points must be removed from the menu"
