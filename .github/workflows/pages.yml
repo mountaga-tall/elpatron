@@ -68,12 +68,12 @@ jobs:
               assert token not in enhancements, f"Removed feature logic remains: {token}"
           for token in ("LANG==='ar'", "ar-EG", "ar:{"):
               assert token not in app, f"Arabic cart/navigation code remains: {token}"
-          assert 'data-add="true"' in app, "Add-to-cart button markup missing"
-          assert 'class="add-btn-label"' in app and "add-to-cart buttons visible and labeled" not in css, "Desktop add-to-cart label missing"
-          assert "min-width:154px" in css and ".product-foot>button.add-btn .add-btn-label{display:none}" in css, "Desktop add-to-cart visibility/mobile compact style missing"
-          for token in ('bindProductButtons(host,all)', 'bindProductButtons(fgrid,featuredItems)', 'data-cart-action="inc"', 'data-cart-action="dec"', 'data-cart-action="del"'):
-              assert token in app, f"Cart interaction missing: {token}"
-          assert "function cartLine(i)" in app and "renderFullCart" in app, "Full cart controls/rendering missing"
+          assert 'class="price-option"' in app and 'options.map(o=>`<span class="price-option">' in app, "All product price options must be visible as static text"
+          assert 'data-add="true"' not in app and 'class="add-btn"' not in app, "Product cards must not contain add-to-cart buttons"
+          assert 'class="option-pill ${i===0?' not in app, "Product prices must not require clickable option selectors"
+          assert 'class="icon-btn open-cart"' not in app and 'data-q-cart' not in enhancements, "Cart entry points must be removed from the menu"
+          for token in ('bindProductButtons(host,all)', 'bindProductButtons(fgrid,featuredItems)'):
+              assert token in app, f"Product rendering missing: {token}"
           assert '<select name="occasion" required>' in enhancements and "ep-reservation-choice-grid" not in css and "choiceIllustrations" not in enhancements, "Classic reservation selector must be restored"
           fr_reservation = Path("fr/pages/reservation.html").read_text(encoding="utf-8")
           en_reservation = Path("en/pages/reservation.html").read_text(encoding="utf-8")
