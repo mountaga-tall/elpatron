@@ -149,10 +149,10 @@
     const modeLabel=saved.m?(LANG==='en'?({d:'Dine in',t:'Takeaway',l:'Delivery'}[saved.m]||saved.m):({d:'Sur place',t:'À emporter',l:'Livraison'}[saved.m]||saved.m)):'';
     if(saved.n||saved.tel||modeLabel||saved.x){
       msg+=LANG==='en'?'\nCustomer details:\n':'\nInformations client :\n';
-      if(saved.n)msg+=LANG==='en'?'Name: '+saved.n+'\n'+saved.n+'\n':'Nom : '+saved.n+'\n';
-      if(saved.tel)msg+=LANG==='en'?'Phone: '+saved.tel+'\n'+saved.tel+'\n':'Téléphone : '+saved.tel+'\n';
-      if(modeLabel)msg+=LANG==='en'?'Order type: '+modeLabel+'\n'+modeLabel+'\n':'Type de commande : '+modeLabel+'\n';
-      if(saved.x)msg+=LANG==='en'?'Notes: '+saved.x+'\n'+saved.x+'\n':'Précision : '+saved.x+'\n';
+      if(saved.n)msg+=LANG==='en'?'Name: '+saved.n+'\n':'Nom : '+saved.n+'\n';
+      if(saved.tel)msg+=LANG==='en'?'Phone: '+saved.tel+'\n':'Téléphone : '+saved.tel+'\n';
+      if(modeLabel)msg+=LANG==='en'?'Order type: '+modeLabel+'\n':'Type de commande : '+modeLabel+'\n';
+      if(saved.x)msg+=LANG==='en'?'Notes: '+saved.x+'\n':'Précision : '+saved.x+'\n';
     }
     msg+=`\n${LANG==='en'?'Total':'Total'} : ${money(totalPrice(cart))}\n\n${LANG==='en'?'Thank you.':'Merci.'}`;
     const phone=window.EL_PATRON_SITE?.phoneRaw;
@@ -325,8 +325,10 @@
       if(!n){host.hidden=true;host.innerHTML='';return}
       const matches=all.filter(p=>normalize([p.name,p.desc,p.categoryTitle].join(' ')).includes(n));
       host.hidden=false;
-      host.innerHTML=matches.length?`<div class="global-results-head"><span>${matches.length} ${matches.length>1?t('results'):t('result')}</span><span>${esc(t('query'))} : « ${esc(value)} »</span></div><div class="product-grid">${matches.map((p,i)=>`<article class="product-card reveal${productCardShellClasses(p)}" data-product-id="${escAttr(p.id)}" style="--reveal-delay:${Math.min(i,10)*35}ms">${productImageMarkup(p)}<div class="product-top"><div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||'')}</p><div class="product-foot"><div class="price">${p.price.length===1?money(p.price[0].amount):t('from')+' '+money(Math.min(...p.price.map(x=>x.amount)))}</div><a class="add-btn" href="pages/${escAttr(p.categorySlug)}.html#product-${encodeURIComponent(p.id)}" aria-label="${escAttr(t('discover')+' '+p.name)}">${ICONS.arrow}</a></div></div></article>`).join('')}</div>`:`<div class="empty">${esc(t('noResults')+' « '+value+' ».')}</div>`;
+      host.innerHTML=matches.length?`<div class="global-results-head"><span>${matches.length} ${matches.length>1?t('results'):t('result')}</span><span>${esc(t('query'))} : « ${esc(value)} »</span></div><div class="product-grid">${matches.map((p,i)=>productCard(p,i,p.categoryTitle,p.categorySlug)).join('')}</div>`:`<div class="empty">${esc(t('noResults')+' « '+value+' ».')}</div>`;
+      bindProductButtons(host,all);
       observeReveals(host);
+      bindTilts(host);
     }
     input.addEventListener('input',e=>draw(e.target.value));
     if(q){draw(q);setTimeout(()=>document.querySelector('#recherche')?.scrollIntoView({behavior:'smooth',block:'start'}),80)}else draw('');
@@ -351,7 +353,11 @@
     const fgrid=$('.featured-grid'),featured=['burgers','pizzas','plats','grill','cocktails-sans-alcool','desserts'];
     if(fgrid){
       const arr=[];featured.forEach(slug=>(window.EL_PATRON_MENU?.[slug]||[]).filter(x=>!x.noteOnly).slice(0,2).forEach(x=>arr.push({p:x,slug})));
-      fgrid.innerHTML=arr.map((entry,i)=>{const p=entry.p;return `<article class="product-card reveal tilt${productCardShellClasses(p)}" data-product-id="${escAttr(p.id)}" style="--reveal-delay:${Math.min(i,10)*35}ms">${productImageMarkup(p)}<div class="product-top"><div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||t('houseDescription'))}</p><div class="product-foot"><div class="price">${p.price.length===1?money(p.price[0].amount):t('from')+' '+money(Math.min(...p.price.map(x=>x.amount)))}</div><a class="add-btn" href="pages/${entry.slug}.html#product-${encodeURIComponent(p.id)}" aria-label="${escAttr(t('discover')+' '+p.name)}">${ICONS.arrow}</a></div></div></article>`}).join('');
+      const featuredItems=arr.map(entry=>({...entry.p,categorySlug:entry.slug}));
+      fgrid.innerHTML=arr.map((entry,i)=>{const cat=(window.EL_PATRON_CATEGORIES||[]).find(c=>c.slug===entry.slug);return productCard({...entry.p,categorySlug:entry.slug},i,cat?.title||entry.slug,entry.slug)}).join('');
+      bindProductButtons(fgrid,featuredItems);
+      observeReveals(fgrid);
+      bindTilts(fgrid);
     }
     renderGlobalSearch();
   }
