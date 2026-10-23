@@ -73,6 +73,8 @@ jobs:
               assert token in app, f"Cart interaction missing: {token}"
           assert "function cartLine(i)" in app and "renderFullCart" in app, "Full cart controls/rendering missing"
           assert "choiceIllustrations" in enhancements and "ep-reservation-choice-grid" in css, "Illustrated reservation choices missing"
+          assert "const host=$('.site-header .header-inner')" in enhancements, "Opening status must live in the header"
+          assert ".ep-status{position:static" in css, "Opening status must not float over the hero"
           assert "body:has(.cart-drawer.open) .ep-mobile-bar" in css, "Mobile overlay click-safety missing"
           for source in (app, css, i18n, enhancements):
               assert not any(0x0600 <= ord(char) <= 0x06FF for char in source), "Arabic-script content remains in site assets"
