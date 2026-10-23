@@ -73,7 +73,8 @@ jobs:
           assert 'const option=options.slice().sort((a,b)=>Number(a.amount)-Number(b.amount))[0]' in app, "Quick add must not open product-choice modal"
           assert '.product-card .product-prices' in css and '.product-card .product-foot .add-btn' in css, "Product price and add-to-cart UI must remain visible"
           assert 'class="icon-btn open-cart"' in app and 'class="cart-drawer"' in app, "Cart must remain accessible from the header"
-          for token in ('bindProductButtons(host,all)', 'bindProductButtons(fgrid,featuredItems)')missions:
+          for token in ('bindProductButtons(host,all)', 'bindProductButtons(fgrid,featuredItems)'):
+              assert token in app, f"Product card binding missing: {token}"
   contents: read
   pages: write
   id-token: write
