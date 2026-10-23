@@ -91,20 +91,6 @@ function reservation(){
   guests:'Personnes',occasionLine:'Motif',companyLine:'Entreprise / organisation',messageLine:'Message personnalisé',
   details:'Coordonnées',missing:'Veuillez renseigner votre nom et votre numéro de téléphone.'
  };
- const choiceIllustrations={
-  table:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 19h30M12 19l2 18m22-18-2 18M7 37h34M16 19v-6h16v6M21 13V8h6v5"/></svg>',
-  brunch:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 22h23v7a9 9 0 0 1-9 9h-5a9 9 0 0 1-9-9zM32 24h4a5 5 0 0 1 0 10h-5M13 17h15M20 10v4M13 12l2 3M29 12l-2 3"/></svg>',
-  birthday:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 23h34v16H7zM5 23h38l-4-9H9zM24 14V8M21 8h6M16 18v-3m16 3v-3M13 29h22M13 34h22"/></svg>',
-  wedding:'<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="19" cy="25" r="9"/><circle cx="29" cy="25" r="9"/><path d="m19 25 5 5 8-11M11 10l2 3 3 1-3 2-2 3-2-3-3-2 3-1z"/></svg>',
-  family:'<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="15" cy="15" r="5"/><circle cx="33" cy="15" r="5"/><circle cx="24" cy="12" r="5"/><path d="M5 34c0-7 4-11 10-11 4 0 7 2 9 6 2-4 5-6 9-6 6 0 10 4 10 11v3H5z"/></svg>',
-  'business-lunch':'<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="16" width="34" height="23" rx="3"/><path d="M17 16v-5h14v5M7 25h34M20 25v5h8v-5"/></svg>',
-  seminar:'<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="7" width="36" height="23" rx="2"/><path d="M24 30v8M16 39h16M12 23l8-7 7 4 8-8M29 12h6v6"/></svg>',
-  b2b:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="m7 17 8-7 9 4 4-2 13 8-7 7-6-3-5 5-5-3-4 1-7-6z"/><path d="m16 25 5 4m2-3 4 3m4-5 5 2M8 17l-3 4 7 8 4-3"/></svg>',
-  'private-hire':'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 40V17L24 7l17 10v23zM18 40V27h12v13M15 20h4m10 0h4M24 16v5"/></svg>',
-  other:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="m24 5 4.5 13.5L42 23l-13.5 4.5L24 41l-4.5-13.5L6 23l13.5-4.5z"/><path d="m37 5 1.5 4.5L43 11l-4.5 1.5L37 17l-1.5-4.5L31 11l4.5-1.5z"/></svg>'
- };
- const choiceMarkup=bookingTypes.map((x,i)=>'<label class="ep-reservation-choice"><input type="radio" name="occasion" value="'+esc(x.value)+'" '+(i===0?'required':'')+'><span class="ep-reservation-choice-art" aria-hidden="true">'+choiceIllustrations[x.value]+'</span><span class="ep-reservation-choice-label">'+esc(x.label)+'</span></label>').join('');
-
  const s=document.createElement('section');
  s.className='section ep-reservation';
  s.innerHTML=
@@ -117,7 +103,7 @@ function reservation(){
      '<div class="ep-reservation-more"><p>'+esc(copy.pageIntro)+'</p><a class="btn btn-glass" href="'+pageHref('reservation')+'">'+esc(copy.pageCta)+' →</a></div>'+
     '</div>'+
     '<form class="ep-reservation-form" novalidate>'+
-     '<fieldset class="ep-reservation-choices"><legend>'+esc(copy.occasion)+'</legend><div class="ep-reservation-choice-grid">'+choiceMarkup+'</div></fieldset>'+
+     '<label>'+esc(copy.occasion)+'<select name="occasion" required>'+bookingTypes.map(x=>'<option value="'+esc(x.value)+'">'+esc(x.label)+'</option>').join('')+'</select></label>'+
      '<label>'+esc(copy.date)+'<input type="date" name="d" required></label>'+
      '<label>'+esc(copy.time)+'<input type="time" name="h" required></label>'+
      '<label>'+esc(copy.people)+'<input type="number" name="p" min="1" max="200" value="2" required></label>'+
