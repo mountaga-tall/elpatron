@@ -72,7 +72,14 @@ jobs:
           for token in ('bindProductButtons(host,all)', 'bindProductButtons(fgrid,featuredItems)', 'data-cart-action="inc"', 'data-cart-action="dec"', 'data-cart-action="del"'):
               assert token in app, f"Cart interaction missing: {token}"
           assert "function cartLine(i)" in app and "renderFullCart" in app, "Full cart controls/rendering missing"
-          assert "choiceIllustrations" in enhancements and "ep-reservation-choice-grid" in css, "Illustrated reservation choices missing"
+          assert '<select name="occasion" required>' in enhancements and "ep-reservation-choice-grid" not in css and "choiceIllustrations" not in enhancements, "Classic reservation selector must be restored"
+          fr_reservation = Path("fr/pages/reservation.html").read_text(encoding="utf-8")
+          en_reservation = Path("en/pages/reservation.html").read_text(encoding="utf-8")
+          assert len(re.findall(r'class="reservation-event-card reservation-occasion-card"', fr_reservation)) == 10, "French reservation page must show ten illustrated occasions"
+          assert len(re.findall(r'class="reservation-event-card reservation-occasion-card"', en_reservation)) == 10, "English reservation page must show ten illustrated occasions"
+          assert "reservation-events-grid--ten" in css, "Ten-occasion grid styles missing"
+          assert 'if(actions&&!actions.querySelector(".language-switcher"))actions.insertBefore(build("language-switcher"),actions.firstChild);' in i18n, "Header language switcher missing"
+          assert 'if(mobileLinks)mobileLinks.querySelectorAll(".language-mobile").forEach(function(node){node.remove();});' in i18n, "Hamburger language switcher removal missing"
           assert "const host=$('.site-header .header-inner')" in enhancements, "Opening status must live in the header"
           assert ".ep-status{position:static" in css, "Opening status must not float over the hero"
           assert "body:has(.cart-drawer.open) .ep-mobile-bar" in css, "Mobile overlay click-safety missing"
