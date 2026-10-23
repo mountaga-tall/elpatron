@@ -1235,3 +1235,29 @@ body[data-reservation-page] .ep-reservation { padding-top:16px; }
 body::before, body::after,
 .product-card::before,
 .product-card.has-images .product-images::after { pointer-events:none; }
+
+/* Homepage category cards: keep the full card as a stable, unobstructed link on desktop. */
+body[data-home] #menu .category-grid {
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
+}
+body[data-home] #menu a.category-card {
+  position: relative;
+  z-index: 1;
+  display: block;
+  cursor: pointer;
+  pointer-events: auto;
+  transform-style: flat;
+  -webkit-tap-highlight-color: rgba(181,31,37,.12);
+}
+body[data-home] #menu a.category-card > * {
+  pointer-events: none;
+}
+body[data-home] #menu a.category-card:hover {
+  transform: translateY(-3px);
+}
+body[data-home] #menu a.category-card:focus-visible {
+  outline: 3px solid rgba(181,31,37,.65);
+  outline-offset: 3px;
+}
