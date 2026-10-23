@@ -1223,9 +1223,15 @@ body[data-home] .section:has(.featured-grid:empty) {
 body[data-reservation-page] .ep-reservation { padding-top:16px; }
 @media(max-width:760px) { .reservation-events-grid { grid-template-columns:1fr; gap:14px; } .reservation-event-art { min-height:210px; } .reservation-event-copy { padding:22px; } .reservation-note { align-items:flex-start; flex-direction:column; padding:18px; } .ep-reservation-form { grid-template-columns:1fr; } }
 
-/* Closed off-canvas navigation must never intercept page clicks on desktop or touch devices. */
-.mobile-menu { pointer-events:none; }
-.mobile-menu.open { pointer-events:auto; }
+/* Click-safety: closed overlays must never sit in front of page controls. */
+[hidden] { display:none !important; }
+.mobile-menu { visibility:hidden; pointer-events:none !important; }
+.mobile-menu.open { visibility:visible; pointer-events:auto !important; }
+.cart-drawer:not(.open) { pointer-events:none !important; }
+.cart-drawer.open { pointer-events:auto !important; }
+.product-options-modal[hidden],
+.ep-lightbox[hidden],
+.ep-favorites[hidden] { display:none !important; pointer-events:none !important; }
 body::before, body::after,
 .product-card::before,
 .product-card.has-images .product-images::after { pointer-events:none; }
