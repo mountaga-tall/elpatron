@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: 20
 
-      - name: Check JavaScript syntax
+      - name: Check JavaScript syntax and PWA manifest
         run: |
           node --check app.js
           node --check enhancements.js
@@ -34,8 +34,9 @@ jobs:
           node --check menu-data.js
           node --check i18n.js
           node --check sw.js
+          node -e "JSON.parse(require('fs').readFileSync('manifest.webmanifest', 'utf8'))"
 
-      - name: Check required localized pages
+      - name: Check required pages, images and removed features
         run: |
           test -f index.html
           test -f fr/index.html
@@ -43,6 +44,56 @@ jobs:
           test -f fr/pages/reservation.html
           test -f en/pages/reservation.html
           test -f images/logo.webp
+          test -f images/events-ceremony.svg
+          test -f images/events-professional.svg
+          test -f icons/icon-192.webp
+          test -f icons/icon-512.webp
+          test ! -d ar
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          css = Path("styles.css").read_text(encoding="utf-8")
+          i18n = Path("i18n.js").read_text(encoding="utf-8")
+          enhancements = Path("enhancements.js").read_text(encoding="utf-8")
+
+          assert '[dir="rtl"]' not in css
+          assert "LANGUAGE PILL" not in css
+          for token in (".ep-favorites", ".ep-fav-", ".ep-reviews-grid", ".ep-rating-card"):
+              assert token not in css, f"Legacy CSS remains: {token}"
+          for token in ("Arabic catalogue layer", "AR_NAME_PHRASES", "AR_DESC_PHRASES", "Object.assign(U.ar"):
+              assert token not in i18n, f"Arabic translation code remains: {token}"
+          for token in ("syncFav", "ep-favorites", "ep-fav-", "ep-reviews", "lang==='ar'"):
+              assert token not in enhancements, f"Removed feature logic remains: {token}"
+          for name in ('name="fullName"', 'name="phone"', 'name="message"', 'name="company"'):
+              assert name in enhancements, f"Reservation field missing: {name}"
+
+          for page in Path(".").rglob("*.html"):
+              text = page.read_text(encoding="utf-8")
+              assert 'dir="rtl"' not in text, f"RTL remains in {page}"
+              assert 'lang="ar"' not in text, f"Arabic document remains in {page}"
+              assert "/ar/" not in text, f"Arabic URL remains in {page}"
+          print("Static cleanup checks passed.")
+          PY
+
+      - name: Refresh HTML asset URLs to prevent stale browser cache
+        env:
+          ASSET_VERSION: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import os
+          import re
+
+          version = os.environ["ASSET_VERSION"][:12]
+          asset = re.compile(r'(styles\.css|app\.js|enhancements\.js|i18n\.js|icons\.js|menu-data\.js)(?:\?v=[^"\\\'\\s>]+)?')
+          for page in Path(".").rglob("*.html"):
+              source = page.read_text(encoding="utf-8")
+              updated = asset.sub(lambda m: m.group(1) + "?v=" + version, source)
+              if updated != source:
+                  page.write_text(updated, encoding="utf-8")
+          print(f"Asset cache-buster set to {version}.")
+          PY
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
