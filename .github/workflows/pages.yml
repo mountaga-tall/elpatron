@@ -88,6 +88,8 @@ jobs:
           assert 'var path=inPages?"/"+locale+"/pages/"+file:"/"+locale+"/";' in i18n, "Language switcher must use stable locale paths"
           assert "escaped=String(pairs[i][0])" in i18n and '"giu"' in i18n, "Translations must match whole words safely"
           assert 'if(lang==="en"&&key==="name")q[key]=q[key].toLocaleUpperCase("en-US")' in i18n, "English product names must be uppercase"
+          assert "quickRecs" not in enhancements and "ep-recos" not in enhancements, "Cart recommendation injection must be removed"
+          assert ".ep-recos" not in css and ".ep-reco" not in css, "Cart recommendation styles must be removed"
           assert 'img[alt]' in i18n and 'textarea[placeholder]' in i18n, "Accessible image labels and textarea placeholders must be localizable"
           fr_page_names = {p.name for p in Path("fr/pages").glob("*.html")}
           en_page_names = {p.name for p in Path("en/pages").glob("*.html")}
