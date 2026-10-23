@@ -171,6 +171,45 @@ function events(){
 
 
 }
-function init(){enhanceProducts();lightbox();favoritesModal();headerFav();mobileBar();reviewsBlock();reservation();orderForm();conversionRail();status();schema();metaTags();categoryVisual();quickRecs();pwa();events();syncFav();const m=new MutationObserver(enhanceProducts);m.observe(document.body,{childList:true,subtree:true});const h=location.hash.match(/^#product-(.+)$/);if(h)setTimeout(()=>{const c=$$('.product-card[data-product-id]').find(x=>x.dataset.productId===decodeURIComponent(h[1]));if(c){c.scrollIntoView({behavior:'smooth',block:'center'});c.classList.add('ep-pulse')}},180)}
+window.EL_PATRON_ENHANCEMENTS_STATUS=window.EL_PATRON_ENHANCEMENTS_STATUS||{};
+function runEnhancementPart(name,fn){
+ try{
+  fn();
+  window.EL_PATRON_ENHANCEMENTS_STATUS[name]='ok';
+ }catch(error){
+  window.EL_PATRON_ENHANCEMENTS_STATUS[name]='error';
+  console.error('EL PATRÓN enhancement ['+name+']:',error);
+ }
+}
+function init(){
+ const parts=[
+  ['products',enhanceProducts],
+  ['lightbox',lightbox],
+  ['favorites-modal',favoritesModal],
+  ['header-favorites',headerFav],
+  ['mobile-bar',mobileBar],
+  ['google-reviews',reviewsBlock],
+  ['reservation',reservation],
+  ['order-form',orderForm],
+  ['conversion-rail',conversionRail],
+  ['opening-status',status],
+  ['structured-data',schema],
+  ['metadata',metaTags],
+  ['category-visual',categoryVisual],
+  ['cart-recommendations',quickRecs],
+  ['pwa',pwa],
+  ['click-events',events],
+  ['favorites-sync',syncFav],
+  ['product-observer',()=>{const m=new MutationObserver(enhanceProducts);m.observe(document.body,{childList:true,subtree:true})}],
+  ['product-deep-link',()=>{
+    const h=location.hash.match(/^#product-(.+)$/);
+    if(h)setTimeout(()=>{
+      const c=$('.product-card[data-product-id]').find(x=>x.dataset.productId===decodeURIComponent(h[1]));
+      if(c){c.scrollIntoView({behavior:'smooth',block:'center'});c.classList.add('ep-pulse')}
+    },180);
+  }]
+ ];
+ parts.forEach(([name,fn])=>runEnhancementPart(name,fn));
+}
 const boot=()=>setTimeout(init,60);if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();
