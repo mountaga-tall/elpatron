@@ -214,7 +214,7 @@ img { max-width:100%; display:block; }
 .kicker { color:#ff756c; text-transform:uppercase; letter-spacing:.2em; font-size:.68rem; }
 .section h2 { margin:6px 0 0; font:600 clamp(2.1rem,5vw,4.4rem)/.98 "Cormorant Garamond",serif; letter-spacing:-.02em; }
 .section-intro { max-width:650px; color:#aaa39f; line-height:1.7; }
-.category-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.category-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
 .category-card { position:relative; min-height:220px; padding:24px; overflow:hidden; border-radius:24px; border:1px solid var(--line); background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.02)); backdrop-filter:blur(16px); transition:transform .5s var(--ease), border-color .5s var(--ease), background .5s var(--ease); transform-style:preserve-3d; }
 .category-card:hover { transform:translateY(-8px) rotateX(2deg) rotateY(-2deg); border-color:rgba(209,31,26,.38); background:linear-gradient(145deg,rgba(209,31,26,.12),rgba(255,255,255,.03)); }
 .category-icon { width:54px; height:54px; border-radius:16px; display:grid; place-items:center; background:rgba(209,31,26,.12); border:1px solid rgba(209,31,26,.28); color:#ff6d63; }
@@ -648,16 +648,6 @@ body.options-open{overflow:hidden}
 }
 
 
-/* Multilingual RTL */
-[dir="rtl"]{direction:rtl}
-[dir="rtl"] .site-header .header-inner,[dir="rtl"] .hero-inner,[dir="rtl"] .menu-hero-grid,[dir="rtl"] .section-head,[dir="rtl"] .product-top,[dir="rtl"] .product-body,[dir="rtl"] .contact-grid,[dir="rtl"] .mobile-menu,[dir="rtl"] .footer{direction:rtl}
-[dir="rtl"] .brand-text,[dir="rtl"] .site-search,[dir="rtl"] .search-box,[dir="rtl"] .mobile-search-wrap,[dir="rtl"] .menu-toolbar,[dir="rtl"] .mobile-links{text-align:right}
-[dir="rtl"] .site-search input,[dir="rtl"] .search-box input{direction:rtl;text-align:right}
-[dir="rtl"] .hero-cta,[dir="rtl"] .cart-actions,[dir="rtl"] .product-foot,[dir="rtl"] .total-row,[dir="rtl"] .product-options-panel,[dir="rtl"] .product-options-actions{direction:rtl}
-[dir="rtl"] .category-arrow{left:22px;right:auto;transform:scaleX(-1)}
-[dir="rtl"] .footer-links{direction:rtl}
-
-
 /* Language switcher */
 .language-switcher{display:flex;align-items:center;gap:4px;border:1px solid rgba(17,17,17,.12);border-radius:999px;padding:4px;background:#fff}
 .language-switcher a,.language-mobile a{display:inline-flex;align-items:center;justify-content:center;min-height:30px;padding:0 9px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.04em;color:#222;text-decoration:none}
@@ -705,7 +695,7 @@ body.options-open{overflow:hidden}
   top:3px;
   bottom:3px;
   left:3px;
-  width:calc((100% - 8px)/3);
+  width:calc((100% - 8px)/2);
   border-radius:999px;
   background:linear-gradient(135deg,#fff,#f3f0ed);
   box-shadow:0 4px 14px rgba(0,0,0,.24),0 0 0 1px rgba(255,255,255,.55) inset,0 0 22px rgba(209,31,26,.10);
@@ -713,7 +703,6 @@ body.options-open{overflow:hidden}
   transition:transform .55s cubic-bezier(.16,1,.3,1),box-shadow .35s ease;
 }
 .language-switcher[data-lang="en"] .language-thumb,.language-mobile[data-lang="en"] .language-thumb{transform:translateX(calc(100% + 2px));}
-.language-switcher[data-lang="ar"] .language-thumb,.language-mobile[data-lang="ar"] .language-thumb{transform:translateX(calc((100% + 2px)*2));}
 .language-option{
   position:relative;
   z-index:1;
@@ -741,12 +730,12 @@ body.options-open{overflow:hidden}
 .language-mobile{margin-top:14px;width:min(100%,220px);height:42px;}
 @keyframes languageSheen{0%,72%{transform:translateX(-90%) rotate(8deg);opacity:0}78%{opacity:1}94%,100%{transform:translateX(90%) rotate(8deg);opacity:0}}
 @media(max-width:680px){
-  .language-switcher{--pill-w:116px;height:36px;min-width:116px;}
+   .language-switcher{--pill-w:116px;height:36px;min-width:0;width:116px;}
   .language-option{font-size:9px;padding:0 4px;letter-spacing:.02em;}
   .language-switcher::before{animation-duration:6.8s;}
 }
 @media(max-width:420px){
-  .language-switcher{--pill-w:108px;height:34px;min-width:108px;}
+   .language-switcher{--pill-w:108px;height:34px;min-width:0;width:108px;}
   .language-option{font-size:8.5px;padding:0 3px;}
 }
 @media(prefers-reduced-motion:reduce){
