@@ -49,15 +49,7 @@ function tr(s){
  if(Object.prototype.hasOwnProperty.call(exact,s))return exact[s];
  var out=s,pairs=R.en||[];
  for(var i=0;i<pairs.length;i++){
-  var escaped=String(pairs[i][0]).replace(/[.*+?^${}()|[\]\\]/g,"\\function tr(s){
- if(typeof s!=="string"||lang==="fr")return s;
- var exact=Object.assign({},U.en||{},EN_EXACT||{});
- if(Object.prototype.hasOwnProperty.call(exact,s))return exact[s];
- var out=s,pairs=R.en||[];
- for(var i=0;i<pairs.length;i++)out=out.replace(new RegExp(pairs[i][0],"gi"),pairs[i][1]);
- return out;
-}
-");
+  var escaped=String(pairs[i][0]);
   var pattern=new RegExp("(^|[^\\p{L}\\p{N}])("+escaped+")(?=$|[^\\p{L}\\p{N}])","giu");
   out=out.replace(pattern,function(match,prefix){return prefix+pairs[i][1];});
  }
