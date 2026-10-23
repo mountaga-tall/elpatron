@@ -911,7 +911,7 @@ body::after{
   color:#615951;
   border-color:var(--brand-line);
 }
-.ep-tool:hover,.ep-tool.is-favorite{
+.ep-tool:hover{
   color:var(--brand-red);
   border-color:rgba(181,31,37,.30);
   background:rgba(181,31,37,.06);
