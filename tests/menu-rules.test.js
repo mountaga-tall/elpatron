@@ -57,7 +57,7 @@ test('checkout includes a delivery address and rejects incomplete delivery detai
 
 test('combo builder uses selected catalog prices without hard-coded discounts', () => {
   assert.match(enhancements, /function formulaBuilder\(\)/);
-  assert.match(enhancements, /food\.amount\+drink\.amount/);
+  assert.match(enhancements, /f\.amount\+d\.amount/);
   assert.match(enhancements, /No automatic discount is applied/);
   assert.match(enhancements, /Aucune remise n’est appliquée automatiquement/);
 });
