@@ -36,6 +36,9 @@ jobs:
           node --check sw.js
           node -e "JSON.parse(require('fs').readFileSync('manifest.webmanifest', 'utf8'))"
 
+      - name: Run menu, popup and checkout regression tests
+        run: node --test tests/*.test.js
+
       - name: Check required pages, images and removed features
         run: |
           test -f index.html
