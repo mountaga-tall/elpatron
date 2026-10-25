@@ -73,7 +73,7 @@ jobs:
           assert 'data-add="true"' in app and 'class="add-btn-label"' in app, "Add-to-cart button must be rendered on priced products"
           assert 'const option=options.slice().sort((a,b)=>Number(a.amount)-Number(b.amount))[0]' in app and 'window.openProductOptions(p,option,productCategory)' in app, "Customizable products must open the options chooser before being added"
           assert 'function buildSizeButtons(entries)' in app and "categorySlug==='pizzas'" in app and 'data-size-group' in app, "Pizza size chooser is missing"
-          assert 'data-pizza-size-index' in app and "normalize(selected.label)==='moyen'" in app, "Grand pizzas must add directly and Moyen pizzas must offer the size popup"
+          assert 'data-pizza-size-index' in app and "Number(selected.amount)===Math.min(...options.map(item=>Number(item.amount)))" in app, "Grand pizzas must add directly and Moyen pizzas must offer the size popup"
           assert 'isTacoUpgradeProduct' in app and "XL (+4 000 FCFA)" in app, "Only the six cheapest tacos must offer the XL upgrade"
           menu_source = Path("menu-data.js").read_text(encoding="utf-8")
           menu_match = re.search(r'window\.EL_PATRON_MENU=(\{[\s\S]*?\n\});', menu_source)
