@@ -49,7 +49,7 @@
   function priceMarkup(p,categorySlug){
     const options=p.price||[];
     if(!options.length)return t('request');
-    if(categorySlug==='pizzas'&&options.length>1&&options.every(o=>String(o.label||'').trim()){
+    if(categorySlug==='pizzas'&&options.length>1&&options.every(o=>String(o.label||'').trim())){
       return options.map((o,i)=>`<button type="button" class="price-option price-option-button" data-pizza-size-index="${i}" aria-label="${escAttr((LANG==='en'?'Choose ':'Choisir ')+tx(o.label)+' · '+money(o.amount))}"><small>${esc(tx(o.label))}</small><strong>${money(o.amount)}</strong></button>`).join('');
     }
     return options.map(o=>`<span class="price-option">${o.label?`<small>${esc(o.label)}</small>`:''}<strong>${money(o.amount)}</strong></span>`).join('');
@@ -360,16 +360,30 @@
   function bindProductButtons(scope,items,categorySlug){
     $('.product-card',scope).forEach(card=>{
       const p=items.find(x=>x.id===card.dataset.productId);if(!p)return;
-      const button=$('[data-add]',card);if(!button||button.dataset.bound==='true')return;
-      button.dataset.bound='true';
+      if(card.dataset.productOptionsBound==='true')return;
+      card.dataset.productOptionsBound='true';
       const productCategory=categorySlug||card.dataset.categorySlug||p.categorySlug||'';
+      const options=Array.isArray(p.price)?p.price.filter(o=>o&&Number.isFinite(Number(o.amount))):[];
+      const option=options.slice().sort((a,b)=>Number(a.amount)-Number(b.amount))[0]||options[0];
+      $('[data-pizza-size-index]',card).forEach(priceButton=>{
+        priceButton.addEventListener('click',event=>{
+          event.preventDefault();
+          event.stopPropagation();
+          const selected=options[Number(priceButton.dataset.pizzaSizeIndex)];
+          if(!selected){showToast(t('cannotAdd'));return}
+          if(normalize(selected.label)==='moyen'&&typeof window.openProductOptions==='function'){
+            window.openProductOptions(p,selected,productCategory);
+            return;
+          }
+          addToCart(p,selected);
+        });
+      });
+      const button=$('[data-add]',card);
+      if(!button)return;
       button.addEventListener('click',()=>{
-        const options=Array.isArray(p.price)?p.price.filter(o=>o&&Number.isFinite(Number(o.amount))):[];
-        const option=options.slice().sort((a,b)=>Number(a.amount)-Number(b.amount))[0]||options[0];
         if(!option){showToast(t('cannotAdd'));return}
-        if((productCategory==='pizzas'&&options.length>1)||needsAccompaniment(p)||hasIceChoice(p,productCategory)){
-          if(typeof window.openProductOptions==='function'){window.openProductOptions(p,option,productCategory);return}
-        }
+        const needsOptions=(productCategory==='pizzas'&&options.length>1)||isTacoUpgradeProduct(p,productCategory)||needsAccompaniment(p)||hasIceChoice(p,productCategory);
+        if(needsOptions&&typeof window.openProductOptions==='function'){window.openProductOptions(p,option,productCategory);return}
         addToCart(p,option);
       });
     });
