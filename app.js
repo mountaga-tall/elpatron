@@ -358,7 +358,7 @@
     return `<article class="product-card reveal tilt${productCardShellClasses(p)}" style="--reveal-delay:${Math.min(idx,10)*45}ms" data-product-id="${escAttr(p.id)}" data-category-slug="${escAttr(categorySlug)}">${imageMarkup}<div class="product-top">${p.sub?`<span class="sub-chip">${esc(p.sub)}</span>`:''}<div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||t('houseDescription'))}</p>${p.note?`<div class="product-note-inline">${esc(p.note)}</div>`:''}<div class="product-prices" aria-label="${escAttr(LANG==='en'?'Prices':'Prix')}">${currentPrice}</div><div class="product-foot">${addButton}</div></div></article>`;
   }
   function bindProductButtons(scope,items,categorySlug){
-    $('.product-card',scope).forEach(card=>{
+    $$('.product-card',scope).forEach(card=>{
       const p=items.find(x=>x.id===card.dataset.productId);if(!p)return;
       if(card.dataset.productOptionsBound==='true')return;
       card.dataset.productOptionsBound='true';
