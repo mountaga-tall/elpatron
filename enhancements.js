@@ -12,8 +12,8 @@ const pageHref=slug=>localePrefix+'pages/'+slug+'.html';
 function loadOrder(){try{const raw=localStorage.getItem(orderKey);if(raw!==null){const value=JSON.parse(raw);if(value&&typeof value==='object'&&!Array.isArray(value)){memoryOrder=value;window.EL_PATRON_ORDER_DETAILS=value;return value}}}catch{}return window.EL_PATRON_ORDER_DETAILS||memoryOrder}
 function saveOrder(value){memoryOrder=value;window.EL_PATRON_ORDER_DETAILS=value;try{localStorage.setItem(orderKey,JSON.stringify(value))}catch{}}
 const T={
-fr:{share:'Partager',search:'Rechercher',cart:'Panier',menu:'Menu',whatsapp:'WhatsApp',book:'Réserver une table',bookSub:'Choisissez vos détails et envoyez la demande sur WhatsApp.',date:'Date',time:'Heure',people:'Personnes',send:'Envoyer la demande',info:'Informations de commande',name:'Nom',phone:'Téléphone',mode:'Type de commande',dine:'Sur place',take:'À emporter',delivery:'Livraison',notes:'Instructions / précision',save:'Enregistrer',saved:'Enregistré',install:'Installer l’app',open:'Ouvrir',openNow:'Ouvert maintenant',closed:'Fermé',hours:'08:00 — 02:00',route:'Itinéraire',copied:'Lien copié',shared:'Partagé'},
-en:{share:'Share',search:'Search',cart:'Cart',menu:'Menu',whatsapp:'WhatsApp',book:'Book a table',bookSub:'Complete the details and send the enquiry on WhatsApp.',date:'Date',time:'Time',people:'Guests',send:'Send request',info:'Order details',name:'Name',phone:'Phone',mode:'Order type',dine:'Dine in',take:'Takeaway',delivery:'Delivery',notes:'Instructions / notes',save:'Save',saved:'Saved',install:'Install app',open:'Open',openNow:'Open now',closed:'Closed',hours:'08:00 — 02:00',route:'Directions',copied:'Link copied',shared:'Shared'}
+fr:{share:'Partager',search:'Rechercher',cart:'Panier',menu:'Menu',whatsapp:'WhatsApp',book:'Réserver une table',bookSub:'Choisissez vos détails et envoyez la demande sur WhatsApp.',date:'Date',time:'Heure',people:'Personnes',send:'Envoyer la demande',info:'Informations de commande',name:'Nom',phone:'Téléphone',mode:'Type de commande',dine:'Sur place',take:'À emporter',delivery:'Livraison',notes:'Instructions / précision',save:'Enregistrer',saved:'Enregistré',address:'Adresse de livraison',addressPlaceholder:'Quartier, rue, repère…',orderDetailsMissing:'Renseignez votre nom et votre téléphone.',invalidPhone:'Vérifiez le numéro de téléphone.',deliveryAddressRequired:'Ajoutez l’adresse de livraison.',comboKicker:'À composer',comboTitle:'Composez votre formule',comboIntro:'Choisissez un plat et une boisson. Le total reprend les tarifs affichés sur la carte, sans remise automatique.',comboFood:'Plat principal',comboDrink:'Boisson',comboFoodVariant:'Format / option',comboDrinkVariant:'Format / option',comboChoose:'Choisissez…',comboTotal:'Total calculé',comboSubmit:'Ajouter la formule au panier',comboNotice:'Prix calculé à partir de la carte actuelle. Aucune remise n’est appliquée automatiquement.',comboXL:'Passer en XL (+4 000 FCFA)',comboInvalid:'Choisissez un plat, un format et une boisson.',comboAdded:'Les articles de votre formule ont été ajoutés au panier.',install:'Installer l’app',open:'Ouvrir',openNow:'Ouvert maintenant',closed:'Fermé',hours:'08:00 — 02:00',route:'Itinéraire',copied:'Lien copié',shared:'Partagé'},
+en:{share:'Share',search:'Search',cart:'Cart',menu:'Menu',whatsapp:'WhatsApp',book:'Book a table',bookSub:'Complete the details and send the enquiry on WhatsApp.',date:'Date',time:'Time',people:'Guests',send:'Send request',info:'Order details',name:'Name',phone:'Phone',mode:'Order type',dine:'Dine in',take:'Takeaway',delivery:'Delivery',notes:'Instructions / notes',save:'Save',saved:'Saved',address:'Delivery address',addressPlaceholder:'Area, street, landmark…',orderDetailsMissing:'Enter your name and phone number.',invalidPhone:'Check the phone number.',deliveryAddressRequired:'Add the delivery address.',comboKicker:'Build your own',comboTitle:'Build your own combo',comboIntro:'Choose a main dish and a drink. The total uses current menu prices; no automatic discount is applied.',comboFood:'Main dish',comboDrink:'Drink',comboFoodVariant:'Size / option',comboDrinkVariant:'Size / option',comboChoose:'Choose…',comboTotal:'Calculated total',comboSubmit:'Add combo to cart',comboNotice:'Calculated from the current menu prices. No automatic discount is applied.',comboXL:'Upgrade taco to XL (+4,000 FCFA)',comboInvalid:'Choose a main dish, option and drink.',comboAdded:'Your combo items were added to the cart.',install:'Install app',open:'Open',openNow:'Open now',closed:'Closed',hours:'08:00 — 02:00',route:'Directions',copied:'Link copied',shared:'Shared'}
 };
 const t=k=>T[lang]?.[k]||T.fr[k]||k, esc=s=>String(s??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));
 const products=()=>Object.entries(window.EL_PATRON_MENU||{}).flatMap(([slug,items])=>items.filter(p=>!p.noteOnly).map(p=>({...p,slug})));
@@ -41,7 +41,48 @@ function lightbox(){
  el.addEventListener('click',e=>{if(e.target.closest('[data-lb-close]'))return close();if(e.target.closest('.ep-lb-prev')){st.i=(st.i-1+st.imgs.length)%st.imgs.length;draw()}if(e.target.closest('.ep-lb-next')){st.i=(st.i+1)%st.imgs.length;draw()}});
  document.addEventListener('keydown',e=>{if(el.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')$('.ep-lb-prev',el)?.click();if(e.key==='ArrowRight')$('.ep-lb-next',el)?.click()});
 }
-function mobileBar(){if($('.ep-mobile-bar'))return;const b=document.createElement('nav');b.className='ep-mobile-bar';b.innerHTML='<button data-q-search>⌕<span>'+esc(t('search'))+'</span></button><button data-q-cart>🛍<span>'+esc(t('cart'))+'</span></button><a href="https://wa.me/'+esc(site.phoneRaw||'')+'" target="_blank" rel="noopener">◉<span>'+esc(t('whatsapp'))+'</span></a><button data-q-menu>☰<span>'+esc(t('menu'))+'</span></button>';document.body.append(b);document.body.classList.add('ep-mobile-ready','ep-has-mobile-bar')}
+function mobileBar(){
+ if($('.ep-mobile-bar'))return;
+ const b=document.createElement('nav');b.className='ep-mobile-bar';b.setAttribute('aria-label',lang==='en'?'Quick navigation':'Navigation rapide');
+ b.innerHTML='<button type="button" data-q-search aria-label="'+esc(t('search'))+'">⌕<span>'+esc(t('search'))+'</span></button><button type="button" data-q-cart aria-label="'+esc(t('cart'))+'">🛍<span>'+esc(t('cart'))+'</span><em data-q-cart-count hidden>0</em></button><a href="https://wa.me/'+esc(site.phoneRaw||'')+'" target="_blank" rel="noopener noreferrer" aria-label="'+esc(t('whatsapp'))+'">◉<span>'+esc(t('whatsapp'))+'</span></a><button type="button" data-q-menu aria-label="'+esc(t('menu'))+'">☰<span>'+esc(t('menu'))+'</span></button>';
+ document.body.append(b);document.body.classList.add('ep-mobile-ready','ep-has-mobile-bar');
+ const syncCount=()=>{let count=0;try{const v=JSON.parse(localStorage.getItem('elpatronCartV1')||'[]');if(Array.isArray(v))count=v.reduce((n,i)=>n+(Number(i.qty)||0),0)}catch{}const badge=$('[data-q-cart-count]',b);if(badge){badge.textContent=String(count);badge.hidden=count===0}const btn=$('[data-q-cart]',b);if(btn)btn.setAttribute('aria-label',count?(lang==='en'?'Cart, '+count+' items':'Panier, '+count+' articles'):t('cart'))};
+ syncCount();window.addEventListener('elpatron:cart-updated',syncCount);
+}
+
+function formulaBuilder(){
+ if(!/\/(fr|en)\/?$/.test(location.pathname)||$('.ep-formula-builder'))return;
+ const categoryGrid=$('.category-grid'),anchor=categoryGrid?.closest('.section');if(!anchor)return;
+ const foodSlugs=new Set(['pizzas','burgers','tacos-kebab','pastas','snack','manaiches']);
+ const drinkSlugs=new Set(['softs','boissons-smoothies','boissons-chaudes','cocktails-sans-alcool']);
+ const foods=products().filter(p=>foodSlugs.has(p.slug)&&!p.noteOnly&&Array.isArray(p.price)&&p.price.length);
+ const drinks=products().filter(p=>drinkSlugs.has(p.slug)&&!p.noteOnly&&Array.isArray(p.price)&&p.price.length);
+ if(!foods.length||!drinks.length)return;
+ const copy={k:t('comboKicker'),title:t('comboTitle'),intro:t('comboIntro'),food:t('comboFood'),drink:t('comboDrink'),fv:t('comboFoodVariant'),dv:t('comboDrinkVariant'),choose:t('comboChoose'),total:t('comboTotal'),submit:t('comboSubmit'),notice:t('comboNotice'),xl:t('comboXL'),invalid:t('comboInvalid'),added:t('comboAdded')};
+ const chooseProduct=(items,attr)=>'<select data-combo-'+attr+' required><option value="">'+esc(copy.choose)+'</option>'+items.map(p=>{const a=p.price.map(o=>Number(o.amount)).filter(Number.isFinite),min=a.length?Math.min(...a):0;return '<option value="'+esc(p.id)+'">'+esc(p.name)+' — '+esc(money(min))+'</option>'}).join('')+'</select>';
+ const section=document.createElement('section');section.className='section ep-formula-builder';section.id='formules';
+ section.innerHTML='<div class="container"><div class="section-head"><div><div class="kicker">'+esc(copy.k)+'</div><h2>'+esc(copy.title)+'</h2></div><p class="section-intro">'+esc(copy.intro)+'</p></div>'+
+ '<div class="ep-combo-card"><form data-combo-form><div class="ep-combo-grid">'+
+ '<label>'+esc(copy.food)+chooseProduct(foods,'food')+'</label>'+
+ '<label>'+esc(copy.fv)+'<select data-combo-food-variant required disabled><option value="">'+esc(copy.choose)+'</option></select></label>'+
+ '<div class="ep-combo-upgrade" data-combo-upgrade hidden><label><input type="checkbox" data-combo-xl> <span>'+esc(copy.xl)+'</span></label></div>'+
+ '<label>'+esc(copy.drink)+chooseProduct(drinks,'drink')+'</label>'+
+ '<label>'+esc(copy.dv)+'<select data-combo-drink-variant required disabled><option value="">'+esc(copy.choose)+'</option></select></label>'+
+ '</div><div class="ep-combo-summary"><span>'+esc(copy.total)+'</span><strong data-combo-total aria-live="polite">—</strong></div><p class="ep-combo-notice">'+esc(copy.notice)+'</p><button type="submit" class="btn btn-primary">'+esc(copy.submit)+'</button></form></div></div>';
+ anchor.insertAdjacentElement('afterend',section);
+ const form=$('[data-combo-form]',section),foodSel=$('[data-combo-food]',section),foodVar=$('[data-combo-food-variant]',section),drinkSel=$('[data-combo-drink]',section),drinkVar=$('[data-combo-drink-variant]',section),xlWrap=$('[data-combo-upgrade]',section),xlCheck=$('[data-combo-xl]',section),total=$('[data-combo-total]',section);
+ const foodById=id=>foods.find(p=>p.id===id)||null,drinkById=id=>drinks.find(p=>p.id===id)||null;
+ const fill=(select,p)=>{const entries=p?.price||[];select.innerHTML='<option value="">'+esc(copy.choose)+'</option>'+entries.map((o,i)=>'<option value="'+i+'">'+esc(o.label||((lang==='en'?'Option ':'Option ')+(i+1)))+' — '+esc(money(o.amount))+'</option>').join('');select.disabled=!entries.length;if(entries.length===1)select.value='0'};
+ const tacoXL=id=>{const m=String(id||'').match(/^tacos-kebab-([1-6])$/);return m?'tacos-kebab-'+(Number(m[1])+6):''};
+ const chosenFood=()=>{const p=foodById(foodSel.value);if(!p)return null;if(xlCheck.checked){const id=tacoXL(p.id),q=id?(foodById(id)||product(id)):null;if(q?.price?.[0])return{product:q,index:0,amount:Number(q.price[0].amount)}}const i=Number(foodVar.value),o=Number.isInteger(i)?p.price?.[i]:null;return o?{product:p,index:i,amount:Number(o.amount)}:null};
+ const chosenDrink=()=>{const p=drinkById(drinkSel.value),i=Number(drinkVar.value),o=Number.isInteger(i)?p?.price?.[i]:null;return o?{product:p,index:i,amount:Number(o.amount)}:null};
+ const update=()=>{const f=chosenFood(),d=chosenDrink();total.textContent=f&&d?money(f.amount+d.amount):'—'};
+ foodSel.addEventListener('change',()=>{const p=foodById(foodSel.value);fill(foodVar,p);xlWrap.hidden=!tacoXL(p?.id);xlCheck.checked=false;update()});
+ foodVar.addEventListener('change',update);xlCheck.addEventListener('change',update);
+ drinkSel.addEventListener('change',()=>{fill(drinkVar,drinkById(drinkSel.value));update()});drinkVar.addEventListener('change',update);
+ form.addEventListener('submit',e=>{e.preventDefault();const f=chosenFood(),d=chosenDrink();if(!f||!d||typeof window.EL_PATRON_ADD_FROM_COMBO!=='function'){toast(copy.invalid);return}if(!window.EL_PATRON_ADD_FROM_COMBO(f.product.id,f.index))return;if(!window.EL_PATRON_ADD_FROM_COMBO(d.product.id,d.index))return;toast(copy.added)});
+}
+
 function reservation(){
  const localizedHome=/\/(fr|en)\/?$/.test(location.pathname);
  const infoPage=/pages\/(contact|reservation)\.html$/.test(location.pathname);
@@ -79,7 +120,7 @@ function reservation(){
   submit:'Send enquiry on WhatsApp',pageCta:'Ceremonies & events',pageIntro:'Birthday, wedding, private ceremony, business meeting or B2B event: tell us what you have in mind.',
   hello:'Hello EL PATRÓN, I would like to make a reservation.',
   guests:'Guests',occasionLine:'Occasion',companyLine:'Company / organisation',messageLine:'Message',
-  details:'Contact details',missing:'Please complete your name and phone number.'
+  details:'Contact details',missing:'Please complete your name and phone number.',phoneInvalid:'Enter a valid phone number.',pastDate:'Choose today or a future date.',pastTime:'Choose a future time.'
  }:{
   title:'Préparer votre réservation',intro:'Décrivez votre projet. Les informations ci-dessous seront incluses dans votre demande WhatsApp.',
   occasion:'Motif / type de réservation',date:'Date souhaitée',time:'Heure souhaitée',people:'Nombre de personnes',
@@ -89,7 +130,7 @@ function reservation(){
   submit:'Envoyer la demande sur WhatsApp',pageCta:'Cérémonies & événements',pageIntro:'Anniversaire, mariage, cérémonie privée, rendez-vous professionnel ou événement B2B : expliquez-nous votre projet.',
   hello:'Bonjour EL PATRÓN, je souhaite faire une réservation.',
   guests:'Personnes',occasionLine:'Motif',companyLine:'Entreprise / organisation',messageLine:'Message personnalisé',
-  details:'Coordonnées',missing:'Veuillez renseigner votre nom et votre numéro de téléphone.'
+  details:'Coordonnées',missing:'Veuillez renseigner votre nom et votre numéro de téléphone.',phoneInvalid:'Veuillez vérifier le numéro de téléphone.',pastDate:'Choisissez la date du jour ou une date future.',pastTime:'Choisissez une heure future.'
  };
  const s=document.createElement('section');
  s.className='section ep-reservation';
@@ -116,8 +157,17 @@ function reservation(){
    '</div>'+
   '</div>';
 
- const dateField=$('input[name="d"]',s);
+ const dateField=$('input[name="d"]',s),timeField=$('input[name="h"]',s),phoneField=$('input[name="phone"]',s);
  if(dateField)dateField.min=abidjanNow().date;
+ const syncTimeMinimum=()=>{
+  if(!dateField||!timeField)return;
+  const now=abidjanNow(),clock=String(Math.floor(now.minutes/60)).padStart(2,'0')+':'+String(now.minutes%60).padStart(2,'0');
+  dateField.setCustomValidity(dateField.value&&dateField.value<now.date?copy.pastDate:'');
+  if(dateField.value===now.date)timeField.min=clock;else timeField.removeAttribute('min');
+  timeField.setCustomValidity(dateField.value===now.date&&timeField.value&&timeField.value<clock?copy.pastTime:'');
+ };
+ dateField?.addEventListener('change',syncTimeMinimum);timeField?.addEventListener('change',syncTimeMinimum);
+ phoneField?.addEventListener('input',()=>phoneField.setCustomValidity(''));syncTimeMinimum();
  const slot=$('[data-reservation-slot]');
  const target=slot||$('.contact-grid')?.parentElement?.parentElement||$('#contenu');
  if(target){
@@ -132,6 +182,7 @@ function reservation(){
   const f=new FormData(form);
   const fullName=String(f.get('fullName')||'').trim();
   const phone=String(f.get('phone')||'').trim();
+  syncTimeMinimum();if(phoneField)phoneField.setCustomValidity(phone.replace(/\D/g,'').length<8?copy.phoneInvalid:'');
   if(!fullName||!phone){form.reportValidity();toast(copy.missing);return;}
   if(!form.reportValidity())return;
   const selected=bookingTypes.find(x=>x.value===f.get('occasion'))?.label||String(f.get('occasion')||'');
@@ -156,9 +207,31 @@ function reservation(){
  });
 }
 function orderForm(){
- if(!/pages\/panier\.html$/.test(location.pathname)||$('.ep-order-info'))return;const card=$('.cart-actions')?.closest('.contact-card');if(!card)return;const saved=loadOrder();
- const s=document.createElement('section');s.className='ep-order-info';s.innerHTML='<div class="kicker">'+esc(t('info'))+'</div><h3>'+esc(t('info'))+'</h3><div class="ep-order-grid"><label>'+esc(t('name'))+'<input name="n" value="'+esc(saved.n||'')+'"></label><label>'+esc(t('phone'))+'<input name="tel" inputmode="tel" value="'+esc(saved.tel||'')+'"></label><label>'+esc(t('mode'))+'<select name="m"><option value="d">'+esc(t('dine'))+'</option><option value="t">'+esc(t('take'))+'</option><option value="l">'+esc(t('delivery'))+'</option></select></label></div><label>'+esc(t('notes'))+'<textarea name="x" rows="3">'+esc(saved.x||'')+'</textarea></label><button type="button" class="btn btn-glass" data-save-order>'+esc(t('save'))+'</button>';
- $('.cart-actions',card)?.parentElement?.prepend(s);s.querySelector('[name="m"]').value=saved.m||'d';s.querySelector('[data-save-order]').onclick=()=>{saveOrder({n:s.querySelector('[name="n"]').value.trim(),tel:s.querySelector('[name="tel"]').value.trim(),m:s.querySelector('[name="m"]').value,x:s.querySelector('[name="x"]').value.trim()});toast(t('saved'))}
+ if(!/pages\/panier\.html$/.test(location.pathname)||$('.ep-order-info'))return;
+ const card=$('.cart-actions')?.closest('.contact-card');if(!card)return;
+ const saved=loadOrder(),s=document.createElement('section');
+ s.className='ep-order-info';
+ s.innerHTML='<div class="kicker">'+esc(t('info'))+'</div><h3>'+esc(t('info'))+'</h3>'+
+  '<div class="ep-order-grid">'+
+   '<label>'+esc(t('name'))+'<input name="n" autocomplete="name" maxlength="100" value="'+esc(saved.n||'')+'"></label>'+
+   '<label>'+esc(t('phone'))+'<input name="tel" type="tel" autocomplete="tel" inputmode="tel" maxlength="32" value="'+esc(saved.tel||'')+'"></label>'+
+   '<label>'+esc(t('mode'))+'<select name="m"><option value="d">'+esc(t('dine'))+'</option><option value="t">'+esc(t('take'))+'</option><option value="l">'+esc(t('delivery'))+'</option></select></label>'+
+  '</div>'+
+  '<label class="ep-delivery-address" data-delivery-address>'+esc(t('address'))+'<input name="a" autocomplete="street-address" maxlength="220" placeholder="'+esc(t('addressPlaceholder'))+'" value="'+esc(saved.a||'')+'"></label>'+
+  '<label>'+esc(t('notes'))+'<textarea name="x" rows="3" maxlength="1000">'+esc(saved.x||'')+'</textarea></label>'+
+  '<button type="button" class="btn btn-glass" data-save-order>'+esc(t('save'))+'</button>';
+ const host=$('.cart-actions',card)?.parentElement;if(host)host.prepend(s);
+ const mode=$('[name="m"]',s),address=$('[name="a"]',s);mode.value=saved.m||'d';
+ const syncAddress=()=>{const needed=mode.value==='l';$('[data-delivery-address]',s).hidden=!needed;address.required=needed};
+ const collect=()=>({n:$('[name="n"]',s).value.trim(),tel:$('[name="tel"]',s).value.trim(),m:mode.value,a:address.value.trim(),x:$('[name="x"]',s).value.trim()});
+ syncAddress();mode.addEventListener('change',syncAddress);
+ $('[data-save-order]',s).onclick=()=>{
+  const v=collect();
+  if(!v.n){toast(t('orderDetailsMissing'));$('[name="n"]',s).focus();return}
+  if(v.tel.replace(/\D/g,'').length<8){toast(t('invalidPhone'));$('[name="tel"]',s).focus();return}
+  if(v.m==='l'&&!v.a){toast(t('deliveryAddressRequired'));address.focus();return}
+  saveOrder(v);syncAddress();toast(t('saved'));
+ };
 }
 function categoryVisual(){
  const root=$('[data-category-page]'),v=$('.menu-visual');if(!root||!v)return;
@@ -213,7 +286,8 @@ function init(){
   ['products',enhanceProducts],
   ['lightbox',lightbox],
   ['mobile-bar',mobileBar],
-  ['reservation',reservation],
+  ['formula-builder',formulaBuilder],
+   ['reservation',reservation],
   ['order-form',orderForm],
   ['conversion-rail',conversionRail],
   ['opening-status',status],
