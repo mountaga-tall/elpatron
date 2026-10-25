@@ -52,7 +52,7 @@ test('checkout includes a delivery address and rejects incomplete delivery detai
   assert.match(app, /Delivery address: /);
   assert.match(app, /Adresse de livraison : /);
   assert.match(enhancements, /name="a"/);
-  assert.match(enhancements, /values\.m==='l'&&!values\.a/);
+  assert.match(enhancements, /v\.m==='l'&&!v\.a/);
 });
 
 test('combo builder uses selected catalog prices without hard-coded discounts', () => {
