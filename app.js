@@ -5,8 +5,8 @@
   const LANG=LANG_RAW==='en'?'en':'fr';
   const tx=s=>window.EL_PATRON_TEXT?window.EL_PATRON_TEXT(s):s;
   const UI={
-    fr:{home:'Accueil',cart:'Panier',contact:'Contact',openCart:'Ouvrir le panier',openMenu:'Ouvrir le menu',closeMenu:'Fermer le menu',menuMobile:'Menu mobile',search:'Rechercher dans le menu…',searchLabel:'Rechercher dans tout le menu',launchSearch:'Lancer la recherche',emptyCart:'Votre panier est vide.',emptyStart:'Votre panier est vide. Ajoutez une spécialité El Patrón pour commencer.',removeOne:'Retirer un article',addOne:'Ajouter un article',delete:'Supprimer',yourCart:'Votre panier',closeCart:'Fermer le panier',total:'Total',orderWhatsApp:'Commander sur WhatsApp',viewCart:'Voir le panier',customize:'Personnalisez votre choix',options:'Options',chooseSide:'Choisissez votre accompagnement',chooseFlavor:'Choisissez votre parfum de glace',included:'Inclus',cancel:'Annuler',addToCart:'Ajouter au panier',side:'Accompagnement',flavor:'Parfum',request:'Sur demande',noProduct:'Aucun produit ne correspond à',noResults:'Aucun résultat pour',result:'résultat',results:'résultats',from:'À partir de',discover:'Découvrir',imagesOf:'Images de',image:'image',houseDescription:'Composition selon la recette El Patrón.',officialInfo:'Voir les informations pratiques',menu:'Menu',query:'Recherche',footerIntro:'Une carte généreuse et une expérience El Patrón à Abidjan.',cannotAdd:'Ce produit ne peut pas être ajouté au panier',experience:'L’expérience'},
-    en:{home:'Home',cart:'Cart',contact:'Contact',openCart:'Open cart',openMenu:'Open menu',closeMenu:'Close menu',menuMobile:'Mobile menu',search:'Search the menu…',searchLabel:'Search the full menu',launchSearch:'Start search',emptyCart:'Your cart is empty.',emptyStart:'Your cart is empty. Add an El Patrón specialty to get started.',removeOne:'Remove one item',addOne:'Add one item',delete:'Delete',yourCart:'Your cart',closeCart:'Close cart',total:'Total',orderWhatsApp:'Order on WhatsApp',viewCart:'View cart',customize:'Customize your choice',options:'Options',chooseSide:'Choose your side',chooseFlavor:'Choose your ice-cream flavor',included:'Included',cancel:'Cancel',addToCart:'Add to cart',side:'Side',flavor:'Flavor',request:'On request',noProduct:'No product matches',noResults:'No results for',result:'result',results:'results',from:'From',discover:'Discover',imagesOf:'Images of',image:'image',houseDescription:'Prepared according to the El Patrón recipe.',officialInfo:'View practical information',menu:'Menu',query:'Search',footerIntro:'A generous menu and the El Patrón experience in Abidjan.',cannotAdd:'This product cannot be added to the cart',experience:'Experience'},
+    fr:{home:'Accueil',cart:'Panier',contact:'Contact',openCart:'Ouvrir le panier',openMenu:'Ouvrir le menu',closeMenu:'Fermer le menu',menuMobile:'Menu mobile',search:'Rechercher dans le menu…',searchLabel:'Rechercher dans tout le menu',launchSearch:'Lancer la recherche',emptyCart:'Votre panier est vide.',emptyStart:'Votre panier est vide. Ajoutez une spécialité El Patrón pour commencer.',removeOne:'Retirer un article',addOne:'Ajouter un article',delete:'Supprimer',yourCart:'Votre panier',closeCart:'Fermer le panier',total:'Total',orderWhatsApp:'Commander sur WhatsApp',viewCart:'Voir le panier',customize:'Personnalisez votre choix',options:'Options',chooseSide:'Choisissez votre accompagnement',chooseFlavor:'Choisissez votre parfum de glace',included:'Inclus',cancel:'Annuler',addToCart:'Ajouter au panier',side:'Accompagnement',flavor:'Parfum',request:'Sur demande',noProduct:'Aucun produit ne correspond à',noResults:'Aucun résultat pour',result:'résultat',results:'résultats',from:'À partir de',discover:'Découvrir',imagesOf:'Images de',image:'image',houseDescription:'Composition selon la recette El Patrón.',officialInfo:'Voir les informations pratiques',menu:'Menu',query:'Recherche',footerIntro:'Une carte généreuse et une expérience El Patrón à Abidjan.',cannotAdd:'Ce produit ne peut pas être ajouté au panier',experience:'L’expérience',choosePizzaSize:'Choisissez la taille de votre pizza'},
+    en:{home:'Home',cart:'Cart',contact:'Contact',openCart:'Open cart',openMenu:'Open menu',closeMenu:'Close menu',menuMobile:'Mobile menu',search:'Search the menu…',searchLabel:'Search the full menu',launchSearch:'Start search',emptyCart:'Your cart is empty.',emptyStart:'Your cart is empty. Add an El Patrón specialty to get started.',removeOne:'Remove one item',addOne:'Add one item',delete:'Delete',yourCart:'Your cart',closeCart:'Close cart',total:'Total',orderWhatsApp:'Order on WhatsApp',viewCart:'View cart',customize:'Customize your choice',options:'Options',chooseSide:'Choose your side',chooseFlavor:'Choose your ice-cream flavor',included:'Included',cancel:'Cancel',addToCart:'Add to cart',side:'Side',flavor:'Flavor',request:'On request',noProduct:'No product matches',noResults:'No results for',result:'result',results:'results',from:'From',discover:'Discover',imagesOf:'Images of',image:'image',houseDescription:'Prepared according to the El Patrón recipe.',officialInfo:'View practical information',menu:'Menu',query:'Search',footerIntro:'A generous menu and the El Patrón experience in Abidjan.',cannotAdd:'This product cannot be added to the cart',experience:'Experience',choosePizzaSize:'Choose your pizza size'},
   };
   const t=k=>UI[LANG]?.[k]||UI.fr[k]||k;
   const siteSubtitle=LANG==='en'?'Restaurant · Bar · Café · Tea Room':'Restaurant · Bar · Café · Salon de thé';
@@ -204,11 +204,47 @@
     setupProductOptions();
   }
   function setupProductOptions(){
-    const modal=$('.product-options-modal');
+    let modal=$('.product-options-modal');
+    if(!modal){
+      const closeLabel=LANG==='en'?'Close options':'Fermer les options';
+      const modalMarkup=`
+        <div class="product-options-modal" hidden aria-hidden="true">
+          <div class="product-options-backdrop" data-options-close></div>
+          <section class="product-options-panel" role="dialog" aria-modal="true" aria-labelledby="product-options-title" tabindex="-1">
+            <button type="button" class="icon-btn product-options-close" data-options-close aria-label="${closeLabel}">${ICONS.close}</button>
+            <div class="kicker">${esc(t('options'))}</div>
+            <h2 id="product-options-title">${esc(t('customize'))}</h2>
+            <p class="product-options-product" data-options-product></p>
+            <form class="product-options-form">
+              <div class="product-option-group" data-size-group hidden>
+                <div class="product-option-label"><strong>${esc(t('choosePizzaSize'))}</strong><span>${LANG==='en'?'Choose one':'Choisissez une taille'}</span></div>
+                <div class="product-option-grid" data-size-list></div>
+              </div>
+              <div class="product-option-group" data-accompaniment-group hidden>
+                <div class="product-option-label"><strong>${esc(t('chooseSide'))}</strong><span>${LANG==='en'?'Choose one':'Choisissez un accompagnement'}</span></div>
+                <div class="product-option-grid" data-accompaniment-list></div>
+              </div>
+              <div class="product-option-group" data-ice-group hidden>
+                <div class="product-option-label"><strong>${esc(t('chooseFlavor'))}</strong><span>${LANG==='en'?'Choose one':'Choisissez un parfum'}</span></div>
+                <div class="product-option-grid" data-ice-list></div>
+              </div>
+              <div class="product-options-actions">
+                <button type="button" class="btn btn-glass" data-options-close>${esc(t('cancel'))}</button>
+                <button type="submit" class="btn btn-primary">${esc(t('addToCart'))}</button>
+              </div>
+            </form>
+          </section>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend',modalMarkup);
+      modal=$('.product-options-modal');
+    }
     if(!modal||modal.dataset.ready==='true')return;
     modal.dataset.ready='true';
     const form=$('.product-options-form',modal);
     const productName=$('[data-options-product]',modal);
+    const sizeGroup=$('[data-size-group]',modal);
+    const sizeList=$('[data-size-list]',modal);
     const accompGroup=$('[data-accompaniment-group]',modal);
     const accompList=$('[data-accompaniment-list]',modal);
     const iceGroup=$('[data-ice-group]',modal);
@@ -218,16 +254,30 @@
     function buildButtons(list,values,name){
       list.innerHTML=values.map((value,i)=>`<button type="button" class="modal-choice ${i===0?'selected':''}" data-choice-name="${escAttr(name)}" data-choice-value="${escAttr(value)}" aria-pressed="${i===0?'true':'false'}">${esc(tx(value))}</button>`).join('');
     }
+    function buildSizeButtons(options){
+      sizeList.innerHTML=options.map((option,i)=>{
+        const label=option.label?tx(option.label):(LANG==='en'?'Option ':'Option ')+(i+1);
+        return `<button type="button" class="modal-choice ${i===0?'selected':''}" data-choice-name="size" data-choice-index="${i}" aria-pressed="${i===0?'true':'false'}"><span>${esc(label)}</span><strong>${esc(money(option.amount))}</strong></button>`;
+      }).join('');
+    }
     function open(product,option,categorySlug){
       clearTimeout(closeTimer);
       const hasAcc=needsAccompaniment(product),hasIce=hasIceChoice(product,categorySlug);
-      if(!hasAcc&&!hasIce){addToCart(product,option);return}
-      state={product,option,categorySlug,accompaniment:hasAcc?ACCOMPANIMENTS[0]:'',iceFlavor:hasIce?ICE_FLAVORS[0]:''};
+      const sizeOptions=categorySlug==='pizzas'&&Array.isArray(product.price)
+        ?product.price.filter(o=>o&&Number.isFinite(Number(o.amount))&&String(o.label||'').trim()).slice().sort((a,b)=>Number(a.amount)-Number(b.amount))
+        :[];
+      const hasSize=sizeOptions.length>1;
+      if(!hasAcc&&!hasIce&&!hasSize){addToCart(product,option);return}
+      state={product,option:hasSize?(sizeOptions[0]||option):option,categorySlug,sizeOptions,accompaniment:hasAcc?ACCOMPANIMENTS[0]:'',iceFlavor:hasIce?ICE_FLAVORS[0]:''};
       productName.textContent=product.name;
-      accompGroup.hidden=!hasAcc;iceGroup.hidden=!hasIce;
+      sizeGroup.hidden=!hasSize;
+      accompGroup.hidden=!hasAcc;
+      iceGroup.hidden=!hasIce;
+      if(hasSize)buildSizeButtons(sizeOptions);else sizeList.innerHTML='';
       if(hasAcc)buildButtons(accompList,ACCOMPANIMENTS,'accompaniment');else accompList.innerHTML='';
       if(hasIce)buildButtons(iceList,ICE_FLAVORS,'iceFlavor');else iceList.innerHTML='';
       modal.hidden=false;
+      modal.setAttribute('aria-hidden','false');
       requestAnimationFrame(()=>modal.classList.add('open'));
       document.body.classList.add('options-open');
       setTimeout(()=>$('.modal-choice',modal)?.focus(),50);
@@ -236,7 +286,7 @@
       if(modal.hidden)return;
       modal.classList.remove('open');
       document.body.classList.remove('options-open');
-      closeTimer=window.setTimeout(()=>{modal.hidden=true;state=null;closeTimer=0},260);
+      closeTimer=window.setTimeout(()=>{modal.hidden=true;modal.setAttribute('aria-hidden','true');state=null;closeTimer=0},260);
     }
     modal.addEventListener('click',e=>{
       const choice=e.target.closest('.modal-choice');
@@ -244,7 +294,14 @@
         const group=choice.closest('.product-option-group');
         $$('.modal-choice',group).forEach(x=>{x.classList.remove('selected');x.setAttribute('aria-pressed','false')});
         choice.classList.add('selected');choice.setAttribute('aria-pressed','true');
-        if(state)state[choice.dataset.choiceName]=choice.dataset.choiceValue;
+        if(state){
+          if(choice.dataset.choiceName==='size'){
+            const selected=state.sizeOptions[Number(choice.dataset.choiceIndex)];
+            if(selected)state.option=selected;
+          }else{
+            state[choice.dataset.choiceName]=choice.dataset.choiceValue;
+          }
+        }
         return;
       }
       if(e.target.closest('[data-options-close]'))close();
@@ -258,7 +315,7 @@
     window.openProductOptions=open;
     window.closeProductOptions=close;
   }
-  function productCard(p,idx,categoryTitle,categorySlug){
+    function productCard(p,idx,categoryTitle,categorySlug){
     if(p.noteOnly)return `<article class="product-note reveal"><div class="product-note-kicker">${esc(categoryTitle)}</div><div class="product-note-title">${esc(p.name)}</div><p>${esc(p.desc)}</p></article>`;
     const currentPrice=priceMarkup(p);
     const imageMarkup=productImageMarkup(p);
@@ -266,14 +323,18 @@
     return `<article class="product-card reveal tilt${productCardShellClasses(p)}" style="--reveal-delay:${Math.min(idx,10)*45}ms" data-product-id="${escAttr(p.id)}" data-category-slug="${escAttr(categorySlug)}">${imageMarkup}<div class="product-top">${p.sub?`<span class="sub-chip">${esc(p.sub)}</span>`:''}<div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||t('houseDescription'))}</p>${p.note?`<div class="product-note-inline">${esc(p.note)}</div>`:''}<div class="product-prices" aria-label="${escAttr(LANG==='en'?'Prices':'Prix')}">${currentPrice}</div><div class="product-foot">${addButton}</div></div></article>`;
   }
   function bindProductButtons(scope,items,categorySlug){
-    $$('.product-card',scope).forEach(card=>{
+    $('.product-card',scope).forEach(card=>{
       const p=items.find(x=>x.id===card.dataset.productId);if(!p)return;
       const button=$('[data-add]',card);if(!button||button.dataset.bound==='true')return;
       button.dataset.bound='true';
+      const productCategory=categorySlug||card.dataset.categorySlug||p.categorySlug||'';
       button.addEventListener('click',()=>{
         const options=Array.isArray(p.price)?p.price.filter(o=>o&&Number.isFinite(Number(o.amount))):[];
         const option=options.slice().sort((a,b)=>Number(a.amount)-Number(b.amount))[0]||options[0];
         if(!option){showToast(t('cannotAdd'));return}
+        if((productCategory==='pizzas'&&options.length>1)||needsAccompaniment(p)||hasIceChoice(p,productCategory)){
+          if(typeof window.openProductOptions==='function'){window.openProductOptions(p,option,productCategory);return}
+        }
         addToCart(p,option);
       });
     });
