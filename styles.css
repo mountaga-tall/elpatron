@@ -1366,3 +1366,12 @@ body:has(.ep-lightbox.open) .ep-mobile-bar {
   align-self:start;
   line-height:1.25;
 }
+
+
+/* Interactive size choices: Grand pizzas add directly; Moyen and L tacos open the upsell dialog. */
+.price-option-button{font:inherit;cursor:pointer;text-align:left;appearance:none;-webkit-appearance:none;color:inherit;transition:border-color .2s ease,background .2s ease,transform .2s ease}
+.price-option-button:hover{border-color:rgba(209,31,26,.55);background:rgba(209,31,26,.10);transform:translateY(-1px)}
+.price-option-button:focus-visible{outline:3px solid rgba(209,31,26,.24);outline-offset:2px}
+.product-options-modal .modal-choice[data-choice-name="size"]{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.product-options-modal .modal-choice[data-choice-name="size"] span{flex:1}
+.product-options-modal .modal-choice[data-choice-name="size"] strong{white-space:nowrap;color:var(--brand-red,#b51f25)}
