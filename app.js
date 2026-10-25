@@ -371,7 +371,7 @@
           event.stopPropagation();
           const selected=options[Number(priceButton.dataset.pizzaSizeIndex)];
           if(!selected){showToast(t('cannotAdd'));return}
-          if(normalize(selected.label)==='moyen'&&typeof window.openProductOptions==='function'){
+          if(Number(selected.amount)===Math.min(...options.map(item=>Number(item.amount)))&&typeof window.openProductOptions==='function'){
             window.openProductOptions(p,selected,productCategory);
             return;
           }
