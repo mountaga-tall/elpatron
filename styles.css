@@ -1375,3 +1375,40 @@ body:has(.ep-lightbox.open) .ep-mobile-bar {
 .product-options-modal .modal-choice[data-choice-name="size"]{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .product-options-modal .modal-choice[data-choice-name="size"] span{flex:1}
 .product-options-modal .modal-choice[data-choice-name="size"] strong{white-space:nowrap;color:var(--brand-red,#b51f25)}
+
+
+/* Category tools, configurable formulas and delivery-aware checkout */
+.menu-toolbar{flex-wrap:wrap;gap:12px}
+.ep-sort-control{display:flex;align-items:center;gap:8px;color:var(--brand-muted,#756b65);font-size:.76rem;font-weight:700}
+.ep-sort-control select{min-height:42px;max-width:100%;padding:10px 34px 10px 12px;border:1px solid var(--brand-line,rgba(23,19,19,.13));border-radius:12px;background:#fff;color:var(--brand-ink,#171313);font:600 12px Inter,sans-serif}
+.ep-sort-control select:focus-visible,.ep-combo-card select:focus-visible,.ep-order-info input:focus-visible,.ep-order-info textarea:focus-visible{outline:3px solid rgba(181,31,37,.2);outline-offset:2px;border-color:var(--brand-red,#b51f25)}
+.price-option-button small{color:var(--brand-muted,#756b65)!important}
+.price-option-button strong{color:var(--brand-ink,#171313)!important}
+.ep-formula-builder{padding-top:40px}
+.ep-combo-card{max-width:1000px;margin:0 auto;padding:clamp(18px,3vw,30px);border:1px solid var(--brand-line,rgba(23,19,19,.12));border-radius:24px;background:linear-gradient(140deg,rgba(181,31,37,.045),#fff 60%);box-shadow:var(--brand-shadow,0 18px 50px rgba(23,19,19,.07))}
+.ep-combo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.ep-combo-grid>label,.ep-order-info label{display:grid;gap:7px;color:var(--brand-muted,#5e554f);font:700 12px Inter,sans-serif}
+.ep-combo-card select,.ep-order-info input,.ep-order-info textarea{box-sizing:border-box;width:100%;min-width:0;min-height:46px;padding:12px;border:1px solid var(--brand-line,rgba(23,19,19,.15));border-radius:12px;background:#fff;color:var(--brand-ink,#171313);font:500 13px Inter,sans-serif}
+.ep-combo-card select:disabled{opacity:.58;cursor:not-allowed}
+.ep-combo-upgrade{display:flex;align-items:center;padding:12px 14px;border:1px dashed rgba(181,31,37,.25);border-radius:13px;background:rgba(181,31,37,.035)}
+.ep-combo-upgrade[hidden],.ep-delivery-address[hidden]{display:none!important}
+.ep-combo-upgrade label{display:flex;align-items:center;gap:10px;color:var(--brand-ink,#171313);font:700 12px Inter,sans-serif;cursor:pointer}
+.ep-combo-upgrade input{width:18px;height:18px;accent-color:var(--brand-red,#b51f25);flex:0 0 auto}
+.ep-combo-summary{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:22px;padding:17px 0;border-top:1px solid var(--brand-line,rgba(23,19,19,.1));border-bottom:1px solid var(--brand-line,rgba(23,19,19,.1));color:var(--brand-ink,#171313);font-size:.9rem;font-weight:700}
+.ep-combo-summary strong{font-size:1.3rem;color:var(--brand-red,#b51f25);font-variant-numeric:tabular-nums}
+.ep-combo-notice{margin:12px 0 18px;color:var(--brand-muted,#756b65);font-size:.78rem;line-height:1.6}
+.ep-combo-card form>.btn{width:100%;min-height:48px}
+.ep-delivery-address{margin:14px 0;display:grid;gap:7px;color:var(--brand-muted,#5e554f);font:700 12px Inter,sans-serif}
+.ep-order-info .ep-order-grid{margin-bottom:12px}
+.ep-order-info .ep-delivery-address{margin:0 0 12px}
+.ep-mobile-bar [data-q-cart-count]{position:absolute;top:0;right:12%;min-width:16px;height:16px;padding:0 3px;border-radius:999px;background:var(--brand-red,#b51f25);color:#fff;font:800 9px/16px Inter,sans-serif;text-align:center}
+.ep-mobile-bar [data-q-cart-count][hidden]{display:none!important}
+.ep-mobile-bar button:focus-visible,.ep-mobile-bar a:focus-visible{outline:3px solid rgba(181,31,37,.28);outline-offset:2px;border-radius:10px}
+@media(max-width:760px){
+ .ep-combo-grid{grid-template-columns:1fr;gap:13px}
+ .ep-combo-card{padding:18px;border-radius:18px}
+ .ep-combo-summary{margin-top:16px}
+ .ep-sort-control{width:100%;justify-content:space-between}
+ .ep-sort-control select{flex:1}
+ body.ep-has-mobile-bar .floating-whatsapp{display:none}
+}
