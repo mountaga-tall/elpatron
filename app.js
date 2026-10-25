@@ -5,8 +5,8 @@
   const LANG=LANG_RAW==='en'?'en':'fr';
   const tx=s=>window.EL_PATRON_TEXT?window.EL_PATRON_TEXT(s):s;
   const UI={
-    fr:{home:'Accueil',cart:'Panier',contact:'Contact',openCart:'Ouvrir le panier',openMenu:'Ouvrir le menu',closeMenu:'Fermer le menu',menuMobile:'Menu mobile',search:'Rechercher dans le menu…',searchLabel:'Rechercher dans tout le menu',launchSearch:'Lancer la recherche',emptyCart:'Votre panier est vide.',emptyStart:'Votre panier est vide. Ajoutez une spécialité El Patrón pour commencer.',removeOne:'Retirer un article',addOne:'Ajouter un article',delete:'Supprimer',yourCart:'Votre panier',closeCart:'Fermer le panier',total:'Total',orderWhatsApp:'Commander sur WhatsApp',viewCart:'Voir le panier',customize:'Personnalisez votre choix',options:'Options',chooseSide:'Choisissez votre accompagnement',chooseFlavor:'Choisissez votre parfum de glace',included:'Inclus',cancel:'Annuler',addToCart:'Ajouter au panier',side:'Accompagnement',flavor:'Parfum',request:'Sur demande',noProduct:'Aucun produit ne correspond à',noResults:'Aucun résultat pour',result:'résultat',results:'résultats',from:'À partir de',discover:'Découvrir',imagesOf:'Images de',image:'image',houseDescription:'Composition selon la recette El Patrón.',officialInfo:'Voir les informations pratiques',menu:'Menu',query:'Recherche',footerIntro:'Une carte généreuse et une expérience El Patrón à Abidjan.',cannotAdd:'Ce produit ne peut pas être ajouté au panier',experience:'L’expérience',choosePizzaSize:'Choisissez la taille de votre pizza',chooseTacoSize:'Choisissez le format du tacos',tacoXLUpgrade:'XL (+4 000 FCFA)'},
-    en:{home:'Home',cart:'Cart',contact:'Contact',openCart:'Open cart',openMenu:'Open menu',closeMenu:'Close menu',menuMobile:'Mobile menu',search:'Search the menu…',searchLabel:'Search the full menu',launchSearch:'Start search',emptyCart:'Your cart is empty.',emptyStart:'Your cart is empty. Add an El Patrón specialty to get started.',removeOne:'Remove one item',addOne:'Add one item',delete:'Delete',yourCart:'Your cart',closeCart:'Close cart',total:'Total',orderWhatsApp:'Order on WhatsApp',viewCart:'View cart',customize:'Customize your choice',options:'Options',chooseSide:'Choose your side',chooseFlavor:'Choose your ice-cream flavor',included:'Included',cancel:'Cancel',addToCart:'Add to cart',side:'Side',flavor:'Flavor',request:'On request',noProduct:'No product matches',noResults:'No results for',result:'result',results:'results',from:'From',discover:'Discover',imagesOf:'Images of',image:'image',houseDescription:'Prepared according to the El Patrón recipe.',officialInfo:'View practical information',menu:'Menu',query:'Search',footerIntro:'A generous menu and the El Patrón experience in Abidjan.',cannotAdd:'This product cannot be added to the cart',experience:'Experience',choosePizzaSize:'Choose your pizza size',chooseTacoSize:'Choose your taco size',tacoXLUpgrade:'XL (+4,000 FCFA)'},
+    fr:{home:'Accueil',cart:'Panier',contact:'Contact',openCart:'Ouvrir le panier',openMenu:'Ouvrir le menu',closeMenu:'Fermer le menu',menuMobile:'Menu mobile',search:'Rechercher dans le menu…',searchLabel:'Rechercher dans tout le menu',launchSearch:'Lancer la recherche',emptyCart:'Votre panier est vide.',emptyStart:'Votre panier est vide. Ajoutez une spécialité El Patrón pour commencer.',removeOne:'Retirer un article',addOne:'Ajouter un article',delete:'Supprimer',yourCart:'Votre panier',closeCart:'Fermer le panier',total:'Total',orderWhatsApp:'Commander sur WhatsApp',viewCart:'Voir le panier',customize:'Personnalisez votre choix',options:'Options',chooseSide:'Choisissez votre accompagnement',chooseFlavor:'Choisissez votre parfum de glace',included:'Inclus',cancel:'Annuler',addToCart:'Ajouter au panier',side:'Accompagnement',flavor:'Parfum',request:'Sur demande',noProduct:'Aucun produit ne correspond à',noResults:'Aucun résultat pour',result:'résultat',results:'résultats',from:'À partir de',discover:'Découvrir',imagesOf:'Images de',image:'image',houseDescription:'Composition selon la recette El Patrón.',officialInfo:'Voir les informations pratiques',menu:'Menu',query:'Recherche',footerIntro:'Une carte généreuse et une expérience El Patrón à Abidjan.',cannotAdd:'Ce produit ne peut pas être ajouté au panier',experience:'L’expérience',choosePizzaSize:'Choisissez la taille de votre pizza',chooseTacoSize:'Choisissez le format du tacos',tacoXLUpgrade:'XL (+4 000 FCFA)',sortLabel:'Trier',sortDefault:'Ordre du menu',sortCheap:'Prix croissant',sortExpensive:'Prix décroissant',orderDetailsMissing:'Renseignez votre nom et votre téléphone avant de commander.',invalidPhone:'Vérifiez le numéro de téléphone.',deliveryAddressRequired:'Ajoutez l’adresse de livraison.'},
+    en:{home:'Home',cart:'Cart',contact:'Contact',openCart:'Open cart',openMenu:'Open menu',closeMenu:'Close menu',menuMobile:'Mobile menu',search:'Search the menu…',searchLabel:'Search the full menu',launchSearch:'Start search',emptyCart:'Your cart is empty.',emptyStart:'Your cart is empty. Add an El Patrón specialty to get started.',removeOne:'Remove one item',addOne:'Add one item',delete:'Delete',yourCart:'Your cart',closeCart:'Close cart',total:'Total',orderWhatsApp:'Order on WhatsApp',viewCart:'View cart',customize:'Customize your choice',options:'Options',chooseSide:'Choose your side',chooseFlavor:'Choose your ice-cream flavor',included:'Included',cancel:'Cancel',addToCart:'Add to cart',side:'Side',flavor:'Flavor',request:'On request',noProduct:'No product matches',noResults:'No results for',result:'result',results:'results',from:'From',discover:'Discover',imagesOf:'Images of',image:'image',houseDescription:'Prepared according to the El Patrón recipe.',officialInfo:'View practical information',menu:'Menu',query:'Search',footerIntro:'A generous menu and the El Patrón experience in Abidjan.',cannotAdd:'This product cannot be added to the cart',experience:'Experience',choosePizzaSize:'Choose your pizza size',chooseTacoSize:'Choose your taco size',tacoXLUpgrade:'XL (+4,000 FCFA)',sortLabel:'Sort',sortDefault:'Menu order',sortCheap:'Price: low to high',sortExpensive:'Price: high to low',orderDetailsMissing:'Enter your name and phone number before ordering.',invalidPhone:'Check the phone number.',deliveryAddressRequired:'Add the delivery address.'},
   };
   const t=k=>UI[LANG]?.[k]||UI.fr[k]||k;
   const siteSubtitle=LANG==='en'?'Restaurant · Bar · Café · Tea Room':'Restaurant · Bar · Café · Salon de thé';
@@ -25,7 +25,7 @@
   const normalize=s=>String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   let memoryCart=[];
   const loadCart=()=>{try{const raw=localStorage.getItem(KEY);if(raw===null)return memoryCart;const c=JSON.parse(raw);if(Array.isArray(c)){memoryCart=c;return c}return memoryCart}catch{return memoryCart}};
-  const saveCart=c=>{memoryCart=Array.isArray(c)?c:[];try{localStorage.setItem(KEY,JSON.stringify(memoryCart))}catch{}};
+  const saveCart=c=>{memoryCart=Array.isArray(c)?c:[];try{localStorage.setItem(KEY,JSON.stringify(memoryCart))}catch{};try{window.dispatchEvent(new CustomEvent('elpatron:cart-updated',{detail:{qty:totalQty(memoryCart),total:totalPrice(memoryCart)}}))}catch{}};
   const totalQty=c=>c.reduce((a,i)=>a+(Number(i.qty)||0),0);
   const totalPrice=c=>c.reduce((a,i)=>a+(Number(i.amount)||0)*(Number(i.qty)||0),0);
   function esc(s){return String(s??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]))}
@@ -99,6 +99,14 @@
     });
     saveCart(cart);updateCartBadge();showToast(product.name+addedSuffix);
   }
+  window.EL_PATRON_ADD_FROM_COMBO=(productId,optionIndex)=>{
+    const all=Object.values(window.EL_PATRON_MENU||{}).flat();
+    const product=all.find(p=>p.id===String(productId||''));
+    const index=Number(optionIndex);
+    const option=Number.isInteger(index)&&index>=0?product?.price?.[index]:null;
+    if(!product||!option){showToast(t('cannotAdd'));return false}
+    addToCart(product,option);return true;
+  };
   function updateCartBadge(){
     const count=totalQty(loadCart());
     $$('.cart-badge').forEach(b=>{b.textContent=count;b.hidden=count===0});
@@ -137,6 +145,24 @@
   function orderWhatsApp(){
     const cart=loadCart();
     if(!cart.length){showToast(t('emptyCart'));return}
+    let saved=window.EL_PATRON_ORDER_DETAILS||{};
+    try{const raw=localStorage.getItem('ep-order-v1');if(raw){const parsed=JSON.parse(raw);if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed)){saved=parsed;window.EL_PATRON_ORDER_DETAILS=parsed}}}catch{}
+    const details=$('.ep-order-info');
+    if(details){
+      const value=name=>String($('[name="'+name+'"]',details)?.value||'').trim();
+      const n=value('n'),tel=value('tel'),m=value('m')||'d',a=value('a'),x=value('x');
+      if(!n){showToast(t('orderDetailsMissing'));$('[name="n"]',details)?.focus();return}
+      if(tel.replace(/\D/g,'').length<8){showToast(t('invalidPhone'));$('[name="tel"]',details)?.focus();return}
+      if(m==='l'&&!a){showToast(t('deliveryAddressRequired'));$('[name="a"]',details)?.focus();return}
+      saved={...saved,n,tel,m,a,x};
+      window.EL_PATRON_ORDER_DETAILS=saved;
+      try{localStorage.setItem('ep-order-v1',JSON.stringify(saved))}catch{}
+    }
+    if(saved.m==='l'&&!String(saved.a||'').trim()){
+      showToast(t('deliveryAddressRequired'));
+      if(!details)location.href=(LANG==='en'?'/en':'/fr')+'/pages/panier.html';
+      return;
+    }
     let msg=LANG==='en'?'Hello EL PATRÓN,\n\nI would like to order:\n':'Bonjour EL PATRÓN,\n\nJe souhaite commander :\n';
     cart.forEach(i=>{
       const meta=cartMeta(i);
@@ -144,13 +170,13 @@
       const name=product?.name||i.name;
       msg+=`- ${name}${meta?' ('+meta+')':''} × ${i.qty} = ${money(i.amount*i.qty)}\n`;
     });
-    let saved=window.EL_PATRON_ORDER_DETAILS||{};try{const raw=localStorage.getItem('ep-order-v1');if(raw){const parsed=JSON.parse(raw);if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed)){saved=parsed;window.EL_PATRON_ORDER_DETAILS=parsed}}}catch{}
     const modeLabel=saved.m?(LANG==='en'?({d:'Dine in',t:'Takeaway',l:'Delivery'}[saved.m]||saved.m):({d:'Sur place',t:'À emporter',l:'Livraison'}[saved.m]||saved.m)):'';
-    if(saved.n||saved.tel||modeLabel||saved.x){
+    if(saved.n||saved.tel||modeLabel||saved.a||saved.x){
       msg+=LANG==='en'?'\nCustomer details:\n':'\nInformations client :\n';
       if(saved.n)msg+=LANG==='en'?'Name: '+saved.n+'\n':'Nom : '+saved.n+'\n';
       if(saved.tel)msg+=LANG==='en'?'Phone: '+saved.tel+'\n':'Téléphone : '+saved.tel+'\n';
       if(modeLabel)msg+=LANG==='en'?'Order type: '+modeLabel+'\n':'Type de commande : '+modeLabel+'\n';
+      if(saved.a)msg+=LANG==='en'?'Delivery address: '+saved.a+'\n':'Adresse de livraison : '+saved.a+'\n';
       if(saved.x)msg+=LANG==='en'?'Notes: '+saved.x+'\n':'Précision : '+saved.x+'\n';
     }
     msg+=`\n${LANG==='en'?'Total':'Total'} : ${money(totalPrice(cart))}\n\n${LANG==='en'?'Thank you.':'Merci.'}`;
@@ -391,7 +417,7 @@
   function renderPageMeta(){
     const root=$('[data-category-page]');if(!root)return;
     const slug=root.dataset.category,cats=window.EL_PATRON_CATEGORIES||[],cat=cats.find(c=>c.slug===slug);if(!cat)return;
-    const grid=$('.product-grid'),count=$('.result-count'),search=$('[data-category-search]');
+    const grid=$('.product-grid'),count=$('.result-count'),search=$('[data-category-search]'),toolbar=$('.menu-toolbar');
     if(!grid)return;
     $('.page-kicker').textContent=cat.kicker||cat.title.toUpperCase();
     $('.page-title').textContent=cat.title;
@@ -399,16 +425,36 @@
     document.title=cat.title+' · EL PATRÓN';
     let noteBox=$('.category-note');if(!noteBox){noteBox=document.createElement('div');noteBox.className='category-note';grid.insertAdjacentElement('afterend',noteBox)}
     noteBox.textContent=cat.note||'';noteBox.hidden=!cat.note;
-    const items=window.EL_PATRON_MENU?.[slug]||[];
+    if(toolbar&&!$('[data-category-sort]',toolbar)){
+      const label=document.createElement('label');
+      label.className='ep-sort-control';
+      label.innerHTML=`<span>${esc(t('sortLabel'))}</span><select data-category-sort aria-label="${escAttr(t('sortLabel'))}"><option value="">${esc(t('sortDefault'))}</option><option value="asc">${esc(t('sortCheap'))}</option><option value="desc">${esc(t('sortExpensive'))}</option></select>`;
+      toolbar.insertBefore(label,count||null);
+    }
+    const sort=$('[data-category-sort]',toolbar||document),items=window.EL_PATRON_MENU?.[slug]||[];
+    let sortMode=sort?.value||'';
+    const minPrice=p=>{
+      const amounts=(Array.isArray(p.price)?p.price:[]).map(o=>Number(o?.amount)).filter(Number.isFinite);
+      return amounts.length?Math.min(...amounts):Number.POSITIVE_INFINITY;
+    };
     function draw(filter=''){
       const normalized=normalize(filter);
-      const visible=items.filter(p=>normalize([p.name,p.desc,p.sub].filter(Boolean).join(' ')).includes(normalized));
+      let visible=items.filter(p=>normalize([p.name,p.desc,p.sub].filter(Boolean).join(' ')).includes(normalized));
+      if(sortMode){
+        const direction=sortMode==='asc'?1:-1;
+        visible=visible.slice().sort((a,b)=>{
+          if(a.noteOnly!==b.noteOnly)return a.noteOnly?1:-1;
+          const delta=minPrice(a)-minPrice(b);
+          return Number.isFinite(delta)?direction*delta:String(a.name||'').localeCompare(String(b.name||''),LANG);
+        });
+      }
       const products=visible.filter(p=>!p.noteOnly);
       count.textContent=`${products.length} ${products.length>1?t('results'):t('result')}`;
       grid.innerHTML=visible.length?visible.map((p,idx)=>productCard(p,idx,cat.title,slug)).join(''):`<div class="empty">${esc(t('noProduct')+' « '+filter+' ».')}</div>`;
       bindProductButtons(grid,items,slug);observeReveals(grid);bindTilts(grid);
     }
     search?.addEventListener('input',e=>draw(e.target.value));
+    sort?.addEventListener('change',e=>{sortMode=e.target.value;draw(search?.value||'')});
     draw();
   }
   function renderGlobalSearch(){
