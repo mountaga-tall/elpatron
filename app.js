@@ -5,8 +5,8 @@
   const LANG=LANG_RAW==='en'?'en':'fr';
   const tx=s=>window.EL_PATRON_TEXT?window.EL_PATRON_TEXT(s):s;
   const UI={
-    fr:{home:'Accueil',cart:'Panier',contact:'Contact',openCart:'Ouvrir le panier',openMenu:'Ouvrir le menu',closeMenu:'Fermer le menu',menuMobile:'Menu mobile',search:'Rechercher dans le menu…',searchLabel:'Rechercher dans tout le menu',launchSearch:'Lancer la recherche',emptyCart:'Votre panier est vide.',emptyStart:'Votre panier est vide. Ajoutez une spécialité El Patrón pour commencer.',removeOne:'Retirer un article',addOne:'Ajouter un article',delete:'Supprimer',yourCart:'Votre panier',closeCart:'Fermer le panier',total:'Total',orderWhatsApp:'Commander sur WhatsApp',viewCart:'Voir le panier',customize:'Personnalisez votre choix',options:'Options',chooseSide:'Choisissez votre accompagnement',chooseFlavor:'Choisissez votre parfum de glace',included:'Inclus',cancel:'Annuler',addToCart:'Ajouter au panier',side:'Accompagnement',flavor:'Parfum',request:'Sur demande',noProduct:'Aucun produit ne correspond à',noResults:'Aucun résultat pour',result:'résultat',results:'résultats',from:'À partir de',discover:'Découvrir',imagesOf:'Images de',image:'image',houseDescription:'Composition selon la recette El Patrón.',officialInfo:'Voir les informations pratiques',menu:'Menu',query:'Recherche',footerIntro:'Une carte généreuse et une expérience El Patrón à Abidjan.',cannotAdd:'Ce produit ne peut pas être ajouté au panier',experience:'L’expérience',choosePizzaSize:'Choisissez la taille de votre pizza'},
-    en:{home:'Home',cart:'Cart',contact:'Contact',openCart:'Open cart',openMenu:'Open menu',closeMenu:'Close menu',menuMobile:'Mobile menu',search:'Search the menu…',searchLabel:'Search the full menu',launchSearch:'Start search',emptyCart:'Your cart is empty.',emptyStart:'Your cart is empty. Add an El Patrón specialty to get started.',removeOne:'Remove one item',addOne:'Add one item',delete:'Delete',yourCart:'Your cart',closeCart:'Close cart',total:'Total',orderWhatsApp:'Order on WhatsApp',viewCart:'View cart',customize:'Customize your choice',options:'Options',chooseSide:'Choose your side',chooseFlavor:'Choose your ice-cream flavor',included:'Included',cancel:'Cancel',addToCart:'Add to cart',side:'Side',flavor:'Flavor',request:'On request',noProduct:'No product matches',noResults:'No results for',result:'result',results:'results',from:'From',discover:'Discover',imagesOf:'Images of',image:'image',houseDescription:'Prepared according to the El Patrón recipe.',officialInfo:'View practical information',menu:'Menu',query:'Search',footerIntro:'A generous menu and the El Patrón experience in Abidjan.',cannotAdd:'This product cannot be added to the cart',experience:'Experience',choosePizzaSize:'Choose your pizza size'},
+    fr:{home:'Accueil',cart:'Panier',contact:'Contact',openCart:'Ouvrir le panier',openMenu:'Ouvrir le menu',closeMenu:'Fermer le menu',menuMobile:'Menu mobile',search:'Rechercher dans le menu…',searchLabel:'Rechercher dans tout le menu',launchSearch:'Lancer la recherche',emptyCart:'Votre panier est vide.',emptyStart:'Votre panier est vide. Ajoutez une spécialité El Patrón pour commencer.',removeOne:'Retirer un article',addOne:'Ajouter un article',delete:'Supprimer',yourCart:'Votre panier',closeCart:'Fermer le panier',total:'Total',orderWhatsApp:'Commander sur WhatsApp',viewCart:'Voir le panier',customize:'Personnalisez votre choix',options:'Options',chooseSide:'Choisissez votre accompagnement',chooseFlavor:'Choisissez votre parfum de glace',included:'Inclus',cancel:'Annuler',addToCart:'Ajouter au panier',side:'Accompagnement',flavor:'Parfum',request:'Sur demande',noProduct:'Aucun produit ne correspond à',noResults:'Aucun résultat pour',result:'résultat',results:'résultats',from:'À partir de',discover:'Découvrir',imagesOf:'Images de',image:'image',houseDescription:'Composition selon la recette El Patrón.',officialInfo:'Voir les informations pratiques',menu:'Menu',query:'Recherche',footerIntro:'Une carte généreuse et une expérience El Patrón à Abidjan.',cannotAdd:'Ce produit ne peut pas être ajouté au panier',experience:'L’expérience',choosePizzaSize:'Choisissez la taille de votre pizza',chooseTacoSize:'Choisissez le format du tacos',tacoXLUpgrade:'XL (+4 000 FCFA)'},
+    en:{home:'Home',cart:'Cart',contact:'Contact',openCart:'Open cart',openMenu:'Open menu',closeMenu:'Close menu',menuMobile:'Mobile menu',search:'Search the menu…',searchLabel:'Search the full menu',launchSearch:'Start search',emptyCart:'Your cart is empty.',emptyStart:'Your cart is empty. Add an El Patrón specialty to get started.',removeOne:'Remove one item',addOne:'Add one item',delete:'Delete',yourCart:'Your cart',closeCart:'Close cart',total:'Total',orderWhatsApp:'Order on WhatsApp',viewCart:'View cart',customize:'Customize your choice',options:'Options',chooseSide:'Choose your side',chooseFlavor:'Choose your ice-cream flavor',included:'Included',cancel:'Cancel',addToCart:'Add to cart',side:'Side',flavor:'Flavor',request:'On request',noProduct:'No product matches',noResults:'No results for',result:'result',results:'results',from:'From',discover:'Discover',imagesOf:'Images of',image:'image',houseDescription:'Prepared according to the El Patrón recipe.',officialInfo:'View practical information',menu:'Menu',query:'Search',footerIntro:'A generous menu and the El Patrón experience in Abidjan.',cannotAdd:'This product cannot be added to the cart',experience:'Experience',choosePizzaSize:'Choose your pizza size',chooseTacoSize:'Choose your taco size',tacoXLUpgrade:'XL (+4,000 FCFA)'},
   };
   const t=k=>UI[LANG]?.[k]||UI.fr[k]||k;
   const siteSubtitle=LANG==='en'?'Restaurant · Bar · Café · Tea Room':'Restaurant · Bar · Café · Salon de thé';
@@ -46,9 +46,12 @@
     }
     return `<div class="product-images" aria-label="${label}">${images.map((src,i)=>`<img src="${escAttr(assetUrl(src))}" alt="${escAttr(p.name)} — ${t('image')} ${i+1}" loading="lazy" decoding="async" onerror="this.closest('.product-images')?.classList.add('image-error')">`).join('')}</div>`;
   }
-  function priceMarkup(p){
+  function priceMarkup(p,categorySlug){
     const options=p.price||[];
     if(!options.length)return t('request');
+    if(categorySlug==='pizzas'&&options.length>1&&options.every(o=>String(o.label||'').trim()){
+      return options.map((o,i)=>`<button type="button" class="price-option price-option-button" data-pizza-size-index="${i}" aria-label="${escAttr((LANG==='en'?'Choose ':'Choisir ')+tx(o.label)+' · '+money(o.amount))}"><small>${esc(tx(o.label))}</small><strong>${money(o.amount)}</strong></button>`).join('');
+    }
     return options.map(o=>`<span class="price-option">${o.label?`<small>${esc(o.label)}</small>`:''}<strong>${money(o.amount)}</strong></span>`).join('');
   }
   function productCardShellClasses(p){
@@ -61,6 +64,7 @@
     return ICE_PATTERN.test(text);
   }
   function needsAccompaniment(p){return FREE_ACCOMPANIMENT_IDS.has(p.id)}
+  function isTacoUpgradeProduct(p,categorySlug){return categorySlug==='tacos-kebab'&&/^tacos-kebab-[1-6]$/.test(String(p?.id||''))}
   function cartKey(product,option,meta={}){
     return JSON.stringify([product.id,option?.label||'',Number(option?.amount)||0,meta.accompaniment||'',meta.iceFlavor||'']);
   }
@@ -217,7 +221,7 @@
             <p class="product-options-product" data-options-product></p>
             <form class="product-options-form">
               <div class="product-option-group" data-size-group hidden>
-                <div class="product-option-label"><strong>${esc(t('choosePizzaSize'))}</strong><span>${LANG==='en'?'Choose one':'Choisissez une taille'}</span></div>
+                <div class="product-option-label"><strong data-size-title>${esc(t('choosePizzaSize'))}</strong><span data-size-help>${LANG==='en'?'Choose one':'Choisissez une taille'}</span></div>
                 <div class="product-option-grid" data-size-list></div>
               </div>
               <div class="product-option-group" data-accompaniment-group hidden>
@@ -245,6 +249,8 @@
     const productName=$('[data-options-product]',modal);
     const sizeGroup=$('[data-size-group]',modal);
     const sizeList=$('[data-size-list]',modal);
+    const sizeTitle=$('[data-size-title]',modal);
+    const sizeHelp=$('[data-size-help]',modal);
     const accompGroup=$('[data-accompaniment-group]',modal);
     const accompList=$('[data-accompaniment-list]',modal);
     const iceGroup=$('[data-ice-group]',modal);
@@ -254,26 +260,55 @@
     function buildButtons(list,values,name){
       list.innerHTML=values.map((value,i)=>`<button type="button" class="modal-choice ${i===0?'selected':''}" data-choice-name="${escAttr(name)}" data-choice-value="${escAttr(value)}" aria-pressed="${i===0?'true':'false'}">${esc(tx(value))}</button>`).join('');
     }
-    function buildSizeButtons(options){
-      sizeList.innerHTML=options.map((option,i)=>{
-        const label=option.label?tx(option.label):(LANG==='en'?'Option ':'Option ')+(i+1);
-        return `<button type="button" class="modal-choice ${i===0?'selected':''}" data-choice-name="size" data-choice-index="${i}" aria-pressed="${i===0?'true':'false'}"><span>${esc(label)}</span><strong>${esc(money(option.amount))}</strong></button>`;
+    function buildSizeButtons(entries){
+      sizeList.innerHTML=entries.map((entry,i)=>{
+        const option=entry.option;
+        const label=entry.label||option.label||((LANG==='en'?'Option ':'Option ')+(i+1));
+        return `<button type="button" class="modal-choice" data-choice-name="size" data-choice-index="${i}" aria-pressed="false"><span>${esc(tx(label))}</span><strong>${esc(money(option.amount))}</strong></button>`;
       }).join('');
+      const first=$('.modal-choice[data-choice-name="size"]',sizeList);
+      first?.classList.add('selected');
+      first?.setAttribute('aria-pressed','true');
+    }
+    function buildTacoSizeChoices(product){
+      const match=String(product.id||'').match(/^tacos-kebab-([1-6])$/);
+      if(!match)return [];
+      const baseOption=Array.isArray(product.price)?product.price[0]:null;
+      const xlId='tacos-kebab-'+(Number(match[1])+6);
+      const all=Object.values(window.EL_PATRON_MENU||{}).flat();
+      const xlProduct=all.find(item=>item.id===xlId);
+      const xlSourceOption=Array.isArray(xlProduct?.price)?xlProduct.price[0]:null;
+      if(!baseOption||!xlProduct||!xlSourceOption)return [];
+      const xlAmount=Number(baseOption.amount)+4000;
+      return [
+        {product,option:{...baseOption,label:'L'},label:'L'},
+        {product:xlProduct,option:{...xlSourceOption,amount:xlAmount,label:t('tacoXLUpgrade')},label:t('tacoXLUpgrade')}
+      ];
     }
     function open(product,option,categorySlug){
       clearTimeout(closeTimer);
       const hasAcc=needsAccompaniment(product),hasIce=hasIceChoice(product,categorySlug);
-      const sizeOptions=categorySlug==='pizzas'&&Array.isArray(product.price)
-        ?product.price.filter(o=>o&&Number.isFinite(Number(o.amount))&&String(o.label||'').trim()).slice().sort((a,b)=>Number(a.amount)-Number(b.amount))
+      const isTaco=isTacoUpgradeProduct(product,categorySlug);
+      const pizzaChoices=categorySlug==='pizzas'&&Array.isArray(product.price)
+        ?product.price.filter(o=>o&&Number.isFinite(Number(o.amount))&&String(o.label||'').trim())
+          .slice().sort((a,b)=>Number(a.amount)-Number(b.amount))
+          .map(o=>({product,option:o,label:o.label}))
         :[];
-      const hasSize=sizeOptions.length>1;
+      const sizeChoices=isTaco?buildTacoSizeChoices(product):pizzaChoices;
+      const hasSize=sizeChoices.length>1;
       if(!hasAcc&&!hasIce&&!hasSize){addToCart(product,option);return}
-      state={product,option:hasSize?(sizeOptions[0]||option):option,categorySlug,sizeOptions,accompaniment:hasAcc?ACCOMPANIMENTS[0]:'',iceFlavor:hasIce?ICE_FLAVORS[0]:''};
+      state={product,option:hasSize?sizeChoices[0].option:option,categorySlug,sizeChoices,accompaniment:hasAcc?ACCOMPANIMENTS[0]:'',iceFlavor:hasIce?ICE_FLAVORS[0]:''};
       productName.textContent=product.name;
       sizeGroup.hidden=!hasSize;
       accompGroup.hidden=!hasAcc;
       iceGroup.hidden=!hasIce;
-      if(hasSize)buildSizeButtons(sizeOptions);else sizeList.innerHTML='';
+      if(hasSize){
+        sizeTitle.textContent=t(isTaco?'chooseTacoSize':'choosePizzaSize');
+        sizeHelp.textContent=isTaco
+          ?(LANG==='en'?'XL upgrade: +4,000 FCFA':'Supplément XL : +4 000 FCFA')
+          :(LANG==='en'?'Choose one':'Choisissez une taille');
+        buildSizeButtons(sizeChoices);
+      }else sizeList.innerHTML='';
       if(hasAcc)buildButtons(accompList,ACCOMPANIMENTS,'accompaniment');else accompList.innerHTML='';
       if(hasIce)buildButtons(iceList,ICE_FLAVORS,'iceFlavor');else iceList.innerHTML='';
       modal.hidden=false;
@@ -296,8 +331,8 @@
         choice.classList.add('selected');choice.setAttribute('aria-pressed','true');
         if(state){
           if(choice.dataset.choiceName==='size'){
-            const selected=state.sizeOptions[Number(choice.dataset.choiceIndex)];
-            if(selected)state.option=selected;
+            const selected=state.sizeChoices[Number(choice.dataset.choiceIndex)];
+            if(selected){state.product=selected.product;state.option=selected.option;}
           }else{
             state[choice.dataset.choiceName]=choice.dataset.choiceValue;
           }
@@ -317,7 +352,7 @@
   }
     function productCard(p,idx,categoryTitle,categorySlug){
     if(p.noteOnly)return `<article class="product-note reveal"><div class="product-note-kicker">${esc(categoryTitle)}</div><div class="product-note-title">${esc(p.name)}</div><p>${esc(p.desc)}</p></article>`;
-    const currentPrice=priceMarkup(p);
+    const currentPrice=priceMarkup(p,categorySlug);
     const imageMarkup=productImageMarkup(p);
     const addButton=p.price?.length?`<button type="button" class="add-btn" data-add="true" aria-label="${escAttr(t('addToCart')+' '+p.name)}">${ICONS.plus}<span class="add-btn-label">${esc(t('addToCart'))}</span></button>`:'';
     return `<article class="product-card reveal tilt${productCardShellClasses(p)}" style="--reveal-delay:${Math.min(idx,10)*45}ms" data-product-id="${escAttr(p.id)}" data-category-slug="${escAttr(categorySlug)}">${imageMarkup}<div class="product-top">${p.sub?`<span class="sub-chip">${esc(p.sub)}</span>`:''}<div class="product-name">${esc(p.name)}</div></div><div class="product-body"><p class="product-desc">${esc(p.desc||t('houseDescription'))}</p>${p.note?`<div class="product-note-inline">${esc(p.note)}</div>`:''}<div class="product-prices" aria-label="${escAttr(LANG==='en'?'Prices':'Prix')}">${currentPrice}</div><div class="product-foot">${addButton}</div></div></article>`;
