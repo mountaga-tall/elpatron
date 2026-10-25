@@ -812,7 +812,7 @@ window.EL_PATRON_MENU={
       "price": [
         {
           "label": "",
-          "amount": 7000
+          "amount": 8000
         }
       ],
       "desc": "Sauce cocktail, frites, poulet, mozzarella, tomates, oignons, poivrons sautés + portion de frites. Format XL.",
@@ -824,7 +824,7 @@ window.EL_PATRON_MENU={
       "price": [
         {
           "label": "",
-          "amount": 7000
+          "amount": 8000
         }
       ],
       "desc": "Sauce cocktail, mozzarella, viande, frites, salade, poivrons, oignons, tomates + portion de frites. Format XL.",
@@ -836,7 +836,7 @@ window.EL_PATRON_MENU={
       "price": [
         {
           "label": "",
-          "amount": 7000
+          "amount": 8000
         }
       ],
       "desc": "Sauce cocktail, mozzarella, viande de bœuf et poulet, frites, salade, poivrons, oignons, tomates + portion de frites. Format XL.",
@@ -848,7 +848,7 @@ window.EL_PATRON_MENU={
       "price": [
         {
           "label": "",
-          "amount": 8000
+          "amount": 9000
         }
       ],
       "desc": "Sauce cocktail, frites, poulet, mozzarella, tomates, oignons, poivrons sautés + portion de frites. Format XL Royal.",
@@ -860,7 +860,7 @@ window.EL_PATRON_MENU={
       "price": [
         {
           "label": "",
-          "amount": 8000
+          "amount": 9000
         }
       ],
       "desc": "Sauce cocktail, mozzarella, viande, frites, salade, poivrons, oignons, tomates + portion de frites. Format XL Royal.",
@@ -872,7 +872,7 @@ window.EL_PATRON_MENU={
       "price": [
         {
           "label": "",
-          "amount": 8000
+          "amount": 9000
         }
       ],
       "desc": "Sauce cocktail, mozzarella, viande de bœuf et poulet, frites, salade, poivrons, oignons, tomates + portion de frites. Format XL Royal.",
