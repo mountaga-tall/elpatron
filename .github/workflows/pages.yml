@@ -72,12 +72,12 @@ jobs:
               assert token not in enhancements, f"Removed feature logic remains: {token}"
           for token in ("LANG==='ar'", "ar-EG", "ar:{"):
               assert token not in app, f"Arabic cart/navigation code remains: {token}"
-          assert 'class="price-option"' in app and 'options.map(o=>`<span class="price-option">' in app, "All product price options must be shown"
+          assert 'p.defaultPriceOnly&&options.length>1' in app and 'const formatChoices=product.defaultPriceOnly' in app, "Snacks and burgers must open the Sandwich / Plat chooser"
           assert 'data-add="true"' in app and 'class="add-btn-label"' in app, "Add-to-cart button must be rendered on priced products"
           assert 'const option=options.slice().sort((a,b)=>Number(a.amount)-Number(b.amount))[0]' in app and 'window.openProductOptions(p,option,productCategory)' in app, "Customizable products must open the options chooser before being added"
           assert 'function buildSizeButtons(entries)' in app and "categorySlug==='pizzas'" in app and 'data-size-group' in app, "Pizza size chooser is missing"
           assert 'data-pizza-size-index' in app and "Number(selected.amount)===Math.min(...options.map(item=>Number(item.amount)))" in app, "Grand pizzas must add directly and Moyen pizzas must offer the size popup"
-          assert 'isTacoUpgradeProduct' in app and "XL (+4 000 FCFA)" in app, "Only the six cheapest tacos must offer the XL upgrade"
+          assert 'isTacoUpgradeProduct' in app and "XL (+3 000 FCFA)" in app, "Only the six cheapest tacos must offer the XL upgrade"
           menu_source = Path("menu-data.js").read_text(encoding="utf-8")
           menu_match = re.search(r'window\.EL_PATRON_MENU=(\{[\s\S]*?\n\});', menu_source)
           assert menu_match, "Could not parse menu data for taco XL pricing"
@@ -86,7 +86,7 @@ jobs:
           for n in range(1, 7):
               base = by_id[f"tacos-kebab-{n}"]["price"][0]["amount"]
               xl = by_id[f"tacos-kebab-{n+6}"]["price"][0]["amount"]
-              assert xl == base + 4000, f"Taco tacos-kebab-{n+6} must cost exactly 4,000 FCFA more than its L version"
+              assert xl == base + 3000, f"Taco tacos-kebab-{n+6} must cost exactly 3,000 FCFA more than its L version"
           assert '.product-card .product-prices' in css and '.product-card .product-foot .add-btn' in css, "Product prices and add-to-cart buttons must remain visible"
           assert 'class="icon-btn open-cart"' in app and 'class="cart-drawer"' in app, "Cart must be accessible from the header"
           assert not any(token in css + app + enhancements for token in (".ep-favorites", ".ep-fav-", "is-favorite", "ep-rating-card")), "Removed favourites or rating UI must not return"
