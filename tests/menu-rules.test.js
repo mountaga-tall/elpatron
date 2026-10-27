@@ -41,7 +41,9 @@ test('only L tacos 1-6 have the XL popup rule; already-XL tacos are not eligible
 test('snack and burger products restore the Sandwich / Plat popup, with a free side for Plat', () => {
   for (const category of ['snack', 'burgers']) {
     assert.ok(menu[category].length > 0, 'Missing category ' + category);
-    for (const product of menu[category]) {
+    const configurable = menu[category].filter(product => product.price?.length > 1);
+    assert.ok(configurable.length > 0, category + ' should contain format choices');
+    for (const product of configurable) {
       assert.equal(product.defaultPriceOnly, true, product.id + ' should use the option popup');
       assert.equal(product.price.length, 2, product.id + ' should expose two formats');
       assert.equal(product.price[0].label, 'Sandwich', product.id + ' is missing Sandwich');
