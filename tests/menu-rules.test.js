@@ -47,7 +47,7 @@ test('only L tacos 1-6 have the XL popup rule; already-XL tacos are not eligible
   assert.match(app, /window\.EL_PATRON_ADD_FROM_COMBO/);
 });
 
-test('snack and burger products restore the Sandwich / Plat popup, with a free side for Plat', () => {
+test('snack and burger popups offer Sandwich or Plat (+1,500 FCFA) with fries only', () => {
   for (const category of ['snack', 'burgers']) {
     assert.ok(menu[category].length > 0, 'Missing category ' + category);
     const configurable = menu[category].filter(product => product.price?.length > 1);
@@ -57,12 +57,14 @@ test('snack and burger products restore the Sandwich / Plat popup, with a free s
       assert.equal(product.price.length, 2, product.id + ' should expose two formats');
       assert.equal(product.price[0].label, 'Sandwich', product.id + ' is missing Sandwich');
       assert.equal(product.price[1].label, 'Plat', product.id + ' is missing Plat');
+      assert.equal(Number(product.price[1].amount), Number(product.price[0].amount) + 1500, product.id + ' must cost 1,500 FCFA more for Plat');
     }
   }
   assert.match(app, /p\.defaultPriceOnly&&options\.length>1/);
   assert.match(app, /const formatChoices=product\.defaultPriceOnly&&Array\.isArray\(product\.price\)/);
-  assert.match(app, /function productNeedsAccompaniment\(p,option\).*normalize\(option\?\.label\)==='plat'/);
-  assert.match(app, /Included in the price/);
+  assert.match(app, /function productNeedsAccompaniment\(p\)\{return needsAccompaniment\(p\)\}/);
+  assert.doesNotMatch(app, /defaultPriceOnly\)\&\&normalize\(option\?\.label\)==='plat'/);
+  assert.match(app, /Le plat comprend des frites uniquement/);
 });
 
 test('free accompaniment popup coverage includes all configured plates, grills and chicken dishes', () => {
