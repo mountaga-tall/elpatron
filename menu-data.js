@@ -67,7 +67,9 @@ window.EL_PATRON_MENU={
       ],
       "desc": "Thym oriental.",
       "id": "manaiches-1",
-      "images": ["images/manaiches/zaatar.webp"]
+      "images": [
+        "images/manaiches/zaatar.webp"
+      ]
     },
     {
       "name": "LÉGUMES",
@@ -79,7 +81,9 @@ window.EL_PATRON_MENU={
       ],
       "desc": "Tomates, oignons, poivrons, huile d’olive et origan.",
       "id": "manaiches-2",
-      "images": ["images/manaiches/legumes.webp"]
+      "images": [
+        "images/manaiches/legumes.webp"
+      ]
     },
     {
       "name": "VIANDE",
@@ -91,7 +95,9 @@ window.EL_PATRON_MENU={
       ],
       "desc": "Viande de bœuf, oignons et tomates hachées.",
       "id": "manaiches-3",
-      "images": ["images/manaiches/viande.webp"]
+      "images": [
+        "images/manaiches/viande.webp"
+      ]
     },
     {
       "name": "FROMAGE",
@@ -103,7 +109,9 @@ window.EL_PATRON_MENU={
       ],
       "desc": "Akkawi spécial manaïches.",
       "id": "manaiches-4",
-      "images": ["images/manaiches/fromage.webp"]
+      "images": [
+        "images/manaiches/fromage.webp"
+      ]
     },
     {
       "name": "COCKTAIL",
@@ -115,7 +123,9 @@ window.EL_PATRON_MENU={
       ],
       "desc": "Viande de bœuf hachée, fromage ou zaatar.",
       "id": "manaiches-5",
-      "images": ["images/manaiches/cocktail.webp"]
+      "images": [
+        "images/manaiches/cocktail.webp"
+      ]
     },
     {
       "name": "JAMBON FROMAGE",
@@ -127,7 +137,9 @@ window.EL_PATRON_MENU={
       ],
       "desc": "Akkawi, jambon de bœuf ou de dinde.",
       "id": "manaiches-6",
-      "images": ["images/manaiches/jambonfromage.webp"]
+      "images": [
+        "images/manaiches/jambonfromage.webp"
+      ]
     }
   ],
   "salades": [
@@ -231,7 +243,9 @@ window.EL_PATRON_MENU={
       ],
       "desc": "Galette de pain fourrée à la viande hachée (1 pièce), accompagnée de piment.",
       "id": "entrees-1",
-      "images": ["images/entrees/fatayer.webp"]
+      "images": [
+        "images/entrees/fatayer.webp"
+      ]
     },
     {
       "name": "FATAYER LÉGUMES",
@@ -243,7 +257,9 @@ window.EL_PATRON_MENU={
       ],
       "desc": "Galette de pain fourrée aux épinards, oignons et tomates (1 pièce), accompagnée de piment.",
       "id": "entrees-2",
-      "images": ["images/entrees/fatayer.webp"]
+      "images": [
+        "images/entrees/fatayer.webp"
+      ]
     },
     {
       "name": "KEBBEH",
@@ -255,7 +271,9 @@ window.EL_PATRON_MENU={
       ],
       "desc": "Coque fine de boulgour fourrée à la viande hachée (5 pièces), accompagnée de piment.",
       "id": "entrees-3",
-      "images": ["images/entrees/kebbeh.webp"]
+      "images": [
+        "images/entrees/kebbeh.webp"
+      ]
     },
     {
       "name": "SAMOUSSA",
@@ -267,7 +285,9 @@ window.EL_PATRON_MENU={
       ],
       "desc": "Briquettes farcies à la viande hachée (5 pièces), accompagnées de piment.",
       "id": "entrees-4",
-      "images": ["images/entrees/samoussa.webp"]
+      "images": [
+        "images/entrees/samoussa.webp"
+      ]
     },
     {
       "name": "MOZZARELLA STICKS",
@@ -290,7 +310,9 @@ window.EL_PATRON_MENU={
       ],
       "desc": "Rouleaux de brick fourrés au fromage (5 pièces), accompagnés de sauce cocktail et de piment.",
       "id": "entrees-6",
-      "images": ["images/entrees/cheesyroll.webp"]
+      "images": [
+        "images/entrees/cheesyroll.webp"
+      ]
     },
     {
       "name": "WINGS",
@@ -812,7 +834,7 @@ window.EL_PATRON_MENU={
       "price": [
         {
           "label": "",
-          "amount": 8000
+          "amount": 7000
         }
       ],
       "desc": "Sauce cocktail, frites, poulet, mozzarella, tomates, oignons, poivrons sautés + portion de frites. Format XL.",
@@ -824,7 +846,7 @@ window.EL_PATRON_MENU={
       "price": [
         {
           "label": "",
-          "amount": 8000
+          "amount": 7000
         }
       ],
       "desc": "Sauce cocktail, mozzarella, viande, frites, salade, poivrons, oignons, tomates + portion de frites. Format XL.",
@@ -836,7 +858,7 @@ window.EL_PATRON_MENU={
       "price": [
         {
           "label": "",
-          "amount": 8000
+          "amount": 7000
         }
       ],
       "desc": "Sauce cocktail, mozzarella, viande de bœuf et poulet, frites, salade, poivrons, oignons, tomates + portion de frites. Format XL.",
@@ -848,7 +870,7 @@ window.EL_PATRON_MENU={
       "price": [
         {
           "label": "",
-          "amount": 9000
+          "amount": 8000
         }
       ],
       "desc": "Sauce cocktail, frites, poulet, mozzarella, tomates, oignons, poivrons sautés + portion de frites. Format XL Royal.",
@@ -860,7 +882,7 @@ window.EL_PATRON_MENU={
       "price": [
         {
           "label": "",
-          "amount": 9000
+          "amount": 8000
         }
       ],
       "desc": "Sauce cocktail, mozzarella, viande, frites, salade, poivrons, oignons, tomates + portion de frites. Format XL Royal.",
@@ -872,7 +894,7 @@ window.EL_PATRON_MENU={
       "price": [
         {
           "label": "",
-          "amount": 9000
+          "amount": 8000
         }
       ],
       "desc": "Sauce cocktail, mozzarella, viande de bœuf et poulet, frites, salade, poivrons, oignons, tomates + portion de frites. Format XL Royal.",
