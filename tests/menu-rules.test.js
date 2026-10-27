@@ -43,7 +43,9 @@ test('snack and burger products restore the Sandwich / Plat popup, with a free s
     assert.ok(menu[category].length > 0, 'Missing category ' + category);
     for (const product of menu[category]) {
       assert.equal(product.defaultPriceOnly, true, product.id + ' should use the option popup');
-      assert.deepEqual(product.price.map(option => option.label), ['Sandwich', 'Plat']);
+      assert.equal(product.price.length, 2, product.id + ' should expose two formats');
+      assert.equal(product.price[0].label, 'Sandwich', product.id + ' is missing Sandwich');
+      assert.equal(product.price[1].label, 'Plat', product.id + ' is missing Plat');
     }
   }
   assert.match(app, /p\.defaultPriceOnly&&options\.length>1/);
