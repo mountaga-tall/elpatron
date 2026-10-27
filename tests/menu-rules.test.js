@@ -17,7 +17,16 @@ test('all catalog pizzas expose Moyen and Grand with positive prices', () => {
     assert.ok(labels.includes('Moyen'), pizza.id + ' is missing Moyen');
     assert.ok(labels.includes('Grand'), pizza.id + ' is missing Grand');
     for (const option of pizza.price) assert.ok(option.amount > 0, pizza.id + ' has invalid price');
+    const medium = pizza.price.find(option => option.label === 'Moyen');
+    const grand = pizza.price.find(option => option.label === 'Grand');
+    const surcharge = ['pizzas-1', 'pizzas-2'].includes(pizza.id) ? 1000 : 1500;
+    assert.equal(Number(grand.amount), Number(medium.amount) + surcharge, pizza.id + ' has an incorrect Grand surcharge');
   }
+  assert.match(app, /function pizzaLargeSurcharge\(p\)/);
+  assert.match(app, /function pizzaPriceOptions\(p\)/);
+  assert.match(app, /categorySlug==='pizzas'\?pizzaPriceOptions\(p\)/);
+  assert.match(app, /pizzaPriceOptions\(product\)\.filter/);
+  assert.match(app, /pizzaLargeSurcharge\(product\)/);
 });
 
 test('the six L / L Royal tacos have a matching XL exactly 3,000 FCFA more expensive', () => {
