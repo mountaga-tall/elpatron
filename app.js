@@ -81,7 +81,7 @@
     return ICE_PATTERN.test(text);
   }
   function needsAccompaniment(p){return FREE_ACCOMPANIMENT_IDS.has(p.id)}
-  function productNeedsAccompaniment(p,option){return needsAccompaniment(p)||(Boolean(p?.defaultPriceOnly)&&normalize(option?.label)==='plat')}
+  function productNeedsAccompaniment(p){return needsAccompaniment(p)}
   function isTacoUpgradeProduct(p,categorySlug){return categorySlug==='tacos-kebab'&&/^tacos-kebab-[1-6]$/.test(String(p?.id||''))}
   function cartKey(product,option,meta={}){
     return JSON.stringify([product.id,option?.label||'',Number(option?.amount)||0,meta.accompaniment||'',meta.iceFlavor||'']);
@@ -331,7 +331,7 @@
     }
     function open(product,option,categorySlug){
       clearTimeout(closeTimer);
-      const hasAcc=productNeedsAccompaniment(product,option),hasIce=hasIceChoice(product,categorySlug);
+      const hasAcc=productNeedsAccompaniment(product),hasIce=hasIceChoice(product,categorySlug);
       const isTaco=isTacoUpgradeProduct(product,categorySlug);
       const pizzaChoices=categorySlug==='pizzas'&&Array.isArray(product.price)
         ?pizzaPriceOptions(product).filter(o=>String(o.label||'').trim())
@@ -358,7 +358,7 @@
             ?(LANG==='en'
               ?'Large: +'+pizzaLargeSurcharge(product).toLocaleString('en-US')+' FCFA'
               :'Grande : +'+pizzaLargeSurcharge(product).toLocaleString('fr-FR')+' FCFA')
-            :(LANG==='en'?'Choose Sandwich or Plate':'Choisissez Sandwich ou Plat'));
+            :(LANG==='en'?'The plate option includes fries only':'Le plat comprend des frites uniquement'));
         buildSizeButtons(sizeChoices);
       }else sizeList.innerHTML='';
       if(hasAcc)buildButtons(accompList,ACCOMPANIMENTS,'accompaniment');else accompList.innerHTML='';
@@ -385,9 +385,9 @@
           if(choice.dataset.choiceName==='size'){
             const selected=state.sizeChoices[Number(choice.dataset.choiceIndex)];
             if(selected){
-              const previouslyNeedsAcc=productNeedsAccompaniment(state.product,state.option);
+              const previouslyNeedsAcc=productNeedsAccompaniment(state.product);
               state.product=selected.product;state.option=selected.option;
-              const nowNeedsAcc=productNeedsAccompaniment(state.product,state.option);
+              const nowNeedsAcc=productNeedsAccompaniment(state.product);
               if(nowNeedsAcc&&!previouslyNeedsAcc){
                 state.accompaniment=ACCOMPANIMENTS[0];
                 accompGroup.hidden=false;
