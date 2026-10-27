@@ -5,8 +5,8 @@
   const LANG=LANG_RAW==='en'?'en':'fr';
   const tx=s=>window.EL_PATRON_TEXT?window.EL_PATRON_TEXT(s):s;
   const UI={
-    fr:{home:'Accueil',cart:'Panier',contact:'Contact',openCart:'Ouvrir le panier',openMenu:'Ouvrir le menu',closeMenu:'Fermer le menu',menuMobile:'Menu mobile',search:'Rechercher dans le menu…',searchLabel:'Rechercher dans tout le menu',launchSearch:'Lancer la recherche',emptyCart:'Votre panier est vide.',emptyStart:'Votre panier est vide. Ajoutez une spécialité El Patrón pour commencer.',removeOne:'Retirer un article',addOne:'Ajouter un article',delete:'Supprimer',yourCart:'Votre panier',closeCart:'Fermer le panier',total:'Total',orderWhatsApp:'Commander sur WhatsApp',viewCart:'Voir le panier',customize:'Personnalisez votre choix',options:'Options',chooseSide:'Choisissez votre accompagnement',chooseFlavor:'Choisissez votre parfum de glace',included:'Inclus',cancel:'Annuler',addToCart:'Ajouter au panier',side:'Accompagnement',flavor:'Parfum',request:'Sur demande',noProduct:'Aucun produit ne correspond à',noResults:'Aucun résultat pour',result:'résultat',results:'résultats',from:'À partir de',discover:'Découvrir',imagesOf:'Images de',image:'image',houseDescription:'Composition selon la recette El Patrón.',officialInfo:'Voir les informations pratiques',menu:'Menu',query:'Recherche',footerIntro:'Une carte généreuse et une expérience El Patrón à Abidjan.',cannotAdd:'Ce produit ne peut pas être ajouté au panier',experience:'L’expérience',choosePizzaSize:'Choisissez la taille de votre pizza',chooseTacoSize:'Choisissez le format du tacos',tacoXLUpgrade:'XL (+4 000 FCFA)',sortLabel:'Trier',sortDefault:'Ordre du menu',sortCheap:'Prix croissant',sortExpensive:'Prix décroissant',orderDetailsMissing:'Renseignez votre nom et votre téléphone avant de commander.',invalidPhone:'Vérifiez le numéro de téléphone.',deliveryAddressRequired:'Ajoutez l’adresse de livraison.'},
-    en:{home:'Home',cart:'Cart',contact:'Contact',openCart:'Open cart',openMenu:'Open menu',closeMenu:'Close menu',menuMobile:'Mobile menu',search:'Search the menu…',searchLabel:'Search the full menu',launchSearch:'Start search',emptyCart:'Your cart is empty.',emptyStart:'Your cart is empty. Add an El Patrón specialty to get started.',removeOne:'Remove one item',addOne:'Add one item',delete:'Delete',yourCart:'Your cart',closeCart:'Close cart',total:'Total',orderWhatsApp:'Order on WhatsApp',viewCart:'View cart',customize:'Customize your choice',options:'Options',chooseSide:'Choose your side',chooseFlavor:'Choose your ice-cream flavor',included:'Included',cancel:'Cancel',addToCart:'Add to cart',side:'Side',flavor:'Flavor',request:'On request',noProduct:'No product matches',noResults:'No results for',result:'result',results:'results',from:'From',discover:'Discover',imagesOf:'Images of',image:'image',houseDescription:'Prepared according to the El Patrón recipe.',officialInfo:'View practical information',menu:'Menu',query:'Search',footerIntro:'A generous menu and the El Patrón experience in Abidjan.',cannotAdd:'This product cannot be added to the cart',experience:'Experience',choosePizzaSize:'Choose your pizza size',chooseTacoSize:'Choose your taco size',tacoXLUpgrade:'XL (+4,000 FCFA)',sortLabel:'Sort',sortDefault:'Menu order',sortCheap:'Price: low to high',sortExpensive:'Price: high to low',orderDetailsMissing:'Enter your name and phone number before ordering.',invalidPhone:'Check the phone number.',deliveryAddressRequired:'Add the delivery address.'},
+    fr:{home:'Accueil',cart:'Panier',contact:'Contact',openCart:'Ouvrir le panier',openMenu:'Ouvrir le menu',closeMenu:'Fermer le menu',menuMobile:'Menu mobile',search:'Rechercher dans le menu…',searchLabel:'Rechercher dans tout le menu',launchSearch:'Lancer la recherche',emptyCart:'Votre panier est vide.',emptyStart:'Votre panier est vide. Ajoutez une spécialité El Patrón pour commencer.',removeOne:'Retirer un article',addOne:'Ajouter un article',delete:'Supprimer',yourCart:'Votre panier',closeCart:'Fermer le panier',total:'Total',orderWhatsApp:'Commander sur WhatsApp',viewCart:'Voir le panier',customize:'Personnalisez votre choix',options:'Options',chooseSide:'Choisissez votre accompagnement',chooseFlavor:'Choisissez votre parfum de glace',included:'Inclus',cancel:'Annuler',addToCart:'Ajouter au panier',side:'Accompagnement',flavor:'Parfum',request:'Sur demande',noProduct:'Aucun produit ne correspond à',noResults:'Aucun résultat pour',result:'résultat',results:'résultats',from:'À partir de',discover:'Découvrir',imagesOf:'Images de',image:'image',houseDescription:'Composition selon la recette El Patrón.',officialInfo:'Voir les informations pratiques',menu:'Menu',query:'Recherche',footerIntro:'Une carte généreuse et une expérience El Patrón à Abidjan.',cannotAdd:'Ce produit ne peut pas être ajouté au panier',experience:'L’expérience',choosePizzaSize:'Choisissez la taille de votre pizza',chooseTacoSize:'Choisissez le format du tacos',chooseFormat:'Choisissez votre formule',tacoXLUpgrade:'XL (+3 000 FCFA)',sortLabel:'Trier',sortDefault:'Ordre du menu',sortCheap:'Prix croissant',sortExpensive:'Prix décroissant',orderDetailsMissing:'Renseignez votre nom et votre téléphone avant de commander.',invalidPhone:'Vérifiez le numéro de téléphone.',deliveryAddressRequired:'Ajoutez l’adresse de livraison.'},
+    en:{home:'Home',cart:'Cart',contact:'Contact',openCart:'Open cart',openMenu:'Open menu',closeMenu:'Close menu',menuMobile:'Mobile menu',search:'Search the menu…',searchLabel:'Search the full menu',launchSearch:'Start search',emptyCart:'Your cart is empty.',emptyStart:'Your cart is empty. Add an El Patrón specialty to get started.',removeOne:'Remove one item',addOne:'Add one item',delete:'Delete',yourCart:'Your cart',closeCart:'Close cart',total:'Total',orderWhatsApp:'Order on WhatsApp',viewCart:'View cart',customize:'Customize your choice',options:'Options',chooseSide:'Choose your side',chooseFlavor:'Choose your ice-cream flavor',included:'Included',cancel:'Cancel',addToCart:'Add to cart',side:'Side',flavor:'Flavor',request:'On request',noProduct:'No product matches',noResults:'No results for',result:'result',results:'results',from:'From',discover:'Discover',imagesOf:'Images of',image:'image',houseDescription:'Prepared according to the El Patrón recipe.',officialInfo:'View practical information',menu:'Menu',query:'Search',footerIntro:'A generous menu and the El Patrón experience in Abidjan.',cannotAdd:'This product cannot be added to the cart',experience:'Experience',choosePizzaSize:'Choose your pizza size',chooseTacoSize:'Choose your taco size',chooseFormat:'Choose your option',tacoXLUpgrade:'XL (+3,000 FCFA)',sortLabel:'Sort',sortDefault:'Menu order',sortCheap:'Price: low to high',sortExpensive:'Price: high to low',orderDetailsMissing:'Enter your name and phone number before ordering.',invalidPhone:'Check the phone number.',deliveryAddressRequired:'Add the delivery address.'},
   };
   const t=k=>UI[LANG]?.[k]||UI.fr[k]||k;
   const siteSubtitle=LANG==='en'?'Restaurant · Bar · Café · Tea Room':'Restaurant · Bar · Café · Salon de thé';
@@ -49,6 +49,10 @@
   function priceMarkup(p,categorySlug){
     const options=p.price||[];
     if(!options.length)return t('request');
+    if(p.defaultPriceOnly&&options.length>1){
+      const cheapest=options.slice().sort((a,b)=>Number(a.amount)-Number(b.amount))[0];
+      return `<span class="price-option"><small>${esc(t('from'))}</small><strong>${money(cheapest.amount)}</strong></span>`;
+    }
     if(categorySlug==='pizzas'&&options.length>1&&options.every(o=>String(o.label||'').trim())){
       return options.map((o,i)=>`<button type="button" class="price-option price-option-button" data-pizza-size-index="${i}" aria-label="${escAttr((LANG==='en'?'Choose ':'Choisir ')+tx(o.label)+' · '+money(o.amount))}"><small>${esc(tx(o.label))}</small><strong>${money(o.amount)}</strong></button>`).join('');
     }
@@ -64,6 +68,7 @@
     return ICE_PATTERN.test(text);
   }
   function needsAccompaniment(p){return FREE_ACCOMPANIMENT_IDS.has(p.id)}
+  function productNeedsAccompaniment(p,option){return needsAccompaniment(p)||(Boolean(p?.defaultPriceOnly)&&normalize(option?.label)==='plat')}
   function isTacoUpgradeProduct(p,categorySlug){return categorySlug==='tacos-kebab'&&/^tacos-kebab-[1-6]$/.test(String(p?.id||''))}
   function cartKey(product,option,meta={}){
     return JSON.stringify([product.id,option?.label||'',Number(option?.amount)||0,meta.accompaniment||'',meta.iceFlavor||'']);
@@ -251,7 +256,7 @@
                 <div class="product-option-grid" data-size-list></div>
               </div>
               <div class="product-option-group" data-accompaniment-group hidden>
-                <div class="product-option-label"><strong>${esc(t('chooseSide'))}</strong><span>${LANG==='en'?'Choose one':'Choisissez un accompagnement'}</span></div>
+                <div class="product-option-label"><strong>${esc(t('chooseSide'))}</strong><span>${LANG==='en'?'Included in the price · choose one':'Inclus dans le prix · choisissez un accompagnement'}</span></div>
                 <div class="product-option-grid" data-accompaniment-list></div>
               </div>
               <div class="product-option-group" data-ice-group hidden>
@@ -305,7 +310,7 @@
       const xlProduct=all.find(item=>item.id===xlId);
       const xlSourceOption=Array.isArray(xlProduct?.price)?xlProduct.price[0]:null;
       if(!baseOption||!xlProduct||!xlSourceOption)return [];
-      const xlAmount=Number(baseOption.amount)+4000;
+      const xlAmount=Number(baseOption.amount)+3000;
       return [
         {product,option:{...baseOption,label:'L'},label:'L'},
         {product:xlProduct,option:{...xlSourceOption,amount:xlAmount,label:t('tacoXLUpgrade')},label:t('tacoXLUpgrade')}
@@ -313,14 +318,18 @@
     }
     function open(product,option,categorySlug){
       clearTimeout(closeTimer);
-      const hasAcc=needsAccompaniment(product),hasIce=hasIceChoice(product,categorySlug);
+      const hasAcc=productNeedsAccompaniment(product,option),hasIce=hasIceChoice(product,categorySlug);
       const isTaco=isTacoUpgradeProduct(product,categorySlug);
       const pizzaChoices=categorySlug==='pizzas'&&Array.isArray(product.price)
         ?product.price.filter(o=>o&&Number.isFinite(Number(o.amount))&&String(o.label||'').trim())
           .slice().sort((a,b)=>Number(a.amount)-Number(b.amount))
           .map(o=>({product,option:o,label:o.label}))
         :[];
-      const sizeChoices=isTaco?buildTacoSizeChoices(product):pizzaChoices;
+      const formatChoices=product.defaultPriceOnly&&Array.isArray(product.price)
+        ?product.price.filter(o=>o&&Number.isFinite(Number(o.amount))&&String(o.label||'').trim())
+          .slice().sort((a,b)=>Number(a.amount)-Number(b.amount)).map(o=>({product,option:o,label:o.label}))
+        :[];
+      const sizeChoices=isTaco?buildTacoSizeChoices(product):(pizzaChoices.length?pizzaChoices:formatChoices);
       const hasSize=sizeChoices.length>1;
       if(!hasAcc&&!hasIce&&!hasSize){addToCart(product,option);return}
       state={product,option:hasSize?sizeChoices[0].option:option,categorySlug,sizeChoices,accompaniment:hasAcc?ACCOMPANIMENTS[0]:'',iceFlavor:hasIce?ICE_FLAVORS[0]:''};
@@ -329,10 +338,12 @@
       accompGroup.hidden=!hasAcc;
       iceGroup.hidden=!hasIce;
       if(hasSize){
-        sizeTitle.textContent=t(isTaco?'chooseTacoSize':'choosePizzaSize');
+        sizeTitle.textContent=t(isTaco?'chooseTacoSize':categorySlug==='pizzas'?'choosePizzaSize':'chooseFormat');
         sizeHelp.textContent=isTaco
-          ?(LANG==='en'?'XL upgrade: +4,000 FCFA':'Supplément XL : +4 000 FCFA')
-          :(LANG==='en'?'Choose one':'Choisissez une taille');
+          ?(LANG==='en'?'XL upgrade: +3,000 FCFA':'Supplément XL : +3 000 FCFA')
+          :(categorySlug==='pizzas'
+            ?(LANG==='en'?'Choose one':'Choisissez une taille')
+            :(LANG==='en'?'Choose Sandwich or Plate':'Choisissez Sandwich ou Plat'));
         buildSizeButtons(sizeChoices);
       }else sizeList.innerHTML='';
       if(hasAcc)buildButtons(accompList,ACCOMPANIMENTS,'accompaniment');else accompList.innerHTML='';
@@ -358,7 +369,20 @@
         if(state){
           if(choice.dataset.choiceName==='size'){
             const selected=state.sizeChoices[Number(choice.dataset.choiceIndex)];
-            if(selected){state.product=selected.product;state.option=selected.option;}
+            if(selected){
+              const previouslyNeedsAcc=productNeedsAccompaniment(state.product,state.option);
+              state.product=selected.product;state.option=selected.option;
+              const nowNeedsAcc=productNeedsAccompaniment(state.product,state.option);
+              if(nowNeedsAcc&&!previouslyNeedsAcc){
+                state.accompaniment=ACCOMPANIMENTS[0];
+                accompGroup.hidden=false;
+                buildButtons(accompList,ACCOMPANIMENTS,'accompaniment');
+              }else if(!nowNeedsAcc&&previouslyNeedsAcc){
+                state.accompaniment='';
+                accompGroup.hidden=true;
+                accompList.innerHTML='';
+              }
+            }
           }else{
             state[choice.dataset.choiceName]=choice.dataset.choiceValue;
           }
@@ -408,7 +432,7 @@
       if(!button)return;
       button.addEventListener('click',()=>{
         if(!option){showToast(t('cannotAdd'));return}
-        const needsOptions=(productCategory==='pizzas'&&options.length>1)||isTacoUpgradeProduct(p,productCategory)||needsAccompaniment(p)||hasIceChoice(p,productCategory);
+        const needsOptions=(productCategory==='pizzas'&&options.length>1)||isTacoUpgradeProduct(p,productCategory)||(p.defaultPriceOnly&&options.length>1)||needsAccompaniment(p)||hasIceChoice(p,productCategory);
         if(needsOptions&&typeof window.openProductOptions==='function'){window.openProductOptions(p,option,productCategory);return}
         addToCart(p,option);
       });
