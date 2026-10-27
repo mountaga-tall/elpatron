@@ -20,13 +20,13 @@ test('all catalog pizzas expose Moyen and Grand with positive prices', () => {
   }
 });
 
-test('the six L / L Royal tacos have a matching XL exactly 4,000 FCFA more expensive', () => {
+test('the six L / L Royal tacos have a matching XL exactly 3,000 FCFA more expensive', () => {
   for (let n = 1; n <= 6; n += 1) {
     const base = menu['tacos-kebab'].find(item => item.id === 'tacos-kebab-' + n);
     const xl = menu['tacos-kebab'].find(item => item.id === 'tacos-kebab-' + (n + 6));
     assert.ok(base, 'Missing base taco ' + n);
     assert.ok(xl, 'Missing XL taco ' + (n + 6));
-    assert.equal(Number(xl.price[0].amount), Number(base.price[0].amount) + 4000);
+    assert.equal(Number(xl.price[0].amount), Number(base.price[0].amount) + 3000);
   }
 });
 
@@ -38,9 +38,24 @@ test('only L tacos 1-6 have the XL popup rule; already-XL tacos are not eligible
   assert.match(app, /window\.EL_PATRON_ADD_FROM_COMBO/);
 });
 
+test('snack and burger products restore the Sandwich / Plat popup, with a free side for Plat', () => {
+  for (const category of ['snack', 'burgers']) {
+    assert.ok(menu[category].length > 0, 'Missing category ' + category);
+    for (const product of menu[category]) {
+      assert.equal(product.defaultPriceOnly, true, product.id + ' should use the option popup');
+      assert.deepEqual(product.price.map(option => option.label), ['Sandwich', 'Plat']);
+    }
+  }
+  assert.match(app, /p\.defaultPriceOnly&&options\.length>1/);
+  assert.match(app, /const formatChoices=product\.defaultPriceOnly&&Array\.isArray\(product\.price\)/);
+  assert.match(app, /function productNeedsAccompaniment\(p,option\).*normalize\(option\?\.label\)==='plat'/);
+  assert.match(app, /Included in the price/);
+});
+
 test('free accompaniment popup coverage includes all configured plates, grills and chicken dishes', () => {
   const match = app.match(/const FREE_ACCOMPANIMENT_IDS=new Set\(\[([\s\S]*?)\]\);/);
   assert.ok(match, 'Free accompaniment ID set is missing');
+  assert.match(app, /needsAccompaniment\(p\)/);
   const ids = match[1];
   for (let n = 1; n <= 15; n += 1) assert.ok(ids.includes("'plats-" + n + "'"), 'Missing plats-' + n);
   for (let n = 1; n <= 6; n += 1) assert.ok(ids.includes("'grill-" + n + "'"), 'Missing grill-' + n);
