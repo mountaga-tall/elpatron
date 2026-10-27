@@ -46,8 +46,21 @@
     }
     return `<div class="product-images" aria-label="${label}">${images.map((src,i)=>`<img src="${escAttr(assetUrl(src))}" alt="${escAttr(p.name)} — ${t('image')} ${i+1}" loading="lazy" decoding="async" onerror="this.closest('.product-images')?.classList.add('image-error')">`).join('')}</div>`;
   }
+  function pizzaLargeSurcharge(p){
+    const id=String(p?.id||'');
+    const name=normalize(p?.name||'');
+    return /^pizzas-(?:1|2)$/.test(id)||/margherita|vegetarienne/.test(name)?1000:1500;
+  }
+  function pizzaPriceOptions(p){
+    const options=Array.isArray(p?.price)?p.price.filter(o=>o&&Number.isFinite(Number(o.amount))):[];
+    const medium=options.find(o=>normalize(o.label)==='moyen');
+    const grand=options.find(o=>normalize(o.label)==='grand');
+    if(!medium||!grand)return options;
+    const grandAmount=Number(medium.amount)+pizzaLargeSurcharge(p);
+    return options.map(o=>normalize(o.label)==='grand'?{...o,amount:grandAmount}:o);
+  }
   function priceMarkup(p,categorySlug){
-    const options=p.price||[];
+    const options=categorySlug==='pizzas'?pizzaPriceOptions(p):(p.price||[]);
     if(!options.length)return t('request');
     if(p.defaultPriceOnly&&options.length>1){
       const cheapest=options.slice().sort((a,b)=>Number(a.amount)-Number(b.amount))[0];
@@ -321,7 +334,7 @@
       const hasAcc=productNeedsAccompaniment(product,option),hasIce=hasIceChoice(product,categorySlug);
       const isTaco=isTacoUpgradeProduct(product,categorySlug);
       const pizzaChoices=categorySlug==='pizzas'&&Array.isArray(product.price)
-        ?product.price.filter(o=>o&&Number.isFinite(Number(o.amount))&&String(o.label||'').trim())
+        ?pizzaPriceOptions(product).filter(o=>String(o.label||'').trim())
           .slice().sort((a,b)=>Number(a.amount)-Number(b.amount))
           .map(o=>({product,option:o,label:o.label}))
         :[];
@@ -342,7 +355,9 @@
         sizeHelp.textContent=isTaco
           ?(LANG==='en'?'XL upgrade: +3,000 FCFA':'Supplément XL : +3 000 FCFA')
           :(categorySlug==='pizzas'
-            ?(LANG==='en'?'Choose one':'Choisissez une taille')
+            ?(LANG==='en'
+              ?'Large: +'+pizzaLargeSurcharge(product).toLocaleString('en-US')+' FCFA'
+              :'Grande : +'+pizzaLargeSurcharge(product).toLocaleString('fr-FR')+' FCFA')
             :(LANG==='en'?'Choose Sandwich or Plate':'Choisissez Sandwich ou Plat'));
         buildSizeButtons(sizeChoices);
       }else sizeList.innerHTML='';
@@ -413,7 +428,7 @@
       if(card.dataset.productOptionsBound==='true')return;
       card.dataset.productOptionsBound='true';
       const productCategory=categorySlug||card.dataset.categorySlug||p.categorySlug||'';
-      const options=Array.isArray(p.price)?p.price.filter(o=>o&&Number.isFinite(Number(o.amount))):[];
+      const options=productCategory==='pizzas'?pizzaPriceOptions(p):(Array.isArray(p.price)?p.price.filter(o=>o&&Number.isFinite(Number(o.amount))):[]);
       const option=options.slice().sort((a,b)=>Number(a.amount)-Number(b.amount))[0]||options[0];
       $('[data-pizza-size-index]',card).forEach(priceButton=>{
         priceButton.addEventListener('click',event=>{
