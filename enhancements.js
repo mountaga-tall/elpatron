@@ -282,7 +282,7 @@ function pwa(){
  dialog.className='ep-install-dialog';dialog.hidden=true;dialog.setAttribute('aria-hidden','true');
  dialog.innerHTML='<div class="ep-install-backdrop" data-ep-install-close></div><section class="ep-install-panel" role="dialog" aria-modal="true" aria-labelledby="ep-install-title" tabindex="-1"><button type="button" class="ep-install-close" data-ep-install-close aria-label="'+esc(t('installClose'))+'">×</button><div class="ep-install-kicker">EL PATRÓN</div><h2 id="ep-install-title">'+esc(t('installTitle'))+'</h2><p class="ep-install-intro">'+esc(t('installIntro'))+'</p><div class="ep-install-guide" data-ep-install-guide></div><div class="ep-install-actions"><button type="button" class="btn btn-glass" data-ep-install-close>'+esc(t('installClose'))+'</button><button type="button" class="btn btn-primary" data-ep-install-now hidden>'+esc(t('installNow'))+'</button></div></section>';
  document.body.append(dialog);
- const guide=$('[data-ep-install-guide]',dialog),installNow=$('[data-ep-install-now]',dialog),;
+ const guide=$('[data-ep-install-guide]',dialog),installNow=$('[data-ep-install-now]',dialog);
  function renderGuide(){
   let title,steps;
   if(platform==='ios'){
