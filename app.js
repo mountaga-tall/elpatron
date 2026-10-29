@@ -20,7 +20,7 @@
   const ICE_FLAVORS=['Vanille','Américain','Fraise','Malaga','Café','Menthe Chocolat','Chocolat Noir','Plombière','Yaourt Fraise'];
   const ICE_PATTERN=/\bboules?\s+de\s+(?:glace|ice cream)\b|\bscoops?\s+of\s+ice cream\b/i;
   const $=(s,r=document)=>r.querySelector(s);
-  const $=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
   function ensurePwaManifestLink(){
     const shell=$('[data-shell]');
     if(!shell||document.head.querySelector('link[rel="manifest"]'))return;
