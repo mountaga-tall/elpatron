@@ -48,6 +48,6 @@ test('cart drawer routes to the checkout form before WhatsApp if contact details
   assert.ok(start >= 0 && end > start, 'Could not locate the WhatsApp checkout handler');
   const handler = app.slice(start, end);
   assert.match(handler, /if\(!details&&\(!String\(saved\.n\|\|''\)\.trim\(\)\|\|String\(saved\.tel\|\|''\)\.replace\(\/\\D\/g,''\)\.length<8\)\)/);
-  assert.match(handler, /location\.href=\(LANG==='en'\?'\/en':'\/fr'\)\+'\ /pages\/panier\.html'/);
+  assert.ok(handler.includes("location.href=(LANG==='en'?'/en':'/fr')+'/pages/panier.html';"), 'Missing route to the checkout details page');
   assert.match(handler, /if\(m==='l'&&!a\)/, 'Delivery must still require an address on the checkout form');
 });
