@@ -21,6 +21,15 @@
   const ICE_PATTERN=/\bboules?\s+de\s+(?:glace|ice cream)\b|\bscoops?\s+of\s+ice cream\b/i;
   const $=(s,r=document)=>r.querySelector(s);
   const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  function ensurePwaManifestLink(){
+    const shell=$('[data-shell]');
+    if(!shell||document.head.querySelector('link[rel="manifest"]'))return;
+    const link=document.createElement('link');
+    link.rel='manifest';
+    link.href=new URL((shell.dataset.base||'')+'manifest.webmanifest',location.href).href;
+    document.head.append(link);
+  }
+  ensurePwaManifestLink();
   const money=n=>new Intl.NumberFormat('fr-FR').format(Number(n)||0)+' FCFA';
   const normalize=s=>String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   let memoryCart=[];
