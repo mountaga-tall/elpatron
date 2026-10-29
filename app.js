@@ -176,6 +176,12 @@
       window.EL_PATRON_ORDER_DETAILS=saved;
       try{localStorage.setItem('ep-order-v1',JSON.stringify(saved))}catch{}
     }
+    // The cart drawer can be opened on any page, but customer details are collected on the cart page.
+    // Do not send an order to WhatsApp from the drawer until a name and valid phone are available.
+    if(!details&&(!String(saved.n||'').trim()||String(saved.tel||'').replace(/\D/g,'').length<8)){
+      location.href=(LANG==='en'?'/en':'/fr')+'/pages/panier.html';
+      return;
+    }
     if(saved.m==='l'&&!String(saved.a||'').trim()){
       showToast(t('deliveryAddressRequired'));
       if(!details)location.href=(LANG==='en'?'/en':'/fr')+'/pages/panier.html';
