@@ -38,6 +38,30 @@ jobs:
           node --check sw.js
           node -e "JSON.parse(require('fs').readFileSync('manifest.webmanifest', 'utf8'))"
 
+      - name: Ensure the PWA manifest is linked on every app page
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import os
+          import re
+
+          count = 0
+          for page in Path(".").rglob("*.html"):
+              source = page.read_text(encoding="utf-8")
+              if not re.search(r'<body\b[^>]*\bdata-shell(?:\s|=|>)', source, re.I):
+                  continue
+              if re.search(r'<link\b(?=[^>]*\brel\s*=\s*["\']manifest["\'])[^>]*>', source, re.I):
+                  continue
+              relative_manifest = os.path.relpath(Path("manifest.webmanifest"), page.parent).replace(os.sep, "/")
+              tag = f'<link rel="manifest" href="{relative_manifest}">'
+              updated, replaced = re.subn(r'</head\s*>', tag + '</head>', source, count=1, flags=re.I)
+              if replaced != 1:
+                  raise SystemExit(f"Could not insert PWA manifest link into {page}: missing </head>")
+              page.write_text(updated, encoding="utf-8")
+              count += 1
+          print(f"Ensured PWA manifest link on {count} app pages.")
+          PY
+
       - name: Run menu, popup and checkout regression tests
         run: node --test tests/*.test.js
 
