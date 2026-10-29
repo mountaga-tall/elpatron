@@ -12,8 +12,8 @@ const pageHref=slug=>localePrefix+'pages/'+slug+'.html';
 function loadOrder(){try{const raw=localStorage.getItem(orderKey);if(raw!==null){const value=JSON.parse(raw);if(value&&typeof value==='object'&&!Array.isArray(value)){memoryOrder=value;window.EL_PATRON_ORDER_DETAILS=value;return value}}}catch{}return window.EL_PATRON_ORDER_DETAILS||memoryOrder}
 function saveOrder(value){memoryOrder=value;window.EL_PATRON_ORDER_DETAILS=value;try{localStorage.setItem(orderKey,JSON.stringify(value))}catch{}}
 const T={
-fr:{share:'Partager',search:'Rechercher',cart:'Panier',menu:'Menu',whatsapp:'WhatsApp',book:'Réserver une table',bookSub:'Choisissez vos détails et envoyez la demande sur WhatsApp.',date:'Date',time:'Heure',people:'Personnes',send:'Envoyer la demande',info:'Informations de commande',name:'Nom',phone:'Téléphone',mode:'Type de commande',dine:'Sur place',take:'À emporter',delivery:'Livraison',notes:'Instructions / précision',save:'Enregistrer',saved:'Enregistré',address:'Adresse de livraison',addressPlaceholder:'Quartier, rue, repère…',orderDetailsMissing:'Renseignez votre nom et votre téléphone.',invalidPhone:'Vérifiez le numéro de téléphone.',deliveryAddressRequired:'Ajoutez l’adresse de livraison.',comboKicker:'À composer',comboTitle:'Composez votre formule',comboIntro:'Choisissez un plat et une boisson. Le total reprend les tarifs affichés sur la carte, sans remise automatique.',comboFood:'Plat principal',comboDrink:'Boisson',comboFoodVariant:'Format / option',comboDrinkVariant:'Format / option',comboChoose:'Choisissez…',comboTotal:'Total calculé',comboSubmit:'Ajouter la formule au panier',comboNotice:'Prix calculé à partir de la carte actuelle. Aucune remise n’est appliquée automatiquement.',comboXL:'Passer en XL (+4 000 FCFA)',comboInvalid:'Choisissez un plat, un format et une boisson.',comboAdded:'Les articles de votre formule ont été ajoutés au panier.',install:'Installer l’app',open:'Ouvrir',openNow:'Ouvert maintenant',closed:'Fermé',hours:'08:00 — 02:00',route:'Itinéraire',copied:'Lien copié',shared:'Partagé'},
-en:{share:'Share',search:'Search',cart:'Cart',menu:'Menu',whatsapp:'WhatsApp',book:'Book a table',bookSub:'Complete the details and send the enquiry on WhatsApp.',date:'Date',time:'Time',people:'Guests',send:'Send request',info:'Order details',name:'Name',phone:'Phone',mode:'Order type',dine:'Dine in',take:'Takeaway',delivery:'Delivery',notes:'Instructions / notes',save:'Save',saved:'Saved',address:'Delivery address',addressPlaceholder:'Area, street, landmark…',orderDetailsMissing:'Enter your name and phone number.',invalidPhone:'Check the phone number.',deliveryAddressRequired:'Add the delivery address.',comboKicker:'Build your own',comboTitle:'Build your own combo',comboIntro:'Choose a main dish and a drink. The total uses current menu prices; no automatic discount is applied.',comboFood:'Main dish',comboDrink:'Drink',comboFoodVariant:'Size / option',comboDrinkVariant:'Size / option',comboChoose:'Choose…',comboTotal:'Calculated total',comboSubmit:'Add combo to cart',comboNotice:'Calculated from the current menu prices. No automatic discount is applied.',comboXL:'Upgrade taco to XL (+4,000 FCFA)',comboInvalid:'Choose a main dish, option and drink.',comboAdded:'Your combo items were added to the cart.',install:'Install app',open:'Open',openNow:'Open now',closed:'Closed',hours:'08:00 — 02:00',route:'Directions',copied:'Link copied',shared:'Shared'}
+fr:{share:'Partager',search:'Rechercher',cart:'Panier',menu:'Menu',whatsapp:'WhatsApp',book:'Réserver une table',bookSub:'Choisissez vos détails et envoyez la demande sur WhatsApp.',date:'Date',time:'Heure',people:'Personnes',send:'Envoyer la demande',info:'Informations de commande',name:'Nom',phone:'Téléphone',mode:'Type de commande',dine:'Sur place',take:'À emporter',delivery:'Livraison',notes:'Instructions / précision',save:'Enregistrer',saved:'Enregistré',address:'Adresse de livraison',addressPlaceholder:'Quartier, rue, repère…',orderDetailsMissing:'Renseignez votre nom et votre téléphone.',invalidPhone:'Vérifiez le numéro de téléphone.',deliveryAddressRequired:'Ajoutez l’adresse de livraison.',comboKicker:'À composer',comboTitle:'Composez votre formule',comboIntro:'Choisissez un plat et une boisson. Le total reprend les tarifs affichés sur la carte, sans remise automatique.',comboFood:'Plat principal',comboDrink:'Boisson',comboFoodVariant:'Format / option',comboDrinkVariant:'Format / option',comboChoose:'Choisissez…',comboTotal:'Total calculé',comboSubmit:'Ajouter la formule au panier',comboNotice:'Prix calculé à partir de la carte actuelle. Aucune remise n’est appliquée automatiquement.',comboXL:'Passer en XL (+4 000 FCFA)',comboInvalid:'Choisissez un plat, un format et une boisson.',comboAdded:'Les articles de votre formule ont été ajoutés au panier.',install:'Installer l’app',installTitle:'Installer EL PATRÓN',installIntro:'Ajoutez EL PATRÓN à l’écran d’accueil pour retrouver le menu comme une application.',installAndroidTitle:'Installation sur Android',installAndroidPromptStep:'Touchez « Installer maintenant » pour ouvrir la fenêtre d’installation Android.',installAndroidMenuStep:'Dans Chrome, ouvrez le menu ⋮ puis choisissez « Installer l’application » ou « Installer et créer un raccourci », puis confirmez.',installAndroidHint:'Si l’option n’apparaît pas, ouvrez le site dans Google Chrome et vérifiez que la connexion est sécurisée (HTTPS).',installIosTitle:'Installation sur iPhone / iPad',installIosStep1:'Ouvrez cette page dans Safari (ou Chrome sur iOS).',installIosStep2:'Touchez Partager, puis « Sur l’écran d’accueil ».',installIosStep3:'Activez « Ouvrir comme app web » si l’option est proposée, puis touchez Ajouter.',installDesktopTitle:'Installation sur ordinateur',installDesktopStep1:'Dans Chrome, ouvrez le menu ⋮, puis « Cast, enregistrer et partager » → « Installer la page en tant qu’application ».',installDesktopStep2:'Vous pouvez aussi utiliser l’icône Installer dans la barre d’adresse si elle apparaît.',installNow:'Installer maintenant',installClose:'Fermer',open:'Ouvrir',openNow:'Ouvert maintenant',closed:'Fermé',hours:'08:00 — 02:00',route:'Itinéraire',copied:'Lien copié',shared:'Partagé'},
+en:{share:'Share',search:'Search',cart:'Cart',menu:'Menu',whatsapp:'WhatsApp',book:'Book a table',bookSub:'Complete the details and send the enquiry on WhatsApp.',date:'Date',time:'Time',people:'Guests',send:'Send request',info:'Order details',name:'Name',phone:'Phone',mode:'Order type',dine:'Dine in',take:'Takeaway',delivery:'Delivery',notes:'Instructions / notes',save:'Save',saved:'Saved',address:'Delivery address',addressPlaceholder:'Area, street, landmark…',orderDetailsMissing:'Enter your name and phone number.',invalidPhone:'Check the phone number.',deliveryAddressRequired:'Add the delivery address.',comboKicker:'Build your own',comboTitle:'Build your own combo',comboIntro:'Choose a main dish and a drink. The total uses current menu prices; no automatic discount is applied.',comboFood:'Main dish',comboDrink:'Drink',comboFoodVariant:'Size / option',comboDrinkVariant:'Size / option',comboChoose:'Choose…',comboTotal:'Calculated total',comboSubmit:'Add combo to cart',comboNotice:'Calculated from the current menu prices. No automatic discount is applied.',comboXL:'Upgrade taco to XL (+4,000 FCFA)',comboInvalid:'Choose a main dish, option and drink.',comboAdded:'Your combo items were added to the cart.',install:'Install app',installTitle:'Install EL PATRÓN',installIntro:'Add EL PATRÓN to your Home Screen for quick access, just like an app.',installAndroidTitle:'Install on Android',installAndroidPromptStep:'Tap “Install now” to open Android’s installation prompt.',installAndroidMenuStep:'In Chrome, open the ⋮ menu, choose “Install app” or “Install and create shortcut”, then confirm.',installAndroidHint:'If no install option appears, open this website in Google Chrome and make sure the connection is secure (HTTPS).',installIosTitle:'Install on iPhone / iPad',installIosStep1:'Open this page in Safari (or Chrome on iOS).',installIosStep2:'Tap Share, then “Add to Home Screen”.',installIosStep3:'Turn on “Open as Web App” if offered, then tap Add.',installDesktopTitle:'Install on your computer',installDesktopStep1:'In Chrome, open the ⋮ menu, then “Cast, save and share” → “Install page as app”.',installDesktopStep2:'You can also use the Install icon in the address bar if it appears.',installNow:'Install now',installClose:'Close',open:'Open',openNow:'Open now',closed:'Closed',hours:'08:00 — 02:00',route:'Directions',copied:'Link copied',shared:'Shared'}
 };
 const t=k=>T[lang]?.[k]||T.fr[k]||k, esc=s=>String(s??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));
 const products=()=>Object.entries(window.EL_PATRON_MENU||{}).flatMap(([slug,items])=>items.filter(p=>!p.noteOnly).map(p=>({...p,slug})));
@@ -247,6 +247,10 @@ function metaTags(){
  const canonicalUrl=location.href.split('#')[0].split('?')[0];canonical.href=canonicalUrl;
  const vals={description:desc,'og:title':document.title||'EL PATRÓN','og:description':desc,'og:type':'restaurant','og:url':canonicalUrl,'og:image':new URL(base+'images/logo.webp',location.href).href,'twitter:card':'summary_large_image','twitter:title':document.title||'EL PATRÓN','twitter:description':desc,'twitter:image':new URL(base+'images/logo.webp',location.href).href};
  Object.entries(vals).forEach(([k,v])=>{const sel=k.startsWith('og:')?{name:'property',value:k}:k.startsWith('twitter:')?{name:'name',value:k}:{name:'name',value:k};let el=document.head.querySelector('meta['+sel.name+'="'+sel.value+'"]');if(!el){el=document.createElement('meta');el.setAttribute(sel.name,sel.value);document.head.append(el)}el.content=v});
+ [['apple-mobile-web-app-capable','yes'],['mobile-web-app-capable','yes'],['apple-mobile-web-app-status-bar-style','black-translucent'],['apple-mobile-web-app-title','EL PATRÓN']].forEach(([name,content])=>{let el=document.head.querySelector('meta[name="'+name+'"]');if(!el){el=document.createElement('meta');el.name=name;document.head.append(el)}el.content=content});
+ let appleIcon=document.head.querySelector('link[rel="apple-touch-icon"]');
+ if(!appleIcon){appleIcon=document.createElement('link');appleIcon.rel='apple-touch-icon';document.head.append(appleIcon)}
+ appleIcon.sizes='180x180';appleIcon.href=new URL(base+'images/logo.png',location.href).href;
  const parts=location.pathname.split('/').filter(Boolean),first=parts[0];if(['fr','en'].includes(first)){const rest=parts.slice(1).join('/');['fr','en'].forEach(l=>{const href=new URL('/'+l+(rest?'/'+rest:'/'),location.origin).href;let link=document.head.querySelector('link[rel="alternate"][hreflang="'+l+'"]');if(!link){link=document.createElement('link');link.rel='alternate';link.hreflang=l;document.head.append(link)}link.href=href});let x=document.head.querySelector('link[rel="alternate"][hreflang="x-default"]');if(!x){x=document.createElement('link');x.rel='alternate';x.hreflang='x-default';document.head.append(x)}x.href=new URL('/',location.origin).href}
 }
 function conversionRail(){
@@ -258,7 +262,79 @@ function conversionRail(){
 function abidjanNow(){const now=new Date();try{const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Africa/Abidjan',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(now),v=k=>parts.find(p=>p.type===k)?.value||'00';return{minutes:Number(v('hour'))*60+Number(v('minute')),date:v('year')+'-'+v('month')+'-'+v('day')}}catch{return{minutes:now.getHours()*60+now.getMinutes(),date:now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')}}}
 function status(){const host=$('.site-header .header-inner');if(!host||$('.ep-status',host))return;const m=abidjanNow().minutes,open=m>=480||m<120,e=document.createElement('div');e.className='ep-status '+(open?'open':'closed');e.innerHTML='<span class="ep-status-dot" aria-hidden="true"></span><div><b>'+t(open?'openNow':'closed')+'</b><span>'+t('hours')+'</span></div><a href="'+maps+'" target="_blank" rel="noopener noreferrer">'+t('route')+' ↗</a>';const brand=$('.brand',host);if(brand)brand.insertAdjacentElement('afterend',e);else host.prepend(e)}
 function schema(){if($('script[data-ep-schema]'))return;const s=document.createElement('script');s.type='application/ld+json';s.dataset.epSchema='1';s.textContent=JSON.stringify({'@context':'https://schema.org','@type':'Restaurant','name':site.name||'EL PATRÓN','url':site.site||location.origin,'telephone':site.phone||'+225 07 04 40 04 00','email':site.email||'el.patron.abidjan@gmail.com','geo':{'@type':'GeoCoordinates','latitude':5.403111,'longitude':-3.980472},'address':{'@type':'PostalAddress','addressLocality':'Abidjan','addressRegion':'Cocody','addressCountry':'CI'},'sameAs':[site.facebook,site.instagram,site.tiktok].filter(Boolean),'openingHoursSpecification':[0,1,2,3,4,5,6].map(d=>({'@type':'OpeningHoursSpecification','dayOfWeek':['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d],'opens':'08:00','closes':'02:00'}))});document.head.append(s)}
-function pwa(){if('serviceWorker' in navigator)navigator.serviceWorker.register(base+'sw.js',{scope:base}).catch(()=>{});window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();const b=document.createElement('button');b.className='ep-install';b.textContent='＋ '+t('install');b.onclick=async()=>{try{await e.prompt();await e.userChoice}catch{}b.remove()};document.body.append(b)})}
+let deferredInstallPrompt=null;
+window.addEventListener('beforeinstallprompt',event=>{
+ event.preventDefault();
+ deferredInstallPrompt=event;
+ window.dispatchEvent(new Event('ep:install-available'));
+});
+function pwa(){
+ if('serviceWorker' in navigator)navigator.serviceWorker.register(base+'sw.js',{scope:base}).catch(()=>{});
+ const standalone=window.matchMedia?.('(display-mode: standalone)').matches||window.navigator.standalone===true;
+ if(standalone||$('.ep-install'))return;
+ const ua=navigator.userAgent||'';
+ const platform=(/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1))?'ios':(/Android/i.test(ua)?'android':'desktop');
+ const launcher=document.createElement('button');
+ launcher.type='button';launcher.className='ep-install';launcher.textContent='＋ '+t('install');
+ launcher.setAttribute('aria-haspopup','dialog');launcher.setAttribute('aria-label',t('install'));
+ document.body.append(launcher);
+ const dialog=document.createElement('div');
+ dialog.className='ep-install-dialog';dialog.hidden=true;dialog.setAttribute('aria-hidden','true');
+ dialog.innerHTML='<div class="ep-install-backdrop" data-ep-install-close></div><section class="ep-install-panel" role="dialog" aria-modal="true" aria-labelledby="ep-install-title" tabindex="-1"><button type="button" class="ep-install-close" data-ep-install-close aria-label="'+esc(t('installClose'))+'">×</button><div class="ep-install-kicker">EL PATRÓN</div><h2 id="ep-install-title">'+esc(t('installTitle'))+'</h2><p class="ep-install-intro">'+esc(t('installIntro'))+'</p><div class="ep-install-guide" data-ep-install-guide></div><div class="ep-install-actions"><button type="button" class="btn btn-glass" data-ep-install-close>'+esc(t('installClose'))+'</button><button type="button" class="btn btn-primary" data-ep-install-now hidden>'+esc(t('installNow'))+'</button></div></section>';
+ document.body.append(dialog);
+ const guide=$('[data-ep-install-guide]',dialog),installNow=$('[data-ep-install-now]',dialog);
+ function renderGuide(){
+  let title,steps;
+  if(platform==='ios'){
+   title=t('installIosTitle');steps=[t('installIosStep1'),t('installIosStep2'),t('installIosStep3')];
+   installNow.hidden=true;
+  }else if(platform==='android'){
+   title=t('installAndroidTitle');
+   steps=[deferredInstallPrompt?t('installAndroidPromptStep'):t('installAndroidMenuStep'),t('installAndroidHint')];
+   installNow.hidden=!deferredInstallPrompt;
+  }else{
+   title=t('installDesktopTitle');steps=[t('installDesktopStep1'),t('installDesktopStep2')];
+   installNow.hidden=!deferredInstallPrompt;
+  }
+  guide.innerHTML='<h3>'+esc(title)+'</h3><ol>'+steps.map(step=>'<li>'+esc(step)+'</li>').join('')+'</ol>';
+ }
+ function closeDialog(){
+  if(dialog.hidden)return;
+  dialog.classList.remove('open');dialog.setAttribute('aria-hidden','true');document.body.classList.remove('ep-install-open');
+  window.setTimeout(()=>{dialog.hidden=true;if(document.contains(launcher))launcher.focus()},180);
+ }
+ function openDialog(){
+  renderGuide();dialog.hidden=false;dialog.setAttribute('aria-hidden','false');document.body.classList.add('ep-install-open');
+  requestAnimationFrame(()=>dialog.classList.add('open'));$('.ep-install-close',dialog)?.focus();
+ }
+ launcher.addEventListener('click',openDialog);
+ dialog.addEventListener('click',event=>{if(event.target.closest('[data-ep-install-close]'))closeDialog()});
+ installNow.addEventListener('click',async()=>{
+  const installEvent=deferredInstallPrompt;
+  if(!installEvent){renderGuide();return}
+  deferredInstallPrompt=null;installNow.disabled=true;
+  try{
+   await installEvent.prompt();
+   const result=await installEvent.userChoice;
+   if(result?.outcome==='accepted'){closeDialog();launcher.remove();return}
+  }catch(error){}
+  finally{installNow.disabled=false;renderGuide()}
+ });
+ window.addEventListener('ep:install-available',renderGuide);
+ window.addEventListener('appinstalled',()=>{deferredInstallPrompt=null;closeDialog();launcher.remove()});
+ document.addEventListener('keydown',event=>{
+  if(dialog.hidden||!dialog.classList.contains('open'))return;
+  if(event.key==='Escape'){event.preventDefault();closeDialog();return}
+  if(event.key==='Tab'){
+   const focusable=$$('button:not([hidden]):not(:disabled)',dialog);
+   if(!focusable.length)return;
+   const first=focusable[0],last=focusable[focusable.length-1];
+   if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
+   else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
+  }
+ });
+ renderGuide();
+}
 function events(){
  document.addEventListener('click',e=>{
   let b=e.target.closest('[data-ep-share]');if(b)return shareProduct(b.dataset.epShare);

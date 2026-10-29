@@ -1412,3 +1412,63 @@ body:has(.ep-lightbox.open) .ep-mobile-bar {
  .ep-sort-control select{flex:1}
  body.ep-has-mobile-bar .floating-whatsapp{display:none}
 }
+
+/* Final responsive guardrails: prevent grid, media and modal overflow on all screens. */
+html{width:100%;max-width:100%;overflow-x:clip;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{width:100%;min-width:0;overflow-x:clip}
+main,section,article,header,footer,nav,aside,form,.container,.hero-inner,.menu-hero-grid,.product-card,.product-body,.product-top,.product-prices,.product-foot{min-width:0}
+img,svg,video,canvas,iframe{max-width:100%}
+.product-grid,.category-grid,.contact-grid,.footer-grid,.hero-inner,.menu-hero-grid{min-width:0}
+.product-grid>*,.category-grid>*,.contact-grid>*,.footer-grid>*{min-width:0}
+input,select,textarea,button{max-width:100%;font:inherit}
+.product-prices{display:flex;flex-wrap:wrap;min-width:0;gap:8px}
+.price-option-button{min-width:0;max-width:100%}
+.product-option-label{flex-wrap:wrap}
+.product-option-label span{white-space:normal;overflow-wrap:anywhere}
+.ep-install{right:20px;left:auto;bottom:20px;max-width:calc(100vw - 40px);min-height:44px;padding:12px 16px;white-space:normal}
+.ep-install-dialog{position:fixed;inset:0;z-index:9000;display:grid;place-items:center;padding:calc(12px + env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom));opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility .2s ease}
+.ep-install-dialog.open{opacity:1;visibility:visible;pointer-events:auto}
+.ep-install-dialog[hidden]{display:none!important}
+.ep-install-backdrop{position:absolute;inset:0;background:rgba(18,13,12,.58);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.ep-install-panel{position:relative;width:min(100%,520px);max-height:calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));overflow:auto;padding:clamp(20px,4vw,30px);border:1px solid var(--brand-line,rgba(23,19,19,.12));border-radius:24px;background:var(--brand-paper-2,#fffaf4);color:var(--brand-ink,#171313);box-shadow:0 35px 100px rgba(0,0,0,.25);overscroll-behavior:contain}
+.ep-install-panel h2{margin:8px 46px 8px 0;font:600 clamp(2rem,7vw,2.8rem)/1 "Cormorant Garamond",serif;overflow-wrap:anywhere}
+.ep-install-kicker{font:800 10px Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--brand-red,#b51f25)}
+.ep-install-intro{margin:0 0 18px;color:var(--brand-muted,#756b65);font-size:.88rem;line-height:1.65}
+.ep-install-close{position:absolute;top:12px;right:12px;display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--brand-line,rgba(23,19,19,.12));border-radius:12px;background:#fff;color:var(--brand-ink,#171313);font-size:25px;line-height:1;cursor:pointer}
+.ep-install-guide{padding:16px 0;border-top:1px solid var(--brand-line,rgba(23,19,19,.12));border-bottom:1px solid var(--brand-line,rgba(23,19,19,.12))}
+.ep-install-guide h3{margin:0 0 10px;font:800 .9rem Inter,sans-serif}
+.ep-install-guide ol{margin:0;padding-left:22px;color:var(--brand-muted,#5e554f);font-size:.84rem;line-height:1.65}
+.ep-install-guide li+li{margin-top:8px}
+.ep-install-actions{display:grid;grid-template-columns:1fr 1.2fr;gap:10px;padding-top:18px}
+.ep-install-actions .btn{display:flex;align-items:center;justify-content:center;min-height:46px;max-width:100%;white-space:normal}
+.ep-install-actions [hidden]{display:none!important}
+body.ep-install-open{overflow:hidden}
+@media(max-width:760px){
+ .container{width:calc(100% - 28px)}
+ .hero-inner,.menu-hero-grid{grid-template-columns:minmax(0,1fr)}
+ .hero-stage{width:100%;max-width:100%;min-width:0}
+ .product-grid,.category-grid,.contact-grid,.footer-grid{grid-template-columns:minmax(0,1fr)}
+ .product-card,.product-card>*{min-width:0}
+ .product-prices{align-items:stretch}
+ .price-option-button{flex:1 1 110px}
+ .ep-install{right:12px;bottom:calc(86px + env(safe-area-inset-bottom));max-width:calc(100vw - 24px)}
+ .ep-install-actions{grid-template-columns:1fr}
+ .ep-install-panel{border-radius:20px}
+}
+@media(max-width:380px){
+ .container{width:calc(100% - 20px)}
+ .product-options-modal{padding:6px}
+ .product-options-panel{max-height:calc(100dvh - 12px);padding:18px 12px 12px}
+ .product-option-label{flex-direction:column;align-items:flex-start;gap:5px}
+ .product-option-grid{grid-template-columns:minmax(0,1fr)}
+ .modal-choice{min-width:0;padding:10px;font-size:.75rem;overflow-wrap:anywhere}
+ .ep-install{left:auto;right:10px;bottom:calc(84px + env(safe-area-inset-bottom));max-width:calc(100vw - 20px);font-size:10px}
+ .ep-install-panel{padding:20px 15px 15px}
+}
+@media(min-width:761px) and (max-width:1024px){
+ .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(prefers-reduced-motion:reduce){
+ .ep-install-dialog,.ep-install-panel{transition:none}
+}
