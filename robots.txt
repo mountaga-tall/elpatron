@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.elpatron.ci/sitemap.xml
+Sitemap: https://elpatron.ci/sitemap.xml
