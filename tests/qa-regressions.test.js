@@ -39,3 +39,15 @@ test('home enhancements cover localized folder and index.html URLs', () => {
     assert.equal(isLocalizedHome(path), false, path + ' should not be treated as a localized home page');
   }
 });
+
+
+test('cart drawer routes to the checkout form before WhatsApp if contact details are missing', () => {
+  const app = fs.readFileSync('app.js', 'utf8');
+  const start = app.indexOf('function orderWhatsApp(){');
+  const end = app.indexOf('function setupCart(){', start);
+  assert.ok(start >= 0 && end > start, 'Could not locate the WhatsApp checkout handler');
+  const handler = app.slice(start, end);
+  assert.match(handler, /if\(!details&&\(!String\(saved\.n\|\|''\)\.trim\(\)\|\|String\(saved\.tel\|\|''\)\.replace\(\/\\D\/g,''\)\.length<8\)\)/);
+  assert.ok(handler.includes("location.href=(LANG==='en'?'/en':'/fr')+'/pages/panier.html';"), 'Missing route to the checkout details page');
+  assert.match(handler, /if\(m==='l'&&!a\)/, 'Delivery must still require an address on the checkout form');
+});
