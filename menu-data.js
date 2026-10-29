@@ -3492,7 +3492,7 @@ window.EL_PATRON_SITE={
   "phoneRaw": "2250704400400",
   "email": "el.patron.abidjan@gmail.com",
   "address": "C239+6R5, Angré, L 160, Abidjan, Côte d'Ivoire",
-  "site": "https://www.elpatron.ci",
+  "site": "https://elpatron.ci",
   "facebook": "https://www.facebook.com/elpatronabidjan/",
   "instagram": "https://www.instagram.com/elpatronabidjan/",
   "tiktok": "https://www.tiktok.com/@elpatronabidjan1"
