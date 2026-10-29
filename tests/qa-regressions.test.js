@@ -27,7 +27,7 @@ test('formula builder advertises the actual 3,000 FCFA taco XL upgrade in both l
 });
 
 test('home enhancements cover localized folder and index.html URLs', () => {
-  assert.match(enhancements, /function isLocalizedHome\(\)\{return.*index.*location\.pathname\}/);
+  assert.match(enhancements, /function isLocalizedHome\(\)\{return.*index.*location\.pathname\)\}/);
   assert.equal((enhancements.match(/isLocalizedHome\(\)/g) || []).length, 4,
     'The formula builder, reservation form and conversion rail must share the route predicate');
 
