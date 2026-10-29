@@ -1425,7 +1425,7 @@ input,select,textarea,button{max-width:100%;font:inherit}
 .price-option-button{min-width:0;max-width:100%}
 .product-option-label{flex-wrap:wrap}
 .product-option-label span{white-space:normal;overflow-wrap:anywhere}
-.ep-install{right:20px;left:auto;bottom:20px;max-width:calc(100vw - 40px);min-height:44px;padding:12px 16px;white-space:normal}
+.ep-install{left:20px;right:auto;bottom:20px;max-width:calc(100vw - 40px);min-height:44px;padding:12px 16px;white-space:normal}
 .ep-install-dialog{position:fixed;inset:0;z-index:9000;display:grid;place-items:center;padding:calc(12px + env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom));opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility .2s ease}
 .ep-install-dialog.open{opacity:1;visibility:visible;pointer-events:auto}
 .ep-install-dialog[hidden]{display:none!important}
