@@ -7,6 +7,7 @@ const enhancements = fs.readFileSync('enhancements.js', 'utf8');
 const styles = fs.readFileSync('styles.css', 'utf8');
 const manifest = JSON.parse(fs.readFileSync('manifest.webmanifest', 'utf8'));
 const serviceWorker = fs.readFileSync('sw.js', 'utf8');
+const workflow = fs.readFileSync('.github/workflows/pages.yml', 'utf8');
 
 test('medium pizza price opens the size selector and the large price can be added directly', () => {
   assert.match(app, /data-pizza-size-index/);
@@ -45,4 +46,17 @@ test('responsive layout handles compact phones, tablets, safe areas and landscap
   assert.equal(Object.hasOwn(manifest, 'orientation'), false);
   assert.match(serviceWorker, /elpatron-v20261029-pwa-responsive-1/);
   assert.match(serviceWorker, /images\/logo\.png/);
+});
+
+
+test('all app pages receive the PWA manifest before the installability checks run', () => {
+  assert.ok(app.includes('function ensurePwaManifestLink(){'));
+  assert.ok(app.includes('ensurePwaManifestLink();'));
+  assert.ok(workflow.includes('Ensure the PWA manifest is linked on every app page'));
+  assert.ok(workflow.includes('relative_manifest = os.path.relpath'));
+  assert.ok(
+    workflow.indexOf('Ensure the PWA manifest is linked on every app page')
+      < workflow.indexOf('Run menu, popup and checkout regression tests'),
+    'Manifest links must be added before the integrity/test run and publish steps'
+  );
 });
